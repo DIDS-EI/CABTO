@@ -220,3 +220,108 @@ class MultiFrankaCleanScenario(MultiFrankaScenario):
             import omni.replicator.core as rep  # type: ignore[import-not-found]
         except ModuleNotFoundError:
             rep = None
+
+
+
+
+@configclass
+class MultiFrankaHandOverScenarioCfg(FrankaScenarioCfg):
+    table_pos = [0,-0.4,0.01]
+    table_scale = [1.6,0.7,0.04]
+
+    obj_cls = Biscuit
+    # table_pos[2] + table_scale[2]/2 + 176.328*Biscuit.scale_ratio_z/2
+    obj_init_pos = [-0.15, -0.38, 0.1]
+    # obj_init_pos = [-0.15, -0.4, table_pos[2] + table_scale[2]/2 + 176.328*Biscuit.scale_ratio_z/2]
+    obj_init_euler = [0, 1.57, 0] # z改为 -1.57/6 1.57/6
+    # obj_delta_euler = 1.57/6
+    obj_mass = 0.2 #0.2
+
+
+    # obj_cls = Carton #ThickCoconutMilk #Biscuit
+    # obj_init_pos = [-0.4288952946662903, -0.44621750712394714, 1.0045260190963745]
+    # obj_init_euler = [1.57, 0, 0.7]  #[0, 1.57, 0] 
+    # obj_mass = 0.2
+    
+    obj_cls2 = Biscuit #Bowl # Biscuit
+    obj_init_pos2 = [-0.32910566627979279, -0.5669710040092468, 0.3]
+    obj_init_euler2 = [0, 3.14, 0]  #[0, 1.57, 0] 
+    obj_mass2 = 0.2
+    
+    obj_cls3 = Biscuit #Microwave
+    obj_init_pos3 = [0.35, -0.55, 0.3] #[0.2, -0.45, 0.96]
+    obj_init_euler3 = [0, 3.14, 1.57] 
+    obj_mass3 = 3
+    
+    obj_cls4 = Biscuit #Microwave
+    obj_init_pos4 = [0.45, -0.55, 0.3] #[0.2, -0.45, 0.96]
+    obj_init_euler4 = [0, 3.14, 1.57] 
+    obj_mass4 = 3
+    
+    target_pad_pos = [0, -0.6280072354597021, 0.96]
+    target_pad_scale = [0.6, 0.15, 0.08]
+
+
+class MultiFrankaHandOverScenario(MultiFrankaScenario):
+    cfg_cls: Type[MultiFrankaHandOverScenarioCfg] = MultiFrankaHandOverScenarioCfg
+    cfg: MultiFrankaHandOverScenarioCfg
+    robot_cls: Type[Robot] = Robot
+    world: World
+    stage: object
+
+    def __init__(self, cfg: MultiFrankaHandOverScenarioCfg):
+        super().__init__(cfg)
+        # 将配置设置到 self.cfg 中，以便 load_objects() 可以访问
+        self.cfg = cfg
+
+    def load_objects(self):
+        self.table = FixedCuboid(
+            name="table",
+            position=np.array([self.cfg.table_pos]),
+            size=1,
+            scale=self.cfg.table_scale,
+            color=np.array([0.1, 0.1, 0.1]),
+            prim_path="/World/table",
+        )
+        self.world.scene.add(self.table)
+        
+        self.obj: BaseObject = self.cfg.obj_cls(
+            position=self.cfg.obj_init_pos,
+            orientation=utils.rot.euler_angles_to_quat(self.cfg.obj_init_euler),
+            mass=self.cfg.obj_mass,
+            name="obj1",
+            )
+        self.obj_prim = self.obj.create_prim()
+        
+        self.obj2: BaseObject = self.cfg.obj_cls2(
+            position=self.cfg.obj_init_pos2,
+            orientation=utils.rot.euler_angles_to_quat(self.cfg.obj_init_euler2),
+            mass=self.cfg.obj_mass2,
+            name="obj2",
+            )
+        self.obj_prim2 = self.obj2.create_prim()
+        self.world.scene.add(self.obj_prim2)
+        self.task_obj_list.append(self.obj2)
+        
+        self.obj3: BaseObject = self.cfg.obj_cls3(
+            position=self.cfg.obj_init_pos3,
+            orientation=utils.rot.euler_angles_to_quat(self.cfg.obj_init_euler3),
+            mass=self.cfg.obj_mass3,
+            name="obj3",
+            )
+        self.obj_prim3 = self.obj3.create_prim()
+        self.world.scene.add(self.obj_prim3)
+        self.task_obj_list.append(self.obj3)
+        
+        self.obj4: BaseObject = self.cfg.obj_cls4(
+            position=self.cfg.obj_init_pos4,
+            orientation=utils.rot.euler_angles_to_quat(self.cfg.obj_init_euler4),
+            mass=self.cfg.obj_mass4,
+            name="obj4",
+            )
+        self.obj_prim4 = self.obj4.create_prim()
+        self.world.scene.add(self.obj_prim4)
+        self.task_obj_list.append(self.obj4)
+        
+        self.world.scene.add(self.obj_prim)
+        self.task_obj_list.append(self.obj)

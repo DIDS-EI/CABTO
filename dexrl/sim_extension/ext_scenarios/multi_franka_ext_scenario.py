@@ -14,7 +14,7 @@ from omni.isaac.core.utils.types import ArticulationAction
 
 from dexrl.sim import utils
 from dexrl.sim.scenarios.franka import FrankaScenarioCfg, Robot
-from dexrl.sim.scenarios.multi_franka_sim import MultiFrankaScenario, MultiFrankaCleanScenario, MultiFrankaCleanScenarioCfg
+from dexrl.sim.scenarios.multi_franka_sim import MultiFrankaScenario, MultiFrankaCleanScenario, MultiFrankaCleanScenarioCfg, MultiFrankaHandOverScenario, MultiFrankaHandOverScenarioCfg
 from dexrl.sim_extension.ext_scenarios.franka_ext_scenario import FrankaExtScenario
 
 
@@ -326,4 +326,77 @@ class MultiFrankaCleanExtScenario(MultiFrankaExtScenario):
         # self.scenario.load_objects()
 
         # 箱子，积木，木板
-        
+
+
+
+
+
+class MultiFrankaHandOverExtScenario(MultiFrankaCleanExtScenario):
+    scenario: MultiFrankaHandOverScenario
+    scenario_cls = MultiFrankaHandOverScenario
+    scenario_cfg_cls = MultiFrankaHandOverScenarioCfg
+
+
+    def script(self):
+        assert self.left_robot is not None and self.right_robot is not None
+        assert self.left_cube is not None and self.right_cube is not None
+
+
+
+        # pos = np.array([0,-0.5,0.2])
+        # quat = utils.rot.euler_angles_to_quat(np.array([np.pi/2,np.pi,0]))
+        # yield from self.scenario.goto_position(pos,quat,self.right_robot.articulation,self.right_robot.rmpflow)
+
+        pos = np.array([0.03,-0.2,0.05])
+        quat = utils.rot.euler_angles_to_quat(np.array([np.pi/2,0,0]))
+        yield from self.scenario.goto_position(pos,quat,self.left_robot.articulation,self.left_robot.rmpflow)
+        print(f"pos: {pos}, quat: {quat}")
+        close_gripper = self.scenario.left_robot.close_gripper()
+        yield from close_gripper
+        # pos = np.array([0.3,-0.5,0.5])
+        # yield from self.scenario.goto_position(pos,quat,self.robot.articulation,self.robot.rmpflow)
+        pos = np.array([0.35,-0.4,0.3])
+        yield from self.scenario.goto_position(pos,quat,self.robot.articulation,self.robot.rmpflow)
+
+
+        # 启动键盘监听器
+        self._start_keyboard_listener()
+
+        try: 
+            while True:
+                # self._follow_cube_with_euler(self.left_robot, self.left_cube, "left_cube")
+                current_quat = utils.rot.euler_angles_to_quat(np.array([np.pi/2,np.pi,0]))
+                # self._follow_cube_without_euler(self.right_robot, self.right_cube,"left_cube",current_quat,)
+                self._follow_cube(self.right_robot, self.right_cube,"left_cube",current_quat,)
+
+                # 按 g 控制左边的夹爪关闭，按 h 控制左边夹爪打开
+                # 按 j 控制右边的夹爪关闭，按 k 控制右边夹爪打开
+                
+                # 检查键盘输入（检测按键按下事件：从未按下到按下）
+                with self.key_lock:
+                    current_key_states = self.key_pressed.copy()
+                
+                # 检测按键按下事件（从未按下到按下）
+                if current_key_states['g'] and not self.prev_key_states['g']:
+                    # 左边夹爪关闭
+                    self._close_gripper(self.left_robot)
+                
+                if current_key_states['h'] and not self.prev_key_states['h']:
+                    # 左边夹爪打开
+                    self._open_gripper(self.left_robot)
+                
+                if current_key_states['j'] and not self.prev_key_states['j']:
+                    # 右边夹爪关闭
+                    self._close_gripper(self.right_robot)
+                
+                if current_key_states['k'] and not self.prev_key_states['k']:
+                    # 右边夹爪打开
+                    self._open_gripper(self.right_robot)
+                
+                # 更新上一次按键状态
+                self.prev_key_states = current_key_states.copy()
+                
+                yield
+        finally:
+            # 确保在退出时停止监听器
+            self._stop_keyboard_listener()
