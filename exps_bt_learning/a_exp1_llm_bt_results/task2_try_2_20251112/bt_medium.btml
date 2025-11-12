@@ -1,0 +1,107 @@
+selector
+    sequence
+        cond On(a,b)
+        cond On(b,c)
+    sequence
+        cond On(b,c)
+        cond Clear(b)
+        selector
+            selector
+                sequence
+                    cond IsHolding(a)
+                    selector
+                        sequence
+                            cond IsNear(b)
+                            act PutOn(a,b)
+                        act MoveTo(b)
+                sequence
+                    cond On(a,table)
+                    cond IsHandEmpty()
+                    cond IsNear(a)
+                    cond Clear(a)
+                    act PickUp(a)
+            sequence
+                cond On(a,table)
+                cond IsHandEmpty()
+                cond Clear(a)
+                act MoveTo(a)
+    sequence
+        cond Clear(c)
+        selector
+            selector
+                sequence
+                    cond On(a,table)
+                    cond Clear(a)
+                    selector
+                        selector
+                            sequence
+                                cond IsHolding(b)
+                                selector
+                                    sequence
+                                        cond IsNear(c)
+                                        act PutOn(b,c)
+                                    act MoveTo(c)
+                            sequence
+                                cond IsHandEmpty()
+                                cond On(b,table)
+                                cond Clear(b)
+                                cond IsNear(b)
+                                act PickUp(b)
+                        sequence
+                            cond IsHandEmpty()
+                            cond On(b,table)
+                            cond Clear(b)
+                            act MoveTo(b)
+                sequence
+                    cond IsNear(table)
+                    cond Clear(b)
+                    cond Clear(table)
+                    cond On(b,table)
+                    cond IsHolding(a)
+                    act PutOn(a,table)
+            sequence
+                cond On(b,table)
+                cond Clear(b)
+                cond IsHolding(a)
+                cond Clear(table)
+                act MoveTo(table)
+    sequence
+        cond On(b,table)
+        cond On(a,c)
+        cond Clear(table)
+        selector
+            selector
+                sequence
+                    cond Clear(b)
+                    selector
+                        selector
+                            sequence
+                                cond IsHandEmpty()
+                                cond Clear(a)
+                                selector
+                                    sequence
+                                        cond IsNear(a)
+                                        act Unstack(a,c)
+                                    act MoveTo(a)
+                            sequence
+                                cond Clear(d)
+                                cond IsHolding(a)
+                                cond IsNear(d)
+                                act PutOn(a,d)
+                        sequence
+                            cond Clear(d)
+                            cond IsHolding(a)
+                            act MoveTo(d)
+                sequence
+                    cond Clear(d)
+                    cond IsHandEmpty()
+                    cond Clear(a)
+                    cond IsNear(a)
+                    cond On(a,b)
+                    act Unstack(a,b)
+            sequence
+                cond Clear(d)
+                cond IsHandEmpty()
+                cond Clear(a)
+                cond On(a,b)
+                act MoveTo(a)

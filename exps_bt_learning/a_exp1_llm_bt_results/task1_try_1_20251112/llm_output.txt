@@ -1,0 +1,176 @@
+=== LLM Output ===
+
+```python
+# Behavior library generated for:
+# start_state = {"IsHandEmpty()", "IsEmpty(place_c)", "On(b,table)", "IsEmpty(place_a)", "On(a,table)", "On(c,table)", "IsEmpty(place_b)"}
+# objects = {"place_b", "a", "place_c", "place_a", "c", "b"}
+# goals = ["On(a,place_a)", "On(a,place_a) & On(b,place_b)", "On(a,place_a) & On(b,place_b) & On(c,place_c)"]
+
+# Note: This file defines OGAction and OGCondition subclasses only.
+
+class OGAction:
+    """Minimal OGAction base placeholder to allow subclassing in this library file.
+       Real planner/framework will replace or extend this."""
+    def __init__(self, *args, agent=None):
+        self.args = args
+        self.agent = agent
+        self.info = self.get_info(*args)
+
+    def change_condition_set(self):
+        raise NotImplementedError
+
+
+class OGCondition:
+    """Minimal OGCondition base placeholder."""
+    pass
+
+
+# -----------------------
+# Action classes
+# -----------------------
+
+class MoveTo(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["place_b", "a", "place_c", "place_a", "c", "b"]
+
+    def __init__(self, *args, agent=None):
+        super().__init__(*args, agent=agent)
+        self.target = self.args[0]
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        target = arg[0]
+        info["pre"] = set()  # always allowed
+        info["add"] = {f"IsNear({target})"}
+        # remove IsNear for all other known args (so agent is near exactly one thing)
+        info["del_set"] = {f"IsNear({place})" for place in cls.valid_args if place != target}
+        info["cost"] = 1
+        return info
+
+    def change_condition_set(self):
+        # apply effects: add target proximity, remove other proximities
+        self.agent.condition_set |= self.info["add"]
+        self.agent.condition_set -= self.info["del_set"]
+
+
+class Grasp(OGAction):
+    can_be_expanded = True
+    num_args = 2  # (obj, from_loc)
+    valid_args = ["place_b", "a", "place_c", "place_a", "c", "b"]
+
+    def __init__(self, *args, agent=None):
+        super().__init__(*args, agent=agent)
+        # args: (obj, from_loc)
+        self.obj = self.args[0]
+        self.from_loc = self.args[1]
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        obj, loc = arg[0], arg[1]
+        # Preconditions: hand empty, near the object, object is on the specified location
+        info["pre"] = {f"IsHandEmpty()", f"IsNear({obj})", f"On({obj},{loc})"}
+        # Add: agent is holding the object; location becomes empty (if it is a place)
+        info["add"] = {f"IsHolding({obj})", f"IsEmpty({loc})"}
+        # Delete: hand empty and the object being on that location
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},{loc})"}
+        info["cost"] = 1
+        return info
+
+    def change_condition_set(self):
+        self.agent.condition_set |= self.info["add"]
+        self.agent.condition_set -= self.info["del_set"]
+
+
+class Place(OGAction):
+    can_be_expanded = True
+    num_args = 2  # (obj, dest)
+    valid_args = ["place_b", "a", "place_c", "place_a", "c", "b"]
+
+    def __init__(self, *args, agent=None):
+        super().__init__(*args, agent=agent)
+        self.obj = self.args[0]
+        self.dest = self.args[1]
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        obj, dest = arg[0], arg[1]
+        # Preconditions: agent holding object, near the destination, destination empty
+        info["pre"] = {f"IsHolding({obj})", f"IsNear({dest})", f"IsEmpty({dest})"}
+        # Add: object on destination, hand becomes empty
+        info["add"] = {f"On({obj},{dest})", "IsHandEmpty()"}
+        # Delete: remove holding and mark destination not empty
+        info["del_set"] = {f"IsHolding({obj})", f"IsEmpty({dest})"}
+        info["cost"] = 1
+        return info
+
+    def change_condition_set(self):
+        self.agent.condition_set |= self.info["add"]
+        self.agent.condition_set -= self.info["del_set"]
+
+
+class MoveObject(OGAction):
+    """
+    A higher-level move primitive: pick up an object from a source and place it at a destination.
+    Implemented as a single action for convenience; planner can also expand using Grasp+Place.
+    Args: (obj, src, dest)
+    """
+    can_be_expanded = True
+    num_args = 3
+    valid_args = ["place_b", "a", "place_c", "place_a", "c", "b"]
+
+    def __init__(self, *args, agent=None):
+        super().__init__(*args, agent=agent)
+        self.obj = self.args[0]
+        self.src = self.args[1]
+        self.dest = self.args[2]
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, src, dest = arg[0], arg[1], arg[2]
+        info = {}
+        # Preconditions: hand empty, near object, object at src, dest empty, near dest is not required here
+        info["pre"] = {f"IsHandEmpty()", f"IsNear({obj})", f"On({obj},{src})", f"IsEmpty({dest})"}
+        # Add: object on dest, hand empty after operation
+        info["add"] = {f"On({obj},{dest})", "IsHandEmpty()", f"IsEmpty({src})"}
+        # Delete: object at src, and IsHolding if present (we'll consume holding transiently)
+        info["del_set"] = {f"On({obj},{src})"}
+        info["cost"] = 2
+        return info
+
+    def change_condition_set(self):
+        self.agent.condition_set |= self.info["add"]
+        self.agent.condition_set -= self.info["del_set"]
+
+
+# -----------------------
+# Condition classes
+# -----------------------
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0  # predicate with no arguments
+
+
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 1  # IsHolding(obj)
+
+
+class IsNear(OGCondition):
+    can_be_expanded = True
+    num_args = 1  # IsNear(target)
+
+
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1  # IsEmpty(place)
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2  # On(obj, loc)
+```

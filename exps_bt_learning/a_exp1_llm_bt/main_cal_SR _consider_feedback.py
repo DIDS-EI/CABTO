@@ -1,0 +1,228 @@
+import os
+DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+import pandas as pd
+from exps_bt_learning.tools import parse_bddl
+from exps_bt_learning.llm_generate_lib_func import llm_generate_behavior_lib,llm_generate_behavior_lib_need_feedback
+from exps_bt_learning.validate_bt_fun import validate_bt_fun
+from btgym.llm.llm_gpt import LLM
+
+task2name = {
+    "task1":"PlaceApple",
+    "task2":"ActivateLights",
+    "task3":"PutInDrawer",
+    "task4":"HomeRearrangement",
+    "task5":"MealPreparation",
+    "task6":"aaa_demo0_draw6"
+}
+task2objects = {
+    "task1":['apple','coffeetable'],
+    "task2":['light1','light2'],
+    "task3":['pen','cabinet'],
+    "task4":['apple','coffeetable','pen','cabinet'],
+    "task5":['oven','chickenleg','apple','coffeetable'],
+    # "task6":['cake','microwave',"yard_table","oven"]
+}
+task2start_state = {
+    "task1":{'IsHandEmpty()'},
+    "task2":{'IsHandEmpty()','ToggledOff(light1)','ToggledOn(light2)'},
+    "task3":{'IsHandEmpty()','IsClose(cabinet)'},
+    "task4":{'IsHandEmpty()','IsOpen(cabinet)','In(pen,cabinet)'},
+    "task5":{'IsHandEmpty()','IsOpen(oven)','ToggledOff(oven)'},
+    # "task6":{'IsHandEmpty()','IsOpen(microwave)','ToggledOff(oven)'}
+}
+task2goal_str = {
+    "task1":'On(apple,coffeetable)',
+    "task2":'ToggledOn(light1) & ToggledOff(light2)',
+    "task3":'In(pen,cabinet)',
+    "task4":'On(pen,coffeetable) & IsClose(cabinet) & On(apple,coffeetable)', #In(apple,cabinet) & Closed(cabinet) & 
+    "task5":'IsClose(oven) & ToggledOn(oven) & On(apple,coffeetable) & In(chickenleg,oven)', #& On(apple,coffee_table) & On(chicken_leg,coffee_table)
+    # "task6":'On(cake,yard_table) & IsClose(microwave) & ToggledOn(oven)'
+}
+
+total_try_times = 10
+max_feedback_times = 3
+# model = "gpt-4o"
+model = "gpt-3.5-turbo"
+# model = "gpt-4o-mini"
+latex_data = {}
+model_ls = ["gpt-4o"]#,"gpt-4o-mini","gpt-4o"
+task_names = ["task4","task5"]
+for model in model_ls:
+    latex_data[model] = {}
+
+    for task_name in task_names:
+
+        # 1. et task
+        # task_name = f"task{task_id}"
+
+        bddl_file = os.path.join(DIR,f"tasks/{task_name}/problem0.bddl")
+        behavior_lib_path = os.path.join(DIR,f"tasks/{task_name}/exec_lib")  # os.path.join(DIR,"../exec_lib")
+        output_dir = os.path.join(DIR,f"tasks/{task_name}/bt.btml")
+
+
+        # objects, start_state, goal = parse_bddl(bddl_file)
+        # goal_str = ' '.join(goal) # convert goal to string
+        objects, start_state, _ = parse_bddl(bddl_file)
+        
+        # start_state = task2start_state[task_name]
+        # objects = set(task2objects[task_name])
+        # goal_str = task2goal_str[task_name]
+        
+        objects.update(task2objects[task_name])
+        start_state.update(task2start_state[task_name])
+        goal_str = task2goal_str[task_name]
+        print("objects:",objects)
+        print("start_state:",start_state)
+        print("goal_str:",goal_str)
+
+        # 2. run experiment
+        
+        success_times = 0
+
+        # create result directory and result csv
+        result_dir = os.path.join(DIR,"results")
+        if not os.path.exists(result_dir):
+            os.makedirs(result_dir)
+        dataframe_path = os.path.join(result_dir,f"exp1_{task_name}_success_rate_{total_try_times}_{model}_3F.csv")
+        table_data = []
+
+        for i in range(total_try_times):
+            record_feedback_times = 0
+            print(f"try {i+1} times")
+            # 1. generate behavior lib
+            llm = LLM(model=model) #gpt-3.5-turbo
+            messages = llm_generate_behavior_lib_need_feedback(bddl_file=bddl_file,goal_str=goal_str,objects=objects,start_state=start_state,\
+                behavior_lib_path=behavior_lib_path,llm=llm)
+      
+            # 2. validate behavior lib 
+            print("Validate behavior lib...")
+            try:
+                ee=None
+                error,bt,expanded_num,act_num,record_act_ls,ptml_string = validate_bt_fun(behavior_lib_path=behavior_lib_path, goal_str=goal_str,cur_cond_set=start_state,output_dir=output_dir)
+                if error == 0:
+                    success_times += 1
+                    # break # success then break loop
+            except Exception as e:
+                error=True
+                act_num=-1
+                ptml_string=None
+                expanded_num=-1
+                record_act_ls=None
+                print(f"error: {e}")
+                ee=e
+                
+            if error:
+                # design feedback
+                for feedback_times in range(max_feedback_times):
+                    record_feedback_times += 1
+                    # purple output
+                    print(f"\033[95mfeedback {feedback_times+1} times\033[0m")
+                    # feedback input: current bt, expanded_num, act_num, record_act_ls
+                    if ptml_string is not None:
+                        feedback_prompt = f"The behavior tree generated by your behavior library is:\n{ptml_string}\nThe expanded number is {expanded_num}. \n \
+                            The sequence of actions after running the behavior tree is {record_act_ls}"
+                    else:
+                        feedback_prompt = f"Can't generate behavior tree, error: {ee}"
+                    # the behavior tree generated by your behavior library cannot complete the goal{goal}
+                    # please add more action nodes or condition nodes, continue to give the python code, no extra explanation is needed.
+                    # feedback_prompt += f"\nThe goal is:\n{goal_str}\nThe behavior tree cannot complete the goal, \
+                    #     please check whether the action is missing or the pre,add,del,num_args and valid_args are incorrect or missing, \
+                    #     please supplement more new action nodes or condition nodes or regenerate and modify the existing action nodes or condition nodes, continue to give the python code, no extra explanation is needed."
+                    feedback_prompt += f"""
+                    The goal is:
+                    {goal_str}
+
+                    The current behavior tree is unable to achieve the goal. Please review the following aspects:
+                    1. Are the preconditions (pre), effects (add/del), number of arguments (num_args), or valid arguments (valid_args) incorrect or incomplete?
+                    2. Are there any missing actions or conditions?
+
+                    Based on your analysis, please:
+                    - Modify existing wrong nodes and regenerate them to ensure they align with the goal.\
+                    - Add new action or condition nodes if necessary.\
+                    - Avoid completely duplicate nodes.
+
+                    Provide the updated Python code directly, without additional explanations.
+                    """
+                    
+                    # combine previous chat records
+                    tmp_msg = messages
+                    tmp_msg.append({"role": "user", "content": feedback_prompt})
+                    # generate new behavior lib
+                    _ = llm_generate_behavior_lib_need_feedback(bddl_file=bddl_file,goal_str=goal_str,objects=objects,start_state=start_state,\
+                        behavior_lib_path=behavior_lib_path,llm=llm,messages=messages,clear_lib=False)
+                    print(f"\033[95mValidate behavior lib...\033[0m")
+                    try:
+                        error,bt,expanded_num,act_num,record_act_ls,ptml_string = validate_bt_fun(behavior_lib_path=behavior_lib_path, goal_str=goal_str,cur_cond_set=start_state,output_dir=output_dir)
+                        if error == 0:
+                            success_times += 1
+                            break
+                    except Exception as e:
+                        print(f"error: {e}")
+                            
+                
+            # output generated action lib number and condition lib number
+            action_lib_num = len(os.listdir(os.path.join(behavior_lib_path,'Action')))
+            condition_lib_num = len(os.listdir(os.path.join(behavior_lib_path,'Condition')))
+            print(f"action lib num: {action_lib_num}")
+            print(f"condition lib num: {condition_lib_num}")
+            # save each result to table
+            # table columns: task name, try times, success times, action lib number, condition lib number, success or not
+            # table rows: each try
+            table_data.append([task_name,i+1,action_lib_num,condition_lib_num,expanded_num,act_num,not error])
+        
+        # output success rate
+        # output success rate as percentage
+        # output success rate/total try times
+        print(f"success rate: {success_times/total_try_times*100:.2f}%") 
+        print(f"success rate/total try times: {success_times}/{total_try_times}")
+        
+        # last column: average value of action_lib_num,condition_lib_num,expanded_num,act_num
+        # average value only calculate success times
+        # if all are 0, then all are 0
+        if success_times == 0:
+            action_lib_num_avg = 0
+            condition_lib_num_avg = 0
+            expanded_num_avg = 0
+            act_num_avg = 0
+            record_feedback_times_avg = 0
+        else:
+            action_lib_num_avg = sum([row[2] for row in table_data if row[6]]) / success_times
+            condition_lib_num_avg = sum([row[3] for row in table_data if row[6]]) / success_times
+            expanded_num_avg = sum([row[4] for row in table_data if row[6]]) / success_times
+            act_num_avg = sum([row[5] for row in table_data if row[6]]) / success_times
+            record_feedback_times_avg = sum([row[6] for row in table_data if row[6]]) / success_times
+        table_data.append([task_name,-1,action_lib_num_avg,condition_lib_num_avg,expanded_num_avg,act_num_avg,not error,record_feedback_times_avg])
+        
+        # save table data to csv file, english title
+        df = pd.DataFrame(table_data, columns=['task_name', 'try_times', 'action_lib_num', 'condition_lib_num','expanded_num','act_num','success_or_not',"record_feedback_times_avg"])
+        df.to_csv(dataframe_path, index=False)
+        
+        # record the result of this model and task
+        latex_data[model][task_name] = [action_lib_num_avg,condition_lib_num_avg,expanded_num_avg,act_num_avg,f"{success_times}/{total_try_times}",f"{record_feedback_times_avg}"]
+
+task_names2type = {"task1":"Pick \& Place","task2":"ToggleOn \& ToggleOff","task3":"Open \& PutIn",
+                   "task4":"Home Rearrangement","task5":"Meal Preparation"}
+rows = ""
+for task_name in task_names:
+    type_name = task_names2type[task_name]
+    len_model_ls = len(model_ls)
+    for j,model in enumerate(model_ls):
+        if j == 0:
+            rows += f"{type_name} & "
+        rows += " & ".join(str(x) for x in latex_data[model][task_name])
+        if j == len_model_ls-1:
+            rows += r" \\"+ "\n"
+        else:
+            rows += " & "
+            
+# save rows to txt file
+with open(os.path.join(DIR,"results","exp1_SR_models_3F.txt"),"w") as f:
+    f.write(rows)
+    
+print("========================================")
+print(rows)
+print("========================================")
+print("done")
+
+
+    

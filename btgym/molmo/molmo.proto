@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package molmo;
+
+service MolmoService {
+  rpc PointQA (PointQARequest) returns (PointQAResponse) {}
+}
+
+message Empty {}
+
+message PointQARequest {
+  string query = 1;
+  string image_path = 2;
+}
+
+message PointQAResponse {
+  string text = 1;
+}

@@ -1,0 +1,102 @@
+=== LLM Input ===
+
+Objects: {'a', 'c', 'd', 'b'}
+
+Start State: {'IsHandEmpty()', 'On(b,table)', 'On(d,table)', 'On(a,table)', 'On(c,table)'}
+
+Easy Goal: On(a,b)
+Medium Goal: On(a,b) & On(b,c)
+Hard Goal: On(a,b) & On(b,c) & On(c,d)
+
+=== Prompt ===
+
+
+1. Generate a complete and concise behavior library based on task goals, initial states, and objects: \
+Include all action nodes and condition nodes, implemented in Python code.
+2. Each action node should be implemented as a class, \
+with the class name matching the action name and inheriting from the 'OGAction' class.
+Each condition node should be implemented as a class, \
+with the class name matching the condition name and inheriting from the 'OGCondition' class.
+3. Each action info dictionary should include 3 keys: pre, add, and del_set, representing preconditions, added conditions, and deleted conditions, respectively.
+4. The valid_args of each action node represent the action parameters, selected from a, c, d, b; num_args indicates the number of parameters involved in the action, with some actions potentially involving multiple parameters.
+5. Condition nodes must cover all preconditions, added conditions, and deleted conditions of all actions, as well as all initial states and goal states of all tasks, and possibly more.
+6. The provided actions must be executable, with appropriate granularity (neither too coarse nor too fine). The combination and arrangement of these actions must be sufficient to accomplish the given task goals.
+7. Only provide the code, no explanation needed.
+8. Below is an example. 
+
+
+
+
+start_state = {"IsHandEmpty()"}
+objects = {"coffeecup","apple","table"}
+goal = ["IsHolding(coffeecup)","On(coffeecup,table)&IsHolding(apple)","On(coffeecup,table)&On(apple,table)"]
+
+```python
+class Grasp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["coffeecup","apple"]
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]={"IsHandEmpty()",f"IsNear({arg[0]})"}
+        info["add"]={f"IsHolding({arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty()"}
+        info["cost"] = 1
+        return info
+
+
+    def change_condition_set(self):
+        self.agent.condition_set |= (self.info["add"])
+        self.agent.condition_set -= self.info["del_set"]
+```
+```python
+class MoveTo(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["coffeecup","apple","table"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.target_obj = self.args[0]
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]=set()
+        info["add"]={f"IsNear({arg[0]})"}
+        info["del_set"] = {f'IsNear({place})' for place in cls.valid_args if place != arg[0]}
+        info["cost"] = 1
+        return info
+
+    def change_condition_set(self):
+        self.agent.condition_set |= (self.info["add"])
+        self.agent.condition_set -= self.info["del_set"] 
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsNear(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+         Here are the start_state, objects and goals, please generate the behavior libraries:
+start_state = {"IsHandEmpty()", "On(b,table)", "On(d,table)", "On(a,table)", "On(c,table)"}
+objects = {"a", "c", "d", "b"}
+goal = ["On(a,b)", "On(a,b) & On(b,c)", "On(a,b) & On(b,c) & On(c,d)"]

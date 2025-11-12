@@ -1,0 +1,16 @@
+selector
+    cond On(a,b)
+    sequence
+        cond On(b,table)
+        selector
+            selector
+                sequence
+                    cond IsHolding(a)
+                    act Stack(a,b)
+                sequence
+                    cond IsHandEmpty()
+                    cond IsNear(a)
+                    act Grasp(a)
+            sequence
+                cond IsHandEmpty()
+                act MoveTo(a)

@@ -1,0 +1,31 @@
+[package]
+title = "DexRL Sim Extension"
+description = "DexRL simulation extension for Isaac Sim"
+version = "0.1.0"
+authors = ["Xinglin Chen <chenxinglin@nudt.edu.cn>"]
+repository = "https://github.com/your-repo/dexrl"
+keywords = ["isaac", "sim", "dexrl", "robotics"]
+
+[dependencies]
+"omni.kit.pipapi" = {}
+"omni.kit.primitive.mesh" = {}
+"omni.isaac.core" = {}
+"omni.isaac.core_nodes" = {}
+"omni.isaac.dynamic_control" = {}
+"omni.isaac.franka" = {}
+"omni.isaac.manipulators" = {}
+"omni.isaac.motion_generation" = {}
+"omni.isaac.sensor" = {}
+"omni.isaac.sensor.isaac" = {}
+"omni.isaac.universal_robots" = {}
+"omni.isaac.utils" = {}
+"omni.kit.primitive.mesh" = {}
+"omni.kit.viewport.utility" = {}
+"omni.replicator" = {}
+"omni.replicator.core" = {}
+"omni.replicator.isaac" = {}
+
+[python]
+paths = ["dexrl"]
+
+[settings]

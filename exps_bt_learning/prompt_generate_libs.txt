@@ -1,0 +1,27 @@
+
+1. Generate a complete and concise behavior library based on task goals, initial states, and objects: \
+Include all action nodes and condition nodes, implemented in Python code.
+2. Each action node should be implemented as a class, \
+with the class name matching the action name and inheriting from the 'OGAction' class.
+Each condition node should be implemented as a class, \
+with the class name matching the condition name and inheriting from the 'OGCondition' class.
+3. Each action info dictionary should include 3 keys: pre, add, and del_set, representing preconditions, added conditions, and deleted conditions, respectively.
+4. The valid_args of each action node represent the action parameters, selected from {objects}; num_args indicates the number of parameters involved in the action, with some actions potentially involving multiple parameters.
+5. Condition nodes must cover all preconditions, added conditions, and deleted conditions of all actions, as well as all initial states and goal states of all tasks, and possibly more.
+6. The provided actions must be executable, with appropriate granularity (neither too coarse nor too fine). The combination and arrangement of these actions must be sufficient to accomplish the given task goals.
+7. Only provide the code, no explanation needed.
+8. Below is an example. 
+
+
+'''
+1. 根据任务目标、任务初始状态、对象，生成完整又精炼的行为库：包含所有动作节点和条件节点，使用Python代码实现。
+2. 每个动作节点应该实现为一个类，类名与动作名匹配，并继承自'OGAction'类。
+每个条件节点应该实现为一个类，\
+类名与条件名匹配，并继承自'OGCondition'类。
+3. 每个动作信息字典应包含3个键：pre、add和del_set，分别表示前置条件、添加条件和删除条件。
+4. 每个动作节点的valid_args表示动作参数，从{objects}中选择；num_args表示动作涉及的参数数量，某些动作可能涉及多个参数。
+5. 条件节点要求覆盖所有的动作的前置条件、添加条件和删除条件，覆盖所有任务的初始状态以及所有任务的目标状态， 也可能更多。
+6. 要求给出的动作是可以被执行的，动作的粒度不能太大也可以不用太小。这些动作的组合排列要求能足够完成给出的任务目标。
+7. 只提供代码，不需要任何解释。
+8. 下面是一个示例
+'''

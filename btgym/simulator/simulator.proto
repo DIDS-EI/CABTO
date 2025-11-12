@@ -1,0 +1,165 @@
+syntax = "proto3";
+
+package simulator;
+
+service SimulatorService {
+  rpc LoadBehaviorTask (LoadBehaviorTaskRequest) returns (Empty) {}
+  rpc LoadCustomTask (LoadCustomTaskRequest) returns (Empty) {}
+  rpc LoadScene (LoadSceneRequest) returns (Empty) {}
+  rpc SampleCustomTask (SampleCustomTaskRequest) returns (SampleCustomTaskResponse) {}
+  rpc InitActionPrimitives (Empty) returns (Empty) {}
+  rpc NavigateToObject (NavigateToObjectRequest) returns (Empty) {}
+  rpc GetSceneName (Empty) returns (SceneNameResponse) {}
+  rpc GetRobotPos (Empty) returns (RobotPosResponse) {}
+  rpc Step (Empty) returns (Empty) {}
+  rpc GetRGBD (Empty) returns (ImageResponse) {}
+  rpc GetRobotJointStates(Empty) returns (GetRobotJointStatesResponse) {}
+  rpc SetRobotJointStates(SetRobotJointStatesRequest) returns (Empty) {}
+  rpc GetRobotEEFPose(Empty) returns (EEFPoseResponse) {}
+  rpc GetRelativeEEFPose(Empty) returns (RelativeEEFPoseResponse) {}
+  rpc GetTaskObjects(Empty) returns (TaskObjectsResponse) {}
+  rpc GraspObject(GraspObjectRequest) returns (Empty) {}
+  rpc PlaceOntopObject(PlaceOntopObjectRequest) returns (Empty) {}
+  rpc ReachPose(ReachPoseRequest) returns (Empty) {}
+  rpc SaveCameraImage(SaveCameraImageRequest) returns (Empty) {}
+  rpc SetTargetVisualPose(SetTargetVisualPoseRequest) returns (Empty) {}
+  rpc GetObs(Empty) returns (GetObsResponse) {}
+  rpc GetCameraInfo(Empty) returns (GetCameraInfoResponse) {}
+  rpc SetCameraLookatPos(SetCameraLookatPosRequest) returns (Empty) {}
+  rpc GetObjectPos(GetObjectPosRequest) returns (GetObjectPosResponse) {}
+  rpc GraspObjectByPos(GraspObjectByPosRequest) returns (GraspObjectByPosResponse) {}
+  rpc Close(Empty) returns (Empty) {}
+  rpc PoseToLocal(PoseToLocalRequest) returns (PoseToLocalResponse) {}
+}
+
+message Empty {}
+
+message LoadBehaviorTaskRequest {
+  string task_name = 1;
+}
+
+
+message LoadCustomTaskRequest {
+  string task_name = 1;
+  string scene_file_name = 2;
+}
+
+message LoadSceneRequest {
+  string scene_name = 1;
+}
+
+message SampleCustomTaskRequest {
+  string task_name = 1;
+  string scene_name = 2;
+}
+
+message SampleCustomTaskResponse {
+  string json_path = 1;
+}
+
+
+
+
+message NavigateToObjectRequest {
+  string object_name = 1;
+}
+
+message SceneNameResponse {
+  string scene_name = 1;
+}
+
+message RobotPosResponse {
+  repeated float position = 1;
+}
+
+message ImageResponse {
+  bytes rgb = 1;
+  bytes depth = 2;
+  int32 height = 3;
+  int32 width = 4;
+  int32 channels = 5;
+}
+
+message GetRobotJointStatesResponse {
+  repeated float joint_states = 1;
+}
+
+message SetRobotJointStatesRequest {
+  repeated float joint_states = 1;
+}
+
+message EEFPoseResponse {
+  repeated float eef_pose = 1;
+}
+
+message RelativeEEFPoseResponse {
+  repeated float relative_eef_pose = 1;
+}
+
+message TaskObjectsResponse {
+  repeated string object_names = 1;
+}
+
+message GraspObjectRequest {
+  string object_name = 1;
+}
+
+message PlaceOntopObjectRequest {
+  string object_name = 1;
+}
+
+message ReachPoseRequest {
+  repeated float pose = 1;
+  bool is_local = 2;
+}
+
+message SaveCameraImageRequest {
+  string output_path = 1;
+}
+
+message SetTargetVisualPoseRequest {
+  repeated float pose = 1;
+}
+
+message GetCameraInfoResponse {
+  repeated float intrinsics = 1;
+  repeated float extrinsics = 2;
+}
+
+
+message GetObsResponse {
+  bytes rgb = 1;
+  bytes depth = 2;
+  bytes seg_semantic = 3;
+  string seg_info = 4;
+  repeated float proprio = 5;
+}
+
+message SetCameraLookatPosRequest {
+  repeated float pos = 1;
+}
+
+message GetObjectPosRequest {
+  string object_name = 1;
+}
+
+message GetObjectPosResponse {
+  repeated float pos = 1;
+}
+
+message GraspObjectByPosRequest {
+  repeated float pos = 1;
+  string object_name = 2;
+}
+
+message GraspObjectByPosResponse {
+  bool success = 1;
+}
+
+message PoseToLocalRequest {
+  repeated float pose = 1;
+}
+
+message PoseToLocalResponse {
+  repeated float pose = 1;
+}

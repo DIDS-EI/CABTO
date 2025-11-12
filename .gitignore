@@ -1,0 +1,83 @@
+# C++
+**/cmake-build*/
+**/build*/
+**/*.so
+**/*.log*
+
+# Omniverse
+**/*.dmp
+**/.thumbs
+
+# No USD files allowed in the repo
+**/*.usda
+**/*.usdc
+**/*.usdz
+
+# Python
+.DS_Store
+**/*.egg-info/
+**/__pycache__/
+**/.pytest_cache/
+**/*.pyc
+**/*.pb
+
+# Docker/Singularity
+**/*.sif
+docker/cluster/exports/
+docker/.container.cfg
+
+# IDE
+**/.idea/
+**/.vscode/
+# Don't ignore the top-level .vscode directory as it is
+# used to configure VS Code settings
+!.vscode_templete
+
+# Outputs
+**/output/*
+**/outputs/*
+**/videos/*
+**/wandb/*
+**/.neptune/*
+docker/artifacts/
+*.tmp
+
+# Doc Outputs
+**/docs/_build/*
+**/generated/*
+
+# Isaac-Sim packman
+_isaac_sim*
+_repo
+_build
+.lastformat
+
+# RL-Games
+**/runs/*
+**/logs/*
+**/recordings/*
+
+# not ignore psi assets
+!**/assets_usd/**/*.usd
+!**/assets_usd/**/*.png
+*.pkl
+
+wandb
+
+**/global_config.ini
+
+local
+!/local/templetes
+sim_extension/dexrl.sim_extension/dexrl/sim_extension
+sim_extension/dexrl.sim_extension/dexrl/sim
+
+# 上传 demo_data.pkl
+!algos/demo_data.pkl
+!/external/Robotic_Arm/libs/linux_arm/libapi_c.so
+!/external/Robotic_Arm/libs/linux_x86/libapi_c.so
+/dexrl/real/lib/libRM_Base.so
+/dexrl/real/lib/libRM_Base.so.1
+/dexrl/real/lib/libRM_Base.so.1.0
+
+*.pth
+*.pt

@@ -1,0 +1,3779 @@
+{
+    "cleaning_sneakers": [
+        "stain",
+        "dust",
+        "cloth"
+    ],
+    "make_fruit_punch": [
+        "water"
+    ],
+    "watering_indoor_flowers": [
+        "water"
+    ],
+    "store_vodka": [],
+    "make_spa_water": [
+        "water"
+    ],
+    "wash_a_baseball_cap": [
+        "stain",
+        "detergent"
+    ],
+    "make_pizza": [
+        "tomato_sauce",
+        "grated_cheese",
+        "marjoram"
+    ],
+    "make_edible_chocolate_chip_cookie_dough": [
+        "jimmies",
+        "chocolate_kiss",
+        "vanilla",
+        "salt",
+        "brown_sugar",
+        "granulated_sugar",
+        "melted__butter",
+        "flour"
+    ],
+    "store_feta_cheese": [
+        "cloth"
+    ],
+    "clean_up_spilled_egg": [
+        "beaten_egg",
+        "cloth",
+        "water"
+    ],
+    "preparing_existing_coffee": [
+        "granulated_sugar",
+        "drip_coffee",
+        "low_fat_milk"
+    ],
+    "sorting_potatoes": [],
+    "changing_dogs_water": [
+        "water"
+    ],
+    "make_mustard_herb_and_spice_seasoning": [
+        "mustard_seed",
+        "sage",
+        "cumin",
+        "rosemary",
+        "salt"
+    ],
+    "filling_pepper": [
+        "white_rice"
+    ],
+    "make_dessert_watermelons": [
+        "granulated_sugar"
+    ],
+    "clean_raw_denim": [
+        "dirt",
+        "cloth",
+        "vinegar",
+        "detergent"
+    ],
+    "make_limeade": [
+        "water",
+        "granulated_sugar",
+        "lime_juice"
+    ],
+    "cook_chicken_and_rice": [
+        "white_rice",
+        "olive_oil",
+        "salt",
+        "water"
+    ],
+    "cook_fish": [
+        "salt",
+        "diced__lemon"
+    ],
+    "cook_soup": [
+        "chicken_soup"
+    ],
+    "cook_asparagus": [
+        "lemon_juice",
+        "olive_oil",
+        "salt"
+    ],
+    "clean_a_coffee_maker": [
+        "cloth",
+        "liquid_soap",
+        "water",
+        "stain"
+    ],
+    "setting_up_toy_train_track": [],
+    "wash_fruit_and_vegetables": [
+        "dust",
+        "dirt",
+        "cloth",
+        "water"
+    ],
+    "store_whole_grains": [
+        "white_rice"
+    ],
+    "clean_a_quilt": [
+        "stain",
+        "cloth",
+        "detergent"
+    ],
+    "clean_a_sauna_suit": [
+        "stain",
+        "cloth",
+        "detergent"
+    ],
+    "cool_cakes": [],
+    "cleaning_microwave_oven": [
+        "stain",
+        "dust",
+        "cloth"
+    ],
+    "taking_clothes_out_of_the_dryer": [
+        "cloth"
+    ],
+    "make_cream_from_milk": [
+        "melted__butter",
+        "whole_milk"
+    ],
+    "clean_vases": [
+        "stain",
+        "sodium_carbonate",
+        "vinegar",
+        "water"
+    ],
+    "clean_boxing_gloves": [
+        "dust",
+        "cloth"
+    ],
+    "clean_a_crab": [
+        "sand",
+        "cloth",
+        "water"
+    ],
+    "boil_water_in_the_microwave": [
+        "water"
+    ],
+    "make_lemon_pepper_seasoning": [
+        "black_pepper",
+        "salt",
+        "lemon_juice"
+    ],
+    "tidying_living_room": [],
+    "clean_a_grill_pan": [
+        "stain",
+        "liquid_soap",
+        "water"
+    ],
+    "brewing_coffee": [
+        "coffee_bean",
+        "water"
+    ],
+    "adding_fabric_softener": [
+        "water",
+        "wrinkle",
+        "cloth",
+        "fabric_softener"
+    ],
+    "dispose_of_a_pizza_box": [],
+    "clean_a_blender": [
+        "liquid_soap",
+        "carrot_juice",
+        "water"
+    ],
+    "clean_a_toaster_oven": [
+        "breadcrumb",
+        "stain",
+        "detergent",
+        "cloth",
+        "water"
+    ],
+    "dust_houseplants": [
+        "cloth",
+        "dust"
+    ],
+    "make_cake_mix": [
+        "flour",
+        "baking_powder",
+        "salt",
+        "granulated_sugar",
+        "sodium_carbonate"
+    ],
+    "store_baking_soda": [],
+    "clean_vintage_stereo_equipment": [
+        "dust",
+        "cloth"
+    ],
+    "fold_a_tortilla": [],
+    "vacuuming_vehicles": [
+        "dust"
+    ],
+    "clean_a_vacuum": [
+        "cloth",
+        "debris",
+        "dust",
+        "disinfectant"
+    ],
+    "cover_a_flower_pot_in_fabric": [
+        "cloth"
+    ],
+    "make_toast": [],
+    "clean_snap_peas": [
+        "water",
+        "vinegar",
+        "mud"
+    ],
+    "packing_meal_for_delivery": [],
+    "canning_food": [],
+    "make_cake_filling": [
+        "granulated_sugar",
+        "cornstarch",
+        "lemon_juice",
+        "water"
+    ],
+    "clean_your_house_after_a_wild_party": [
+        "stain",
+        "dust",
+        "adhesive_material",
+        "water",
+        "bleaching_agent",
+        "liquid_soap",
+        "cloth"
+    ],
+    "cook_snap_peas": [
+        "cheese_sauce"
+    ],
+    "store_rugs": [
+        "dust",
+        "cloth"
+    ],
+    "store_coffee_beans_or_ground_coffee": [
+        "coffee_bean"
+    ],
+    "staining_wood_furniture": [
+        "ink"
+    ],
+    "make_pastry": [
+        "water",
+        "flour",
+        "salt"
+    ],
+    "store_beer": [],
+    "remove_scorch_marks": [
+        "vinegar",
+        "cloth",
+        "stain",
+        "water"
+    ],
+    "clean_a_purse": [
+        "stain",
+        "cloth",
+        "saddle_soap",
+        "water"
+    ],
+    "clean_a_felt_pool_table_top": [
+        "cloth",
+        "dust"
+    ],
+    "disinfect_laundry": [
+        "disinfectant",
+        "cloth",
+        "water"
+    ],
+    "clean_household_cleaning_tools": [
+        "water",
+        "stain",
+        "dust",
+        "disinfectant",
+        "cloth",
+        "detergent"
+    ],
+    "cleaning_carpets": [
+        "stain",
+        "cloth",
+        "detergent"
+    ],
+    "putting_away_cleaning_supplies": [],
+    "clean_brooms": [
+        "water",
+        "detergent",
+        "cloth",
+        "stain"
+    ],
+    "polish_copper": [
+        "polish",
+        "cloth"
+    ],
+    "brushing_lint_off_clothing": [
+        "water",
+        "cloth",
+        "dust"
+    ],
+    "clean_suede_gloves": [
+        "cloth",
+        "vinegar",
+        "stain"
+    ],
+    "dusting_rugs": [
+        "cloth",
+        "dust"
+    ],
+    "clean_your_laundry_room": [
+        "cloth",
+        "water",
+        "bleaching_agent",
+        "dust",
+        "mold"
+    ],
+    "clean_a_birdcage": [
+        "mildew",
+        "liquid_soap",
+        "cloth",
+        "disinfectant",
+        "water"
+    ],
+    "clean_pearls": [
+        "water",
+        "stain",
+        "baby_oil",
+        "liquid_soap",
+        "cloth"
+    ],
+    "cleaning_rainboots": [
+        "liquid_soap",
+        "mud",
+        "cloth",
+        "water"
+    ],
+    "hanging_pictures": [],
+    "clean_a_flat_iron": [
+        "cloth",
+        "dust",
+        "disinfectant",
+        "water"
+    ],
+    "cleaning_tools_and_equipment": [
+        "adhesive_material",
+        "cloth",
+        "dust",
+        "liquid_soap",
+        "mud",
+        "water"
+    ],
+    "clean_deer_antlers": [
+        "water",
+        "dust",
+        "cloth"
+    ],
+    "buy_rechargeable_batteries": [],
+    "bag_groceries": [
+        "water",
+        "liquid_soap"
+    ],
+    "buying_postage_stamps": [],
+    "buy_a_good_avocado": [],
+    "buy_school_supplies_for_high_school": [
+        "water",
+        "liquid_soap"
+    ],
+    "buying_groceries_for_a_feast": [],
+    "buy_pet_food_for_less": [],
+    "buy_good_chocolate": [],
+    "buy_dog_food": [],
+    "buy_salad_greens": [],
+    "buy_food_for_a_party": [],
+    "buy_natural_supplements": [],
+    "buy_alcohol": [],
+    "unpacking_recreational_vehicle_for_trip": [
+        "water"
+    ],
+    "installing_smoke_detectors": [],
+    "hanging_clothes_on_clothesline": [
+        "water",
+        "cloth"
+    ],
+    "bringing_in_mail": [
+        "water"
+    ],
+    "store_christmas_lights": [
+        "water"
+    ],
+    "store_a_kayak": [
+        "cloth",
+        "water"
+    ],
+    "clean_up_broken_glass": [],
+    "make_a_chia_breakfast_bowl": [
+        "chia_seed",
+        "blueberry",
+        "yogurt",
+        "granola"
+    ],
+    "make_cinnamon_toast": [
+        "maple_syrup",
+        "cinnamon"
+    ],
+    "hang_a_bike_on_the_wall": [],
+    "stock_a_bar": [
+        "water",
+        "liquid_soap"
+    ],
+    "clean_up_after_a_dinner_party": [],
+    "make_tomato_rice": [
+        "white_rice",
+        "olive_oil",
+        "chicken_broth"
+    ],
+    "cleaning_glasses_off_bar": [
+        "stain",
+        "gin",
+        "orange_juice",
+        "red_wine",
+        "beer"
+    ],
+    "cleaning_mushrooms": [
+        "dust",
+        "water",
+        "cloth"
+    ],
+    "make_a_sugar_and_coffee_scrub": [
+        "coconut_oil",
+        "ground_coffee",
+        "brown_sugar"
+    ],
+    "setup_a_bar_for_a_cocktail_party": [
+        "water",
+        "liquid_soap",
+        "white_wine",
+        "red_wine"
+    ],
+    "clean_seashells": [
+        "sand",
+        "cloth",
+        "water"
+    ],
+    "prepare_a_breakfast_bar": [],
+    "clean_kitchen_appliances": [
+        "liquid_soap",
+        "sodium_carbonate",
+        "cloth",
+        "coffee_grounds",
+        "flour",
+        "chowder",
+        "breadcrumb",
+        "smoothie",
+        "disinfectant",
+        "water"
+    ],
+    "make_oatmeal": [
+        "salt",
+        "cinnamon",
+        "honey",
+        "oat",
+        "low_fat_milk",
+        "water"
+    ],
+    "put_together_a_goodie_bag": [
+        "chocolate_kiss",
+        "cloth"
+    ],
+    "clean_dentures_with_vinegar": [
+        "vinegar",
+        "water"
+    ],
+    "cook_onions": [
+        "olive_oil"
+    ],
+    "clean_grease": [
+        "liquid_soap",
+        "cooking_oil",
+        "water"
+    ],
+    "cleaning_bedroom": [
+        "cloth",
+        "dust"
+    ],
+    "clean_a_teddy_bear": [
+        "cloth",
+        "liquid_soap",
+        "stain",
+        "water"
+    ],
+    "putting_towels_in_bathroom": [
+        "water",
+        "cloth"
+    ],
+    "putting_laundry_in_drawer": [
+        "cloth"
+    ],
+    "picking_up_toys": [],
+    "folding_sheets": [
+        "water",
+        "cloth"
+    ],
+    "clean_out_a_guinea_pigs_hutch": [
+        "disinfectant",
+        "fecal_matter",
+        "hay",
+        "water",
+        "vinegar",
+        "liquid_soap",
+        "cloth"
+    ],
+    "cleaning_pet_bed": [
+        "water",
+        "cloth",
+        "cooked__dog_food",
+        "hair"
+    ],
+    "clean_a_saxophone": [
+        "dust",
+        "cloth"
+    ],
+    "clean_a_mattress": [
+        "stain",
+        "mold",
+        "detergent",
+        "water"
+    ],
+    "clean_carpets": [
+        "dust",
+        "cloth"
+    ],
+    "store_vintage_linens": [
+        "cloth"
+    ],
+    "picking_fruit_and_vegetables": [
+        "stain"
+    ],
+    "buy_fish": [
+        "disinfectant"
+    ],
+    "buy_natural_beef": [],
+    "returning_consumer_goods": [
+        "water"
+    ],
+    "paying_for_purchases": [],
+    "returning_videotapes_to_store": [],
+    "fertilize_plants": [
+        "fertilizer"
+    ],
+    "bringing_water": [],
+    "cooking_breakfast": [
+        "cloth"
+    ],
+    "freeze_lasagna": [
+        "cloth"
+    ],
+    "clean_an_air_filter": [
+        "cloth",
+        "dust",
+        "disinfectant"
+    ],
+    "can_syrup": [
+        "maple_syrup"
+    ],
+    "preparing_food_for_adult": [
+        "diced__potato",
+        "cloth",
+        "bourbon"
+    ],
+    "baking_cookies_for_the_PTA_bake_sale": [
+        "water",
+        "salt",
+        "baking_powder",
+        "melted__butter",
+        "vanilla",
+        "cloth",
+        "granulated_sugar",
+        "flour"
+    ],
+    "clean_a_company_office": [
+        "dust",
+        "cloth"
+    ],
+    "set_up_a_webcam": [],
+    "clean_geodes": [
+        "detergent",
+        "mud",
+        "liquid_soap",
+        "water"
+    ],
+    "clean_oysters": [
+        "dirt",
+        "sand",
+        "water",
+        "cloth"
+    ],
+    "clean_a_piano": [
+        "dust",
+        "cloth"
+    ],
+    "clean_gourds": [
+        "cloth",
+        "dust"
+    ],
+    "cleaning_restaurant_table": [
+        "cloth",
+        "breadcrumb",
+        "disinfectant",
+        "water"
+    ],
+    "clean_leather_boots": [
+        "cloth",
+        "dust"
+    ],
+    "clean_piano_keys": [
+        "cloth",
+        "dust"
+    ],
+    "clean_mushrooms": [
+        "water",
+        "dirt",
+        "cloth"
+    ],
+    "clean_batting_gloves": [
+        "mud",
+        "detergent"
+    ],
+    "clean_up_your_desk": [
+        "water"
+    ],
+    "clean_leather_sandals": [
+        "saddle_soap",
+        "cloth",
+        "conditioner",
+        "stain",
+        "water"
+    ],
+    "installing_carpet": [
+        "cloth"
+    ],
+    "clean_jewels": [
+        "ammonia_water",
+        "stain",
+        "water"
+    ],
+    "wash_goalkeeper_gloves": [
+        "water",
+        "mud",
+        "cloth",
+        "liquid_soap"
+    ],
+    "clean_a_leather_belt": [
+        "cloth",
+        "dust",
+        "water"
+    ],
+    "clean_dentures": [
+        "stain",
+        "vinegar",
+        "water"
+    ],
+    "clean_a_tie": [
+        "stain",
+        "detergent"
+    ],
+    "clean_nickel": [
+        "cloth",
+        "water",
+        "vinegar",
+        "stain"
+    ],
+    "clean_copper_mugs": [
+        "liquid_soap",
+        "water",
+        "stain"
+    ],
+    "clean_bok_choy": [
+        "cloth",
+        "water",
+        "dirt"
+    ],
+    "make_gift_bags_for_baby_showers": [
+        "water"
+    ],
+    "moving_stuff_to_storage": [],
+    "clean_a_raincoat": [
+        "stain",
+        "cloth",
+        "detergent"
+    ],
+    "clean_eggs": [
+        "dust",
+        "water"
+    ],
+    "clean_a_trumpet": [
+        "dust",
+        "cloth"
+    ],
+    "washing_walls": [
+        "dirt",
+        "water"
+    ],
+    "planting_plants": [],
+    "cleaning_around_pool_in_garden": [
+        "dust"
+    ],
+    "prepare_your_garden_for_a_cat": [
+        "disinfectant",
+        "cloth"
+    ],
+    "clean_soot_from_glass_lanterns": [
+        "stain",
+        "vinegar",
+        "ammonia_water",
+        "water",
+        "cloth"
+    ],
+    "clean_a_patio": [
+        "dust"
+    ],
+    "hiding_Easter_eggs": [],
+    "store_firewood_outdoors": [],
+    "cleaning_garden_path": [
+        "cloth",
+        "dust"
+    ],
+    "prepare_your_garden_for_winter": [
+        "cloth"
+    ],
+    "clean_up_gasoline": [
+        "gasoline",
+        "liquid_soap",
+        "water"
+    ],
+    "installing_a_fence": [
+        "spray_paint"
+    ],
+    "wash_your_bike": [
+        "liquid_soap",
+        "cloth",
+        "water",
+        "stain",
+        "dust"
+    ],
+    "clean_a_gravestone": [
+        "water",
+        "mold",
+        "detergent"
+    ],
+    "clean_cement": [
+        "dirt",
+        "water",
+        "detergent"
+    ],
+    "cleaning_pavement": [
+        "dust"
+    ],
+    "clean_your_rusty_garden_tools": [
+        "rust"
+    ],
+    "spraying_fruit_trees": [
+        "pesticide"
+    ],
+    "clean_outdoor_tiles": [
+        "liquid_soap",
+        "bleaching_agent",
+        "stain"
+    ],
+    "watering_outdoor_plants": [
+        "water"
+    ],
+    "filling_the_bird_feeder": [
+        "bird_feed"
+    ],
+    "sweeping_outside_entrance": [
+        "dust"
+    ],
+    "remove_sod": [],
+    "fertilizing_garden": [
+        "fertilizer",
+        "soil"
+    ],
+    "planting_trees": [
+        "soil"
+    ],
+    "putting_protective_cover_on_vehicle": [
+        "cloth"
+    ],
+    "packing_picnic_food_into_car": [],
+    "spray_stucco": [
+        "stucco",
+        "sealant"
+    ],
+    "putting_up_Christmas_lights_outside": [],
+    "hoe_weeds": [],
+    "laying_paving_stones": [
+        "water",
+        "sealant"
+    ],
+    "sweeping_patio": [
+        "sand"
+    ],
+    "putting_pesticides_on_lawn": [
+        "pesticide"
+    ],
+    "stacking_wood": [],
+    "clean_the_outside_of_a_house": [
+        "liquid_soap",
+        "stain",
+        "mildew",
+        "water"
+    ],
+    "packing_art_supplies_into_car": [],
+    "setting_up_garden_furniture": [],
+    "clean_decking": [
+        "mud",
+        "liquid_soap",
+        "bleaching_agent",
+        "water"
+    ],
+    "gathering_nuts": [],
+    "washing_outside_windows": [
+        "vinegar",
+        "water",
+        "stain"
+    ],
+    "collecting_berries": [
+        "water"
+    ],
+    "picking_vegetables_in_garden": [],
+    "raking_leaves": [],
+    "prepare_a_hanging_basket": [],
+    "watering_outdoor_flowers": [
+        "water"
+    ],
+    "planting_vegetables": [
+        "soil",
+        "pumpkin_seed"
+    ],
+    "fertilize_a_lawn": [
+        "fertilizer"
+    ],
+    "loading_the_car": [],
+    "water_your_lawn_efficiently": [
+        "water"
+    ],
+    "clean_stucco": [
+        "water",
+        "bleaching_agent",
+        "stucco",
+        "mold"
+    ],
+    "dispose_of_fireworks": [],
+    "de_ice_a_car": [],
+    "scraping_snow_off_vehicle": [
+        "snow"
+    ],
+    "picking_up_litter": [
+        "cloth"
+    ],
+    "painting_house_exterior": [
+        "spray_paint"
+    ],
+    "covering_boat": [
+        "cloth"
+    ],
+    "washing_outside_walls": [
+        "water",
+        "liquid_soap",
+        "stain"
+    ],
+    "clean_a_garden_sprayer": [
+        "water",
+        "stain",
+        "disinfectant",
+        "pesticide"
+    ],
+    "chopping_wood": [
+        "water"
+    ],
+    "packing_car_for_trip": [],
+    "prepare_a_boat_for_fishing": [
+        "stain",
+        "water",
+        "detergent",
+        "cloth"
+    ],
+    "clean_cork_mats": [
+        "cloth",
+        "stain",
+        "water",
+        "liquid_soap"
+    ],
+    "putting_away_yard_equipment": [],
+    "putting_in_a_hot_tub": [],
+    "cleaning_parks": [],
+    "cleaning_the_yard": [],
+    "spraying_for_bugs": [
+        "insectifuge"
+    ],
+    "setting_up_for_an_event": [
+        "cloth"
+    ],
+    "painting_porch": [
+        "spray_paint"
+    ],
+    "cleaning_stove": [
+        "stain",
+        "dust",
+        "cloth"
+    ],
+    "cook_chickpeas": [
+        "chickpea",
+        "water",
+        "salt"
+    ],
+    "cook_chorizo": [
+        "water"
+    ],
+    "make_chocolate_spread": [
+        "cocoa_powder",
+        "honey"
+    ],
+    "cook_arepas": [
+        "cooking_oil"
+    ],
+    "throwing_out_used_napkins": [
+        "cloth",
+        "stain"
+    ],
+    "washing_vegetables": [
+        "mud",
+        "water"
+    ],
+    "make_stew": [
+        "pea",
+        "ground_beef",
+        "beef_broth"
+    ],
+    "make_chicken_curry": [
+        "cooking_oil",
+        "curry_powder"
+    ],
+    "make_fish_and_chips": [
+        "cooking_oil"
+    ],
+    "hard_boil_an_egg": [
+        "water"
+    ],
+    "line_kitchen_shelves": [
+        "cloth"
+    ],
+    "clean_strawberries": [
+        "dust",
+        "vinegar",
+        "stain",
+        "water"
+    ],
+    "cook_bacon": [],
+    "cook_peas": [
+        "pea",
+        "water"
+    ],
+    "store_brownies": [],
+    "make_a_basic_brine": [
+        "water",
+        "salt"
+    ],
+    "make_yams": [
+        "water"
+    ],
+    "melt_white_chocolate": [],
+    "cook_vegetables": [
+        "olive_oil",
+        "parmesan"
+    ],
+    "cook_bok_choy": [
+        "soy_sauce"
+    ],
+    "prepare_a_filling_breakfast": [],
+    "clean_greens": [
+        "water",
+        "dirt",
+        "cloth"
+    ],
+    "clean_wine_glasses": [
+        "stain",
+        "water",
+        "liquid_soap",
+        "vinegar"
+    ],
+    "make_chicken_fajitas": [
+        "olive_oil",
+        "black_pepper",
+        "salt",
+        "marjoram",
+        "cumin",
+        "paprika",
+        "salsa"
+    ],
+    "make_pizza_sauce": [
+        "tomato_paste",
+        "marjoram",
+        "salt"
+    ],
+    "make_watermelon_punch": [
+        "tonic",
+        "lemon_juice",
+        "lemonade"
+    ],
+    "cleaning_table_after_clearing": [
+        "stain",
+        "cloth"
+    ],
+    "cook_corn": [
+        "water"
+    ],
+    "make_popsicles": [
+        "honey",
+        "yogurt",
+        "lemon_juice"
+    ],
+    "preserving_vegetables": [
+        "water",
+        "vinegar"
+    ],
+    "cook_a_crab": [],
+    "cook_tofu": [
+        "water"
+    ],
+    "storing_food": [],
+    "make_curry_rice": [
+        "white_rice",
+        "water",
+        "curry_powder"
+    ],
+    "make_chocolate_syrup": [
+        "granulated_sugar",
+        "water",
+        "salt",
+        "vanilla",
+        "cocoa_powder"
+    ],
+    "make_dinosaur_goody_bags": [],
+    "clean_cup_holders": [
+        "liquid_soap",
+        "water",
+        "adhesive_material",
+        "drip_coffee"
+    ],
+    "cleaning_up_refrigerator": [
+        "stain",
+        "dust",
+        "cloth"
+    ],
+    "cleaning_kitchen_cupboard": [
+        "dust",
+        "cloth",
+        "detergent"
+    ],
+    "disinfect_nail_clippers": [
+        "disinfectant",
+        "cloth"
+    ],
+    "composting_waste": [],
+    "prepare_quinoa": [
+        "chicken_broth",
+        "quinoa"
+    ],
+    "make_a_frappe": [
+        "water",
+        "instant_coffee",
+        "cane_sugar"
+    ],
+    "store_an_uncooked_turkey": [],
+    "cook_shrimp": [
+        "paprika",
+        "salt"
+    ],
+    "make_soup": [
+        "water",
+        "chicken_broth",
+        "rosemary",
+        "salt"
+    ],
+    "make_chicken_and_waffles": [
+        "water",
+        "fritter_batter",
+        "breadcrumb",
+        "cooking_oil",
+        "hot_sauce",
+        "maple_syrup"
+    ],
+    "cook_sausages": [
+        "olive_oil"
+    ],
+    "cook_spinach": [
+        "black_pepper"
+    ],
+    "clean_plastic_containers": [
+        "liquid_soap",
+        "adhesive_material",
+        "cloth",
+        "water"
+    ],
+    "cooking_lunch": [
+        "parmesan",
+        "mustard"
+    ],
+    "make_citrus_punch": [
+        "pineapple_juice",
+        "lemonade",
+        "ginger_beer",
+        "orange_juice"
+    ],
+    "cook_eggs": [
+        "water",
+        "cloth"
+    ],
+    "freeze_quiche": [
+        "cloth"
+    ],
+    "make_a_steak": [
+        "olive_oil",
+        "salt",
+        "black_pepper"
+    ],
+    "cook_mustard_greens": [
+        "water"
+    ],
+    "cooking_food_for_adult": [
+        "thyme",
+        "cooking_oil"
+    ],
+    "cook_a_ham": [
+        "salt",
+        "glaze"
+    ],
+    "cook_a_brisket": [],
+    "cook_carrots": [
+        "water"
+    ],
+    "make_applesauce": [
+        "water",
+        "lemon_juice",
+        "cinnamon",
+        "granulated_sugar"
+    ],
+    "clean_scallops": [
+        "sand",
+        "cloth",
+        "water"
+    ],
+    "roast_vegetables": [
+        "water"
+    ],
+    "cook_ramen_noodles": [
+        "water"
+    ],
+    "cook_a_pumpkin": [],
+    "make_an_egg_tomato_and_toast_breakfast": [
+        "cloth"
+    ],
+    "prepare_and_cook_prawns": [
+        "salt"
+    ],
+    "cook_quail": [
+        "olive_oil"
+    ],
+    "cook_a_duck": [
+        "wine_sauce"
+    ],
+    "pour_a_glass_of_wine": [
+        "red_wine"
+    ],
+    "make_hot_cocoa": [
+        "water",
+        "whole_milk",
+        "granulated_sugar",
+        "vanilla",
+        "cocoa_powder"
+    ],
+    "waxing_floors": [
+        "dust",
+        "floor_wax",
+        "cloth"
+    ],
+    "thawing_frozen_food": [],
+    "cook_a_frozen_pie": [],
+    "make_king_prawns_with_garlic": [
+        "olive_oil",
+        "salt"
+    ],
+    "pour_beer": [
+        "beer"
+    ],
+    "clean_jade": [
+        "liquid_soap",
+        "water",
+        "cloth",
+        "dust"
+    ],
+    "clean_your_cleaning_supplies": [
+        "water",
+        "detergent",
+        "mold",
+        "dust",
+        "stain",
+        "cloth"
+    ],
+    "cook_clams": [
+        "salt",
+        "lemon_juice"
+    ],
+    "cook_oysters": [
+        "salt",
+        "water"
+    ],
+    "make_fried_rice": [
+        "salt",
+        "soy_sauce",
+        "white_rice",
+        "sesame_oil"
+    ],
+    "putting_dishes_away_after_cleaning": [],
+    "preserving_fruit": [
+        "granulated_sugar",
+        "water"
+    ],
+    "cook_cabbage": [],
+    "cleaning_oven": [
+        "stain",
+        "cloth"
+    ],
+    "make_iced_chocolate": [
+        "cocoa_powder",
+        "whole_milk",
+        "granulated_sugar",
+        "vanilla"
+    ],
+    "clean_cups": [
+        "liquid_soap",
+        "water",
+        "tea",
+        "low_fat_milk"
+    ],
+    "clean_whiskey_stones": [
+        "liquid_soap",
+        "cloth",
+        "scotch",
+        "water"
+    ],
+    "defrosting_freezer": [
+        "cloth"
+    ],
+    "cook_brussels_sprouts": [],
+    "cook_a_turkey": [
+        "rosemary"
+    ],
+    "make_green_tea_latte": [
+        "water",
+        "green_tea",
+        "low_fat_milk"
+    ],
+    "make_muffins": [
+        "cooking_oil",
+        "whole_milk",
+        "granulated_sugar",
+        "cloth",
+        "salt",
+        "baking_powder",
+        "flour"
+    ],
+    "clean_pine_cones": [
+        "dirt",
+        "cloth",
+        "water"
+    ],
+    "toast_coconut": [
+        "coconut"
+    ],
+    "make_ice": [
+        "water"
+    ],
+    "clean_a_computer_monitor": [
+        "liquid_soap",
+        "water",
+        "cloth",
+        "dust"
+    ],
+    "sorting_vegetables": [],
+    "cleaning_lawnmowers": [
+        "bunchgrass",
+        "dirt",
+        "water",
+        "cloth"
+    ],
+    "make_tacos": [
+        "salsa",
+        "grated_cheese",
+        "cooked__ground_beef",
+        "sludge"
+    ],
+    "planting_flowers": [],
+    "shoveling_snow": [
+        "snow",
+        "granulated_salt"
+    ],
+    "fold_bandanas": [
+        "cloth"
+    ],
+    "sorting_art_supplies": [],
+    "unloading_groceries": [
+        "water"
+    ],
+    "preparing_lunch_box": [],
+    "setting_up_room_for_a_movie": [
+        "cloth",
+        "popcorn"
+    ],
+    "prepare_a_raised_bed_garden": [
+        "soil"
+    ],
+    "sorting_books_on_shelf": [],
+    "make_a_sandwich": [
+        "jelly",
+        "peanut_butter"
+    ],
+    "grease_and_flour_a_pan": [
+        "margarine",
+        "flour"
+    ],
+    "folding_clothes": [
+        "cloth"
+    ],
+    "loading_shopping_into_car": [],
+    "make_a_car_emergency_kit": [
+        "insectifuge"
+    ],
+    "collecting_mail_from_the_letterbox": [],
+    "packing_documents_into_car": [],
+    "unloading_shopping_from_car": [
+        "water"
+    ],
+    "packing_fishing_gear_into_car": [
+        "water"
+    ],
+    "treating_clothes": [
+        "cloth",
+        "detergent",
+        "water",
+        "wrinkle"
+    ],
+    "store_produce": [],
+    "disposing_of_lawn_clippings": [
+        "cloth",
+        "bunchgrass"
+    ],
+    "store_tulip_bulbs": [],
+    "sorting_bottles_cans_and_paper": [],
+    "packing_books_into_car": [],
+    "clean_a_hat": [
+        "water",
+        "cloth",
+        "dust"
+    ],
+    "polish_cymbals": [
+        "stain",
+        "lemon_juice",
+        "vinegar",
+        "polish",
+        "cloth"
+    ],
+    "washing_fabrics": [
+        "stain",
+        "detergent",
+        "water"
+    ],
+    "putting_out_clean_towels": [
+        "cloth"
+    ],
+    "clean_flip_flops": [
+        "water",
+        "liquid_soap",
+        "stain"
+    ],
+    "mopping_floors": [
+        "stain",
+        "water",
+        "liquid_soap"
+    ],
+    "remove_a_wall_mirror": [
+        "water"
+    ],
+    "prepare_an_emergency_school_kit": [],
+    "cleaning_bathrooms": [
+        "stain",
+        "cloth"
+    ],
+    "clean_tennis_balls": [
+        "stain",
+        "mud",
+        "water",
+        "liquid_soap"
+    ],
+    "clean_rubber_bathmats": [
+        "cloth",
+        "water",
+        "detergent",
+        "disinfectant",
+        "mildew"
+    ],
+    "clean_a_razor_blade": [
+        "dust",
+        "adhesive_material",
+        "liquid_soap",
+        "cloth",
+        "water"
+    ],
+    "pack_a_beach_bag": [
+        "cloth"
+    ],
+    "scrubbing_bathroom_floor": [
+        "water",
+        "dirt"
+    ],
+    "cleaning_bathtub": [
+        "stain",
+        "water"
+    ],
+    "clean_stainless_steel_sinks": [
+        "sodium_carbonate",
+        "liquid_soap",
+        "cloth",
+        "adhesive_material",
+        "water"
+    ],
+    "clean_dog_collars": [
+        "saddle_soap",
+        "water",
+        "stain"
+    ],
+    "polishing_shoes": [
+        "stain",
+        "cloth"
+    ],
+    "clean_wood_doors": [
+        "cloth",
+        "liquid_soap",
+        "stain",
+        "water"
+    ],
+    "bringing_paper_to_recycling": [
+        "water"
+    ],
+    "make_the_ultimate_spa_basket": [],
+    "turning_on_the_hot_tub": [],
+    "clean_a_faucet": [
+        "detergent",
+        "cloth",
+        "stain",
+        "water"
+    ],
+    "turning_off_the_hot_tub": [
+        "water"
+    ],
+    "clean_a_sauna": [
+        "cloth",
+        "water",
+        "liquid_soap",
+        "bleaching_agent",
+        "mildew",
+        "mold",
+        "stain"
+    ],
+    "washing_windows": [
+        "detergent",
+        "disinfectant",
+        "adhesive_material"
+    ],
+    "setting_mousetraps": [],
+    "rearranging_furniture": [],
+    "organise_a_linen_closet": [
+        "cloth"
+    ],
+    "sorting_clothes": [
+        "cloth"
+    ],
+    "clean_a_couch": [
+        "water",
+        "dust",
+        "cloth"
+    ],
+    "clean_wood_pallets": [
+        "liquid_soap",
+        "water",
+        "stain"
+    ],
+    "packing_cleaning_suppies_into_car": [
+        "cloth"
+    ],
+    "packing_sports_equipment_into_car": [
+        "cloth"
+    ],
+    "cleaning_boat": [
+        "stain",
+        "water",
+        "detergent",
+        "liquid_soap"
+    ],
+    "packing_grocery_bags_into_car": [
+        "salt"
+    ],
+    "lay_sod": [
+        "bunchgrass"
+    ],
+    "re_shelving_library_books": [],
+    "removing_ice_from_walkways": [
+        "rubbing_alcohol",
+        "water"
+    ],
+    "cleaning_patio_furniture": [
+        "water",
+        "mildew",
+        "dirt",
+        "cloth",
+        "liquid_soap"
+    ],
+    "clean_a_pickup_truck": [
+        "liquid_soap",
+        "stain",
+        "cloth",
+        "water"
+    ],
+    "mulching": [
+        "mulch"
+    ],
+    "clean_a_violin": [
+        "cloth",
+        "dust"
+    ],
+    "wash_a_motorcycle": [
+        "cloth",
+        "liquid_soap",
+        "mud",
+        "bunchgrass",
+        "water"
+    ],
+    "taking_trash_outside": [],
+    "polish_a_car": [
+        "water",
+        "cloth",
+        "polish",
+        "incision"
+    ],
+    "clean_black_rims": [
+        "liquid_soap",
+        "dust"
+    ],
+    "bringing_laundry": [
+        "stain"
+    ],
+    "setup_a_garden_party": [
+        "diced__watermelon"
+    ],
+    "collecting_wood": [],
+    "packing_moving_van": [
+        "cloth"
+    ],
+    "wash_a_bra": [
+        "cloth",
+        "stain",
+        "detergent"
+    ],
+    "cleaning_fishing_gear": [
+        "cloth",
+        "water",
+        "liquid_soap",
+        "stain"
+    ],
+    "applying_pesticides": [
+        "water",
+        "pesticide"
+    ],
+    "setting_up_room_for_games": [],
+    "polish_rocks": [
+        "polish",
+        "cloth",
+        "dust"
+    ],
+    "making_a_snack": [
+        "diced__beefsteak_tomato",
+        "grated_cheese",
+        "cooked__black_bean"
+    ],
+    "emptying_trash_cans": [
+        "cloth"
+    ],
+    "make_a_strawberry_slushie": [
+        "lemon_juice"
+    ],
+    "unpacking_suitcase": [
+        "cloth"
+    ],
+    "cleaning_up_plates_and_food": [
+        "white_rice"
+    ],
+    "wash_baby_bottles": [
+        "disinfectant",
+        "water"
+    ],
+    "make_bagels": [
+        "sesame_seed",
+        "cloth",
+        "water",
+        "yeast",
+        "honey",
+        "salt",
+        "flour"
+    ],
+    "putting_food_in_fridge": [
+        "water"
+    ],
+    "make_stewed_fruit": [],
+    "toast_sunflower_seeds": [
+        "sunflower_seed"
+    ],
+    "mixing_drinks": [
+        "cooked__coca_cola",
+        "vodka",
+        "lime_juice"
+    ],
+    "store_daffodil_bulbs": [],
+    "freeze_fruit": [],
+    "washing_bowls": [
+        "cooked__whole_milk",
+        "chicken_broth",
+        "stain",
+        "water",
+        "liquid_soap"
+    ],
+    "putting_roast_in_oven": [
+        "gravy",
+        "soy_sauce",
+        "rosemary",
+        "salt",
+        "olive_oil"
+    ],
+    "cook_beef_and_onions": [
+        "soy_sauce"
+    ],
+    "wash_lettuce": [
+        "water",
+        "cloth",
+        "dirt"
+    ],
+    "make_eggnog": [
+        "cloth",
+        "whole_milk",
+        "rum",
+        "vanilla",
+        "cinnamon",
+        "nutmeg",
+        "granulated_sugar"
+    ],
+    "cook_eggplant": [],
+    "defrost_meat": [
+        "water"
+    ],
+    "fold_a_cloth_napkin": [
+        "cloth",
+        "wrinkle"
+    ],
+    "toast_buns": [],
+    "making_a_drink": [
+        "water",
+        "granulated_sugar"
+    ],
+    "wash_grapes": [
+        "dirt",
+        "cloth",
+        "water"
+    ],
+    "cook_lasagne": [],
+    "store_nuts": [],
+    "cooking_dinner": [],
+    "setting_the_table": [],
+    "make_a_candy_centerpiece": [
+        "cloth"
+    ],
+    "clearing_table_after_coffee": [
+        "drip_coffee"
+    ],
+    "thaw_frozen_fish": [],
+    "cook_kale": [
+        "olive_oil",
+        "salt"
+    ],
+    "make_pasta_sauce": [
+        "marjoram",
+        "granulated_sugar",
+        "salt"
+    ],
+    "cook_broccolini": [],
+    "cook_kielbasa": [
+        "water"
+    ],
+    "mopping_the_kitchen_floor": [
+        "water",
+        "dust",
+        "dirt",
+        "cooked__breadcrumb"
+    ],
+    "store_honey": [],
+    "cook_ground_beef": [
+        "onion_powder",
+        "salt",
+        "ground_beef"
+    ],
+    "serving_hors_d_oeuvres": [],
+    "clean_brass": [
+        "polish",
+        "cloth"
+    ],
+    "washing_pots_and_pans": [
+        "stain"
+    ],
+    "laying_wood_floors": [],
+    "make_strawberries_and_cream": [
+        "whipped_cream",
+        "granulated_sugar"
+    ],
+    "putting_tablecloth_on_table": [
+        "cloth"
+    ],
+    "picking_up_trash": [],
+    "set_up_a_bird_cage": [
+        "water"
+    ],
+    "cook_potatoes": [
+        "salt",
+        "rosemary",
+        "water"
+    ],
+    "store_loose_leaf_tea": [
+        "green_tea"
+    ],
+    "cook_turkey_drumsticks": [
+        "thyme",
+        "salt",
+        "black_pepper"
+    ],
+    "cook_beef": [
+        "ground_beef"
+    ],
+    "clearing_table_after_dinner": [
+        "water"
+    ],
+    "making_coffee": [
+        "coffee_bean",
+        "water"
+    ],
+    "make_an_iced_espresso": [
+        "sugar_syrup",
+        "low_fat_milk",
+        "espresso"
+    ],
+    "cook_sweet_potatoes": [
+        "salt"
+    ],
+    "prepare_a_slow_dinner_party": [],
+    "clean_mussels": [
+        "cloth",
+        "sand",
+        "water"
+    ],
+    "wrap_silverware": [
+        "cloth"
+    ],
+    "cleaning_high_chair": [
+        "dust",
+        "cloth"
+    ],
+    "cook_squash": [],
+    "opening_windows": [],
+    "clean_gas_logs": [
+        "water",
+        "dust",
+        "cloth"
+    ],
+    "cook_hot_dogs": [
+        "water"
+    ],
+    "make_batter": [
+        "water",
+        "whole_milk",
+        "salt",
+        "baking_powder",
+        "flour"
+    ],
+    "glaze_a_ham": [
+        "cloth",
+        "glaze",
+        "maple_syrup"
+    ],
+    "cook_chicken": [
+        "salt",
+        "chicken_broth"
+    ],
+    "can_vegetables": [],
+    "disposing_of_trash_for_adult": [
+        "water",
+        "cloth"
+    ],
+    "can_fruit": [
+        "liquid_soap",
+        "water"
+    ],
+    "make_onion_ring_batter": [
+        "onion_powder",
+        "salt",
+        "cooking_oil",
+        "cloth",
+        "whole_milk",
+        "flour"
+    ],
+    "make_iced_tea": [
+        "liquid_soap",
+        "water"
+    ],
+    "filling_salt": [
+        "granulated_salt"
+    ],
+    "make_biscuits": [
+        "whole_milk",
+        "shortening",
+        "salt",
+        "baking_powder",
+        "flour"
+    ],
+    "make_dinner_rolls": [
+        "whole_milk",
+        "granulated_sugar",
+        "salt",
+        "yeast",
+        "flour"
+    ],
+    "can_meat": [
+        "liquid_soap",
+        "water"
+    ],
+    "make_a_cheese_pastry": [
+        "water",
+        "flour",
+        "salt",
+        "cream_cheese",
+        "vanilla",
+        "lemon_juice",
+        "cane_sugar",
+        "cloth"
+    ],
+    "installing_a_fax_machine": [],
+    "getting_package_from_post_office": [],
+    "clean_an_iron": [
+        "cloth",
+        "dust",
+        "lint"
+    ],
+    "clean_a_softball_bat": [
+        "dirt",
+        "cloth"
+    ],
+    "installing_a_modem": [],
+    "installing_a_printer": [],
+    "washing_plates": [
+        "cloth",
+        "breadcrumb",
+        "pesto",
+        "liquid_soap",
+        "water"
+    ],
+    "clean_an_office_chair": [
+        "cloth",
+        "dust",
+        "lint"
+    ],
+    "installing_a_scanner": [],
+    "sorting_clothing": [
+        "water",
+        "cloth",
+        "stain"
+    ],
+    "store_silver_coins": [
+        "cloth"
+    ],
+    "donating_toys": [],
+    "sorting_newspapers_for_recycling": [],
+    "recycling_office_papers": [],
+    "organizing_file_cabinet": [],
+    "putting_dirty_dishes_in_sink": [
+        "breadcrumb",
+        "marinara"
+    ],
+    "make_a_lunch_box": [
+        "cloth"
+    ],
+    "fill_a_hot_water_bottle": [
+        "water"
+    ],
+    "rearranging_kitchen_furniture": [],
+    "chop_an_onion": [],
+    "make_rose_centerpieces": [
+        "water"
+    ],
+    "make_lemonade": [
+        "water",
+        "granulated_sugar",
+        "lemon_juice"
+    ],
+    "make_lemon_or_lime_water": [
+        "water"
+    ],
+    "preserving_meat": [
+        "diced__chicken",
+        "salt"
+    ],
+    "slicing_vegetables": [],
+    "make_pizza_dough": [
+        "water",
+        "yeast",
+        "granulated_sugar",
+        "flour",
+        "olive_oil",
+        "salt"
+    ],
+    "clean_a_hot_water_dispenser": [
+        "water",
+        "cloth",
+        "dust"
+    ],
+    "clean_a_wood_pipe": [
+        "liquid_soap",
+        "cloth",
+        "stain",
+        "water"
+    ],
+    "roast_nuts": [
+        "granulated_sugar",
+        "olive_oil"
+    ],
+    "loading_the_dishwasher": [
+        "stain"
+    ],
+    "heating_food_up": [],
+    "make_a_salad": [
+        "chickpea",
+        "vinegar",
+        "salt",
+        "crouton"
+    ],
+    "make_a_vinegar_cleaning_solution": [
+        "vinegar",
+        "water",
+        "lemon_juice"
+    ],
+    "make_instant_coffee": [
+        "instant_coffee",
+        "water"
+    ],
+    "putting_away_Halloween_decorations": [],
+    "putting_clean_laundry_away": [
+        "cloth"
+    ],
+    "clean_an_espresso_machine": [
+        "water",
+        "disinfectant",
+        "liquid_soap",
+        "coffee_grounds",
+        "cloth"
+    ],
+    "preparing_food_or_drink_for_sale": [],
+    "fill_a_canteen": [
+        "water"
+    ],
+    "clean_a_pizza_stone": [
+        "stain",
+        "breadcrumb",
+        "water",
+        "cloth",
+        "liquid_soap"
+    ],
+    "make_jamaican_jerk_seasoning": [
+        "brown_sugar",
+        "cayenne"
+    ],
+    "make_nachos": [
+        "grated_cheese",
+        "cooked__ground_beef",
+        "paprika",
+        "salsa"
+    ],
+    "make_beef_and_broccoli": [
+        "water",
+        "soy_sauce"
+    ],
+    "setting_up_living_room_for_guest": [
+        "dust",
+        "cloth"
+    ],
+    "clean_a_baking_stone": [
+        "cloth",
+        "liquid_soap",
+        "water",
+        "stain",
+        "breadcrumb"
+    ],
+    "set_up_a_coffee_station_in_your_kitchen": [],
+    "recycling_glass_bottles": [],
+    "prepare_baking_pans": [
+        "cooking_oil"
+    ],
+    "clean_your_goal_keeper_gloves": [
+        "mud",
+        "water",
+        "detergent",
+        "vinegar",
+        "cloth"
+    ],
+    "prepare_make_ahead_breakfast_bowls": [
+        "salt",
+        "olive_oil"
+    ],
+    "set_up_a_guinea_pig_cage": [
+        "pellet_food",
+        "hay"
+    ],
+    "make_cinnamon_sugar": [
+        "cinnamon",
+        "granulated_sugar"
+    ],
+    "ice_cookies": [
+        "frosting"
+    ],
+    "clean_a_knife_block": [
+        "cloth",
+        "dust"
+    ],
+    "cook_pumpkin_seeds": [
+        "pumpkin_seed",
+        "salt",
+        "water"
+    ],
+    "putting_leftovers_away": [],
+    "putting_meal_on_plate": [],
+    "clean_a_popcorn_machine": [
+        "stain",
+        "water",
+        "cloth",
+        "liquid_soap"
+    ],
+    "reheat_frozen_or_chilled_food": [],
+    "make_party_favors_from_candy": [
+        "jelly_bean",
+        "jimmies"
+    ],
+    "make_a_mojito": [
+        "soda_water",
+        "rum",
+        "granulated_sugar"
+    ],
+    "clean_a_toaster": [
+        "adhesive_material",
+        "breadcrumb",
+        "liquid_soap",
+        "water"
+    ],
+    "prepare_sea_salt_soak": [
+        "water",
+        "salt"
+    ],
+    "remove_spots_from_linen": [
+        "stain",
+        "cloth",
+        "lemon_juice",
+        "water",
+        "detergent"
+    ],
+    "clean_a_rice_cooker": [
+        "cloth",
+        "white_rice",
+        "liquid_soap",
+        "water"
+    ],
+    "freeze_meat": [],
+    "make_coffee": [
+        "coffee_bean",
+        "water"
+    ],
+    "make_lemon_stain_remover": [
+        "lemon_juice",
+        "vinegar",
+        "sodium_carbonate"
+    ],
+    "roast_meat": [
+        "honey",
+        "cloth"
+    ],
+    "clean_a_sieve": [
+        "adhesive_material",
+        "liquid_soap",
+        "water"
+    ],
+    "clean_a_watch": [
+        "dirt",
+        "water"
+    ],
+    "clean_a_sponge": [
+        "stain",
+        "cloth",
+        "mildew",
+        "liquid_soap",
+        "water"
+    ],
+    "halve_an_egg": [],
+    "clean_a_stainless_steel_dishwasher": [
+        "water",
+        "cloth",
+        "stain",
+        "detergent"
+    ],
+    "filling_sugar": [
+        "granulated_sugar"
+    ],
+    "make_bento": [
+        "white_rice"
+    ],
+    "make_a_military_care_package": [],
+    "freeze_pies": [
+        "water"
+    ],
+    "clean_a_pumpkin": [
+        "dust",
+        "cloth"
+    ],
+    "clean_a_beer_keg": [
+        "cloth",
+        "beer",
+        "disinfectant",
+        "water"
+    ],
+    "make_pumpkin_pie_spice": [
+        "cinnamon",
+        "ginger",
+        "nutmeg",
+        "allspice",
+        "clove"
+    ],
+    "set_up_a_mouse_cage": [
+        "cooked__dog_food",
+        "cloth"
+    ],
+    "clean_a_candle_jar": [
+        "cloth",
+        "wax_remnant",
+        "liquid_soap",
+        "water"
+    ],
+    "make_burrito_bowls": [
+        "cooked__white_rice",
+        "cooked__diced__carne_asada",
+        "cooked__diced__bell_pepper",
+        "diced__beefsteak_tomato",
+        "refried_beans",
+        "grated_cheese"
+    ],
+    "clean_a_kitchen_sink": [
+        "stain",
+        "breadcrumb",
+        "water",
+        "liquid_soap"
+    ],
+    "clean_clams": [
+        "water",
+        "sand",
+        "cloth"
+    ],
+    "drying_table": [
+        "cloth",
+        "water"
+    ],
+    "pouring_water_in_a_glass": [
+        "water"
+    ],
+    "make_microwave_popcorn": [
+        "cooking_oil",
+        "popcorn",
+        "salt"
+    ],
+    "preparing_food_for_a_fundraiser": [],
+    "rinsing_dishes": [
+        "breadcrumb",
+        "water"
+    ],
+    "attach_a_camera_to_a_tripod": [
+        "water"
+    ],
+    "ironing_bedsheets": [
+        "cloth",
+        "wrinkle"
+    ],
+    "rearrange_your_room": [],
+    "clean_your_electronics": [
+        "dust",
+        "cloth"
+    ],
+    "preparing_food_for_company": [
+        "noodle",
+        "water",
+        "marinara"
+    ],
+    "serving_food_on_the_table": [
+        "water",
+        "liquid_soap",
+        "cloth",
+        "cooked__penne",
+        "cooked__diced__chicken",
+        "cooked__chickpea"
+    ],
+    "set_a_dinner_table": [
+        "water",
+        "liquid_soap",
+        "cloth"
+    ],
+    "clean_baking_sheets": [
+        "liquid_soap",
+        "adhesive_material"
+    ],
+    "tidying_bathroom": [
+        "cloth"
+    ],
+    "clean_green_beans": [
+        "dirt",
+        "cloth",
+        "water"
+    ],
+    "set_a_table_for_a_tea_party": [
+        "diced__cucumber",
+        "diced__cheddar",
+        "diced__virginia_ham",
+        "cloth"
+    ],
+    "make_cookies": [
+        "nutmeg",
+        "cinnamon",
+        "salt",
+        "baking_powder",
+        "vanilla",
+        "cloth",
+        "granulated_sugar",
+        "flour"
+    ],
+    "clean_and_disinfect_ice_trays": [
+        "liquid_soap",
+        "adhesive_material",
+        "disinfectant",
+        "water"
+    ],
+    "clean_apples": [
+        "vinegar",
+        "cloth",
+        "dirt",
+        "water"
+    ],
+    "set_a_fancy_table": [
+        "water",
+        "liquid_soap",
+        "cloth"
+    ],
+    "putting_shopping_away": [],
+    "laying_tile_floors": [],
+    "clean_a_small_pet_cage": [
+        "water",
+        "cloth",
+        "liquid_soap",
+        "fecal_matter"
+    ],
+    "buy_mulch": [],
+    "buy_a_air_conditioner": [
+        "water"
+    ],
+    "buying_groceries": [],
+    "buy_eggs": [
+        "water"
+    ],
+    "buy_a_keg": [],
+    "buy_home_use_medical_supplies": [
+        "water"
+    ],
+    "buying_cleaning_supplies": [
+        "water",
+        "cloth"
+    ],
+    "buying_everyday_consumer_goods": [],
+    "buy_boxes_for_packing": [],
+    "buy_candle_making_supplies": [],
+    "shopping_at_warehouse_stores": [],
+    "buying_fast_food": [],
+    "buying_gardening_supplies": [
+        "fertilizer"
+    ],
+    "buy_used_gardening_equipment": [
+        "water"
+    ],
+    "buy_school_supplies": [
+        "water"
+    ],
+    "taking_fish_out_of_freezer": [
+        "water"
+    ],
+    "cleaning_computer": [
+        "dust",
+        "cloth"
+    ],
+    "dispose_of_glass": [
+        "water"
+    ],
+    "vacuuming_floors": [
+        "dust"
+    ],
+    "clean_your_pencil_case": [
+        "cloth",
+        "dust"
+    ],
+    "setting_up_bedroom_for_guest": [
+        "cloth"
+    ],
+    "tidying_bedroom": [],
+    "organizing_school_stuff": [],
+    "ironing_clothes": [
+        "water",
+        "liquid_soap",
+        "cloth",
+        "wrinkle"
+    ],
+    "clean_a_shower": [
+        "cloth",
+        "detergent",
+        "water",
+        "stain"
+    ],
+    "make_brownies": [
+        "salt",
+        "flour",
+        "cloth",
+        "vanilla",
+        "cocoa_powder",
+        "granulated_sugar"
+    ],
+    "clean_a_air_conditioner": [
+        "dust",
+        "cloth"
+    ],
+    "cleaning_windows": [
+        "dust",
+        "cloth",
+        "detergent"
+    ],
+    "clean_a_kitchen_table": [
+        "cooking_oil",
+        "dust",
+        "liquid_soap",
+        "cloth",
+        "cooked__breadcrumb",
+        "water"
+    ],
+    "drying_dishes": [
+        "water",
+        "cloth"
+    ],
+    "make_cookie_dough": [
+        "salt",
+        "baking_powder",
+        "vanilla",
+        "cloth",
+        "granulated_sugar",
+        "flour"
+    ],
+    "clean_paper_lampshades": [
+        "cloth",
+        "dust"
+    ],
+    "boxing_food_after_dinner": [],
+    "unloading_shopping_items": [],
+    "clearing_table_after_supper": [
+        "breadcrumb"
+    ],
+    "making_a_meal": [
+        "penne",
+        "marinara",
+        "water"
+    ],
+    "fry_pot_stickers": [
+        "cooking_oil",
+        "water"
+    ],
+    "folding_clean_laundry": [
+        "cloth"
+    ],
+    "cleaning_out_drawers": [
+        "cloth"
+    ],
+    "collecting_dishes_from_around_house": [],
+    "stash_snacks_in_your_room": [],
+    "make_a_red_meat_sauce": [
+        "rosemary",
+        "ground_beef",
+        "olive_oil",
+        "tomato_sauce"
+    ],
+    "make_white_wine_sauce": [
+        "heavy_cream",
+        "white_wine",
+        "flour"
+    ],
+    "make_lemon_pepper_wings": [
+        "water",
+        "salt",
+        "olive_oil",
+        "lemon_pepper_seasoning",
+        "melted__butter"
+    ],
+    "make_blueberry_mousse": [
+        "lemon_juice",
+        "granulated_sugar",
+        "blueberry",
+        "cloth",
+        "cream_of_tartar",
+        "whipped_cream"
+    ],
+    "remove_hard_water_spots": [
+        "stain",
+        "vinegar",
+        "liquid_soap",
+        "cloth",
+        "water"
+    ],
+    "cook_seafood_paella": [
+        "water",
+        "white_rice",
+        "saffron",
+        "paprika",
+        "pea",
+        "salt",
+        "white_wine"
+    ],
+    "clean_up_water_damage": [
+        "disinfectant",
+        "mold"
+    ],
+    "make_a_christmas_gift_box": [
+        "cloth"
+    ],
+    "make_garlic_mushrooms": [
+        "olive_oil",
+        "salt"
+    ],
+    "clean_a_lobster": [
+        "mud",
+        "water",
+        "cloth"
+    ],
+    "cook_pasta": [
+        "noodle",
+        "salt",
+        "water"
+    ],
+    "setting_table_for_coffee": [
+        "espresso",
+        "cloth",
+        "granulated_sugar"
+    ],
+    "bringing_in_wood": [],
+    "cleaning_freezer": [
+        "stain",
+        "detergent",
+        "cloth"
+    ],
+    "cooking_a_feast": [
+        "orzo",
+        "salt",
+        "water"
+    ],
+    "make_a_cappuccino": [
+        "foam",
+        "whole_milk",
+        "cane_sugar",
+        "instant_coffee",
+        "water"
+    ],
+    "passing_out_drinks": [
+        "martini",
+        "beer"
+    ],
+    "clean_an_electric_razor": [
+        "water",
+        "lotion",
+        "hair",
+        "liquid_soap"
+    ],
+    "prepare_and_cook_swiss_chard": [
+        "salt",
+        "olive_oil",
+        "cayenne"
+    ],
+    "dispose_of_batteries": [],
+    "organizing_skating_stuff": [],
+    "clean_vinyl_shutters": [
+        "tarnish",
+        "cloth",
+        "water",
+        "liquid_soap"
+    ],
+    "collecting_aluminum_cans": [],
+    "cleaning_shoes": [
+        "stain",
+        "dust",
+        "cloth"
+    ],
+    "clean_your_kitty_litter_box": [
+        "cloth",
+        "dust",
+        "fecal_matter",
+        "liquid_soap",
+        "water"
+    ],
+    "packing_bags_or_suitcase": [
+        "cloth"
+    ],
+    "serving_food_at_a_homeless_shelter": [
+        "beef_stew",
+        "cooked__diced__virginia_ham",
+        "gravy",
+        "mashed_potato",
+        "chicken_broth",
+        "cooked__white_rice"
+    ],
+    "clearing_the_table_after_dinner": [],
+    "getting_a_drink": [
+        "orange_juice"
+    ],
+    "clearing_table_after_snacks": [
+        "cloth"
+    ],
+    "sorting_volunteer_materials": [
+        "cloth"
+    ],
+    "clean_sunglasses": [
+        "water",
+        "dust",
+        "cloth"
+    ],
+    "making_the_bed": [
+        "cloth"
+    ],
+    "washing_floor": [
+        "stain",
+        "dust",
+        "cloth"
+    ],
+    "store_bobby_pins": [],
+    "clean_an_eraser": [
+        "cloth",
+        "dust"
+    ],
+    "wash_a_backpack": [
+        "water",
+        "liquid_soap",
+        "adhesive_material",
+        "stain"
+    ],
+    "turn_off_a_normal_school_calculator": [],
+    "clean_a_whiteboard": [
+        "liquid_soap",
+        "water",
+        "tarnish",
+        "rubbing_alcohol",
+        "cloth"
+    ],
+    "sweeping_floors": [
+        "cloth",
+        "dust"
+    ],
+    "clean_a_glass_pipe": [
+        "liquid_soap",
+        "water",
+        "adhesive_material",
+        "stain",
+        "sodium_carbonate",
+        "rubbing_alcohol",
+        "cloth"
+    ],
+    "organizing_office_documents": [],
+    "clean_a_guitar": [
+        "water",
+        "liquid_soap",
+        "cloth",
+        "dust"
+    ],
+    "setting_up_silent_auction": [
+        "water",
+        "liquid_soap"
+    ],
+    "putting_clothes_in_storage": [
+        "cloth"
+    ],
+    "set_up_a_home_office_in_your_garage": [],
+    "de_clutter_your_garage": [],
+    "stripping_furniture": [
+        "house_paint",
+        "acetone"
+    ],
+    "spring_clean_your_skateboard": [
+        "cloth",
+        "stain",
+        "water",
+        "acetone"
+    ],
+    "cleaning_garage": [
+        "stain",
+        "dust",
+        "cloth"
+    ],
+    "clean_a_suitcase": [
+        "dirt",
+        "cloth"
+    ],
+    "clean_a_trombone": [
+        "cloth",
+        "debris"
+    ],
+    "boxing_books_up_for_storage": [
+        "water"
+    ],
+    "sorting_items_for_garage_sale": [
+        "cloth"
+    ],
+    "sweeping_garage": [
+        "sand",
+        "dust"
+    ],
+    "organizing_boxes_in_garage": [],
+    "clean_a_loofah_or_natural_sponge": [
+        "stain",
+        "water",
+        "cloth",
+        "bleaching_agent"
+    ],
+    "clean_a_bowling_ball": [
+        "water",
+        "cloth",
+        "dust",
+        "polish"
+    ],
+    "clean_a_drain": [
+        "liquid_soap",
+        "water",
+        "cloth",
+        "mildew"
+    ],
+    "clean_fishing_lures": [
+        "stain",
+        "water"
+    ],
+    "clean_a_dirty_baseball": [
+        "cloth",
+        "mud",
+        "disinfectant",
+        "water"
+    ],
+    "clean_a_box_fan": [
+        "dust",
+        "cloth",
+        "water"
+    ],
+    "clean_a_golf_club": [
+        "water",
+        "liquid_soap",
+        "mud",
+        "cloth"
+    ],
+    "cleaning_fan": [
+        "dust",
+        "mold",
+        "cloth",
+        "liquid_soap",
+        "water"
+    ],
+    "clean_mirrors": [
+        "vinegar",
+        "liquid_soap",
+        "cloth",
+        "dust",
+        "baby_oil",
+        "toothpaste",
+        "water"
+    ],
+    "clean_baby_toys": [
+        "liquid_soap",
+        "cloth",
+        "stain",
+        "water"
+    ],
+    "cleaning_toilet": [
+        "stain",
+        "detergent"
+    ],
+    "clean_silver_coins": [
+        "cloth",
+        "polish",
+        "dirt",
+        "water"
+    ],
+    "cleaning_floors": [
+        "stain",
+        "dust",
+        "detergent"
+    ],
+    "clean_quartz": [
+        "cloth",
+        "dirt",
+        "water"
+    ],
+    "make_the_workplace_exciting": [
+        "water",
+        "liquid_soap"
+    ],
+    "fill_a_bucket_in_a_small_sink": [
+        "water"
+    ],
+    "clean_a_keyboard": [
+        "stain",
+        "water",
+        "cloth",
+        "liquid_soap"
+    ],
+    "getting_organized_for_work": [],
+    "recycling_newspapers": [
+        "water",
+        "liquid_soap"
+    ],
+    "laying_out_snacks_at_work": [
+        "water",
+        "liquid_soap"
+    ],
+    "clean_a_flat_panel_monitor": [
+        "water",
+        "stain",
+        "dust",
+        "cloth",
+        "rubbing_alcohol"
+    ],
+    "putting_meal_in_fridge_at_work": [
+        "water",
+        "liquid_soap"
+    ],
+    "picking_up_books_at_library": [],
+    "buy_meat_from_a_butcher": [],
+    "stock_grocery_shelves": [
+        "water",
+        "liquid_soap"
+    ],
+    "picking_up_prescriptions": [],
+    "buying_office_supplies": [],
+    "distributing_groceries_at_food_bank": [],
+    "buy_food_for_camping": [],
+    "buy_basic_garden_tools": [],
+    "buy_a_belt": [
+        "water",
+        "liquid_soap"
+    ],
+    "distributing_event_T_shirts": [
+        "cloth"
+    ],
+    "outfit_a_basic_toolbox": [],
+    "ironing_curtains": [
+        "cloth",
+        "wrinkle"
+    ],
+    "clean_a_mousepad": [
+        "dust",
+        "water",
+        "cloth"
+    ],
+    "cleaning_up_after_an_event": [
+        "water",
+        "cloth",
+        "disinfectant"
+    ],
+    "sorting_household_items": [
+        "cloth"
+    ],
+    "clean_a_sofa": [
+        "water",
+        "dust",
+        "cloth"
+    ],
+    "boil_water": [
+        "water"
+    ],
+    "picking_up_take_out_food": [],
+    "doing_housework_for_adult": [
+        "cloth",
+        "dust",
+        "lint"
+    ],
+    "stock_a_bar_cart": [
+        "cloth"
+    ],
+    "saute_vegetables": [
+        "rosemary"
+    ],
+    "pack_your_gym_bag": [
+        "cloth"
+    ],
+    "wash_delicates_in_the_laundry": [
+        "cloth",
+        "detergent",
+        "dust",
+        "stain"
+    ],
+    "washing_utensils": [
+        "soy_sauce",
+        "cooking_oil",
+        "liquid_soap",
+        "water"
+    ],
+    "pack_for_the_pool": [
+        "cloth"
+    ],
+    "clean_place_mats": [
+        "adhesive_material",
+        "detergent",
+        "breadcrumb"
+    ],
+    "polish_wood_floors": [
+        "polish"
+    ],
+    "make_baked_pears": [
+        "granulated_sugar",
+        "red_wine"
+    ],
+    "tidy_your_garden": [
+        "bunchgrass",
+        "cloth"
+    ],
+    "assembling_gift_baskets": [],
+    "set_up_a_hot_dog_bar": [
+        "cloth"
+    ],
+    "bringing_glass_to_recycling": [
+        "water"
+    ],
+    "make_a_milkshake": [
+        "whole_milk",
+        "chocolate_sauce"
+    ],
+    "clean_marker_off_a_doll": [
+        "rubbing_alcohol",
+        "cloth",
+        "acetone",
+        "ink",
+        "water"
+    ],
+    "adding_chemicals_to_lawn": [
+        "water",
+        "herbicide",
+        "fertilizer"
+    ],
+    "wash_jeans": [
+        "detergent",
+        "stain",
+        "cloth"
+    ],
+    "wash_dog_toys": [
+        "water",
+        "detergent",
+        "cloth",
+        "debris",
+        "dust",
+        "stain"
+    ],
+    "unpacking_car_for_trip": [
+        "water"
+    ],
+    "emptying_ashtray": [
+        "ash"
+    ],
+    "make_chocolate_biscuits": [
+        "cocoa_powder",
+        "cloth",
+        "granulated_sugar",
+        "melted__butter",
+        "flour"
+    ],
+    "clean_shrimp": [
+        "sand",
+        "water"
+    ],
+    "grill_vegetables": [
+        "marinade"
+    ],
+    "make_a_blended_iced_cappuccino": [
+        "water",
+        "instant_coffee",
+        "cane_sugar",
+        "chocolate_milk"
+    ],
+    "make_meatloaf": [
+        "water",
+        "liquid_soap",
+        "catsup",
+        "brown_sugar",
+        "breadcrumb",
+        "whole_milk",
+        "ground_beef"
+    ],
+    "freeze_vegetables": [],
+    "make_macaroni_and_cheese": [
+        "water",
+        "breadcrumb",
+        "noodle",
+        "salt",
+        "parmesan",
+        "grated_cheese",
+        "whole_milk",
+        "cream_cheese"
+    ],
+    "cleaning_kitchen_knives": [
+        "water",
+        "liquid_soap",
+        "barbecue_sauce",
+        "breadcrumb",
+        "melted__butter"
+    ],
+    "collecting_dishes_from_restaurant_tables": [
+        "water"
+    ],
+    "clean_prawns": [
+        "cloth",
+        "water",
+        "sand"
+    ],
+    "clean_potatoes": [
+        "dirt",
+        "cloth",
+        "water"
+    ],
+    "cook_pork_ribs": [
+        "barbecue_sauce"
+    ],
+    "clearing_food_from_table_into_fridge": [
+        "water",
+        "liquid_soap"
+    ],
+    "cook_red_peppers": [
+        "hummus"
+    ],
+    "cook_rice": [
+        "water",
+        "liquid_soap",
+        "brown_rice"
+    ],
+    "cook_lamb": [
+        "salt"
+    ],
+    "cook_kabobs": [
+        "coriander",
+        "cooking_oil"
+    ],
+    "make_seafood_stew": [
+        "olive_oil",
+        "tomato_sauce",
+        "chicken_broth",
+        "marjoram"
+    ],
+    "clean_walls": [
+        "liquid_soap",
+        "stain",
+        "water"
+    ],
+    "clean_a_broiler_pan": [
+        "liquid_soap",
+        "stain",
+        "water"
+    ],
+    "cook_peppers": [
+        "water",
+        "liquid_soap",
+        "olive_oil"
+    ],
+    "cook_zucchini": [
+        "water",
+        "liquid_soap",
+        "olive_oil"
+    ],
+    "cook_mussels": [
+        "water",
+        "liquid_soap",
+        "marjoram",
+        "salt"
+    ],
+    "cook_noodles": [
+        "water",
+        "liquid_soap",
+        "noodle"
+    ],
+    "shampooing_carpet": [
+        "cloth",
+        "stain",
+        "water",
+        "shampoo"
+    ],
+    "sweeping_steps": [
+        "lint",
+        "debris",
+        "cloth"
+    ],
+    "hang_icicle_lights": [],
+    "clean_quarters": [
+        "dirt",
+        "adhesive_material",
+        "cloth",
+        "liquid_soap",
+        "water"
+    ],
+    "cook_green_beans": [
+        "olive_oil",
+        "diced__clove",
+        "salt"
+    ],
+    "putting_away_Christmas_decorations": [
+        "cloth"
+    ],
+    "hanging_shades": [],
+    "putting_up_Christmas_lights_inside": [],
+    "make_cream_soda": [
+        "soda_water",
+        "heavy_cream",
+        "sugar_syrup"
+    ],
+    "installing_alarms": [],
+    "hanging_up_curtains": [
+        "cloth"
+    ],
+    "buy_and_clean_mussels": [
+        "water",
+        "sand",
+        "cloth"
+    ],
+    "laying_out_a_feast": [],
+    "hanging_blinds": [
+        "water"
+    ],
+    "drape_window_scarves": [
+        "water",
+        "cloth"
+    ],
+    "putting_up_Christmas_decorations_inside": [],
+    "can_beans": [
+        "water",
+        "black_bean"
+    ],
+    "putting_up_posters": [],
+    "hang_a_dartboard": [],
+    "cleaning_up_after_a_meal": [
+        "stain",
+        "detergent"
+    ],
+    "clean_a_fence": [
+        "stain",
+        "water",
+        "cloth",
+        "liquid_soap"
+    ],
+    "cold_brew_coffee": [
+        "water",
+        "ground_coffee"
+    ],
+    "clean_conch_shells": [
+        "water",
+        "cloth",
+        "dust",
+        "sand"
+    ],
+    "cleaning_garden_tools": [
+        "water",
+        "mud",
+        "liquid_soap",
+        "stain",
+        "dust"
+    ],
+    "pack_a_pencil_case": [],
+    "cleaning_stuff_out_of_car": [
+        "cloth"
+    ],
+    "dispose_of_paper": [
+        "cloth"
+    ],
+    "decorating_outside_for_parties": [],
+    "assembling_furniture": [
+        "water"
+    ],
+    "folding_piece_of_cloth": [
+        "cloth"
+    ],
+    "cleaning_shed": [
+        "water",
+        "dust"
+    ],
+    "sending_packages": [],
+    "mailing_letters": [],
+    "clean_a_turkey": [
+        "water",
+        "cloth",
+        "mud"
+    ],
+    "hanging_clothes": [
+        "cloth"
+    ],
+    "lube_a_bicycle_chain": [
+        "dust",
+        "lubricant"
+    ],
+    "fill_a_punching_bag": [
+        "white_rice"
+    ],
+    "delivering_groceries_to_doorstep": [],
+    "hanging_up_bedsheets": [
+        "cloth"
+    ],
+    "hanging_address_numbers": [],
+    "cleaning_debris_out_of_car": [],
+    "make_red_beans_and_rice": [
+        "white_rice",
+        "water",
+        "black_pepper",
+        "marjoram",
+        "salt",
+        "kidney_bean"
+    ],
+    "bringing_newspaper_in": [],
+    "tidying_up_wardrobe": [
+        "cloth"
+    ],
+    "cleaning_camper_or_RV": [
+        "dust",
+        "cloth",
+        "water",
+        "detergent",
+        "liquid_soap",
+        "mud"
+    ],
+    "setup_a_fish_tank": [
+        "water"
+    ],
+    "cleaning_driveway": [
+        "bunchgrass",
+        "dust"
+    ],
+    "cleaning_skis": [
+        "stain",
+        "rubbing_alcohol",
+        "snow",
+        "cloth",
+        "water"
+    ],
+    "changing_sheets": [
+        "cloth"
+    ],
+    "clean_brass_casings": [
+        "stain",
+        "lemon_juice",
+        "cloth"
+    ],
+    "collecting_childrens_toys": [],
+    "putting_away_bicycles": [
+        "cloth"
+    ],
+    "cleaning_the_pool": [
+        "stain",
+        "detergent"
+    ],
+    "make_homemade_bird_food": [
+        "raisin",
+        "sunflower_seed",
+        "almond",
+        "peanut_butter"
+    ],
+    "clean_a_knife": [
+        "cloth",
+        "stain",
+        "cooking_oil",
+        "liquid_soap",
+        "water"
+    ],
+    "clean_snow_peas": [
+        "water",
+        "dirt"
+    ],
+    "store_a_fur_coat": [
+        "cloth"
+    ],
+    "store_batteries": [],
+    "grill_burgers": [],
+    "clean_the_interior_of_your_car": [
+        "dust",
+        "cloth",
+        "stain"
+    ],
+    "clean_rubber": [
+        "cloth",
+        "stain",
+        "mud",
+        "liquid_soap",
+        "water"
+    ],
+    "shoveling_coal": [
+        "coal"
+    ],
+    "bottling_wine": [
+        "red_wine"
+    ],
+    "hang_paper_lanterns": [
+        "water"
+    ],
+    "carrying_in_groceries": [
+        "water"
+    ],
+    "clean_cabbage": [
+        "cloth",
+        "dirt",
+        "water"
+    ],
+    "putting_clothes_into_closet": [
+        "water",
+        "cloth"
+    ],
+    "packing_picnic_into_car": [
+        "cloth"
+    ],
+    "make_chocolate_milk": [
+        "granulated_sugar",
+        "cocoa_powder",
+        "low_fat_milk"
+    ],
+    "make_waffles": [
+        "whole_milk",
+        "granulated_sugar",
+        "salt",
+        "yogurt",
+        "flour",
+        "vanilla",
+        "cloth"
+    ],
+    "clean_a_camera_lens": [
+        "water",
+        "disinfectant",
+        "cloth"
+    ],
+    "store_a_quilt": [
+        "cloth"
+    ],
+    "unpacking_moving_van": [
+        "cloth"
+    ],
+    "make_a_wiener_schnitzle": [
+        "cooking_oil",
+        "flour",
+        "cloth",
+        "salt",
+        "breadcrumb"
+    ],
+    "putting_up_outdoor_holiday_decorations": [],
+    "laying_clothes_out": [
+        "cloth"
+    ],
+    "changing_light_bulbs": [],
+    "repairs_to_furniture": [
+        "incision"
+    ],
+    "clean_garden_gloves": [
+        "water",
+        "detergent",
+        "stain"
+    ],
+    "clean_a_fish": [
+        "sand",
+        "water"
+    ],
+    "baking_sugar_cookies": [
+        "water",
+        "salt",
+        "baking_powder",
+        "sodium_carbonate",
+        "melted__butter",
+        "vanilla",
+        "cloth",
+        "granulated_sugar",
+        "flour"
+    ],
+    "prepare_wine_and_cheese": [
+        "champagne",
+        "white_wine"
+    ],
+    "make_a_small_vegetable_garden": [
+        "fertilizer",
+        "soil",
+        "pumpkin_seed"
+    ],
+    "changing_bulbs": [],
+    "clean_skateboard_bearings": [
+        "water",
+        "grease",
+        "liquid_soap",
+        "cloth"
+    ],
+    "putting_wood_in_fireplace": [],
+    "put_together_a_scrapping_tool_kit": [],
+    "clean_a_dirty_tent": [
+        "stain",
+        "detergent"
+    ],
+    "putting_away_toys": [],
+    "cook_ham_hocks": [
+        "black_pepper",
+        "salt",
+        "chicken_broth"
+    ],
+    "setting_the_fire": [],
+    "unpacking_childs_bag": [],
+    "carrying_out_garden_furniture": [],
+    "clean_a_longboard": [
+        "liquid_soap",
+        "water",
+        "dust",
+        "mud"
+    ],
+    "putting_away_purchased_clothes": [
+        "cloth"
+    ],
+    "dispose_of_medication": [
+        "pill"
+    ],
+    "putting_bike_in_garage": [],
+    "packing_recreational_vehicle_for_trip": [],
+    "polish_gold": [
+        "stain",
+        "polish",
+        "water",
+        "detergent",
+        "cloth"
+    ],
+    "clean_an_electric_kettle": [
+        "water",
+        "tea",
+        "stain",
+        "liquid_soap"
+    ],
+    "put_togethera_basic_pruning_kit": [],
+    "clean_tweed": [
+        "shampoo",
+        "water",
+        "cloth",
+        "stain"
+    ],
+    "lighting_fireplace": [],
+    "putting_birdseed_in_cage": [
+        "bird_feed"
+    ],
+    "carrying_water": [
+        "water"
+    ],
+    "hand_washing_clothing": [
+        "water",
+        "cloth",
+        "detergent",
+        "stain"
+    ],
+    "sweeping_porch": [
+        "sand",
+        "bunchgrass"
+    ],
+    "clean_white_wall_tires": [
+        "mud",
+        "liquid_soap",
+        "water",
+        "cloth"
+    ],
+    "hanging_flags": [
+        "cloth"
+    ],
+    "clean_a_light_bulb": [
+        "dust",
+        "cloth"
+    ],
+    "putting_away_tools": [],
+    "unloading_the_car": [],
+    "putting_up_shelves": [],
+    "make_cabinet_doors": [],
+    "unhook_a_fish": [
+        "water"
+    ],
+    "cleaning_up_branches_and_twigs": [],
+    "mowing_the_lawn": [
+        "bunchgrass"
+    ],
+    "doing_laundry": [
+        "cloth",
+        "stain",
+        "detergent"
+    ],
+    "putting_out_condiments": [],
+    "clean_the_bottom_of_an_iron": [
+        "tarnish"
+    ],
+    "clean_clear_plastic": [
+        "stain",
+        "sodium_carbonate",
+        "liquid_soap",
+        "water"
+    ],
+    "organizing_items_for_yard_sale": [
+        "water",
+        "cloth"
+    ],
+    "clean_copper_wire": [
+        "salt",
+        "cornstarch",
+        "lemon_juice",
+        "rust",
+        "water"
+    ],
+    "wash_an_infant_car_seat": [
+        "water",
+        "liquid_soap",
+        "dirt",
+        "breadcrumb",
+        "dust",
+        "adhesive_material"
+    ],
+    "hanging_up_wind_chimes": [],
+    "hanging_outdoor_lights": [],
+    "sorting_mail": [],
+    "store_winter_coats": [
+        "cloth"
+    ],
+    "place_houseplants_around_your_home": [],
+    "clean_vans": [
+        "stain",
+        "sodium_carbonate",
+        "hydrogen_peroxide"
+    ],
+    "make_granola": [
+        "oat",
+        "honey",
+        "cinnamon",
+        "pecan",
+        "raisin"
+    ],
+    "laying_restaurant_table_for_dinner": [
+        "cloth"
+    ],
+    "clean_your_baseboard_radiators": [
+        "water",
+        "dust"
+    ],
+    "donating_clothing": [
+        "water",
+        "cloth"
+    ],
+    "putting_on_license_plates": [],
+    "installing_a_trailer_hitch": [],
+    "preparing_clothes_for_the_next_day": [
+        "water",
+        "cloth"
+    ],
+    "clean_gold": [
+        "liquid_soap",
+        "stain",
+        "water"
+    ],
+    "make_a_tropical_breakfast": [
+        "chia_seed",
+        "maple_syrup",
+        "yogurt"
+    ],
+    "putting_on_tags_car": [],
+    "cleaning_vehicles": [
+        "dust",
+        "mud",
+        "cloth",
+        "water",
+        "detergent"
+    ],
+    "sorting_laundry": [
+        "water",
+        "cloth"
+    ],
+    "putting_backpack_in_car_for_school": [],
+    "setup_a_trampoline": [],
+    "clean_a_glass_windshield": [
+        "water",
+        "cloth",
+        "stain",
+        "liquid_soap"
+    ],
+    "bringing_in_kindling": [
+        "water",
+        "disinfectant"
+    ],
+    "putting_on_registration_stickers": [],
+    "adding_chemicals_to_hot_tub": [
+        "water",
+        "chlorine"
+    ],
+    "turning_out_all_lights_before_sleep": [],
+    "warm_tortillas": [
+        "cloth"
+    ],
+    "clean_fur": [
+        "cloth",
+        "stain",
+        "water",
+        "toilet_soap"
+    ],
+    "clean_the_exterior_of_your_garage": [
+        "stain",
+        "liquid_soap",
+        "water"
+    ],
+    "wash_a_leotard": [
+        "water",
+        "detergent",
+        "cloth",
+        "stain"
+    ],
+    "remove_a_broken_light_bulb": [],
+    "cleaning_the_hot_tub": [
+        "stain"
+    ],
+    "clearing_table_after_breakfast": [
+        "chocolate_milk",
+        "water"
+    ],
+    "decorating_outside_for_holidays": [
+        "snow"
+    ],
+    "clean_pottery": [
+        "mud",
+        "water",
+        "cloth"
+    ],
+    "picking_up_baggage": [],
+    "polishing_silver": [
+        "dust",
+        "cloth"
+    ],
+    "packing_hiking_equipment_into_car": [
+        "cloth"
+    ],
+    "clean_a_chicken_coop": [
+        "stain",
+        "water",
+        "cloth",
+        "detergent"
+    ],
+    "picking_up_clothes": [
+        "cloth"
+    ],
+    "polish_pewter": [
+        "dust",
+        "water",
+        "liquid_soap",
+        "polish",
+        "cloth"
+    ],
+    "putting_up_Christmas_decorations_outside": [],
+    "make_a_clothes_line": [],
+    "putting_away_games": [],
+    "clean_synthetic_hiking_gear": [
+        "liquid_soap",
+        "water",
+        "cloth",
+        "dust",
+        "stain"
+    ],
+    "cleaning_barbecue_grill": [
+        "stain",
+        "dust",
+        "cloth"
+    ],
+    "clean_pennies": [
+        "cloth",
+        "vinegar",
+        "salt",
+        "stain",
+        "water"
+    ],
+    "selling_products_at_flea_market": [],
+    "organizing_volunteer_materials": [
+        "cloth"
+    ],
+    "treating_spot": [
+        "stain",
+        "cloth",
+        "detergent",
+        "water"
+    ],
+    "clean_wood_siding": [
+        "adhesive_material",
+        "rubbing_alcohol"
+    ],
+    "make_a_bake_sale_stand_stall": [
+        "water",
+        "cloth",
+        "lemonade"
+    ],
+    "treating_stains": [
+        "stain",
+        "detergent",
+        "cloth",
+        "water"
+    ],
+    "clean_reusable_shopping_bags": [
+        "detergent",
+        "stain",
+        "cloth",
+        "water"
+    ],
+    "clean_a_baseball_glove": [
+        "water",
+        "cloth",
+        "saddle_soap",
+        "disinfectant",
+        "mud"
+    ],
+    "wash_your_rings": [
+        "stain",
+        "water",
+        "liquid_soap"
+    ],
+    "turning_on_radio": [],
+    "clean_sheets": [
+        "detergent",
+        "cloth",
+        "stain"
+    ],
+    "store_firewood": [],
+    "setup_a_baby_crib": [
+        "cloth"
+    ],
+    "clean_couch_pillows": [
+        "stain",
+        "detergent",
+        "water"
+    ],
+    "unpacking_hobby_equipment": [
+        "cloth"
+    ],
+    "sanding_wood_furniture": [
+        "incision"
+    ],
+    "packing_hobby_equipment": [],
+    "iron_curtains": [
+        "cloth",
+        "wrinkle"
+    ],
+    "clean_a_LED_screen": [
+        "dust",
+        "cloth"
+    ],
+    "store_baby_clothes": [
+        "cloth"
+    ],
+    "opening_doors": [],
+    "wash_duvets": [
+        "detergent",
+        "stain",
+        "cloth"
+    ],
+    "washing_curtains": [
+        "cloth",
+        "detergent",
+        "stain"
+    ],
+    "putting_out_cat_food": [
+        "cat_food"
+    ],
+    "taking_clothes_out_of_washer": [
+        "cloth",
+        "water"
+    ],
+    "putting_shoes_on_rack": [],
+    "clean_a_rug": [
+        "dust",
+        "cloth"
+    ],
+    "clean_a_book": [
+        "cloth",
+        "dust"
+    ],
+    "decorating_for_religious_ceremony": [
+        "water"
+    ],
+    "putting_out_dog_food": [
+        "dog_food"
+    ],
+    "organizing_art_supplies": [],
+    "wash_a_wool_coat": [
+        "cloth",
+        "detergent",
+        "lint",
+        "dust"
+    ],
+    "moving_boxes_to_storage": [],
+    "clean_a_bicycle_chain": [
+        "grease",
+        "dirt",
+        "cloth",
+        "liquid_soap"
+    ],
+    "cleaning_cups_in_living_room": [
+        "red_wine",
+        "white_wine",
+        "cloth",
+        "dust"
+    ],
+    "fold_a_plastic_bag": [
+        "cloth"
+    ],
+    "polishing_furniture": [
+        "dust",
+        "cloth"
+    ],
+    "wash_towels": [
+        "cloth",
+        "dirt",
+        "detergent"
+    ],
+    "clean_invisalign": [
+        "water",
+        "sodium_carbonate",
+        "cloth",
+        "disinfectant"
+    ],
+    "clean_a_hamper": [
+        "stain",
+        "detergent"
+    ],
+    "removing_lint_from_dryer": [
+        "lint",
+        "dust"
+    ],
+    "iron_a_tie": [
+        "wrinkle"
+    ],
+    "clean_a_backpack": [
+        "water",
+        "dust",
+        "detergent",
+        "cloth"
+    ]
+}
