@@ -1,0 +1,9 @@
+selector
+    cond In(apple,fridge)
+    sequence
+        cond Holding(apple)
+        act Drop(apple)
+    sequence
+        cond On(apple,table)
+        cond IsHandEmpty()
+        act PickUp(apple)

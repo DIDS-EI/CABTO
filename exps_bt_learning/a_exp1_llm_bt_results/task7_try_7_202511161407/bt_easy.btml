@@ -1,0 +1,11 @@
+selector
+    sequence
+        cond In(pie,oven)
+        cond IsSwitchedOn(oven)
+        cond In(chickenleg,oven)
+    sequence
+        cond In(pie,oven)
+        cond IsSwitchedOff(oven)
+        cond IsHandEmpty(right_franka)
+        cond In(chickenleg,oven)
+        act SwitchOnDevice(right_franka,oven)

@@ -1,0 +1,15 @@
+selector
+    sequence
+        cond On(c,b)
+        cond On(b,a)
+    sequence
+        cond On(a,table)
+        cond IsHandEmpty()
+        cond On(b,table)
+        selector
+            sequence
+                cond On(c,b)
+                act MoveBOnA(b,a)
+            sequence
+                cond On(c,table)
+                act MoveCOnB(c,b)

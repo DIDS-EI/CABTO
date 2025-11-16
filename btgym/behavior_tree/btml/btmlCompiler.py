@@ -120,7 +120,7 @@ def format_trans_to_bracket(file_path: str, out_file) -> str:
     Returns:
         str: the path tp temp file with '{}' form.
     """
-    import autopep8
+    # import autopep8
 
     if not os.path.exists(file_path):
         raise FileNotFoundError("Given a fault btml path: {}".format(file_path))

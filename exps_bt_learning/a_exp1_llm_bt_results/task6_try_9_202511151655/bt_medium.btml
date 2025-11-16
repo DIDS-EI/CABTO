@@ -1,0 +1,40 @@
+selector
+    sequence
+        cond In(book,fridge)
+        cond In(pen,cabinet)
+    sequence
+        cond In(pen,cabinet)
+        selector
+            sequence
+                cond Holding(book)
+                selector
+                    sequence
+                        cond IsOpened(fridge)
+                        act PlaceInContainer(book,fridge)
+                    sequence
+                        cond IsClosed(fridge)
+                        act OpenDevice(fridge)
+            sequence
+                cond On(book,table)
+                cond IsHandEmpty()
+                cond IsClosed(fridge)
+                act PickUp(book)
+    sequence
+        cond On(book,table)
+        cond IsClosed(fridge)
+        selector
+            sequence
+                cond IsOpened(cabinet)
+                selector
+                    sequence
+                        cond Holding(pen)
+                        act PlaceInContainer(pen,cabinet)
+                    sequence
+                        cond IsHandEmpty()
+                        cond On(pen,table)
+                        act PickUp(pen)
+            sequence
+                cond IsClosed(cabinet)
+                cond IsHandEmpty()
+                cond On(pen,table)
+                act OpenDevice(cabinet)

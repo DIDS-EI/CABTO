@@ -202,7 +202,26 @@ class Robot:
         self.articulation.apply_action(articulation_action)
         while not np.allclose(self.articulation.get_joint_positions()[7:], np.array([self.current_gripper_pos, self.current_gripper_pos]), atol=0.002):
             yield
-        
+    def close_gripper(self):
+        self.current_gripper_pos = 0 #0.02
+        articulation_action = ArticulationAction(joint_positions=[self.current_gripper_pos]*2,joint_indices=(7,8))
+        self.articulation.apply_action(articulation_action)
+        stuck_count = 0
+        while not np.allclose(self.articulation.get_joint_positions()[7:], np.array([self.current_gripper_pos, self.current_gripper_pos]), atol=0.004):
+            last_gripper_pos = self.articulation.get_joint_positions()[7:]
+            yield
+            current_gripper_pos = self.articulation.get_joint_positions()[7:]
+            # print(current_gripper_pos,last_gripper_pos)
+            if np.allclose(last_gripper_pos, current_gripper_pos, atol=0.001):
+                # print("gripper stuck")
+                stuck_count += 1
+                if stuck_count > 20:
+                    break
+            else:
+                stuck_count = 0
+            last_gripper_pos = current_gripper_pos
+
+
     def close_gripper(self):
         self.current_gripper_pos = 0 #0.02
         articulation_action = ArticulationAction(joint_positions=[self.current_gripper_pos]*2,joint_indices=(7,8))
@@ -304,10 +323,126 @@ class FrankaScenario:
         self.load_objects()
         self.load_robot()
 
-    def load_ground_plane(self):
-        # self.ground_plane = GroundPlane("/World/Ground")
-        # self.world.scene.add(self.ground_plane)
-        self.ground_plane = self.world.scene.add_default_ground_plane()
+
+
+    # def load_ground_plane(self):
+    #     self.ground_plane = GroundPlane("/World/Ground")
+    #     self.world.scene.add(self.ground_plane)
+
+    #     # self.ground_plane = self.world.scene.add_default_ground_plane()
+
+    def load_ground_plane(self, floor_type="gridroom_curved"):
+        """
+        加载地板平面
+        Args:
+            floor_type: 地板类型，可选值：
+                       - "default": 默认平面地板
+                       - "gridroom_curved": Isaac Sim内置的网格房间地板（带弯曲效果）
+                       - "gridroom_curved_white": 白色网格房间地板
+                       - "gridroom_curved_black": 黑色网格房间地板
+        """
+        if floor_type == "default":
+            self.ground_plane = self.world.scene.add_default_ground_plane()
+        else:
+            # 使用网格地板
+            self._load_grid_floor(floor_type)
+    
+    def _set_grid_floor_color(self, prim, color_rgb):
+        """
+        为网格地板设置颜色（淡蓝色），使用displayColor属性保留网格纹理
+        Args:
+            prim: 地板 prim
+            color_rgb: RGB颜色元组，例如 (0.7, 0.9, 1.0) 表示淡蓝色
+        """
+        try:
+            from pxr import UsdGeom, Gf
+            
+            # 递归查找所有几何体 prim 并设置displayColor
+            def set_display_color_recursive(prim):
+                """递归设置所有几何体的displayColor"""
+                # 检查是否是几何体
+                if prim.IsA(UsdGeom.Gprim):
+                    gprim = UsdGeom.Gprim(prim)
+                    # 设置displayColor，这会作为颜色叠加，不会覆盖材质纹理
+                    gprim.CreateDisplayColorAttr([Gf.Vec3f(color_rgb[0], color_rgb[1], color_rgb[2])])
+                
+                # 递归处理子prim
+                for child in prim.GetChildren():
+                    set_display_color_recursive(child)
+            
+            set_display_color_recursive(prim)
+            print(f"✓ 成功设置网格地板显示颜色为淡蓝色 (RGB: {color_rgb})，网格纹理已保留")
+            
+        except Exception as e:
+            print(f"✗ 设置网格地板颜色失败: {e}")
+            import traceback
+            traceback.print_exc()
+    
+    def _load_grid_floor(self, floor_type="gridroom_curved"):
+        """
+        加载Isaac Sim内置的网格地板
+        """
+        try:
+            from omni.isaac.core.utils.prims import get_prim_at_path, delete_prim
+            from pxr import Sdf
+            import carb
+            import os
+            
+            # 获取data_path
+            from dexrl.global_config import data_path
+            
+            # 本地地板资源路径映射
+            local_floor_assets = {
+                "gridroom_curved": f"{data_path}/Assets/IsaacSim/Assets/Isaac/4.2/Isaac/Environments/Grid/gridroom_curved.usd",
+                "gridroom_curved_white": f"{data_path}/Assets/IsaacSim/Assets/Isaac/4.2/Isaac/Environments/Grid/gridroom_curved.usd",
+                "gridroom_curved_black": f"{data_path}/Assets/IsaacSim/Assets/Isaac/4.2/Isaac/Environments/Grid/gridroom_black.usd",
+            }
+            if floor_type not in local_floor_assets:
+                print(f"未知的地板类型: {floor_type}，使用默认gridroom_curved_white")
+                floor_type = "gridroom_curved_white"
+            
+            # 检查是否已经存在地板
+            existing_ground = get_prim_at_path("/World/Ground")
+            if existing_ground:
+                print("删除现有的地板...")
+                delete_prim("/World/Ground")
+            
+            # 尝试加载本地地板资源
+            floor_asset_path = local_floor_assets[floor_type]
+            
+            print(f"正在加载Isaac Sim内置网格地板: {floor_type}")
+            print(f"尝试路径: {floor_asset_path}")
+            
+            # 检查文件是否存在
+            if os.path.exists(floor_asset_path):
+                print(f"✓ 找到本地资源文件: {floor_asset_path}")
+                try:
+                    add_reference_to_stage(floor_asset_path, "/World/Ground")
+                    
+                    # 检查是否成功加载
+                    ground_prim = get_prim_at_path("/World/Ground")
+                    if ground_prim:
+                        print(f"✓ 成功加载Isaac Sim内置网格地板: {floor_type}")
+                        self.ground_plane = ground_prim
+                        # 设置淡蓝色，保留网格纹理
+                        self._set_grid_floor_color(ground_prim, (0.7, 0.9, 1.0))
+                        return
+                    else:
+                        print(f"✗ 加载失败: 无法找到Ground prim")
+                        
+                except Exception as load_error:
+                    print(f"✗ 加载本地资源失败: {load_error}")
+            else:
+                print(f"✗ 文件不存在: {floor_asset_path}")
+            
+            # 如果加载失败，回退到默认地板
+            print("回退到默认地板...")
+            self.ground_plane = self.world.scene.add_default_ground_plane()
+                
+        except Exception as e:
+            print(f"✗ 加载Isaac Sim内置网格地板时出错: {e}")
+            print("回退到默认地板...")
+            self.ground_plane = self.world.scene.add_default_ground_plane()
 
     def load_robot(self):
         self.robot:Robot = self.robot_cls(self.cfg)
@@ -481,15 +616,35 @@ class FrankaScenario:
         while not np.allclose(self.robot.articulation.get_joint_positions()[7:], np.array([self.current_gripper_pos, self.current_gripper_pos]), atol=0.002):
             yield
         
+    # def close_gripper(self):
+    #     self.current_gripper_pos = 0 #0.02
+    #     articulation_action = ArticulationAction(joint_positions=[self.current_gripper_pos]*2,joint_indices=(7,8))
+    #     self.robot.articulation.apply_action(articulation_action)
+    #     stuck_count = 0
+    #     while not np.allclose(self.robot.articulation.get_joint_positions()[7:], np.array([self.current_gripper_pos, self.current_gripper_pos]), atol=0.004):
+    #         last_gripper_pos = self.robot.articulation.get_joint_positions()[7:]
+    #         yield
+    #         current_gripper_pos = self.robot.articulation.get_joint_positions()[7:]
+    #         # print(current_gripper_pos,last_gripper_pos)
+    #         if np.allclose(last_gripper_pos, current_gripper_pos, atol=0.001):
+    #             # print("gripper stuck")
+    #             stuck_count += 1
+    #             if stuck_count > 20:
+    #                 break
+    #         else:
+    #             stuck_count = 0
+    #         last_gripper_pos = current_gripper_pos
+
     def close_gripper(self):
-        self.current_gripper_pos = 0 #0.02
+        self.current_gripper_pos = 0.02  # 使用0.02而不是0，确保能夹住物体
         articulation_action = ArticulationAction(joint_positions=[self.current_gripper_pos]*2,joint_indices=(7,8))
-        self.robot.articulation.apply_action(articulation_action)
         stuck_count = 0
-        while not np.allclose(self.robot.articulation.get_joint_positions()[7:], np.array([self.current_gripper_pos, self.current_gripper_pos]), atol=0.004):
-            last_gripper_pos = self.robot.articulation.get_joint_positions()[7:]
+        while not np.allclose(self.articulation.get_joint_positions()[7:], np.array([self.current_gripper_pos, self.current_gripper_pos]), atol=0.004):
+            # 持续应用动作，确保夹爪持续施加力来夹住物体
+            self.articulation.apply_action(articulation_action)
+            last_gripper_pos = self.articulation.get_joint_positions()[7:]
             yield
-            current_gripper_pos = self.robot.articulation.get_joint_positions()[7:]
+            current_gripper_pos = self.articulation.get_joint_positions()[7:]
             # print(current_gripper_pos,last_gripper_pos)
             if np.allclose(last_gripper_pos, current_gripper_pos, atol=0.001):
                 # print("gripper stuck")
@@ -499,7 +654,6 @@ class FrankaScenario:
             else:
                 stuck_count = 0
             last_gripper_pos = current_gripper_pos
-
 
     def move_to_object(self,obj_name):
         obj = self.obj_map[obj_name]

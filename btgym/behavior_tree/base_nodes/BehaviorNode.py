@@ -21,7 +21,15 @@ class BahaviorNode(ptree.behaviour.Behaviour):
     def get_ins_name(cls,*args):
         name = cls.__name__
         if len(args) > 0:
-            ins_name = f'{name}({",".join(list(args))})'
+            # Convert all args to strings, handling tuples and nested structures
+            str_args = []
+            for arg in args:
+                if isinstance(arg, tuple):
+                    # If arg is a tuple, convert each element to string
+                    str_args.extend(str(a) for a in arg)
+                else:
+                    str_args.append(str(arg))
+            ins_name = f'{name}({",".join(str_args)})'
         else:
             ins_name = f'{name}()'
         return ins_name
@@ -53,4 +61,12 @@ class BahaviorNode(ptree.behaviour.Behaviour):
 
     @property
     def arg_str(self):
-        return ",".join(self.args)
+        # Convert all args to strings, handling tuples and nested structures
+        str_args = []
+        for arg in self.args:
+            if isinstance(arg, tuple):
+                # If arg is a tuple, convert each element to string
+                str_args.extend(str(a) for a in arg)
+            else:
+                str_args.append(str(arg))
+        return ",".join(str_args)

@@ -1,0 +1,64 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task6,1,easy,"On(book,breakfast_table) & Open(cabinet)",False,2,0,8,6,0,False,
+task6,1,medium,"In(book,cabinet) & In(pen,cabinet)",True,212,5,8,6,0,False,
+task6,1,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,334,0,8,6,0,False,
+task6,1,easy,"On(book,breakfast_table) & Open(cabinet)",False,3,0,5,6,1,True,
+task6,1,medium,"In(book,cabinet) & In(pen,cabinet)",False,231,0,5,6,1,True,
+task6,1,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,169,0,5,6,1,True,
+task6,1,easy,"On(book,breakfast_table) & Open(cabinet)",False,3,0,5,6,2,True,
+task6,1,medium,"In(book,cabinet) & In(pen,cabinet)",False,1,0,5,6,2,True,
+task6,1,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,3,0,5,6,2,True,
+task6,1,easy,"On(book,breakfast_table) & Open(cabinet)",False,3,0,5,6,3,True,
+task6,1,medium,"In(book,cabinet) & In(pen,cabinet)",False,1,0,5,6,3,True,
+task6,1,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,3,0,5,6,3,True,
+task6,2,easy,"On(book,breakfast_table) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,2,medium,"In(book,cabinet) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,2,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,3,easy,"On(book,breakfast_table) & Open(cabinet)",True,36,3,7,6,0,False,
+task6,3,medium,"In(book,cabinet) & In(pen,cabinet)",True,128,5,7,6,0,False,
+task6,3,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,228,0,7,6,0,False,
+task6,3,easy,"On(book,breakfast_table) & Open(cabinet)",True,36,3,8,6,1,True,
+task6,3,medium,"In(book,cabinet) & In(pen,cabinet)",True,128,5,8,6,1,True,
+task6,3,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",True,228,6,8,6,1,True,
+task6,4,easy,"On(book,breakfast_table) & Open(cabinet)",True,80,3,5,6,0,False,
+task6,4,medium,"In(book,cabinet) & In(pen,cabinet)",True,352,5,5,6,0,False,
+task6,4,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",True,383,6,5,6,0,False,
+task6,5,easy,"On(book,breakfast_table) & Open(cabinet)",True,65,3,8,6,0,False,
+task6,5,medium,"In(book,cabinet) & In(pen,cabinet)",True,247,5,8,6,0,False,
+task6,5,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,290,0,8,6,0,False,
+task6,5,easy,"On(book,breakfast_table) & Open(cabinet)",True,56,3,9,6,1,True,
+task6,5,medium,"In(book,cabinet) & In(pen,cabinet)",True,214,5,9,6,1,True,
+task6,5,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",True,614,6,9,6,1,True,
+task6,6,easy,"On(book,breakfast_table) & Open(cabinet)",True,86,3,5,6,0,False,
+task6,6,medium,"In(book,cabinet) & In(pen,cabinet)",True,592,5,5,6,0,False,
+task6,6,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,422,0,5,6,0,False,
+task6,7,easy,"On(book,breakfast_table) & Open(cabinet)",False,-1,-1,6,7,0,False,'Open'
+task6,7,medium,"In(book,cabinet) & In(pen,cabinet)",False,53,0,6,7,0,False,
+task6,7,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,21,0,6,7,0,False,
+task6,7,easy,"On(book,breakfast_table) & Open(cabinet)",False,-1,-1,6,7,1,True,'Open'
+task6,7,medium,"In(book,cabinet) & In(pen,cabinet)",False,860,0,6,7,1,True,
+task6,7,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,430,0,6,7,1,True,
+task6,7,easy,"On(book,breakfast_table) & Open(cabinet)",False,-1,-1,6,7,2,True,'Open'
+task6,7,medium,"In(book,cabinet) & In(pen,cabinet)",False,1495,0,6,7,2,True,
+task6,7,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,1699,0,6,7,2,True,
+task6,7,easy,"On(book,breakfast_table) & Open(cabinet)",False,-1,-1,6,7,3,True,'Open'
+task6,7,medium,"In(book,cabinet) & In(pen,cabinet)",False,1495,0,6,7,3,True,
+task6,7,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,1699,0,6,7,3,True,
+task6,8,easy,"On(book,breakfast_table) & Open(cabinet)",False,-1,-1,4,6,0,False,'Open'
+task6,8,medium,"In(book,cabinet) & In(pen,cabinet)",False,1,0,4,6,0,False,
+task6,8,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,2,0,4,6,0,False,
+task6,8,easy,"On(book,breakfast_table) & Open(cabinet)",False,-1,-1,5,6,1,True,'Open'
+task6,8,medium,"In(book,cabinet) & In(pen,cabinet)",False,794,0,5,6,1,True,
+task6,8,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,307,0,5,6,1,True,
+task6,8,easy,"On(book,breakfast_table) & Open(cabinet)",False,-1,-1,5,6,2,True,'Open'
+task6,8,medium,"In(book,cabinet) & In(pen,cabinet)",False,302,0,5,6,2,True,
+task6,8,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,256,0,5,6,2,True,
+task6,8,easy,"On(book,breakfast_table) & Open(cabinet)",False,-1,-1,6,6,3,True,'Open'
+task6,8,medium,"In(book,cabinet) & In(pen,cabinet)",False,302,0,6,6,3,True,
+task6,8,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,256,0,6,6,3,True,
+task6,9,easy,"On(book,breakfast_table) & Open(cabinet)",False,5,0,8,6,0,False,
+task6,9,medium,"In(book,cabinet) & In(pen,cabinet)",False,428,0,8,6,0,False,
+task6,9,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,100,0,8,6,0,False,
+task6,10,easy,"On(book,breakfast_table) & Open(cabinet)",True,76,3,5,7,0,False,
+task6,10,medium,"In(book,cabinet) & In(pen,cabinet)",True,656,5,5,7,0,False,
+task6,10,hard,"In(banana,fridge)  & IsClosed(fridge) & In(wine,fridge)",False,655,0,5,7,0,False,

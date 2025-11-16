@@ -1,0 +1,56 @@
+selector
+    sequence
+        cond IsSwitchedOn(microwave)
+        cond In(soup,microwave)
+    sequence
+        cond IsSwitchedOn(microwave)
+        selector
+            sequence
+                cond IsOpened(microwave)
+                selector
+                    sequence
+                        cond Holding(left_franka,soup)
+                        act PutInMicrowaveLeftFranka(soup)
+                    sequence
+                        cond IsHandEmpty(left_franka)
+                        cond On(soup,table)
+                        act PickUpMicrowaveLeftFranka(soup)
+            sequence
+                cond IsHandEmpty(right_franka)
+                cond IsClosed(microwave)
+                cond On(soup,table)
+                cond IsHandEmpty(left_franka)
+                act OpenMicrowave()
+    sequence
+        cond IsSwitchedOff(microwave)
+        selector
+            sequence
+                cond On(soup,table)
+                selector
+                    sequence
+                        cond IsHandEmpty(left_franka)
+                        selector
+                            sequence
+                                cond IsHandEmpty(right_franka)
+                                selector
+                                    sequence
+                                        cond IsClosed(microwave)
+                                        act SwitchOnMicrowave()
+                                    sequence
+                                        cond IsOpened(microwave)
+                                        act CloseMicrowave()
+                            sequence
+                                cond IsOpened(microwave)
+                                cond Holding(right_franka,pie)
+                                act PutDownRightFranka(pie)
+                    sequence
+                        cond IsOpened(microwave)
+                        cond Holding(right_franka,pie)
+                        cond Holding(left_franka,pie)
+                        act PutDownLeftFranka(pie)
+            sequence
+                cond IsOpened(microwave)
+                cond Holding(right_franka,pie)
+                cond Holding(right_franka,soup)
+                cond Holding(left_franka,pie)
+                act PutDownRightFranka(soup)

@@ -25,9 +25,9 @@ task2goal_str = {
     "task2":['On(a,b)','On(a,b) & On(b,c)','On(a,b) & On(b,c) & On(c,d)'],
 }
 
-total_try_times = 2  # 每个任务跑5次
+total_try_times = 1  # 每个任务跑5次
 
-model = "gpt-4o"
+model = "gpt-4o-mini" #"gemini-2.0-flash-exp"#"gpt-4o-mini" #"gpt-3.5-turbo" #"gpt-4o-mini"
 
 # 获取当前日期
 current_date = datetime.now().strftime("%Y%m%d")
@@ -37,10 +37,12 @@ result_dir = os.path.join(DIR, "a_exp1_llm_bt_results")
 if not os.path.exists(result_dir):
     os.makedirs(result_dir)
 
+just_validate = False
+
 # 存储所有任务的结果
 all_results = []
 
-for task_id in range(1, 3):  # task1 和 task2
+for task_id in range(1, 2):  # task1 和 task2
     # 1. set task
     task_name = f"task{task_id}"
     
@@ -57,6 +59,7 @@ for task_id in range(1, 3):  # task1 和 task2
     print("goal_str_list (easy, medium, hard):", goal_str_list)
     print("="*60)
 
+    
     # 为每次尝试创建目录保存输入输出
     for try_idx in range(total_try_times):
         print(f"\n{'='*60}")
@@ -70,14 +73,15 @@ for task_id in range(1, 3):  # task1 和 task2
         # 1. 生成行为库（传入三个goal）
         print("Generating behavior lib with all three goals...")
         try:
-            llm_generate_behavior_lib(
-                goal_str_list=goal_str_list,
-                objects=objects,
-                start_state=start_state,
-                behavior_lib_path=behavior_lib_path,
-                model=model,
-                save_io_dir=save_io_dir
-            )
+            if not just_validate:
+                llm_generate_behavior_lib(
+                    goal_str_list=goal_str_list,
+                    objects=objects,
+                    start_state=start_state,
+                    behavior_lib_path=behavior_lib_path,
+                    model=model,
+                    save_io_dir=save_io_dir
+                )
         except Exception as e:
             print(f"Error generating behavior lib: {e}")
             # 如果生成失败，记录所有goal都失败
@@ -91,7 +95,7 @@ for task_id in range(1, 3):  # task1 和 task2
                     'error': str(e)
                 })
             continue
-        
+    
         # 2. 分别对每个goal进行验证
         difficulties = ['easy', 'medium', 'hard']
         all_goals_success = True
@@ -143,7 +147,7 @@ for task_id in range(1, 3):  # task1 和 task2
                     'act_num': -1,
                     'error': str(e)
                 })
-        
+            
         # 统计这次尝试三个goal是否都成功
         print(f"\n{'='*60}")
         print(f"Task {task_name}, Try {try_idx + 1}: All goals success = {all_goals_success}")

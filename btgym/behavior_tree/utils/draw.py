@@ -149,15 +149,20 @@ def dot_tree(
             node_names = []
             for c in root.children:
                 (node_shape, node_colour, node_font_colour) = get_node_attributes(c)
-                node_name = str(c.id)
+                # Get node id, fallback to name if id doesn't exist (shouldn't happen if properly initialized)
+                node_id = getattr(c, 'id', None)
+                if node_id is None:
+                    # Fallback: use node name or generate a unique identifier
+                    node_id = getattr(c, 'name', f'node_{id(c)}')
+                node_name = str(node_id)
                 # while node_name in behaviour_id_name_map.values():
                 #     node_name += ""
-                behaviour_id_name_map[c.id] = node_name
+                behaviour_id_name_map[node_id] = node_name
                 # Node attributes can be found on page 5 of
                 #    https://graphviz.gitlab.io/_pages/pdf/dot.1.pdf
                 # Attributes that may be useful: tooltip, xlabel
                 node = pydot.Node(
-                    name=str(c.id),
+                    name=str(node_id),
                     label=get_node_label(c.name, c),
                     shape=node_shape,
                     style="filled",

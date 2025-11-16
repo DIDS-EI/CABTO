@@ -15,7 +15,7 @@ import time
 # 2. 输出: 行为库 behavior_lib_path
 ######################################
 
-def llm_generate_behavior_lib(bddl_file=None,goal_str=None,goal_str_list=None,objects=None,start_state=None,behavior_lib_path=None,model="gpt-4o",clear_lib=True,save_io_dir=None):
+def llm_generate_behavior_lib(bddl_file=None,goal_str=None,goal_str_list=None,objects=None,initial_state=None,behavior_lib_path=None,model="gpt-4o",clear_lib=True,save_io_dir=None):
     """
     生成行为库
     Args:
@@ -81,18 +81,18 @@ def llm_generate_behavior_lib(bddl_file=None,goal_str=None,goal_str_list=None,ob
     
     # 如果提供了goal_str_list，构建包含三个goal的prompt
     if goal_str_list is not None and len(goal_str_list) == 3:
-        # 按照示例格式拼接：start_state、objects、goal 都使用 Python 代码格式
-        # 格式化 start_state 为 Python 集合格式
-        start_state_str = "{" + ", ".join([f'"{s}"' for s in start_state]) + "}"
+        # 按照示例格式拼接：initial_state、objects、goal 都使用 Python 代码格式
+        # 格式化 initial_state 为 Python 集合格式
+        initial_state_str = "{" + ", ".join([f'"{s}"' for s in initial_state]) + "}"
         # 格式化 objects 为 Python 集合格式
         objects_str = "{" + ", ".join([f'"{o}"' for o in objects]) + "}"
         # 格式化 goal 为 Python 列表格式
         goal_list_str = "[" + ", ".join([f'"{g}"' for g in goal_str_list]) + "]"
-        goal_str_combined = f"start_state = {start_state_str}\nobjects = {objects_str}\ngoal = {goal_list_str}"
-        prompt = build_prompt(goal=goal_str_combined,objects=objects,start_state=start_state)
+        goal_str_combined = f"initial_state = {initial_state_str}\nobjects = {objects_str}\ngoal = {goal_list_str}"
+        prompt = build_prompt(goal=goal_str_combined,objects=objects,initial_state=initial_state)
     else:
         # 向后兼容，使用单个goal_str
-        prompt = build_prompt(goal=goal_str,objects=objects,start_state=start_state)
+        prompt = build_prompt(goal=goal_str,objects=objects,initial_state=initial_state)
     
     # 保存输入
     if save_io_dir is not None:
@@ -159,7 +159,7 @@ def llm_generate_behavior_lib(bddl_file=None,goal_str=None,goal_str_list=None,ob
             if base_class == 'OGAction':
                 class_type = "Action"
                 # _base 目录在 a_exp1_llm_bt_tasks 下，不在 exec_lib 下
-                import_statement = f"from exps_bt_learning.{_lib_path}._base.OGAction import OGAction\n\n"
+                import_statement = f"from exps_bt_learning.{_lib_path}._base.OGAction import OGAction\nimport itertools\n\n"
             elif base_class == 'OGCondition':
                 class_type = "Condition"
                 import_statement = f"from exps_bt_learning.{_lib_path}._base.OGCondition import OGCondition\n\n"
@@ -194,7 +194,14 @@ def llm_generate_behavior_lib(bddl_file=None,goal_str=None,goal_str_list=None,ob
  
 
 
-def llm_generate_behavior_lib_need_feedback(bddl_file,goal_str,objects,start_state,behavior_lib_path,llm,messages=None,clear_lib=True):
+def llm_generate_behavior_lib_need_feedback(bddl_file=None,goal_str=None,goal_str_list=None,objects=None,initial_state=None,behavior_lib_path=None,llm=None,messages=None,clear_lib=True,save_io_dir=None):
+    """
+    生成行为库（支持反馈）
+    Args:
+        goal_str: 单个goal字符串（向后兼容）
+        goal_str_list: goal列表，包含三个goal [easy, medium, hard]
+        save_io_dir: 保存输入输出的目录
+    """
 
     # 确保 behavior_lib_path 目录存在
     os.makedirs(behavior_lib_path, exist_ok=True)
@@ -227,23 +234,64 @@ def llm_generate_behavior_lib_need_feedback(bddl_file,goal_str,objects,start_sta
     # 2. call llm to generate behavior lib 调用大模型生成行为库
     ########################
     if messages is None:
-        prompt = build_prompt(goal=goal_str,objects=objects)
+        # 如果提供了goal_str_list，构建包含三个goal的prompt
+        if goal_str_list is not None and len(goal_str_list) == 3:
+            # 按照示例格式拼接：initial_state、objects、goal 都使用 Python 代码格式
+            # 格式化 initial_state 为 Python 集合格式
+            initial_state_str = "{" + ", ".join([f'"{s}"' for s in initial_state]) + "}"
+            # 格式化 objects 为 Python 集合格式
+            objects_str = "{" + ", ".join([f'"{o}"' for o in objects]) + "}"
+            # 格式化 goal 为 Python 列表格式
+            goal_list_str = "[" + ", ".join([f'"{g}"' for g in goal_str_list]) + "]"
+            goal_str_combined = f"initial_state = {initial_state_str}\nobjects = {objects_str}\ngoal = {goal_list_str}"
+            prompt = build_prompt(goal=goal_str_combined,objects=objects,initial_state=initial_state)
+        else:
+            # 向后兼容，使用单个goal_str
+            prompt = build_prompt(goal=goal_str,objects=objects,initial_state=initial_state)
+        
         messages = []
-        messages.append({"role": "user", "content": prompt}) 
+        messages.append({"role": "user", "content": prompt})
+        
+        # 保存输入
+        if save_io_dir is not None:
+            os.makedirs(save_io_dir, exist_ok=True)
+            input_file = os.path.join(save_io_dir, "llm_input.txt")
+            with open(input_file, "w", encoding="utf-8") as f:
+                f.write("=== LLM Input ===\n\n")
+                f.write(f"Objects: {objects}\n\n")
+                f.write(f"Initial State: {initial_state}\n\n")
+                if goal_str_list is not None:
+                    f.write(f"Easy Goal: {goal_str_list[0]}\n")
+                    f.write(f"Medium Goal: {goal_str_list[1]}\n")
+                    f.write(f"Hard Goal: {goal_str_list[2]}\n\n")
+                else:
+                    f.write(f"Goal: {goal_str}\n\n")
+                f.write("=== Prompt ===\n\n")
+                f.write(prompt)
+            print(f"Saved LLM input to {input_file}")
+        
         # 蓝色打印
         print("\033[94m",f"Requesting llm...","\033[0m")
         start_time = time.time()
-        answer = llm.request_instruction(prompt)
+        answer = llm.request(prompt)
         end_time = time.time()
         print(f"Time taken: {end_time - start_time:.2f} seconds")
         # 绿色打印
         print("\033[92m",answer,"\033[0m")
-        messages.append({"role": "assistant", "content": answer}) 
+        messages.append({"role": "assistant", "content": answer})
+        
+        # 保存输出
+        if save_io_dir is not None:
+            output_file = os.path.join(save_io_dir, "llm_output.txt")
+            with open(output_file, "w", encoding="utf-8") as f:
+                f.write("=== LLM Output ===\n\n")
+                f.write(answer)
+            print(f"Saved LLM output to {output_file}")
     else:
         # 蓝色打印
         print("\033[94m",f"Requesting llm...","\033[0m")
         start_time = time.time()
-        answer = llm.request_instruction_with_history(messages)
+        answer = llm.request(messages)
         end_time = time.time()
         print(f"Time taken: {end_time - start_time:.2f} seconds")
         # 绿色打印
@@ -281,10 +329,10 @@ def llm_generate_behavior_lib_need_feedback(bddl_file,goal_str,objects,start_sta
             if base_class == 'OGAction':
                 class_type = "Action"
                 # _base 目录在 a_exp1_llm_bt_tasks 下，不在 exec_lib 下
-                import_statement = f"from exps_bt_learning.{_lib_path}._base.OGAction import OGAction\n\n"
+                import_statement = f"from exps_bt_learning.{_lib_path}._base.OGAction import OGAction\nimport itertools\n\n"
             elif base_class == 'OGCondition':
                 class_type = "Condition"
-                import_statement = f"from exps_bt_learning.{_lib_path}._base.OGCondition import OGCondition\n\n"
+                import_statement = f"from exps_bt_learning.{_lib_path}._base.OGCondition import OGCondition\nimport itertools\n\n"
             else:
                 continue  # 如果基类不匹配，跳过这个类
             

@@ -1,0 +1,50 @@
+selector
+    sequence
+        cond IsOpened(oven)
+        cond IsOpened(microwave)
+        cond IsSwitchedOn(light)
+        cond On(pie,breakfast_table)
+        cond IsSwitchedOn(radio)
+    sequence
+        cond IsClosed(microwave)
+        cond IsSwitchedOff(microwave)
+        selector
+            sequence
+                cond IsOpened(oven)
+                selector
+                    selector
+                        sequence
+                            cond On(pie,breakfast_table)
+                            selector
+                                sequence
+                                    cond IsSwitchedOn(radio)
+                                    selector
+                                        sequence
+                                            cond IsSwitchedOn(light)
+                                            act Open(microwave)
+                                        sequence
+                                            cond IsSwitchedOff(light)
+                                            act SwitchOn(light)
+                                sequence
+                                    cond IsSwitchedOff(light)
+                                    cond IsSwitchedOff(radio)
+                                    act SwitchOn(radio)
+                        sequence
+                            cond IsSwitchedOff(light)
+                            cond Holding(pie)
+                            cond IsSwitchedOff(radio)
+                            act PlaceOn(pie,breakfast_table)
+                    sequence
+                        cond IsSwitchedOff(light)
+                        cond IsHandEmpty()
+                        cond On(pie,table)
+                        cond IsSwitchedOff(radio)
+                        act PickUp(pie)
+            sequence
+                cond On(pie,table)
+                cond IsSwitchedOff(radio)
+                cond IsSwitchedOff(light)
+                cond IsHandEmpty()
+                cond IsClosed(oven)
+                cond IsSwitchedOff(oven)
+                act Open(oven)

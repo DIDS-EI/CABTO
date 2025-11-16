@@ -1,0 +1,137 @@
+=== LLM Output ===
+
+```python
+class PourMilkToRightCup(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_cup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsFull(left_milk)", f"IsHandEmpty(right_franka)", f"CanGrasp(left_franka,left_milk)", f"CupNeedGraspAndSupport()"}
+        info["add"] = {f"IsHalfFull({arg[0]})", "IsEmpty(left_milk)"}
+        info["del_set"] = {f"IsFull(left_milk)"}
+        info["cost"] = 1
+        return info
+
+class PourMilkToLeftCup(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_cup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsFull(right_milk)", f"IsHandEmpty(left_franka)", f"CanGrasp(right_franka,right_milk)", f"CupNeedGraspAndSupport()"}
+        info["add"] = {f"IsHalfFull({arg[0]})", "IsEmpty(right_milk)"}
+        info["del_set"] = {f"IsFull(right_milk)"}
+        info["cost"] = 1
+        return info
+
+class PickUpLeftMilk(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_milk"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},left_table)", f"CanGrasp(left_franka,{arg[0]})"}
+        info["add"] = {f"Holding(left_franka,{arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},left_table)"}
+        info["cost"] = 1
+        return info
+
+class PickUpRightMilk(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_milk"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},right_table)", f"CanGrasp(right_franka,{arg[0]})"}
+        info["add"] = {f"Holding(right_franka,{arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},right_table)"}
+        info["cost"] = 1
+        return info
+
+class DropLeftCup(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_cup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding(left_franka,{arg[0]})"}
+        info["add"] = {f"IsEmpty({arg[0]})", f"On({arg[0]},left_table)"}
+        info["del_set"] = {f"Holding(left_franka,{arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class DropRightCup(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_cup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding(right_franka,{arg[0]})"}
+        info["add"] = {f"IsEmpty({arg[0]})", f"On({arg[0]},right_table)"}
+        info["del_set"] = {f"Holding(right_franka,{arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class IsFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHalfFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class CanGrasp(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class CupNeedGraspAndSupport(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

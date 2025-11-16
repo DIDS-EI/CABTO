@@ -6,6 +6,10 @@ class OGCondition(Condition):
     can_be_expanded = True
     num_args = 1
 
+    def __init__(self, *args):
+            super().__init__(*args)
+            self.args = args
+
     def update(self) -> Status:
         if self.name in self.agent.condition_set:
             return Status.SUCCESS

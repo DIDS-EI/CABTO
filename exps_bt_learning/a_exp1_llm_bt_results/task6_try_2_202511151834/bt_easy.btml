@@ -1,0 +1,36 @@
+selector
+    sequence
+        cond On(apple,breakfast_table)
+        cond IsOpened(fridge)
+        cond In(wine,fridge)
+    sequence
+        cond On(apple,breakfast_table)
+        selector
+            selector
+                selector
+                    sequence
+                        cond Holding(wine)
+                        selector
+                            sequence
+                                cond IsOpened(fridge)
+                                act Insert(wine,fridge)
+                            sequence
+                                cond IsClosed(fridge)
+                                act Open(fridge)
+                    sequence
+                        cond IsClosed(fridge)
+                        cond IsHandEmpty()
+                        cond On(wine,table)
+                        act PickUp(wine)
+                sequence
+                    cond IsOpened(cabinet)
+                    cond IsClosed(fridge)
+                    cond Holding(banana)
+                    cond On(wine,table)
+                    act Insert(banana,cabinet)
+            sequence
+                cond IsClosed(fridge)
+                cond IsClosed(cabinet)
+                cond Holding(banana)
+                cond On(wine,table)
+                act Open(cabinet)

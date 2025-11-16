@@ -149,7 +149,7 @@ for model in model_ls:
                     tmp_msg.append({"role": "user", "content": feedback_prompt})
                     # generate new behavior lib
                     _ = llm_generate_behavior_lib_need_feedback(bddl_file=bddl_file,goal_str=goal_str,objects=objects,start_state=start_state,\
-                        behavior_lib_path=behavior_lib_path,llm=llm,messages=messages,clear_lib=False)
+                        behavior_lib_path=behavior_lib_path,llm=llm,messages=tmp_msg,clear_lib=False)
                     print(f"\033[95mValidate behavior lib...\033[0m")
                     try:
                         error,bt,expanded_num,act_num,record_act_ls,ptml_string = validate_bt_fun(behavior_lib_path=behavior_lib_path, goal_str=goal_str,cur_cond_set=start_state,output_dir=output_dir)

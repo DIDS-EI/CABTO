@@ -1,0 +1,89 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUpLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [("left_franka", "left_lego")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty({arg[0]})", f"On({arg[0]},{arg[1]})"}
+        info["add"] = {f"Holding({arg[0]},{arg[1]})"}
+        info["del_set"] = {f"IsHandEmpty({arg[0]})", f"On({arg[0]},{arg[1]})"}
+        info["cost"] = 1
+        return info
+
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [("right_franka", "right_lego")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty({arg[0]})", f"On({arg[0]},{arg[1]})"}
+        info["add"] = {f"Holding({arg[0]},{arg[1]})"}
+        info["del_set"] = {f"IsHandEmpty({arg[0]})", f"On({arg[0]},{arg[1]})"}
+        info["cost"] = 1
+        return info
+
+class PlaceOnCenter(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_lego", "right_lego"], ["center_big_box"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding(left_franka,{arg[0]})" if arg[0] == "left_lego" else f"Holding(right_franka,{arg[0]})"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", f"IsHandEmpty(left_franka)" if arg[0] == "left_lego" else f"IsHandEmpty(right_franka)"}
+        info["del_set"] = {f"Holding(left_franka,{arg[0]})" if arg[0] == "left_lego" else f"Holding(right_franka,{arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class PlaceCenterOnBoxBoard(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["center_big_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"On(left_lego,{arg[0]})", f"On(right_lego,{arg[0]})", f"BigBoxNeedTwoFranka()"}
+        info["add"] = {f"On({arg[0]},box_board)"}
+        info["del_set"] = {}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class BigBoxNeedTwoFranka(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

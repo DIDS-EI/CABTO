@@ -1,0 +1,17 @@
+selector
+    cond On(right_lego,center_big_box)
+    sequence
+        cond RightFrankaCanOnlyDoRightAction()
+        selector
+            selector
+                sequence
+                    cond Holding(right_franka,right_lego)
+                    act DropRightFranka(right_lego,center_big_box)
+                sequence
+                    cond IsHandEmpty(right_franka)
+                    cond On(right_lego,right_table)orOn(right_lego,center_big_box)
+                    act PickUpRightFranka(right_lego)
+            sequence
+                cond On(right_lego,right_table)orOn(right_lego,center_big_box)
+                cond Holding(right_franka,center_big_box)
+                act DropRightFranka(center_big_box,center_big_box)

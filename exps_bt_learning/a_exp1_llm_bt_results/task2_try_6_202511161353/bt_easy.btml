@@ -1,0 +1,53 @@
+selector
+    cond On(a,b)
+    sequence
+        cond Clear(b)
+        selector
+            selector
+                selector
+                    selector
+                        sequence
+                            cond Holding(a)
+                            act Stack(a,b)
+                        sequence
+                            cond IsHandEmpty()
+                            cond Clear(a)
+                            cond On(a,table)
+                            act PickUp(a)
+                    sequence
+                        cond Clear(a)
+                        cond On(a,table)
+                        cond Holding(d)
+                        act PutDown(d)
+                sequence
+                    cond IsHandEmpty()
+                    cond On(d,a)
+                    cond On(a,table)
+                    cond Clear({arg[0]})
+                    act Unstack(d,a)
+            sequence
+                cond Holding(d)
+                cond Clear(c)
+                cond On(a,table)
+                cond Clear({arg[0]})
+                cond On(d,a)
+                act Stack(d,c)
+    sequence
+        cond On(d,a)
+        cond On(a,table)
+        cond Clear({arg[0]})
+        cond On(d,b)
+        selector
+            sequence
+                cond Clear(c)
+                selector
+                    sequence
+                        cond IsHandEmpty()
+                        act Unstack(d,b)
+                    sequence
+                        cond Holding(d)
+                        act PutDown(d)
+            sequence
+                cond Holding(c)
+                cond Holding(d)
+                act PutDown(c)

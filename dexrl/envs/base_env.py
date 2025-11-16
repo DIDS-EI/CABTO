@@ -41,7 +41,7 @@ class Env(gym.Env):
 
         sphereLight:UsdLux.SphereLight = UsdLux.SphereLight.Define(get_current_stage(), Sdf.Path("/World/SphereLight"))
         sphereLight.CreateRadiusAttr(2)
-        sphereLight.CreateIntensityAttr(100000)
+        sphereLight.CreateIntensityAttr(50000)
         XFormPrim(str(sphereLight.GetPath())).set_world_pose([-6.5, 0, 12])
         # XFormPrim(str(sphereLight.GetPath())).set_world_pose([6.5, 0, 12])
 

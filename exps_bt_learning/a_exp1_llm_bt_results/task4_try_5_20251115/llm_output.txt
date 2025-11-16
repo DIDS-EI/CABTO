@@ -1,0 +1,89 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUpLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},left_table)", f"On(left_franka,left_table)"}
+        info["add"] = {f"IsHolding(left_franka,{arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},left_table)"}
+        info["cost"] = 1
+        return info
+
+class DropLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHolding(left_franka,{arg[0]})", f"On(left_franka,left_table)"}
+        info["add"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},right_table)"}
+        info["del_set"] = {f"IsHolding(left_franka,{arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},right_table)", f"On(right_franka,right_table)"}
+        info["add"] = {f"IsHolding(right_franka,{arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},right_table)"}
+        info["cost"] = 1
+        return info
+
+class DropRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHolding(right_franka,{arg[0]})", f"On(right_franka,right_table)"}
+        info["add"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},left_table)"}
+        info["del_set"] = {f"IsHolding(right_franka,{arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmptyLeftFranka(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class IsHandEmptyRightFranka(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

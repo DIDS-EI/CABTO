@@ -1,0 +1,21 @@
+selector
+    sequence
+        cond IsSwitchedOn(microwave)
+        cond In(soup,microwave)
+    sequence
+        cond IsClosed(microwave)
+        selector
+            sequence
+                cond Holding(soup)
+                selector
+                    sequence
+                        cond IsSwitchedOn(microwave)
+                        act PutIn(soup,microwave)
+                    sequence
+                        cond IsSwitchedOff(microwave)
+                        act SwitchOn(microwave)
+            sequence
+                cond On(soup,table)
+                cond IsSwitchedOff(microwave)
+                cond IsHandEmpty()
+                act PickUp(soup)

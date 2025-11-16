@@ -1,0 +1,174 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUpLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_box1", "left_box2"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {
+            f"IsHandEmpty(left_franka)",
+            f"On({obj},left_table)",
+            f"On(left_franka,left_table)"
+        }
+        info["add"] = {f"IsHolding(left_franka,{obj})"}
+        info["del_set"] = {
+            f"IsHandEmpty(left_franka)",
+            f"On({obj},left_table)"
+        }
+        info["cost"] = 1
+        return info
+
+
+class PlaceLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_box1", "left_box2"], ["left_table", "right_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, place = arg[0], arg[1]
+        info = {}
+        info["pre"] = {
+            f"IsHolding(left_franka,{obj})",
+            # Assume left_franka can place object on any table
+        }
+        info["add"] = {
+            f"IsHandEmpty(left_franka)",
+            f"On({obj},{place})"
+        }
+        info["del_set"] = {
+            f"IsHolding(left_franka,{obj})"
+        }
+        info["cost"] = 1
+        return info
+
+
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {
+            f"IsHandEmpty(right_franka)",
+            f"On({obj},right_table)",
+            f"On(right_franka,right_table)"
+        }
+        info["add"] = {f"IsHolding(right_franka,{obj})"}
+        info["del_set"] = {
+            f"IsHandEmpty(right_franka)",
+            f"On({obj},right_table)"
+        }
+        info["cost"] = 1
+        return info
+
+
+class PlaceRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["right_box"], ["right_table", "left_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, place = arg[0], arg[1]
+        info = {}
+        info["pre"] = {
+            f"IsHolding(right_franka,{obj})",
+            # Assume right_franka can place object on any table
+        }
+        info["add"] = {
+            f"IsHandEmpty(right_franka)",
+            f"On({obj},{place})"
+        }
+        info["del_set"] = {
+            f"IsHolding(right_franka,{obj})"
+        }
+        info["cost"] = 1
+        return info
+
+
+class MoveLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_table", "right_table"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        target = arg[0]
+        # source is the current table the left_franka is on. To represent all possible moves, del_set removes left_franka from all tables except target.
+        tables = {"left_table", "right_table"}
+        info = {}
+        info["pre"] = {
+            f"On(left_franka,{{t}})".format(t=table) for table in tables
+        }
+        # Actually in initial state left_franka is on left_table, so only that case is valid to start.
+        # After moving left_franka to target table:
+        info["add"] = {f"On(left_franka,{target})"}
+        info["del_set"] = {f"On(left_franka,{table})" for table in tables if table != target}
+        info["cost"] = 1
+        return info
+
+
+class MoveRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_table", "right_table"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        target = arg[0]
+        tables = {"left_table", "right_table"}
+        info = {}
+        info["pre"] = {
+            f"On(right_franka,{{t}})".format(t=table) for table in tables
+        }
+        info["add"] = {f"On(right_franka,{target})"}
+        info["del_set"] = {f"On(right_franka,{table})" for table in tables if table != target}
+        info["cost"] = 1
+        return info
+
+
+# Conditions
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1  # actor
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2  # object/location or actor/table
+
+
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 2  # actor, object
+```

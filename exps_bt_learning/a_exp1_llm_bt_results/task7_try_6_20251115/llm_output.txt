@@ -1,0 +1,106 @@
+=== LLM Output ===
+
+```python
+class TurnOnMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    def __init__(self):
+        super().__init__()
+
+    @classmethod
+    def get_info(cls):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(microwave)"}
+        info["add"] = {"IsSwitchedOn(microwave)"}
+        info["del_set"] = {"IsSwitchedOff(microwave)"}
+        info["cost"] = 1
+        return info
+
+class TurnOnLight(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    def __init__(self):
+        super().__init__()
+
+    @classmethod
+    def get_info(cls):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(light)"}
+        info["add"] = {"IsSwitchedOn(light)"}
+        info["del_set"] = {"IsSwitchedOff(light)"}
+        info["cost"] = 1
+        return info
+        
+class TurnOnOven(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    def __init__(self):
+        super().__init__()
+
+    @classmethod
+    def get_info(cls):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(oven)"}
+        info["add"] = {"IsSwitchedOn(oven)"}
+        info["del_set"] = {"IsSwitchedOff(oven)"}
+        info["cost"] = 1
+        return info
+
+class PutInOven(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["chickenleg"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsNotIn(" + arg[0] + ", oven)", "IsSwitchedOn(oven)", "On(" + arg[0] + ", table)"}
+        info["add"] = {"In(" + arg[0] + ", oven)"}
+        info["del_set"] = {"IsNotIn(" + arg[0] + ", oven)", "On(" + arg[0] + ", table)"}
+        info["cost"] = 1
+        return info
+
+class PutInMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["soup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsNotIn(" + arg[0] + ", microwave)", "IsSwitchedOn(microwave)", "On(" + arg[0] + ", table)"}
+        info["add"] = {"In(" + arg[0] + ", microwave)"}
+        info["del_set"] = {"IsNotIn(" + arg[0] + ", microwave)", "On(" + arg[0] + ", table)"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class IsSwitchedOff(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsSwitchedOn(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsNotIn(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

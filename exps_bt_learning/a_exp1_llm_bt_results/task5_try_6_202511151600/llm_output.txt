@@ -1,0 +1,120 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Valid arguments are combinations of actors and objects they can pick up
+    valid_args = [("left_franka", "left_milk"), ("right_franka", "right_milk"), ("right_franka", "right_cup")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions depend on the actor and object
+        if arg[0] == "left_franka":
+            info["pre"] = {f"IsHandEmpty({arg[0]})", f"CanGrasp({arg[0]},{arg[1]})"}
+            info["add"] = {f"IsHolding({arg[0]},{arg[1]})"}
+            info["del_set"] = {f"IsHandEmpty({arg[0]})"}
+        elif arg[0] == "right_franka":
+            info["pre"] = {f"IsHandEmpty({arg[0]})", f"On({arg[1]},right_table)"} 
+            info["add"] = {f"IsHolding({arg[0]},{arg[1]})"}
+            info["del_set"] = {f"IsHandEmpty({arg[0]})", f"On({arg[1]},right_table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class Pour(OGAction):
+    can_be_expanded = True
+    num_args = 3
+    valid_args = [("left_franka", "left_milk", "left_cup"), ("right_franka", "right_milk", "right_cup")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions require milk to be full and appropriate holding
+        info["pre"] = {f"IsHolding({arg[0]},{arg[1]})", f"IsEmpty({arg[2]})", f"IsFull({arg[1]})", "CupNeedGraspAndSupport()"}
+        info["add"] = {f"IsHalfFull({arg[2]})"}
+        info["del_set"] = {f"IsEmpty({arg[2]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PutDown(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [("left_franka", "left_milk"), ("right_franka", "right_cup"), ("right_franka", "right_milk")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Holding the object
+        info["pre"] = {f"IsHolding({arg[0]},{arg[1]})"}
+        # Added: Actor's hand is empty, Object is on table
+        if arg[0] == "left_franka":
+            info["add"] = {f"IsHandEmpty({arg[0]})", f"On({arg[1]},left_table)"}
+            info["del_set"] = {f"IsHolding({arg[0]},{arg[1]})"}
+        elif arg[0] == "right_franka":
+            info["add"] = {f"IsHandEmpty({arg[0]})", f"On({arg[1]},right_table)"}
+            info["del_set"] = {f"IsHolding({arg[0]},{arg[1]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class IsFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class IsHalfFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class CupNeedGraspAndSupport(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+
+```python
+class CanGrasp(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

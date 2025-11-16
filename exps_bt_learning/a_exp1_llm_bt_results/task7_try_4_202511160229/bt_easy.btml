@@ -1,0 +1,66 @@
+selector
+    sequence
+        cond IsSwitchedOn(oven)
+        cond In(pie,oven)
+        cond In(chickenleg,oven)
+    sequence
+        cond IsSwitchedOff(oven)
+        selector
+            selector
+                selector
+                    sequence
+                        cond In(chickenleg,oven)
+                        selector
+                            sequence
+                                cond IsHandEmpty(left_franka)
+                                selector
+                                    sequence
+                                        cond IsHandEmpty(right_franka)
+                                        selector
+                                            sequence
+                                                cond In(pie,oven)
+                                                selector
+                                                    sequence
+                                                        cond IsClosed(oven)
+                                                        act SwitchOnOven()
+                                                    sequence
+                                                        cond IsOpened(oven)
+                                                        act CloseOven()
+                                            sequence
+                                                cond IsOpened(oven)
+                                                cond Holding(left_franka,pie)
+                                                act PutInOvenLeftFranka(pie)
+                                    sequence
+                                        cond IsOpened(oven)
+                                        cond Holding(right_franka,soup)
+                                        cond Holding(left_franka,pie)
+                                        act PutDownRightFranka(soup)
+                            sequence
+                                cond IsOpened(oven)
+                                cond Holding(right_franka,soup)
+                                cond Holding(left_franka,soup)
+                                cond Holding(left_franka,pie)
+                                act PutDownLeftFranka(soup)
+                    sequence
+                        cond Holding(left_franka,pie)
+                        cond Holding(left_franka,soup)
+                        cond Holding(right_franka,chickenleg)
+                        cond Holding(right_franka,soup)
+                        cond IsOpened(oven)
+                        act PutInOvenRightFranka(chickenleg)
+                sequence
+                    cond On(chickenleg,table)
+                    cond Holding(left_franka,pie)
+                    cond Holding(left_franka,soup)
+                    cond IsHandEmpty(right_franka)
+                    cond Holding(right_franka,soup)
+                    cond IsOpened(oven)
+                    act PickUpRightFranka(chickenleg)
+            sequence
+                cond On(chickenleg,table)
+                cond Holding(left_franka,pie)
+                cond Holding(right_franka,pie)
+                cond Holding(left_franka,soup)
+                cond Holding(right_franka,soup)
+                cond IsOpened(oven)
+                act PutDownRightFranka(pie)

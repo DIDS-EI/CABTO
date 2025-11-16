@@ -97,9 +97,9 @@ class ThickCoconutMilk(BaseObject):
     usd_path = f"{global_config.assets_path}/objects/thick_coconut_milk/thick_coconut_milk.usd"
     scale_ratio = 0.002
 
-    def __init__(self, scale=None, position=None, orientation=None,mass=0.2):
-        self.prim_path = "/World/target"
-        self.name = "target"
+    def __init__(self, scale=None, position=None, orientation=None,mass=0.2,name="thick_coconut_milk"):
+        self.prim_path = f"/World/{name}"
+        self.name = name
         self.scale = scale
         self.position = position
         self.mass = mass
@@ -108,8 +108,8 @@ class ThickCoconutMilk(BaseObject):
     def create_prim(self):
         add_reference_to_stage(self.usd_path, self.prim_path)
         self.xform_prim = XFormPrim(
-            prim_path="/World/target",
-            name="target",
+            prim_path=self.prim_path,
+            name=self.name,
             scale=[self.scale_ratio,self.scale_ratio,0.0013],
             position=self.position,
             orientation=self.orientation,
@@ -584,11 +584,11 @@ class Tea(BaseObject):
     usd_path = f"{global_config.assets_path}/objects/tea/B48V1const.usd" #1x2.obj 1x2.urdf
     scale_ratio_x = 0.000924
     scale_ratio_y = 0.0008775
-    scale_ratio_z = 0.0009776
+    scale_ratio_z = 0.0006776 #0.0009776
 
     def __init__(self, scale=None, position=None, orientation=None,mass=0.2, prim_path=None, name=None):
-        self.prim_path = prim_path if prim_path is not None else "/World/tea"
-        self.name = name if name is not None else "tea"
+        self.prim_path = prim_path if prim_path is not None else f"/World/{name}"
+        self.name = name if name is not None else f"{name}"
         self.scale = scale
         self.position = position
         self.mass = mass
@@ -612,9 +612,164 @@ class Tea(BaseObject):
         self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
     
         
+# myx plate
+class Boiler(BaseObject):
+    usd_path = f"{global_config.assets_path}/objects/E13V1/usd/E13V1const.usd" #1x2.obj 1x2.urdf
+    scale_ratio_x = 0.000924
+    scale_ratio_y = 0.0008775
+    scale_ratio_z = 0.0006776 #0.0009776
+
+    def __init__(self, scale=None, position=None, orientation=None,mass=0.2, prim_path=None, name=None):
+        self.prim_path = prim_path if prim_path is not None else f"/World/{name}"
+        self.name = name if name is not None else f"{name}"
+        self.scale = scale
+        self.position = position
+        self.mass = mass
+        self.orientation = orientation if orientation is not None else euler_angles_to_quats([0, 0, 0])
+        
+        
+    def create_prim(self):
+        add_reference_to_stage(self.usd_path, self.prim_path)
+        # self.prim = get_prim_at_path(self.prim_path)
+        self.xform_prim = XFormPrim(
+            prim_path=self.prim_path,
+            name=self.name,
+            scale=[self.scale_ratio_x,self.scale_ratio_y,self.scale_ratio_z],
+            position=self.position,
+            orientation=self.orientation,
+        )
+
+        return self.xform_prim
+    
+    def reset(self):
+        self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
+# myx plate
+class ChopBoard(BaseObject):
+    usd_path = f"{global_config.assets_path}/objects/E10V1/usd/E10V1const.usd" #1x2.obj 1x2.urdf
+    scale_ratio_x = 0.000924
+    scale_ratio_y = 0.0008775
+    scale_ratio_z = 0.0006776 #0.0009776
+
+    def __init__(self, scale=None, position=None, orientation=None,mass=0.2, prim_path=None, name=None):
+        self.prim_path = prim_path if prim_path is not None else f"/World/{name}"
+        self.name = name if name is not None else f"{name}"
+        self.scale = scale
+        self.position = position
+        self.mass = mass
+        self.orientation = orientation if orientation is not None else euler_angles_to_quats([0, 0, 0])
+        
+        
+    def create_prim(self):
+        add_reference_to_stage(self.usd_path, self.prim_path)
+        # self.prim = get_prim_at_path(self.prim_path)
+        self.xform_prim = XFormPrim(
+            prim_path=self.prim_path,
+            name=self.name,
+            scale=[self.scale_ratio_x,self.scale_ratio_y,self.scale_ratio_z],
+            position=self.position,
+            orientation=self.orientation,
+        )
+
+        return self.xform_prim
+    
+    def reset(self):
+        self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
+
+class Cup(BaseObject):
+    usd_path = f"{global_config.assets_path}/objects/E20V1/usd/E20V1const.usd" #1x2.obj 1x2.urdf
+    scale_ratio_x = 0.000924
+    scale_ratio_y = 0.0008775
+    scale_ratio_z = 0.0006776 #0.0009776
+
+    def __init__(self, scale=None, position=None, orientation=None,mass=0.2, prim_path=None, name=None):
+        self.prim_path = prim_path if prim_path is not None else f"/World/{name}"
+        self.name = name if name is not None else f"{name}"
+        self.scale = scale
+        self.position = position
+        self.mass = mass
+        self.orientation = orientation if orientation is not None else euler_angles_to_quats([0, 0, 0])
+        
+        
+    def create_prim(self):
+        add_reference_to_stage(self.usd_path, self.prim_path)
+        # self.prim = get_prim_at_path(self.prim_path)
+        self.xform_prim = XFormPrim(
+            prim_path=self.prim_path,
+            name=self.name,
+            scale=[self.scale_ratio_x,self.scale_ratio_y,self.scale_ratio_z],
+            position=self.position,
+            orientation=self.orientation,
+        )
+
+        return self.xform_prim
+    
+    def reset(self):
+        self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
+
+class Milk_myx(BaseObject):
+    usd_path = f"{global_config.assets_path}/objects/B35.usd"
+    scale_ratio_x = 0.000924
+    scale_ratio_y = 0.0008775
+    scale_ratio_z = 0.0006776 #0.0009776
+
+    def __init__(self, scale=None, position=None, orientation=None,mass=0.2, prim_path=None, name=None):
+        self.prim_path = prim_path if prim_path is not None else f"/World/{name}"
+        self.name = name if name is not None else f"{name}"
+        self.scale = scale
+        self.position = position
+        self.mass = mass
+        self.orientation = orientation if orientation is not None else euler_angles_to_quats([0, 0, 0])
+        
+        
+    def create_prim(self):
+        add_reference_to_stage(self.usd_path, self.prim_path)
+        # self.prim = get_prim_at_path(self.prim_path)
+        self.xform_prim = XFormPrim(
+            prim_path=self.prim_path,
+            name=self.name,
+            scale=[self.scale_ratio_x,self.scale_ratio_y,self.scale_ratio_z],
+            position=self.position,
+            orientation=self.orientation,
+        )
+
+        return self.xform_prim
+    
+    def reset(self):
+        self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
 ###############################
 
+class BreadPI(BaseObject):
 
+    usd_path = f"{global_config.assets_path}/objects/A19V2/usd/A19V2const.usd" #1x2.obj 1x2.urdf
+    scale_ratio_x = 0.000924
+    scale_ratio_y = 0.0008775
+    scale_ratio_z = 0.0006776 #0.0009776
+
+    def __init__(self, scale=None, position=None, orientation=None,mass=0.2, prim_path=None, name=None):
+        self.prim_path = prim_path if prim_path is not None else f"/World/{name}"
+        self.name = name if name is not None else f"{name}"
+        self.scale = scale
+        self.position = position
+        self.mass = mass
+        self.orientation = orientation if orientation is not None else euler_angles_to_quats([0, 0, 0])
+        
+        
+    def create_prim(self):
+        add_reference_to_stage(self.usd_path, self.prim_path)
+        # self.prim = get_prim_at_path(self.prim_path)
+        self.xform_prim = XFormPrim(
+            prim_path=self.prim_path,
+            name=self.name,
+            scale=[self.scale_ratio_x,self.scale_ratio_y,self.scale_ratio_z],
+            position=self.position,
+            orientation=self.orientation,
+        )
+
+        return self.xform_prim
+    
+    def reset(self):
+        self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
+  
 
 class Bowl(BaseObject):
 
@@ -713,7 +868,41 @@ class Turner(BaseObject):
     def reset(self):
         self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
       
+
+
+class BlueCup(BaseObject):
+
+    usd_path = f"{global_config.assets_path}/objects/BlueCup/usd/E18V1const.usd" #1x2.obj 1x2.urdf
+    scale_ratio_x = 0.000924*1.5
+    scale_ratio_y = 0.0008775*1.5
+    scale_ratio_z = 0.0009776*1.5
+
+    def __init__(self, scale=None, position=None, orientation=None,mass=0.2, prim_path=None, name="BlueCup"):
+        self.prim_path = f"/World/{name}"
+        self.name = name
+        self.scale = scale
+        self.position = position
+        self.mass = mass
+        self.orientation = orientation if orientation is not None else euler_angles_to_quats([0, 0, 0])
+        
+        
+    def create_prim(self):
+        add_reference_to_stage(self.usd_path, self.prim_path)
+        # self.prim = get_prim_at_path(self.prim_path)
+        self.xform_prim = XFormPrim(
+            prim_path=self.prim_path,
+            name=self.name,
+            scale=[self.scale_ratio_x,self.scale_ratio_y,self.scale_ratio_z],
+            position=self.position,
+            orientation=self.orientation,
+        )
+
+        return self.xform_prim
     
+    def reset(self):
+        self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
+
+
 ###############################
 class Drawer(BaseObject):
 
@@ -891,3 +1080,109 @@ class Carton(BaseObject):
     
     def reset(self):
         self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
+
+
+#############
+# og datasets
+########
+class Apple(BaseObject):
+
+    usd_path = f"{global_config.assets_path}/objects/og_apple/usd/omzprq.usd" #1x2.obj 1x2.urdf
+    scale_ratio_x = 0.7
+    scale_ratio_y = 0.7
+    scale_ratio_z = 0.7
+
+    def __init__(self, scale=None, position=None, orientation=None,mass=0.2, prim_path=None, name="apple"):
+        self.prim_path = f"/World/{name}"
+        self.name = name
+        self.scale = scale
+        self.position = position
+        self.mass = mass
+        self.orientation = orientation if orientation is not None else euler_angles_to_quats([0, 0, 0])
+        
+        
+    def create_prim(self):
+        add_reference_to_stage(self.usd_path, self.prim_path)
+        # self.prim = get_prim_at_path(self.prim_path)
+        self.xform_prim = XFormPrim(
+            prim_path=self.prim_path,
+            name=self.name,
+            scale=[self.scale_ratio_x,self.scale_ratio_y,self.scale_ratio_z],
+            position=self.position,
+            orientation=self.orientation,
+        )
+
+        return self.xform_prim
+    
+    def reset(self):
+        self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
+  
+
+
+class Shrimp(BaseObject):
+
+    usd_path = f"{global_config.assets_path}/objects/og_shrimp/usd/mnpgev.usd" #1x2.obj 1x2.urdf
+    scale_ratio_x = 1.5
+    scale_ratio_y = 1.5
+    scale_ratio_z = 1.5
+
+    def __init__(self, scale=None, position=None, orientation=None,mass=0.2, prim_path=None, name="banana"):
+        self.prim_path = f"/World/{name}"
+        self.name = name
+        self.scale = scale
+        self.position = position
+        self.mass = mass
+        self.orientation = orientation if orientation is not None else euler_angles_to_quats([0, 0, 0])
+        
+        
+    def create_prim(self):
+        add_reference_to_stage(self.usd_path, self.prim_path)
+        # self.prim = get_prim_at_path(self.prim_path)
+        self.xform_prim = XFormPrim(
+            prim_path=self.prim_path,
+            name=self.name,
+            scale=[self.scale_ratio_x,self.scale_ratio_y,self.scale_ratio_z],
+            position=self.position,
+            orientation=self.orientation,
+        )
+
+        return self.xform_prim
+    
+    def reset(self):
+        self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
+  
+
+
+
+class Potato(BaseObject):
+
+    usd_path = f"{global_config.assets_path}/objects/og_potato/usd/bpwohr.usd" #1x2.obj 1x2.urdf
+    scale_ratio_x = 1
+    scale_ratio_y = 1
+    scale_ratio_z = 1
+
+    def __init__(self, scale=None, position=None, orientation=None,mass=0.2, prim_path=None, name="potato"):
+        self.prim_path = f"/World/{name}"
+        self.name = name
+        self.scale = scale
+        self.position = position
+        self.mass = mass
+        self.orientation = orientation if orientation is not None else euler_angles_to_quats([0, 0, 0])
+        
+        
+    def create_prim(self):
+        add_reference_to_stage(self.usd_path, self.prim_path)
+        # self.prim = get_prim_at_path(self.prim_path)
+        self.xform_prim = XFormPrim(
+            prim_path=self.prim_path,
+            name=self.name,
+            scale=[self.scale_ratio_x,self.scale_ratio_y,self.scale_ratio_z],
+            position=self.position,
+            orientation=self.orientation,
+        )
+
+        return self.xform_prim
+    
+    def reset(self):
+        self.xform_prim.set_world_pose(position=self.position, orientation=self.orientation)
+  

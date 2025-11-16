@@ -1,0 +1,69 @@
+=== LLM Output ===
+
+```python
+class PourLeftCup(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_cup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsFull(left_milk)", f"IsEmpty({arg[0]})", f"CanGrasp(left_franka,left_milk)", f"IsHandEmpty(left_franka)", f"CupNeedGraspAndSupport()"}
+        info["add"] = {f"IsHalfFull({arg[0]})"}
+        info["del_set"] = {f"IsFull(left_milk)", f"IsEmpty({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class PourRightCup(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_cup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsFull(right_milk)", f"IsEmpty({arg[0]})", f"CanGrasp(right_franka,right_milk)", f"IsHandEmpty(right_franka)", f"CupNeedGraspAndSupport()"}
+        info["add"] = {f"IsHalfFull({arg[0]})"}
+        info["del_set"] = {f"IsFull(right_milk)", f"IsEmpty({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class IsCupHalfFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class CanGrasp(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class CupNeedGraspAndSupport(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsHalfFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

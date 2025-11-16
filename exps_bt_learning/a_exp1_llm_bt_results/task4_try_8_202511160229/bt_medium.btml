@@ -1,0 +1,31 @@
+selector
+    sequence
+        cond On(right_box,left_table)
+        cond On(left_box2,right_table)
+    sequence
+        cond On(left_franka,left_table)
+        selector
+            selector
+                sequence
+                    cond On(right_box,left_table)
+                    selector
+                        sequence
+                            cond IsHolding(left_franka,left_box2)
+                            act PutDownLeftFranka(left_box2,right_table)
+                        sequence
+                            cond On(left_box2,left_table)
+                            cond IsHandEmpty(left_franka)
+                            act PickUpLeftFranka(left_box2)
+                sequence
+                    cond IsHolding(right_franka,right_box)
+                    cond On(right_franka,right_table)
+                    cond On(left_box2,left_table)
+                    cond IsHandEmpty(left_franka)
+                    act PutDownRightFranka(right_box,left_table)
+            sequence
+                cond On(right_franka,right_table)
+                cond On(left_box2,left_table)
+                cond On(right_box,right_table)
+                cond IsHandEmpty(right_franka)
+                cond IsHandEmpty(left_franka)
+                act PickUpRightFranka(right_box)

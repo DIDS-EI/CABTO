@@ -1,0 +1,5 @@
+selector
+    cond On(book,breakfast_table)
+    sequence
+        cond Holding(robot,book)
+        act PutOn(book,breakfast_table)

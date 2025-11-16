@@ -1,0 +1,134 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [
+        ("left_franka", "left_milk"),
+        ("right_franka", "right_milk")
+    ]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Robot's hand is empty, object can be grasped
+        info["pre"] = {f"IsHandEmpty({arg[0]})", f"CanGrasp({arg[0]},{arg[1]})"}
+        # Added: Robot is holding the object
+        info["add"] = {f"Holding({arg[0]},{arg[1]})"}
+        # Deleted: Robot's hand is empty
+        info["del_set"] = {f"IsHandEmpty({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class Pour(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [
+        ("left_franka", "left_cup"),
+        ("right_franka", "right_cup")
+    ]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        if arg[0] == "left_franka":
+            held_object = "left_milk"
+        else:
+            held_object = "right_milk"
+            
+        info = {}
+        # Preconditions: Robot is holding milk, the milk is full, the cup is empty
+        info["pre"] = {f"Holding({arg[0]},{held_object})", f"IsFull({held_object})", f"IsEmpty({arg[1]})"}
+        # Added: The cup is half-full
+        info["add"] = {f"IsHalfFull({arg[1]})"}
+        # Deleted: The cup is empty
+        info["del_set"] = {f"IsEmpty({arg[1]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PlaceDown(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [
+        ("left_franka", "left_milk"),
+        ("right_franka", "right_milk")
+    ]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        if arg[0] == "left_franka":
+            table = "left_table"
+        else:
+            table = "right_table"
+
+        info = {}
+        # Preconditions: Robot is holding the object
+        info["pre"] = {f"Holding({arg[0]},{arg[1]})"}
+        # Added: Object is on the table, robot's hand is empty
+        info["add"] = {f"On({arg[1]},{table})", f"IsHandEmpty({arg[0]})"}
+        # Deleted: Robot is holding the object
+        info["del_set"] = {f"Holding({arg[0]},{arg[1]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class CanGrasp(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class IsFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class IsHalfFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class CupNeedGraspAndSupport(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

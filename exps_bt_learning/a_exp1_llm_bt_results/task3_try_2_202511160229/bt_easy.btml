@@ -1,0 +1,69 @@
+selector
+    cond In(left_lego,center_big_box)
+    sequence
+        cond On(center_big_box,center_table)
+        selector
+            selector
+                selector
+                    selector
+                        selector
+                            sequence
+                                cond Holding(left_franka,left_lego)
+                                selector
+                                    sequence
+                                        cond On(left_franka,center_table)
+                                        act PutInLeftFranka(left_lego,center_big_box)
+                                    sequence
+                                        cond On(left_franka,left_table)
+                                        act MoveLeftFrankaTo(center_table)
+                            sequence
+                                cond On(left_lego,center_table)
+                                cond On(left_lego,left_table)
+                                cond IsHandEmpty(left_franka)
+                                cond On(left_franka,center_table)
+                                cond On(left_franka,left_table)
+                                act PickUpLeftFranka(left_lego)
+                        sequence
+                            cond On(left_lego,center_table)
+                            cond On(right_franka,center_table)
+                            cond BigBoxNeedTwoFrankaHoldTogether()
+                            cond On(left_lego,left_table)
+                            cond Holding(right_franka,center_big_box)
+                            cond On(left_franka,center_table)
+                            cond On(left_franka,left_table)
+                            cond On(box_board,center_table)
+                            cond Holding(left_franka,center_big_box)
+                            act PutDownBigBoxLeft(box_board)
+                    sequence
+                        cond On(left_lego,center_table)
+                        cond On(right_franka,center_table)
+                        cond BigBoxNeedTwoFrankaHoldTogether()
+                        cond IsHandEmpty(right_franka)
+                        cond On(left_lego,left_table)
+                        cond On(left_franka,center_table)
+                        cond On(left_franka,left_table)
+                        cond On(box_board,center_table)
+                        cond Holding(left_franka,center_big_box)
+                        act PickUpBigBoxRight()
+                sequence
+                    cond On(left_lego,center_table)
+                    cond Holding(right_franka,right_lego)
+                    cond On(right_franka,center_table)
+                    cond BigBoxNeedTwoFrankaHoldTogether()
+                    cond On(left_lego,left_table)
+                    cond On(left_franka,center_table)
+                    cond On(left_franka,left_table)
+                    cond On(box_board,center_table)
+                    cond Holding(left_franka,center_big_box)
+                    act PutInRightFranka(right_lego,center_big_box)
+            sequence
+                cond On(left_lego,center_table)
+                cond Holding(right_franka,right_lego)
+                cond On(right_franka,right_table)
+                cond BigBoxNeedTwoFrankaHoldTogether()
+                cond On(left_lego,left_table)
+                cond On(left_franka,center_table)
+                cond On(left_franka,left_table)
+                cond On(box_board,center_table)
+                cond Holding(left_franka,center_big_box)
+                act MoveRightFrankaTo(center_table)

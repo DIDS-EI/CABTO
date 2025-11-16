@@ -19,8 +19,8 @@ class FrankaExtScenario:
     scenario_cfg_cls:FrankaScenarioCfg = FrankaScenarioCfg
     script_generator = None
     cfg: ExtSimCfg
-    viewport_camera_pos_lookat = None
-
+    # viewport_camera_pos_lookat = None
+    viewport_camera_pos_lookat = np.array([0.05,-2.37,1.56,0.05,-1.49,1.08])
 
     def __init__(self,cfg:ExtSimCfg):
         self.cfg = cfg

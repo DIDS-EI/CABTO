@@ -1,0 +1,15 @@
+selector
+    sequence
+        cond On(b,a)
+        cond On(c,b)
+    sequence
+        cond On(b,table)
+        cond On(c,table)
+        cond On(b,a)
+        selector
+            sequence
+                cond IsHandEmpty()
+                act PutCOnB(c,b)
+            sequence
+                cond Holding(agent,a)
+                act DropAOnB(a,b)

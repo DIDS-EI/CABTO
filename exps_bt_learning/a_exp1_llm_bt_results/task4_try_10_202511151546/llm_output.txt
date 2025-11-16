@@ -1,0 +1,102 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class MoveLeftBox1ToRightTable(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg): 
+        info = {}
+        info["pre"] = {"On(left_box1,left_table)", "On(left_franka,left_table)", "IsHandEmpty(left_franka)"}
+        info["add"] = {"On(left_box1,right_table)"}
+        info["del_set"] = {"On(left_box1,left_table)", "IsHandEmpty(left_franka)"}
+        info["cost"] = 1
+        return info
+
+class MoveLeftBox2ToRightTableWithRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg): 
+        info = {}
+        info["pre"] = {"On(left_box2,left_table)", "On(right_franka,right_table)", "IsHandEmpty(right_franka)"}
+        info["add"] = {"On(left_box2,right_table)"}
+        info["del_set"] = {"On(left_box2,left_table)"}
+        info["cost"] = 1
+        return info
+
+class MoveRightBoxToLeftTable(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg): 
+        info = {}
+        info["pre"] = {"On(right_box,right_table)", "On(right_franka,right_table)", "IsHandEmpty(right_franka)"}
+        info["add"] = {"On(right_box,left_table)"}
+        info["del_set"] = {"On(right_box,right_table)"}
+        info["cost"] = 1
+        return info
+
+class PickupLeftBox1(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg): 
+        info = {}
+        info["pre"] = {"On(left_box1,left_table)", "IsHandEmpty(left_franka)", "On(left_franka,left_table)"}
+        info["add"] = {"IsHolding(left_franka,left_box1)"}
+        info["del_set"] = {"On(left_box1,left_table)", "IsHandEmpty(left_franka)"}
+        info["cost"] = 1
+        return info
+
+class PickupRightBox(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"On(right_box,left_table)", "IsHandEmpty(right_franka)", "On(right_franka,right_table)"}
+        info["add"] = {"IsHolding(right_franka,right_box)"}
+        info["del_set"] = {"On(right_box,left_table)", "IsHandEmpty(right_franka)"}
+        info["cost"] = 1
+        return info
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

@@ -1,0 +1,148 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # Picking up either chickenleg or soup from the table
+    valid_args = ["chickenleg", "soup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Hand is empty and object is on the table
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Added: Holding the object
+        info["add"] = {f"Holding({arg[0]})"}
+        # Deleted: Hand is empty, object is on the table
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PlaceIn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Placing either chickenleg or soup into oven or microwave
+    valid_args = list(itertools.product(["chickenleg", "soup"], ["oven", "microwave"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Holding the item and the target being open
+        precondition = {
+            "oven": f"IsOpened(oven)",
+            "microwave": f"IsNoIsClosedIn(microwave)"
+        }
+        info["pre"] = {f"Holding({arg[0]})", precondition[arg[1]]}
+        # Added: Item is in the target
+        info["add"] = {f"In({arg[0]},{arg[1]})"}
+        # Deleted: Holding the item
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class TurnOn(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # Turning on light, oven, or microwave
+    valid_args = ["light", "microwave", "oven"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Device is switched off
+        info["pre"] = {f"IsSwitchedOff({arg[0]})"}
+        # Added: Device is switched on
+        info["add"] = {f"IsSwitchedOn({arg[0]})"}
+        # Deleted: Device is switched off
+        info["del_set"] = {f"IsSwitchedOff({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class Open(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # Opening the oven
+    valid_args = ["oven"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Oven is closed
+        info["pre"] = {f"IsClosed({arg[0]})"}
+        # Added: Oven is opened
+        info["add"] = {f"IsOpened({arg[0]})"}
+        # Deleted: Oven is closed
+        info["del_set"] = {f"IsClosed({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class Close(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # Closing the oven
+    valid_args = ["oven"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Oven is opened
+        info["pre"] = {f"IsOpened({arg[0]})"}
+        # Added: Oven is closed
+        info["add"] = {f"IsClosed({arg[0]})"}
+        # Deleted: Oven is opened
+        info["del_set"] = {f"IsOpened({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class IsSwitchedOff(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsNoIsClosedIn(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsSwitchedOn(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

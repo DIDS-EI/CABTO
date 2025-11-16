@@ -27,7 +27,10 @@ def validate_bt_fun(behavior_lib_path, goal_str,cur_cond_set,output_dir=None):
     # cur_cond_set = {'IsHandEmpty()'}
 
     algo = BTExpInterface(behavior_lib, cur_cond_set=cur_cond_set,
-                        selected_algorithm="obtea")
+                        selected_algorithm="obtea",time_limit=10)
+
+    # algo = BTExpInterface(behavior_lib, cur_cond_set=cur_cond_set,
+    #                     selected_algorithm="bfs",time_limit=10)
 
     start_time = time.time()
     algo.process(goal_set)

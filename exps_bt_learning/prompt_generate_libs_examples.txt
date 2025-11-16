@@ -1,70 +1,159 @@
 
-start_state = {"IsHandEmpty()"}
-objects = {"coffeecup","apple","table"}
-goal = ["IsHolding(coffeecup)","On(coffeecup,table)&IsHolding(apple)","On(coffeecup,table)&On(apple,table)"]
+Example 1:
+initial_state = {"IsHandEmpty()"}
+objects = {"coffeecup","apple","table","orange"}
+goals = ["On(coffeecup,table)","On(coffeecup,table)&On(apple,table)","On(coffeecup,table)&On(apple,table)&On(orange,table)"]
 
 ```python
-class Grasp(OGAction):
+class PutAOnB(OGAction):
     can_be_expanded = True
-    num_args = 1
-    valid_args = ["coffeecup","apple"]
+    num_args = 2
+    valid_args = list(itertools.product(["coffeecup","apple","orange"], ["table"]))
     def __init__(self, *args):
         super().__init__(*args)
 
     @classmethod
     def get_info(cls,*arg):
         info = {}
-        info["pre"]={"IsHandEmpty()",f"IsNear({arg[0]})"}
-        info["add"]={f"IsHolding({arg[0]})"}
-        info["del_set"] = {f"IsHandEmpty()"}
+        info["pre"]={"IsHandEmpty()"}
+        info["add"]={f"On({arg[0]},{arg[1]})"}
+        # 删除所有 On(arg[0], 其他位置) 的状态
+        all_locations = {args[1] for args in cls.valid_args}
+        info["del_set"] = {f"On({arg[0]},{loc})" for loc in all_locations if loc != arg[1]}
         info["cost"] = 1
         return info
 
-
-    def change_condition_set(self):
-        self.agent.condition_set |= (self.info["add"])
-        self.agent.condition_set -= self.info["del_set"]
-```
-```python
-class MoveTo(OGAction):
-    can_be_expanded = True
-    num_args = 1
-    valid_args = ["coffeecup","apple","table"]
-
-    def __init__(self, *args):
-        super().__init__(*args)
-        self.target_obj = self.args[0]
-
-    @classmethod
-    def get_info(cls,*arg):
-        info = {}
-        info["pre"]=set()
-        info["add"]={f"IsNear({arg[0]})"}
-        info["del_set"] = {f'IsNear({place})' for place in cls.valid_args if place != arg[0]}
-        info["cost"] = 1
-        return info
-
-    def change_condition_set(self):
-        self.agent.condition_set |= (self.info["add"])
-        self.agent.condition_set -= self.info["del_set"] 
 ```
 ```python
 class IsHandEmpty(OGCondition):
     can_be_expanded = True
-    num_args = 1
+    num_args = 0
 ```
-```python
-class IsHolding(OGCondition):
-    can_be_expanded = True
-    num_args = 1
-```
-```python
-class IsNear(OGCondition):
-    can_be_expanded = True
-    num_args = 2
 ```
 ```python
 class On(OGCondition):
     can_be_expanded = True
     num_args = 2
+```
+
+Example 2:
+initial_state = {"IsHandEmpty(robot1)","IsHandEmpty(robot2)","On(robot1,area1)","On(robot2,area2)","On(x,area1)","On(y,area2)","Robot1CanOnlyDoInArea1()","Robot2CanOnlyDoInArea2()"}
+objects = {"x","y","place","area1","area2"}
+goals = ["On(x,place)","On(x,place)&On(y,place)"]
+
+```python
+class PickUp1(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # robot1 can only pick up objects in area1: x
+    valid_args = ["x"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Robot's hand is empty, object is in area1, robot is in area1, robot1 restriction
+        info["pre"] = {f"IsHandEmpty(robot1)", f"On({arg[0]},area1)", f"On(robot1,area1)", f"Robot1CanOnlyDoInArea1()"}
+        # Added: Robot is holding the object
+        info["add"] = {f"Holding(robot1,{arg[0]})"}
+        # Deleted: Robot's hand is empty, object is in area1
+        info["del_set"] = {f"IsHandEmpty(robot1)", f"On({arg[0]},area1)"}
+        info["cost"] = 1
+        return info
+```
+```python
+class Drop1(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # robot1 can drop 'x' into 'place' or 'area1' (since it's restricted to area1, it must be able to move it out of area1 if necessary)
+    # The problem implies movement between areas/places is needed for the goal, so we assume 'place' is accessible from 'area1' for drop/put
+    # Given the constraint Robot1CanOnlyDoInArea1(), the *drop* must be done *in* area1 or *to* a location accessible *from* area1. 
+    # Let's assume 'place' is the destination, and 'area1' is a potential temporary drop location within its zone.
+    valid_args = list(itertools.product(["x"], ["place", "area1"])) 
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Robot is holding the object, robot is in area1, robot1 restriction
+        info["pre"] = {f"Holding(robot1,{arg[0]})", f"On(robot1,area1)", f"Robot1CanOnlyDoInArea1()"}
+        # Added: Robot's hand is empty, object is on the destination location
+        info["add"] = {f"IsHandEmpty(robot1)", f"On({arg[0]},{arg[1]})"}
+        # Deleted: Robot is holding the object
+        info["del_set"] = {f"Holding(robot1,{arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PickUp2(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # robot2 can only pick up objects in area2: y
+    valid_args = ["y"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Robot's hand is empty, object is in area2, robot is in area2, robot2 restriction
+        info["pre"] = {f"IsHandEmpty(robot2)", f"On({arg[0]},area2)", f"On(robot2,area2)", f"Robot2CanOnlyDoInArea2()"}
+        # Added: Robot is holding the object
+        info["add"] = {f"Holding(robot2,{arg[0]})"}
+        # Deleted: Robot's hand is empty, object is in area2
+        info["del_set"] = {f"IsHandEmpty(robot2)", f"On({arg[0]},area2)"}
+        info["cost"] = 1
+        return info
+```
+```python
+class Drop2(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # robot2 can drop 'y' into 'place' or 'area2'
+    valid_args = list(itertools.product(["y"], ["place", "area2"])) 
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Robot is holding the object, robot is in area2, robot2 restriction
+        info["pre"] = {f"Holding(robot2,{arg[0]})", f"On(robot2,area2)", f"Robot2CanOnlyDoInArea2()"}
+        # Added: Robot's hand is empty, object is on the destination location
+        info["add"] = {f"IsHandEmpty(robot2)", f"On({arg[0]},{arg[1]})"}
+        # Deleted: Robot is holding the object
+        info["del_set"] = {f"Holding(robot2,{arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1 
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2 
+```
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2 
+```
+```python
+class Robot1CanOnlyDoInArea1(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+```python
+class Robot2CanOnlyDoInArea2(OGCondition):
+    can_be_expanded = True
+    num_args = 0
 ```

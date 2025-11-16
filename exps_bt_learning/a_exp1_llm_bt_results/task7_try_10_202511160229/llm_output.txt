@@ -1,0 +1,208 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["soup", "pie", "chickenleg"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {"IsHandEmpty()", f"On({obj},table)"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {"IsHandEmpty()", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+class PutInMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["soup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"Holding({obj})", "IsClosed(microwave)", "IsSwitchedOff(microwave)"}
+        info["add"] = {f"In({obj},microwave)"}
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+class PutInOven(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["pie", "chickenleg"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"Holding({obj})", "IsClosed(oven)", "IsSwitchedOff(oven)"}
+        info["add"] = {f"In({obj},oven)"}
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+class PutOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["pie"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"Holding({obj})"}
+        info["add"] = {f"On({obj},breakfast_table)", "IsHandEmpty()"}
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+class SwitchOn(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave", "radio", "light"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    @classmethod
+    def get_info(cls, *arg):
+        device = arg[0]
+        info = {}
+        info["pre"] = {f"IsSwitchedOff({device})"}
+        info["add"] = {f"IsSwitchedOn({device})"}
+        info["del_set"] = {f"IsSwitchedOff({device})"}
+        info["cost"] = 1
+        return info
+
+class SwitchOff(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave", "radio", "light"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    @classmethod
+    def get_info(cls, *arg):
+        device = arg[0]
+        info = {}
+        info["pre"] = {f"IsSwitchedOn({device})"}
+        info["add"] = {f"IsSwitchedOff({device})"}
+        info["del_set"] = {f"IsSwitchedOn({device})"}
+        info["cost"] = 1
+        return info
+
+class OpenDevice(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    @classmethod
+    def get_info(cls, *arg):
+        device = arg[0]
+        info = {}
+        info["pre"] = {f"IsClosed({device})"}
+        info["add"] = {f"IsOpened({device})"}
+        info["del_set"] = {f"IsClosed({device})"}
+        info["cost"] = 1
+        return info
+
+class CloseDevice(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    @classmethod
+    def get_info(cls, *arg):
+        device = arg[0]
+        info = {}
+        info["pre"] = {f"IsOpened({device})"}
+        info["add"] = {f"IsClosed({device})"}
+        info["del_set"] = {f"IsOpened({device})"}
+        info["cost"] = 1
+        return info
+
+class PickDown(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["pie", "chickenleg", "soup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        obj = arg[0]
+        # PickDown from breakfast_table or oven or microwave or table depending on goal
+        # For pie and chickenleg picking from oven or table, and soup picking from microwave or table
+        info = {}
+        # We assume only pick down from table or from device when object is inside
+        possible_pres = [
+            {f"On({obj},breakfast_table)", "IsHandEmpty()"},
+            {f"On({obj},table)", "IsHandEmpty()"},
+            {f"In({obj},oven)", "IsOpened(oven)", "IsHandEmpty()"},
+            {f"In({obj},microwave)", "IsOpened(microwave)", "IsHandEmpty()"},
+        ]
+        # We generate actions for each available precondition and filter by valid args by creating multiple classes if needed,
+        # but here, we will define a general class assuming the arg means object+location combined to differentiate
+        # So we omit this as per instruction, one PickDown action but valid_args only has objects, so pre will be tested during planning.
+        info["pre"] = {"IsHandEmpty()"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {"IsHandEmpty()"}
+        # The exact preconditions will be in the planner to check which PickDown is applicable.
+        # To comply with the rules, we only define pre as holding from any of the states that satisfies holding.
+        # We'll additionally define relevant conditions below.
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsSwitchedOn(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsSwitchedOff(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

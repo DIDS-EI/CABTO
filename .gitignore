@@ -81,3 +81,9 @@ sim_extension/dexrl.sim_extension/dexrl/sim
 
 *.pth
 *.pt
+
+*jpg
+*png
+
+/assets/*
+/exps_bt_learning/can_delete/*

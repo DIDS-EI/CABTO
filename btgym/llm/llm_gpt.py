@@ -3,12 +3,15 @@ from openai import AuthenticationError, APIError, RateLimitError
 
 
 class LLM():
-    def __init__(self,request_model="gpt-3.5-turbo"):
+    def __init__(self,request_model="gpt-4o-mini"):
         self.client = OpenAI(
-            base_url="https://api.xty.app/v1",
-            api_key="sk-Wtr2qAJy2GlsQCjhm6GbSuXBAlfYt6g53Z3NeeNzv5wTGFR3"
+            # base_url="https://api.xty.app/v1",
+            # api_key="sk-Wtr2qAJy2GlsQCjhm6GbSuXBAlfYt6g53Z3NeeNzv5wTGFR3"
+            base_url="https://api.dwyu.top/v1",
+            api_key="sk-Gtk0rmTrrRjEOj8Kru5exXuOKwpwSqiR3intYCMvtIBzLqzN"
         )
         self.request_model = request_model
+        # self.request_model = "gpt-4o-mini"
         # self.request_model = "o4-mini-2025-04-16"
 
     def request(self,message):
@@ -22,14 +25,14 @@ class LLM():
             else:
                 # 如果已经是列表格式，直接使用
                 messages = message
-            
+
             completion = self.client.chat.completions.create(
               # model="gpt-4-turbo-preview", 	# 模型倍率 15.00
-              model="gpt-3.5-turbo",
+            #   model="gpt-3.5-turbo",
             #   model="gpt-4o-2024-08-06",
               # model="gpt-4o-2024-08-06-preview",
             #   model="gpt-4o",   #  模型倍率 7.50	
-            #   model=self.request_model,   #  模型倍率 0.50
+              model=self.request_model,   #  模型倍率 0.50
               # model="o4-mini-2025-04-16", # 模型倍率 1.65
               # messages=[
               #   {"role": "system", "content": ""},#You are a helpful assistant.
@@ -69,9 +72,15 @@ class LLM():
             # 遍历流式返回的内容
             for chunk in response:
                 chunk_count += 1
-                if chunk.choices[0].finish_reason == "stop":
+                # 检查 choices 是否存在且不为空
+                if not chunk.choices or len(chunk.choices) == 0:
+                    continue
+                
+                # 检查是否有 finish_reason，如果有且为 "stop"，说明流式响应结束
+                if hasattr(chunk.choices[0], 'finish_reason') and chunk.choices[0].finish_reason == "stop":
                     print(f"\n流式请求完成，共接收 {chunk_count} 个数据块")
                     break
+                
                 delta = chunk.choices[0].delta
                 if hasattr(delta, 'content') and delta.content is not None:
                     content = delta.content
@@ -80,7 +89,7 @@ class LLM():
 
             print("\n\n最终返回值：")
             return full_response
-            
+
         except (AuthenticationError, RateLimitError) as e:
             # 认证错误或配额错误不应该回退，直接抛出
             error_msg = str(e)
@@ -101,7 +110,7 @@ class LLM():
                 print(f"普通请求也失败: {fallback_error}")
                 raise
 
-      
+
     def embedding(self,question):
         try:
             embeddings = self.client.embeddings.create(
@@ -123,10 +132,10 @@ class LLM():
         except APIError as e:
             print(f"❌ API 请求失败: {str(e)}")
             raise
-    
+
 
 if __name__ == '__main__':
-    lm = LLM()
+    lm = LLM(request_model="gemini-1.5-pro-exp-0827")
     # for model in lm.client.models.list().data:
     #     print(model.id)
     # answer = llm.embedding(question="who are you,gpt?")
@@ -141,7 +150,7 @@ if __name__ == '__main__':
 
     # test stream_request
     messages = [{"role": "system", "content": ""}]
-    messages.append({"role": "user", "content": "你是谁？"})
+    messages.append({"role": "user", "content": "你是基于gpt多少？你是 GPT-4o 的模型吗？"})
     try:
         res_msg = lm.stream_request(messages)
         if res_msg:

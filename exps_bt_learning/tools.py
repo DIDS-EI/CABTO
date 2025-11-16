@@ -60,7 +60,7 @@ def parse_bddl(file_path):
     return set(objects), set(start_state), set(goal)
 
 
-def build_prompt(goal,objects,start_state):
+def build_prompt(goal,objects,initial_state):
     prompt_example_path = os.path.join(DIR,"./prompt_generate_libs_examples.txt")
     prompt_template_path = os.path.join(DIR,"./prompt_generate_libs.txt")
     with open(prompt_example_path, 'r') as file:
@@ -72,8 +72,8 @@ def build_prompt(goal,objects,start_state):
     # 使用正则表达式匹配和移除被 ''' 包围的内容
     content = re.sub(r"'''[\s\S]*?'''", "", content)
     
-    # 检查 goal 是否已经包含完整格式化的信息（包含 start_state = 和 objects =）
-    if "start_state = " in goal and "objects = " in goal:
+    # 检查 goal 是否已经包含完整格式化的信息（包含 initial_state = 和 objects =）
+    if ("initial_state = " in goal or "start_state = " in goal) and "objects = " in goal:
         # goal 已经包含完整信息，直接使用
         # 需要替换模板中的 {objects} 占位符（如果存在）
         if not isinstance(objects, str):
@@ -90,10 +90,10 @@ def build_prompt(goal,objects,start_state):
         else:
             objects_str = objects
         content = content.format(goal=goal, objects=objects_str)
-        instruction = f"start_state: {start_state}\nobjects: {objects_str}\ngoal: {goal}"
+        instruction = f"initial_state: {initial_state}\nobjects: {objects_str}\ngoal: {goal}"
     
     return content +"\n"+ example_content +"\n \
-        Here are the start_state, objects and goals, please generate the behavior libraries:\n"+ instruction
+        Here are the initial_state, objects and goals, please generate the behavior libraries:\n"+ instruction
 
 def extract_code(answer,file_path):
     # 使用正则表达式提取代码

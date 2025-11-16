@@ -1,0 +1,4 @@
+selector
+    sequence
+        cond Open(cabinet)
+        cond In(apple,fridge)

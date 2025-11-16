@@ -1,0 +1,74 @@
+=== LLM Output ===
+
+```python
+class PickUpApple(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["apple"]
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["add"] = {f"Holding(robot,{arg[0]})"}
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PutAppleInFridge(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["apple"], ["fridge"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding(robot,{arg[0]})", "IsClosed(fridge)"}
+        info["add"] = {f"In({arg[0]},{arg[1]})", "IsHandEmpty()"}
+        info["del_set"] = {f"Holding(robot,{arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class PutPenInCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["pen"], ["cabinet"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding(robot,{arg[0]})", "IsClosed(cabinet)"}
+        info["add"] = {f"In({arg[0]},{arg[1]})", "IsHandEmpty()"}
+        info["del_set"] = {f"Holding(robot,{arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

@@ -318,7 +318,7 @@ class UIBuilder:
         """
         sphereLight:UsdLux.SphereLight = UsdLux.SphereLight.Define(get_current_stage(), Sdf.Path("/World/SphereLight"))
         sphereLight.CreateRadiusAttr(2)
-        sphereLight.CreateIntensityAttr(100000)
+        sphereLight.CreateIntensityAttr(60000)
         XFormPrim(str(sphereLight.GetPath())).set_world_pose([0, -6.5, 12])
 
     def _setup_scene(self):
