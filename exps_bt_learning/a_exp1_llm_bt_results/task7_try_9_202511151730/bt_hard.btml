@@ -1,5 +1,0 @@
-selector
-    sequence
-        cond IsOpened(microwave)
-        cond IsOpened(oven)
-        cond IsSwitchedOn(light)

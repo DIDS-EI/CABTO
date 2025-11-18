@@ -1,4 +1,0 @@
-selector
-    sequence
-        cond IsHalfFull(right_cup)
-        cond IsHalfFull(left_cup)

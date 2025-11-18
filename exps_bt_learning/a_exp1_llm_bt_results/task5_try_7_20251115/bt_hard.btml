@@ -1,8 +1,0 @@
-selector
-    sequence
-        cond IsFull(right_cup)
-        cond On(right_cup,right_table)
-    sequence
-        cond IsFull(right_cup)
-        cond Holding(right_franka,right_cup)
-        act DropRightFranka(right_cup,right_table)

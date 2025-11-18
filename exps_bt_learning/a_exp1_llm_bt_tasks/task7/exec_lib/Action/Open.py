@@ -12,11 +12,8 @@ class Open(OGAction):
     @classmethod
     def get_info(cls, *arg):
         info = {}
-        # Preconditions: The device is closed
         info["pre"] = {f"IsClosed({arg[0]})"}
-        # Added: The device is opened
         info["add"] = {f"IsOpened({arg[0]})"}
-        # Deleted: The device is closed
         info["del_set"] = {f"IsClosed({arg[0]})"}
         info["cost"] = 1
         return info

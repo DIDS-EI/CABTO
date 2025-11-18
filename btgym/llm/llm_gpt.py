@@ -1,14 +1,13 @@
 from openai import OpenAI
 from openai import AuthenticationError, APIError, RateLimitError
-
+import os
 
 class LLM():
     def __init__(self,request_model="gpt-4o-mini"):
         self.client = OpenAI(
-            # base_url="https://api.xty.app/v1",
-            # api_key="sk-Wtr2qAJy2GlsQCjhm6GbSuXBAlfYt6g53Z3NeeNzv5wTGFR3"
-            base_url="https://api.dwyu.top/v1",
-            api_key="sk-Gtk0rmTrrRjEOj8Kru5exXuOKwpwSqiR3intYCMvtIBzLqzN"
+
+            base_url=os.getenv('OPENAI_BASE_URL'),
+            api_key=os.getenv('OPENAI_API_KEY'),
         )
         self.request_model = request_model
         # self.request_model = "gpt-4o-mini"

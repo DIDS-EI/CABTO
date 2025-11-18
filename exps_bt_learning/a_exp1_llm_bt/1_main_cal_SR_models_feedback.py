@@ -393,10 +393,10 @@ all_results = []
 # 参与验证的任务列表
 # task_names = ["task1","task2","task5","task4","task3","task7"]
 # task_names = ["task1","task2"]
-task_names = ["task7"]
+# task_names = ["task7"]
 # task_names = ["task2"]
 
-# task_names = ["task1","task2","task3","task4","task5","task6","task7"]
+task_names = ["task1","task2","task3","task4","task5","task6","task7"]
 
 for task_name in task_names:
     # 1. set task

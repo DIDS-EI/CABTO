@@ -873,6 +873,7 @@ class Turner(BaseObject):
 class BlueCup(BaseObject):
 
     usd_path = f"{global_config.assets_path}/objects/BlueCup/usd/E18V1const.usd" #1x2.obj 1x2.urdf
+    # usd_path = f"{global_config.assets_path}/objects/E20V1/usd/E20V1const.usd" #1x2.obj 1x2.urdf
     scale_ratio_x = 0.000924*1.5
     scale_ratio_y = 0.0008775*1.5
     scale_ratio_z = 0.0009776*1.5

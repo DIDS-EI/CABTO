@@ -1,8 +1,0 @@
-selector
-    sequence
-        cond IsSwitchedOn(microwave)
-        cond In(soup,microwave)
-    sequence
-        cond IsSwitchedOff(microwave)
-        cond In(soup,microwave)
-        act SwitchOn(right_franka,microwave)

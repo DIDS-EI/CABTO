@@ -11,17 +11,9 @@ class PickUpLeftFranka(OGAction):
 
     @classmethod
     def get_info(cls, *arg):
-        obj = arg[0]
         info = {}
-        info["pre"] = {
-            f"IsHandEmpty(left_franka)",
-            f"On({obj},left_table)",
-            f"On(left_franka,left_table)"
-        }
-        info["add"] = {f"IsHolding(left_franka,{obj})"}
-        info["del_set"] = {
-            f"IsHandEmpty(left_franka)",
-            f"On({obj},left_table)"
-        }
+        info["pre"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},left_table)", "On(left_franka,left_table)"}
+        info["add"] = {f"Holding(left_franka,{arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},left_table)"}
         info["cost"] = 1
         return info

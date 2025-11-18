@@ -10,11 +10,10 @@ class PickUpLeftFranka(OGAction):
         super().__init__(*args)
 
     @classmethod
-    def get_info(cls, *args):
-        obj = args[0]
-        info = dict()
-        info["pre"] = {f"IsHandEmpty(left_franka)", f"On({obj},left_table)", f"On(left_franka,left_table)"}
-        info["add"] = {f"Holding(left_franka,{obj})"}
-        info["del_set"] = {f"IsHandEmpty(left_franka)", f"On({obj},left_table)"}
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty(left_franka)", f"On(left_franka,left_table)", f"On({arg[0]},left_table)"}
+        info["add"] = {f"Holding(left_franka,{arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},left_table)"}
         info["cost"] = 1
         return info

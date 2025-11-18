@@ -358,8 +358,8 @@ class MultiFrankaPourScenarioCfg(FrankaScenarioCfg):
     table_pos = [0,-0.4,0.1]
     table_scale = [1.2,0.6,0.04]
 
-    obj_cls = ThickCoconutMilk
-    obj_init_pos = [-0.2, -0.37, 0.2]
+    obj_cls_milk = ThickCoconutMilk  # Main
+    obj_init_pos = [-0.2, -0.45, 0.2]
     obj_init_euler = [1.57, 0, 0]
     obj_mass = 0.2
 
@@ -368,13 +368,13 @@ class MultiFrankaPourScenarioCfg(FrankaScenarioCfg):
     obj_init_euler2 = [1.57, 0, 0]
     obj_mass2 = 0.2
 
-    cup_cls = BlueCup
-    cup_init_pos = [0.5, -0.384, 0.2]
+    cup_cls_cup = BlueCup  # Main
+    cup_init_pos = [0.3, -0.45, 0.2]
     cup_init_euler = [0, 0, 3.14]
     cup_mass = 0.2
 
     cup_cls3 = BlueCup
-    cup_init_pos3 = [0.4, -0.6, 0.2]
+    cup_init_pos3 = [0.2, -0.6, 0.2]
     cup_init_euler3 = [0, 0, 3.14]
     cup_mass3 = 0.2
     
@@ -415,7 +415,7 @@ class MultiFrankaPourScenario(MultiFrankaScenario):
         # self.set_texture_for_prim(self.table.prim_path, texture_file_path)
 
         
-        self.obj: BaseObject = self.cfg.obj_cls(
+        self.obj: BaseObject = self.cfg.obj_cls_milk(
             position=self.cfg.obj_init_pos,
             orientation=utils.rot.euler_angles_to_quat(self.cfg.obj_init_euler),
             mass=self.cfg.obj_mass,
@@ -425,7 +425,7 @@ class MultiFrankaPourScenario(MultiFrankaScenario):
         self.world.scene.add(self.obj_prim)
         self.task_obj_list.append(self.obj)
         
-        self.cup: BaseObject = self.cfg.cup_cls(
+        self.cup: BaseObject = self.cfg.cup_cls_cup(
             position=self.cfg.cup_init_pos,
             orientation=utils.rot.euler_angles_to_quat(self.cfg.cup_init_euler),
             mass=self.cfg.cup_mass,

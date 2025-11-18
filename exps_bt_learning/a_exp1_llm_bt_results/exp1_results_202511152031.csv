@@ -1,4 +1,0 @@
-﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
-task6,1,easy,"In(wine,fridge)",False,47,0,6,6,0,False,
-task6,1,medium,"In(book,cabinet) & In(pen,cabinet)  & IsOpened(fridge)",True,969,6,6,6,0,False,
-task6,1,hard,"In(banana,fridge)  & IsClosed(fridge) & IsClosed(cabinet) & On(book,breakfast_table)",True,1989,6,6,6,0,False,

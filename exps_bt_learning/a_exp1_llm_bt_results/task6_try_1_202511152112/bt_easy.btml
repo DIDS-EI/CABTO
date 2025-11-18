@@ -1,8 +1,0 @@
-selector
-    sequence
-        cond Open(cabinet)
-        cond On(book,breakfast_table)
-    sequence
-        cond IsClosed(cabinet)
-        cond On(book,breakfast_table)
-        act OpenContainer(robot2,cabinet)

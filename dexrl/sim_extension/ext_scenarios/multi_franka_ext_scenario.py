@@ -264,20 +264,20 @@ class MultiFrankaCleanExtScenario(MultiFrankaExtScenario):
 
 
 
-        pos = np.array([0,-0.5,0.2])
-        quat = utils.rot.euler_angles_to_quat(np.array([np.pi/2,np.pi,0]))
-        yield from self.scenario.goto_position(pos,quat,self.right_robot.articulation,self.right_robot.rmpflow)
+        # pos = np.array([0,-0.5,0.2])
+        # quat = utils.rot.euler_angles_to_quat(np.array([np.pi/2,np.pi,0]))
+        # yield from self.scenario.goto_position(pos,quat,self.right_robot.articulation,self.right_robot.rmpflow)
 
-        pos = np.array([-0.045,-0.5,0.05])
-        quat = utils.rot.euler_angles_to_quat(np.array([0,np.pi,0]))
-        yield from self.scenario.goto_position(pos,quat,self.left_robot.articulation,self.left_robot.rmpflow)
-        print(f"pos: {pos}, quat: {quat}")
-        close_gripper = self.scenario.left_robot.close_gripper()
-        yield from close_gripper
-        pos = np.array([0.3,-0.5,0.5])
-        yield from self.scenario.goto_position(pos,quat,self.robot.articulation,self.robot.rmpflow)
-        pos = np.array([0.35,-0.4,0.3])
-        yield from self.scenario.goto_position(pos,quat,self.robot.articulation,self.robot.rmpflow)
+        # pos = np.array([-0.045,-0.5,0.05])
+        # quat = utils.rot.euler_angles_to_quat(np.array([0,np.pi,0]))
+        # yield from self.scenario.goto_position(pos,quat,self.left_robot.articulation,self.left_robot.rmpflow)
+        # print(f"pos: {pos}, quat: {quat}")
+        # close_gripper = self.scenario.left_robot.close_gripper()
+        # yield from close_gripper
+        # pos = np.array([0.3,-0.5,0.5])
+        # yield from self.scenario.goto_position(pos,quat,self.robot.articulation,self.robot.rmpflow)
+        # pos = np.array([0.35,-0.4,0.3])
+        # yield from self.scenario.goto_position(pos,quat,self.robot.articulation,self.robot.rmpflow)
 
 
         # 启动键盘监听器
@@ -285,6 +285,10 @@ class MultiFrankaCleanExtScenario(MultiFrankaExtScenario):
 
         try: 
             while True:
+
+                current_quat = utils.rot.euler_angles_to_quat(np.array([0,np.pi,0]))
+                self._follow_cube_without_euler(self.left_robot, self.left_cube,"left_cube",current_quat,)
+
                 # self._follow_cube_with_euler(self.left_robot, self.left_cube, "left_cube")
                 current_quat = utils.rot.euler_angles_to_quat(np.array([np.pi/2,np.pi,0]))
                 self._follow_cube_without_euler(self.right_robot, self.right_cube,"left_cube",current_quat,)
@@ -343,11 +347,6 @@ class MultiFrankaHandOverExtScenario(MultiFrankaCleanExtScenario):
         assert self.left_cube is not None and self.right_cube is not None
 
 
-
-        # pos = np.array([0,-0.5,0.2])
-        # quat = utils.rot.euler_angles_to_quat(np.array([np.pi/2,np.pi,0]))
-        # yield from self.scenario.goto_position(pos,quat,self.right_robot.articulation,self.right_robot.rmpflow)
-
         pos = np.array([0.3,-0.4,0.3])
         # quat = utils.rot.euler_angles_to_quat(np.array([-np.pi/2,np.pi/2,0])) # 从左往右水平
         quat = utils.rot.euler_angles_to_quat(np.array([0,np.pi,np.pi/2])) # 从左往右水平
@@ -384,6 +383,12 @@ class MultiFrankaHandOverExtScenario(MultiFrankaCleanExtScenario):
 
                 # current_quat = utils.rot.euler_angles_to_quat(np.array([np.pi/2,np.pi/2,0]))
                 # self._follow_cube_without_euler(self.right_robot, self.right_cube,"right_cube",current_quat,)
+
+                current_quat = utils.rot.euler_angles_to_quat(np.array([0,np.pi,0]))
+                self._follow_cube_with_euler(self.left_robot, self.left_cube,"left_cube")
+
+                current_quat = utils.rot.euler_angles_to_quat(np.array([0,np.pi,0]))
+                self._follow_cube_with_euler(self.right_robot, self.right_cube,"right_cube")
 
                 # 按 g 控制左边的夹爪关闭，按 h 控制左边夹爪打开
                 # 按 j 控制右边的夹爪关闭，按 k 控制右边夹爪打开
@@ -426,27 +431,33 @@ class MultiFrankaPourExtScenario(MultiFrankaExtScenario):
         assert self.left_robot is not None and self.right_robot is not None
         assert self.left_cube is not None and self.right_cube is not None
 
-        # pos = np.array([0.2,-0.4,0.5])
-        # # quat = utils.rot.euler_angles_to_quat(np.array([-np.pi/2,np.pi/2,0])) # 从左往右水平
-        # quat = utils.rot.euler_angles_to_quat(np.array([0,np.pi,np.pi/2])) # 从左往右水平
-        # yield from self.scenario.goto_position(pos,quat,self.left_robot.articulation,self.left_robot.rmpflow)
-        
-        # pos = np.array([0.2,-0.4,0.25]) # 向下抓取
-        # yield from self.scenario.goto_position(pos,quat,self.left_robot.articulation,self.left_robot.rmpflow)
-        
-        # close_gripper = self.scenario.left_robot.close_gripper()
-        # yield from close_gripper
-
-        # pos = np.array([0.4,-0.4,0.4]) # 抬起来
-        # yield from self.scenario.goto_position(pos,quat,self.left_robot.articulation,self.left_robot.rmpflow)
-
-        pos = np.array([0.3,-0.2,0.35])
+        # right
+        pos = np.array([0,-0.48,0.35])  # 
         quat = utils.rot.euler_angles_to_quat(np.array([np.pi/2,np.pi/2,0]))
         yield from self.scenario.goto_position(pos,quat,self.right_robot.articulation,self.right_robot.rmpflow)
 
-
-        pos = np.array([-0.1,-0.2,0.35])
+        pos = np.array([-0.11,-0.47,0.265])
         yield from self.scenario.goto_position(pos,quat,self.right_robot.articulation,self.right_robot.rmpflow)
+
+        close_gripper = self.scenario.right_robot.close_gripper()
+        yield from close_gripper
+
+        pos = np.array([-0.3,-0.47,0.8]) #0.8 highthight
+        yield from self.scenario.goto_position(pos,quat,self.right_robot.articulation,self.right_robot.rmpflow)
+
+        # left
+        pos = np.array([0.2,-0.47,0.3])  # 
+        quat = utils.rot.euler_angles_to_quat(np.array([-np.pi/2,np.pi/2,0]))
+        yield from self.scenario.goto_position(pos,quat,self.left_robot.articulation,self.left_robot.rmpflow)
+
+        pos = np.array([0.20,-0.47,0.22])
+        yield from self.scenario.goto_position(pos,quat,self.left_robot.articulation,self.left_robot.rmpflow)
+
+        close_gripper = self.scenario.left_robot.close_gripper()
+        yield from close_gripper
+
+        pos = np.array([0.35,-0.47,0.9]) #0.8 highthight
+        yield from self.scenario.goto_position(pos,quat,self.left_robot.articulation,self.left_robot.rmpflow)
 
         while True:
             yield

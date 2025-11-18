@@ -3,17 +3,16 @@ import itertools
 
 class CloseContainer(OGAction):
     can_be_expanded = True
-    num_args = 2  # actor, container
-    valid_args = list(itertools.product(ACTORS, CONTAINERS))
+    num_args = 2
+    valid_args = list(itertools.product(["robot"], ["cabinet", "fridge"]))
 
-    def __init__(self, actor, container):
-        super().__init__(actor, container)
+    def __init__(self, *args):
+        super().__init__(*args)
 
     @classmethod
-    def get_info(cls, actor, container):
+    def get_info(cls, *arg):
         info = {}
-        info["pre"] = {f"IsHandEmpty({actor})", f"IsOpened({container})"}
-        info["add"] = {f"IsClosed({container})"}
-        info["del_set"] = {f"IsOpened({container})"}
-        info["cost"] = 1
+        info["pre"] = {f"IsOpened({arg[1]})"}
+        info["add"] = {f"IsClosed({arg[1]})"}
+        info["del_set"] = {f"IsOpened({arg[1]})"}
         return info

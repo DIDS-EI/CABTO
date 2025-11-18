@@ -3,8 +3,8 @@ import itertools
 
 class PlaceOn(OGAction):
     can_be_expanded = True
-    num_args = 2
-    valid_args = list(itertools.product(["pie"], ["breakfast_table"]))
+    num_args = 3
+    valid_args = list(itertools.product(["robot"], ["pie"], ["breakfast_table"]))
 
     def __init__(self, *args):
         super().__init__(*args)
@@ -12,11 +12,8 @@ class PlaceOn(OGAction):
     @classmethod
     def get_info(cls, *arg):
         info = {}
-        # Preconditions: Holding the object
-        info["pre"] = {f"Holding({arg[0]})"}
-        # Added: Object is on the destination, hand is empty
-        info["add"] = {f"On({arg[0]},{arg[1]})", f"IsHandEmpty()"}
-        # Deleted: Holding the object
-        info["del_set"] = {f"Holding({arg[0]})"}
+        info["pre"] = {f"Holding({arg[0]},{arg[1]})"}
+        info["add"] = {f"On({arg[1]},{arg[2]})", f"IsHandEmpty({arg[0]})"}
+        info["del_set"] = {f"Holding({arg[0]},{arg[1]})"}
         info["cost"] = 1
         return info

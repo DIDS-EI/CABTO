@@ -1,4 +1,0 @@
-selector
-    sequence
-        cond IsClosed(fridge)
-        cond In(banana,fridge)

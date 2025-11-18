@@ -153,8 +153,9 @@ def llm_generate_behavior_lib(bddl_file=None,goal_str=None,goal_str_list=None,ob
                 idx = path_parts.index('a_exp1_llm_bt_tasks')
                 _lib_path = '.'.join(path_parts[:idx+1])  # 只保留到 a_exp1_llm_bt_tasks
             else:
-                # 向后兼容：如果路径中没有 a_exp1_llm_bt_tasks，使用原来的逻辑
-                _lib_path = rel_path.replace(os.path.sep, '.')
+                # 如果路径中没有 a_exp1_llm_bt_tasks，使用固定的 a_exp1_llm_bt_tasks 路径
+                # 因为 _base 目录始终在 a_exp1_llm_bt_tasks 下
+                _lib_path = 'a_exp1_llm_bt_tasks'
             
             if base_class == 'OGAction':
                 class_type = "Action"
@@ -323,8 +324,9 @@ def llm_generate_behavior_lib_need_feedback(bddl_file=None,goal_str=None,goal_st
                 idx = path_parts.index('a_exp1_llm_bt_tasks')
                 _lib_path = '.'.join(path_parts[:idx+1])  # 只保留到 a_exp1_llm_bt_tasks
             else:
-                # 向后兼容：如果路径中没有 a_exp1_llm_bt_tasks，使用原来的逻辑
-                _lib_path = rel_path.replace(os.path.sep, '.')
+                # 如果路径中没有 a_exp1_llm_bt_tasks，使用固定的 a_exp1_llm_bt_tasks 路径
+                # 因为 _base 目录始终在 a_exp1_llm_bt_tasks 下
+                _lib_path = 'a_exp1_llm_bt_tasks'
             
             if base_class == 'OGAction':
                 class_type = "Action"
