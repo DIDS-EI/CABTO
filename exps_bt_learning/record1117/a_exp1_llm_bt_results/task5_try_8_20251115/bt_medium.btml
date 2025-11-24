@@ -1,0 +1,13 @@
+selector
+    cond IsFull(left_cup)
+    sequence
+        cond IsEmpty(left_cup)
+        selector
+            sequence
+                cond Holding(left_franka,left_milk)
+                act DropLeftMilk(left_milk,left_cup)
+            sequence
+                cond IsHandEmpty(left_franka)
+                cond CanGrasp(left_franka,left_milk)
+                cond On(left_milk,left_table)
+                act GraspLeftMilk(left_milk)

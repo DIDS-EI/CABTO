@@ -1,0 +1,367 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PutInOven(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["chickenleg", "pie"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions:
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)", "IsOpened(oven)"}
+        # Adds:
+        info["add"] = {f"In({arg[0]},oven)"}
+        # Removes:
+        info["del_set"] = {f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PickUpFromTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["chickenleg", "soup", "pie"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PutOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["soup", "chickenleg", "pie"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding({arg[0]})"}
+        info["add"] = {f"On({arg[0]},table)", "IsHandEmpty()"}
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class OpenOven(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsClosed(oven)"}
+        info["add"] = {"IsOpened(oven)"}
+        info["del_set"] = {"IsClosed(oven)"}
+        info["cost"] = 1
+        return info
+
+class CloseOven(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsOpened(oven)"}
+        info["add"] = {"IsClosed(oven)"}
+        info["del_set"] = {"IsOpened(oven)"}
+        info["cost"] = 1
+        return info
+
+class SwitchOnOven(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(oven)", "IsClosed(oven)", "In(chickenleg,oven)|In(pie,oven)"}  # at least one item should be in oven to switch on
+        info["add"] = {"IsSwitchedOn(oven)"}
+        info["del_set"] = {"IsSwitchedOff(oven)"}
+        info["cost"] = 1
+        return info
+
+class SwitchOffOven(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOn(oven)"}
+        info["add"] = {"IsSwitchedOff(oven)"}
+        info["del_set"] = {"IsSwitchedOn(oven)"}
+        info["cost"] = 1
+        return info
+
+class OpenMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"IsClosed(microwave)"}
+        info["add"] = {"IsOpened(microwave)"}
+        info["del_set"] = {"IsClosed(microwave)"}
+        info["cost"] = 1
+        return info
+
+class CloseMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"IsOpened(microwave)"}
+        info["add"] = {"IsClosed(microwave)"}
+        info["del_set"] = {"IsOpened(microwave)"}
+        info["cost"] = 1
+        return info
+
+class SwitchOnMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(microwave)", "IsClosed(microwave)", "In(soup,microwave)"}
+        info["add"] = {"IsSwitchedOn(microwave)"}
+        info["del_set"] = {"IsSwitchedOff(microwave)"}
+        info["cost"] = 1
+        return info
+
+class SwitchOffMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOn(microwave)"}
+        info["add"] = {"IsSwitchedOff(microwave)"}
+        info["del_set"] = {"IsSwitchedOn(microwave)"}
+        info["cost"] = 1
+        return info
+
+class PutInMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["soup"]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)", "IsOpened(microwave)"}
+        info["add"] = {f"In({arg[0]},microwave)"}
+        info["del_set"] = {f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PickUpFromOven(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["chickenleg", "pie"]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"In({arg[0]},oven)", "IsOpened(oven)"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty()", f"In({arg[0]},oven)"}
+        info["cost"] = 1
+        return info
+
+class PutInLight(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(light)"}
+        info["add"] = {"IsSwitchedOn(light)"}
+        info["del_set"] = {"IsSwitchedOff(light)"}
+        info["cost"] = 1
+        return info
+
+class PutOffLight(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOn(light)"}
+        info["add"] = {"IsSwitchedOff(light)"}
+        info["del_set"] = {"IsSwitchedOn(light)"}
+        info["cost"] = 1
+        return info
+
+class SwitchOnRadio(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(radio)"}
+        info["add"] = {"IsSwitchedOn(radio)"}
+        info["del_set"] = {"IsSwitchedOff(radio)"}
+        info["cost"] = 1
+        return info
+
+class SwitchOffRadio(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOn(radio)"}
+        info["add"] = {"IsSwitchedOff(radio)"}
+        info["del_set"] = {"IsSwitchedOn(radio)"}
+        info["cost"] = 1
+        return info
+
+class PutOnBreakfastTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["pie"]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        # To put pie on breakfast_table, agent must hold pie
+        info["pre"] = {f"Holding({arg[0]})"}
+        info["add"] = {f"On({arg[0]},breakfast_table)", "IsHandEmpty()"}
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class PickUpFromBreakfastTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["pie"]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {f"On({arg[0]},breakfast_table)", "IsHandEmpty()"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},breakfast_table)"}
+        info["cost"] = 1
+        return info
+
+
+# Conditions
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsSwitchedOn(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsSwitchedOff(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

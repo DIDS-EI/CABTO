@@ -1,0 +1,33 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond On(box_board,center_table)
+        selector
+            sequence
+                cond On(left_franka,center_table)
+                selector
+                    sequence
+                        cond On(right_franka,center_table)
+                        selector
+                            sequence
+                                cond IsHolding(left_franka,center_big_box)
+                                cond IsHolding(right_franka,center_big_box)
+                                act PutOnBoxBoard()
+                            sequence
+                                cond IsHandEmpty(left_franka)
+                                cond On(center_big_box,center_table)
+                                cond IsHandEmpty(right_franka)
+                                act HoldTogetherCenterBigBox()
+                    sequence
+                        cond IsHandEmpty(left_franka)
+                        cond On(right_franka,right_table)
+                        cond On(center_big_box,center_table)
+                        cond IsHandEmpty(right_franka)
+                        act MoveRightFranka(right_table,center_table)
+            sequence
+                cond IsHandEmpty(left_franka)
+                cond On(left_franka,left_table)
+                cond IsHandEmpty(right_franka)
+                cond On(right_franka,right_table)
+                cond On(center_big_box,center_table)
+                act MoveLeftFranka(left_table,center_table)

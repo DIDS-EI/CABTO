@@ -1,0 +1,13 @@
+selector
+    sequence
+        cond On(c,b)
+        cond On(b,a)
+    sequence
+        cond Holding(c)
+        selector
+            sequence
+                cond On(b,a)
+                act PutOn(c,b)
+            sequence
+                cond Holding(b)
+                act PutOn(b,a)

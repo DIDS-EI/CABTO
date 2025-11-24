@@ -1,0 +1,61 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task4,1,easy,"On(left_box1,right_table)",True,5,2,4,7,0,False,
+task4,1,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,49,4,4,7,0,False,
+task4,1,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",True,13,2,4,7,0,False,
+task4,2,easy,"On(left_box1,right_table)",True,12,3,6,3,0,False,
+task4,2,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,1091,6,6,3,0,False,
+task4,2,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",True,69,2,6,3,0,False,
+task4,3,easy,"On(left_box1,right_table)",False,-1,-1,6,3,0,False,tuple index out of range
+task4,3,medium,"On(left_box2,right_table)&On(right_box,left_table)",False,-1,-1,6,3,0,False,tuple index out of range
+task4,3,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,-1,-1,6,3,0,False,tuple index out of range
+task4,3,easy,"On(left_box1,right_table)",True,12,3,6,3,1,True,
+task4,3,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,1091,6,6,3,1,True,
+task4,3,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",True,69,2,6,3,1,True,
+task4,4,easy,"On(left_box1,right_table)",True,10,2,6,3,0,False,
+task4,4,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,363,4,6,3,0,False,
+task4,4,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",True,99,2,6,3,0,False,
+task4,5,easy,"On(left_box1,right_table)",True,5,2,4,3,0,False,
+task4,5,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,49,4,4,3,0,False,
+task4,5,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,-1,-1,4,3,0,False,'IsHolding'
+task4,5,easy,"On(left_box1,right_table)",True,5,2,4,4,1,True,
+task4,5,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,49,4,4,4,1,True,
+task4,5,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,1,0,4,4,1,True,
+task4,5,easy,"On(left_box1,right_table)",True,5,2,4,4,2,True,
+task4,5,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,49,4,4,4,2,True,
+task4,5,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,1,0,4,4,2,True,
+task4,5,easy,"On(left_box1,right_table)",True,5,2,4,3,3,True,
+task4,5,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,49,4,4,3,3,True,
+task4,5,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",True,13,2,4,3,3,True,
+task4,6,easy,"On(left_box1,right_table)",True,5,2,4,6,0,False,
+task4,6,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,49,4,4,6,0,False,
+task4,6,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,1,0,4,6,0,False,
+task4,6,easy,"On(left_box1,right_table)",True,10,2,6,4,1,True,
+task4,6,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,363,4,6,4,1,True,
+task4,6,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,1,0,6,4,1,True,
+task4,6,easy,"On(left_box1,right_table)",False,1,0,6,4,2,True,
+task4,6,medium,"On(left_box2,right_table)&On(right_box,left_table)",False,1,0,6,4,2,True,
+task4,6,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,1,0,6,4,2,True,
+task4,6,easy,"On(left_box1,right_table)",False,-1,-1,6,4,3,True,tuple index out of range
+task4,6,medium,"On(left_box2,right_table)&On(right_box,left_table)",False,-1,-1,6,4,3,True,tuple index out of range
+task4,6,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,-1,-1,6,4,3,True,tuple index out of range
+task4,7,easy,"On(left_box1,right_table)",True,5,2,4,3,0,False,
+task4,7,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,49,4,4,3,0,False,
+task4,7,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,-1,-1,4,3,0,False,'IsHolding'
+task4,7,easy,"On(left_box1,right_table)",False,5,0,4,3,1,True,
+task4,7,medium,"On(left_box2,right_table)&On(right_box,left_table)",False,49,0,4,3,1,True,
+task4,7,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,-1,-1,4,3,1,True,'IsHolding'
+task4,8,easy,"On(left_box1,right_table)",True,5,2,4,4,0,False,
+task4,8,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,49,4,4,4,0,False,
+task4,8,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",True,41,2,4,4,0,False,
+task4,9,easy,"On(left_box1,right_table)",True,5,2,4,3,0,False,
+task4,9,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,49,4,4,3,0,False,
+task4,9,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,-1,-1,4,3,0,False,'IsHolding'
+task4,9,easy,"On(left_box1,right_table)",True,4,2,4,3,1,True,
+task4,9,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,34,4,4,3,1,True,
+task4,9,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",False,-1,-1,4,3,1,True,'IsHolding'
+task4,9,easy,"On(left_box1,right_table)",True,5,2,4,3,2,True,
+task4,9,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,49,4,4,3,2,True,
+task4,9,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",True,13,2,4,3,2,True,
+task4,10,easy,"On(left_box1,right_table)",True,2,1,5,3,0,False,
+task4,10,medium,"On(left_box2,right_table)&On(right_box,left_table)",True,5,2,5,3,0,False,
+task4,10,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",True,9,3,5,3,0,False,

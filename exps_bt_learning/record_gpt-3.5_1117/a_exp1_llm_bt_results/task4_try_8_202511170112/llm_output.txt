@@ -1,0 +1,127 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUpLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_box1", "left_box2"]  # left_franka can pick up boxes on left_table only
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"IsHandEmpty(left_franka)", f"On(left_franka,left_table)", f"On({obj},left_table)"}
+        info["add"] = {f"IsHolding(left_franka,{obj})"}
+        info["del_set"] = {f"IsHandEmpty(left_franka)", f"On({obj},left_table)"}
+        info["cost"] = 1
+        return info
+
+class PutDownLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_box1", "left_box2"], ["left_table", "right_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, table = arg
+        info = {}
+        info["pre"] = {f"IsHolding(left_franka,{obj})", f"On(left_franka,left_table)"}
+        info["add"] = {f"On({obj},{table})", f"IsHandEmpty(left_franka)"}
+        info["del_set"] = {f"IsHolding(left_franka,{obj})"}
+        info["cost"] = 1
+        return info
+
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_box"]  # right_franka can pick up boxes on right_table only
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"IsHandEmpty(right_franka)", f"On(right_franka,right_table)", f"On({obj},right_table)"}
+        info["add"] = {f"IsHolding(right_franka,{obj})"}
+        info["del_set"] = {f"IsHandEmpty(right_franka)", f"On({obj},right_table)"}
+        info["cost"] = 1
+        return info
+
+class PutDownRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["right_box"], ["right_table", "left_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, table = arg
+        info = {}
+        info["pre"] = {f"IsHolding(right_franka,{obj})", f"On(right_franka,right_table)"}
+        info["add"] = {f"On({obj},{table})", f"IsHandEmpty(right_franka)"}
+        info["del_set"] = {f"IsHolding(right_franka,{obj})"}
+        info["cost"] = 1
+        return info
+
+class MoveLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_table", "right_table"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        dest = arg[0]
+        info = {}
+        other_table = "right_table" if dest == "left_table" else "left_table"
+        info["pre"] = {f"On(left_franka,{other_table})"}
+        info["add"] = {f"On(left_franka,{dest})"}
+        info["del_set"] = {f"On(left_franka,{other_table})"}
+        info["cost"] = 1
+        return info
+
+class MoveRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_table", "left_table"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        dest = arg[0]
+        info = {}
+        other_table = "left_table" if dest == "right_table" else "right_table"
+        info["pre"] = {f"On(right_franka,{other_table})"}
+        info["add"] = {f"On(right_franka,{dest})"}
+        info["del_set"] = {f"On(right_franka,{other_table})"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1  # left_franka or right_franka
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2  # object, location (boxes and tables, or franka and tables)
+
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 2  # actor (franka), object (box)
+```

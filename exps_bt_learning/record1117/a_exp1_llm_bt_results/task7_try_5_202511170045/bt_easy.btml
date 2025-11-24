@@ -1,0 +1,42 @@
+selector
+    sequence
+        cond In(pie,oven)
+        cond In(chickenleg,oven)
+        cond IsSwitchedOn(oven)
+    sequence
+        cond IsSwitchedOff(oven)
+        selector
+            selector
+                selector
+                    sequence
+                        cond In(pie,oven)
+                        selector
+                            selector
+                                sequence
+                                    cond In(chickenleg,oven)
+                                    act SwitchOn(oven)
+                                sequence
+                                    cond IsOpened(oven)
+                                    cond Holding(chickenleg)
+                                    act PutIn(chickenleg,oven)
+                            sequence
+                                cond On(chickenleg,table)
+                                cond IsOpened(oven)
+                                cond IsHandEmpty()
+                                act PickUp(chickenleg)
+                    sequence
+                        cond On(chickenleg,table)
+                        cond Holding(pie)
+                        cond IsOpened(oven)
+                        act PutIn(pie,oven)
+                sequence
+                    cond On(chickenleg,table)
+                    cond Holding(pie)
+                    cond IsClosed(oven)
+                    act Open(oven)
+            sequence
+                cond On(chickenleg,table)
+                cond IsClosed(oven)
+                cond IsHandEmpty()
+                cond On(pie,table)
+                act PickUp(pie)

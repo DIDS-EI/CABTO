@@ -1,0 +1,6 @@
+selector
+    cond In(apple,fridge)
+    sequence
+        cond On(apple,table)
+        cond IsHandEmpty()
+        act PutInFridge(apple)

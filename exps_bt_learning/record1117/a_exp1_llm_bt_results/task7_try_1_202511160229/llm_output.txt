@@ -1,0 +1,195 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # Can pick up from table or breakfast_table (objects on these locations initially or possibly)
+    valid_args = ["soup", "pie", "chickenleg"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: hand empty, object on table or breakfast_table
+        # Since initial objects on "table" only, allow only "table" here.
+        # For generality, include breakfast_table here as possible location of object.
+        info["pre"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+class PutDownOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["soup", "pie", "chickenleg"]
+    # Puts object on "table"
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"Holding({obj})"}
+        info["add"] = {f"On({obj},table)", "IsHandEmpty()"}
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+class OpenContainer(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        c = arg[0]
+        info = {}
+        info["pre"] = {f"IsClosed({c})"}
+        info["add"] = {f"IsOpened({c})"}
+        info["del_set"] = {f"IsClosed({c})"}
+        info["cost"] = 1
+        return info
+
+class CloseContainer(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        c = arg[0]
+        info = {}
+        info["pre"] = {f"IsOpened({c})"}
+        info["add"] = {f"IsClosed({c})"}
+        info["del_set"] = {f"IsOpened({c})"}
+        info["cost"] = 1
+        return info
+
+class SwitchOn(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave", "light", "radio"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        device = arg[0]
+        info = {}
+        info["pre"] = {f"IsSwitchedOff({device})"}
+        info["add"] = {f"IsSwitchedOn({device})"}
+        info["del_set"] = {f"IsSwitchedOff({device})"}
+        info["cost"] = 1
+        return info
+
+class SwitchOff(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave", "light", "radio"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        device = arg[0]
+        info = {}
+        info["pre"] = {f"IsSwitchedOn({device})"}
+        info["add"] = {f"IsSwitchedOff({device})"}
+        info["del_set"] = {f"IsSwitchedOn({device})"}
+        info["cost"] = 1
+        return info
+
+class PutInContainer(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Put object inside container: object must not be held and not already in container
+    # Preconditions: holding object or object on location and container opened
+    # For simplicity, here: object held, container opened
+    valid_args = list(itertools.product(["soup", "pie", "chickenleg"], ["oven", "microwave"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, container = arg[0], arg[1]
+        info = {}
+        info["pre"] = {f"Holding({obj})", f"IsOpened({container})"}
+        info["add"] = {f"In({obj},{container})", "IsHandEmpty()"}
+        # Remove holding and object on table (if any)
+        # "On(obj,table)" or similar may be deleted if exists
+        info["del_set"] = {f"Holding({obj})"}
+        # Also remove On(obj,table) if object was on table before putting in container
+        # but since holding implies On(obj,table) already removed in PickUp, no need here
+        info["cost"] = 1
+        return info
+
+class RemoveFromContainer(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Remove object from container => holding object, container opened
+    valid_args = list(itertools.product(["soup", "pie", "chickenleg"], ["oven", "microwave"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, container = arg[0], arg[1]
+        info = {}
+        info["pre"] = {f"In({obj},{container})", f"IsOpened({container})", "IsHandEmpty()"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {f"In({obj},{container})", "IsHandEmpty()"}
+        info["cost"] = 1
+        return info
+
+# Conditions:
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsSwitchedOn(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsSwitchedOff(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

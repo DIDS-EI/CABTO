@@ -1,0 +1,59 @@
+selector
+    cond On(a,b)
+    sequence
+        cond Clear(b)
+        selector
+            selector
+                sequence
+                    cond Holding(robot,a)
+                    act Stack(a,b)
+                sequence
+                    cond IsHandEmpty(robot)
+                    cond On(a,table)
+                    cond Clear(a)
+                    act PickUp(a)
+            sequence
+                cond Clear(a)
+                cond On(a,table)
+                cond Holding(robot,c)
+                act PutDown(c)
+    sequence
+        cond On(a,table)
+        cond On(c,b)
+        selector
+            selector
+                selector
+                    selector
+                        sequence
+                            cond Clear(c)
+                            selector
+                                sequence
+                                    cond IsHandEmpty(robot)
+                                    cond Clear(a)
+                                    act UnStack(c,b)
+                                sequence
+                                    cond Clear(d)
+                                    cond Holding(robot,a)
+                                    act Stack(a,d)
+                        sequence
+                            cond IsHandEmpty(robot)
+                            cond Clear(a)
+                            cond On(a,c)
+                            cond Clear(d)
+                            act UnStack(a,c)
+                    sequence
+                        cond Clear(a)
+                        cond On(a,c)
+                        cond Holding(robot,d)
+                        act PutDown(d)
+                sequence
+                    cond IsHandEmpty(robot)
+                    cond Clear(d)
+                    cond On(a,c)
+                    cond On(d,a)
+                    act UnStack(d,a)
+            sequence
+                cond On(a,c)
+                cond Holding(robot,d)
+                cond On(d,a)
+                act PutDown(d)

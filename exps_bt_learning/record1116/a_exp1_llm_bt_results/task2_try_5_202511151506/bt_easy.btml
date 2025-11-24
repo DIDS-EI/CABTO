@@ -1,0 +1,17 @@
+selector
+    cond On(a,b)
+    sequence
+        cond Holding(a)
+        selector
+            sequence
+                cond IsClear(b)
+                act PutOn(a,b)
+            act InitialClear(b)
+    sequence
+        cond IsHandEmpty()
+        cond On(a,table)
+        selector
+            sequence
+                cond IsClear(a)
+                act PickUp(a)
+            act InitialClear(a)

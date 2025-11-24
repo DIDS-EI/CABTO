@@ -1,0 +1,73 @@
+selector
+    sequence
+        cond IsSwitchedOn(oven)
+        cond In(pie,oven)
+        cond In(chickenleg,oven)
+    sequence
+        cond IsSwitchedOff(oven)
+        selector
+            selector
+                selector
+                    sequence
+                        cond In(chickenleg,oven)
+                        selector
+                            selector
+                                selector
+                                    sequence
+                                        cond In(pie,oven)
+                                        act SwitchOnLeftFranka(oven)
+                                    sequence
+                                        cond Holding(left_franka,pie)
+                                        cond IsClosed(oven)
+                                        act PutInOvenLeftFranka(pie)
+                                sequence
+                                    cond IsOpened(microwave)
+                                    cond In(pie,microwave)
+                                    cond IsHandEmpty(left_franka)
+                                    cond IsClosed(oven)
+                                    act PickDownLeftFranka(pie,microwave)
+                            sequence
+                                cond In(pie,microwave)
+                                cond IsHandEmpty(left_franka)
+                                cond IsClosed(microwave)
+                                cond IsClosed(oven)
+                                act OpenDeviceLeftFranka(microwave)
+                    sequence
+                        cond In(pie,microwave)
+                        cond IsClosed(microwave)
+                        cond Holding(left_franka,chickenleg)
+                        cond IsClosed(oven)
+                        act PutInOvenLeftFranka(chickenleg)
+                sequence
+                    cond IsClosed(microwave)
+                    cond IsClosed(oven)
+                    cond In(pie,microwave)
+                    cond On(chickenleg,breakfast_table)
+                    cond IsHandEmpty(left_franka)
+                    act PickDownLeftFranka(chickenleg,breakfast_table)
+            sequence
+                cond IsClosed(microwave)
+                cond In(pie,microwave)
+                cond On(chickenleg,breakfast_table)
+                cond IsHandEmpty(left_franka)
+                cond IsOpened(oven)
+                act CloseDeviceLeftFranka(oven)
+    sequence
+        cond IsClosed(microwave)
+        cond In(pie,microwave)
+        cond IsSwitchedOn(oven)
+        cond On(chickenleg,breakfast_table)
+        cond IsOpened(oven)
+        selector
+            selector
+                sequence
+                    cond IsHandEmpty(left_franka)
+                    act SwitchOffLeftFranka(oven)
+                sequence
+                    cond IsSwitchedOff(microwave)
+                    cond Holding(left_franka,soup)
+                    act PutInMicrowaveLeftFranka(soup)
+            sequence
+                cond IsSwitchedOn(microwave)
+                cond Holding(left_franka,soup)
+                act SwitchOffLeftFranka(microwave)

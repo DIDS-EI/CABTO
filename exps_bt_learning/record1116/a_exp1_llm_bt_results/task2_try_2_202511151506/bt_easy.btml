@@ -1,0 +1,22 @@
+selector
+    cond On(a,b)
+    sequence
+        cond Holding(a)
+        selector
+            sequence
+                cond Clear(b)
+                act PutOn(a,b)
+            sequence
+                cond Holding(b)
+                act PutDown(b)
+    sequence
+        cond On(a,table)
+        cond Holding(b)
+        cond Clear(a)
+        selector
+            sequence
+                cond IsHandEmpty()
+                act PickUp(a)
+            sequence
+                cond Holding(d)
+                act PutDown(d)

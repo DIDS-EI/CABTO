@@ -1,0 +1,106 @@
+
+Example 1:
+start_state = {"IsHandEmpty()"}
+objects = {"coffeecup","apple","table","orange"}
+goals = ["On(coffeecup,table)","On(coffeecup,table)&On(apple,table)","On(coffeecup,table)&On(apple,table)&On(orange,table)"]
+
+```python
+class PutAOnB(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["coffeecup","apple","orange"], ["table"]))
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]={"IsHandEmpty()"}
+        info["add"]={f"On({arg[0]},{arg[1]})"}
+        info["del_set"] = set()
+        info["cost"] = 1
+        return info
+
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+// PutAOnB动作类，On(),，IsHandEmpty 条件谓词
+
+
+Example 2:
+start_state = {"IsHandEmpty()","IsClose(d)","IsSwitchedOff(c)"}
+objects = {"a","b","c","d"}
+goals = ["IsOpen(d)","In(a,d)","IsSwitchedOn(c)&Near(b)"]
+
+
+
+
+
+Example 3:
+start_state = {"Right(a)","Left(b)","Left(c)","IsHandEmpty(robot_left)","IsHandEmpty(robot_right)"}
+objects = {"a","b","c","robot_left","robot_right"}
+goals = ["Right(b)","Left(a)","On(b,c)"]
+
+```python
+class Grasp(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["robot_left","robot_right"], ["a","b","c"]))
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]= {"IsHandEmpty({arg[0]})"}
+        info["add"]= {f"IsHolding({arg[0]},{arg[1]})"}
+        info["del_set"] = {"IsHandEmpty({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class Grasp(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["robot_left","robot_right"], ["a","b","c"]))
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]= {"IsHandEmpty({arg[0]})"}
+        info["add"]= {f"IsHolding({arg[0]},{arg[1]})"}
+        info["del_set"] = {"IsHandEmpty({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+```
+```python
+class HandOverFromLeftToRight(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a","b","c"]
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]= {"IsHandEmpty(robot_left)","IsHandEmpty(robot_right)",f"Left({arg[0]})"}
+        info["add"]= {f"Right({arg[0]})"}
+        info["del_set"] = {f"Left({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+```

@@ -1,0 +1,194 @@
+=== LLM Input ===
+
+Objects: {'center_big_box', 'box_board', 'right_table', 'left_lego', 'right_lego', 'center_table', 'left_franka', 'right_franka', 'left_table'}
+
+Initial State: {'On(center_big_box,center_table)', 'On(left_franka,left_table)', 'IsHandEmpty(left_franka)', 'On(right_lego,right_table)', 'BigBoxNeedTwoFrankaHoldTogether()', 'On(left_lego,left_table)', 'On(box_board,center_table)', 'On(right_franka,right_table)', 'IsHandEmpty(right_franka)'}
+
+Easy Goal: In(left_lego,center_big_box)
+Medium Goal: In(right_lego,center_big_box)
+Hard Goal: On(center_big_box,box_board)
+
+=== Prompt ===
+
+
+Based on the initial_state, objects, and goals provided above, generate a complete and concise behavior library\
+: including all action nodes and condition nodes, implemented in Python code.
+Follow the rules below:
+1. Each action node should be implemented as a class, \
+with the class name matching the action name and inheriting from the 'OGAction' class.
+2. Each condition node should be implemented as a class, \
+with the class name matching the condition name and inheriting from the 'OGCondition' class.
+3. Each action info dictionary should include 3 keys: pre, add, and del_set, representing preconditions, added conditions, and deleted conditions, respectively.
+4. The valid_args of each action node represent the action parameters, selected from center_big_box, box_board, right_table, left_lego, right_lego, center_table, left_franka, right_franka, left_table; num_args indicates the number of parameters involved in the action, with some actions potentially involving multiple parameters.
+5. Clearly distinguish between actors (robots/agents) and objects: Actors are the entities that perform actions (e.g., robot1, robot2, left_franka, right_franka), while objects are the targets being manipulated (e.g., items, containers, locations). When defining actions, explicitly identify which actor performs the action and which objects are being acted upon. If there are multiple actors in the task, define corresponding actions for each actor separately (e.g., PickUpLeftFranka, PickUpRightFranka).
+6. Condition nodes must cover all preconditions, added conditions, and deleted conditions of all actions, as well as all initial states and goal states of all tasks, and possibly more.
+7. The provided actions must be executable, with appropriate granularity (neither too coarse nor too fine). The combination and arrangement of these actions must be sufficient to accomplish the given task goals.The granularity of actions and state changes must be complete and logically consistent.
+8. When generating actions, ensure that the previous Action's `add` or `del` effects can fully satisfy the next Action's required `pre` preconditions. Also ensure that at least one action can be executed in the initial state (its preconditions must be satisfied by the initial state).
+9. Only provide the code, no explanation needed.
+10. Below are some examples. 
+
+
+
+
+Example 1:
+initial_state = {"IsHandEmpty()"}
+objects = {"coffeecup","apple","table","orange"}
+goals = ["On(coffeecup,table)","On(coffeecup,table)&On(apple,table)","On(coffeecup,table)&On(apple,table)&On(orange,table)"]
+
+```python
+class PutAOnB(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["coffeecup","apple","orange"], ["table"]))
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]={"IsHandEmpty()"}
+        info["add"]={f"On({arg[0]},{arg[1]})"}
+        # 删除所有 On(arg[0], 其他位置) 的状态
+        all_locations = {args[1] for args in cls.valid_args}
+        info["del_set"] = {f"On({arg[0]},{loc})" for loc in all_locations if loc != arg[1]}
+        info["cost"] = 1
+        return info
+
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+Example 2:
+initial_state = {"IsHandEmpty(robot1)","IsHandEmpty(robot2)","On(robot1,area1)","On(robot2,area2)","On(x,area1)","On(y,area2)","Robot1CanOnlyDoInArea1()","Robot2CanOnlyDoInArea2()"}
+objects = {"x","y","place","area1","area2"}
+goals = ["On(x,place)","On(x,place)&On(y,place)"]
+
+```python
+class PickUp1(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # robot1 can only pick up objects in area1: x
+    valid_args = ["x"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Robot's hand is empty, object is in area1, robot is in area1, robot1 restriction
+        info["pre"] = {f"IsHandEmpty(robot1)", f"On({arg[0]},area1)", f"On(robot1,area1)", f"Robot1CanOnlyDoInArea1()"}
+        # Added: Robot is holding the object
+        info["add"] = {f"Holding(robot1,{arg[0]})"}
+        # Deleted: Robot's hand is empty, object is in area1
+        info["del_set"] = {f"IsHandEmpty(robot1)", f"On({arg[0]},area1)"}
+        info["cost"] = 1
+        return info
+```
+```python
+class Drop1(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # robot1 can drop 'x' into 'place' or 'area1' (since it's restricted to area1, it must be able to move it out of area1 if necessary)
+    # The problem implies movement between areas/places is needed for the goal, so we assume 'place' is accessible from 'area1' for drop/put
+    # Given the constraint Robot1CanOnlyDoInArea1(), the *drop* must be done *in* area1 or *to* a location accessible *from* area1. 
+    # Let's assume 'place' is the destination, and 'area1' is a potential temporary drop location within its zone.
+    valid_args = list(itertools.product(["x"], ["place", "area1"])) 
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Robot is holding the object, robot is in area1, robot1 restriction
+        info["pre"] = {f"Holding(robot1,{arg[0]})", f"On(robot1,area1)", f"Robot1CanOnlyDoInArea1()"}
+        # Added: Robot's hand is empty, object is on the destination location
+        info["add"] = {f"IsHandEmpty(robot1)", f"On({arg[0]},{arg[1]})"}
+        # Deleted: Robot is holding the object
+        info["del_set"] = {f"Holding(robot1,{arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PickUp2(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # robot2 can only pick up objects in area2: y
+    valid_args = ["y"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Robot's hand is empty, object is in area2, robot is in area2, robot2 restriction
+        info["pre"] = {f"IsHandEmpty(robot2)", f"On({arg[0]},area2)", f"On(robot2,area2)", f"Robot2CanOnlyDoInArea2()"}
+        # Added: Robot is holding the object
+        info["add"] = {f"Holding(robot2,{arg[0]})"}
+        # Deleted: Robot's hand is empty, object is in area2
+        info["del_set"] = {f"IsHandEmpty(robot2)", f"On({arg[0]},area2)"}
+        info["cost"] = 1
+        return info
+```
+```python
+class Drop2(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # robot2 can drop 'y' into 'place' or 'area2'
+    valid_args = list(itertools.product(["y"], ["place", "area2"])) 
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Robot is holding the object, robot is in area2, robot2 restriction
+        info["pre"] = {f"Holding(robot2,{arg[0]})", f"On(robot2,area2)", f"Robot2CanOnlyDoInArea2()"}
+        # Added: Robot's hand is empty, object is on the destination location
+        info["add"] = {f"IsHandEmpty(robot2)", f"On({arg[0]},{arg[1]})"}
+        # Deleted: Robot is holding the object
+        info["del_set"] = {f"Holding(robot2,{arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1 
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2 
+```
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2 
+```
+```python
+class Robot1CanOnlyDoInArea1(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+```python
+class Robot2CanOnlyDoInArea2(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+         Here are the initial_state, objects and goals, please generate the behavior libraries:
+initial_state = {"On(center_big_box,center_table)", "On(left_franka,left_table)", "IsHandEmpty(left_franka)", "On(right_lego,right_table)", "BigBoxNeedTwoFrankaHoldTogether()", "On(left_lego,left_table)", "On(box_board,center_table)", "On(right_franka,right_table)", "IsHandEmpty(right_franka)"}
+objects = {"center_big_box", "box_board", "right_table", "left_lego", "right_lego", "center_table", "left_franka", "right_franka", "left_table"}
+goal = ["In(left_lego,center_big_box)", "In(right_lego,center_big_box)", "On(center_big_box,box_board)"]

@@ -1,0 +1,13 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond BigBoxNeedTwoFrankaHoldTogether()
+        selector
+            sequence
+                cond HoldingBothTogether(left_franka,right_franka,center_big_box)
+                act MoveBigBoxWithTwoFrankas()
+            sequence
+                cond On(center_big_box,center_table)
+                cond IsHandEmpty(left_franka)
+                cond IsHandEmpty(right_franka)
+                act BothFrankasHoldBigBox()

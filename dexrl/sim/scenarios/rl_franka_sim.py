@@ -6,7 +6,7 @@ from omni.isaac.core.world import World
 from omni.isaac.core.objects import FixedCuboid, DynamicCuboid
 from omni.isaac.motion_generation import ArticulationMotionPolicy
 import omni.replicator.core as rep
-from dexrl.sim.objects import BaseObject, Socket, MySocket, Apple_plug
+from dexrl.sim.objects import BaseObject
 
 from dexrl.sim.scenarios.franka import Robot, FrankaScenario, FrankaScenarioCfg
 from dexrl.sim.utils import Normalizer_N1_1
@@ -26,21 +26,6 @@ class RLFrankaScenarioCfg(FrankaScenarioCfg):
 
     real_act_ik_lower_limit = np.array([-0.4, -0.6, 0.1])
     real_act_ik_upper_limit = np.array([0.4, -0.3, 0.6])
-
-    obj_cls = Apple_plug
-    obj_init_pos = [0, -0.40253, 0.17164]  # [[-0.12822, -0.63934, 0.17668]]
-    obj_init_euler = [0, 0, 0]  # [0, 1.57, 0]
-    obj_mass = 0.2
-
-    obj_cls2 = Socket
-    obj_init_pos2 = [0, -0.6, 0.07]  # -0.0.35
-    obj_init_euler2 = [0, 0, 0]  # [0, 1.57, 0]
-    obj_mass2 = 0.2
-
-    obj_cls3 = MySocket
-    obj_init_pos3 = [0, 0, 0.07]  # -0.0.35
-    obj_init_euler3 = [0, 0, 0]  # [0, 1.57, 0]
-    obj_mass3 = 0.2
 
 
 class RLFrankaScenario(FrankaScenario):
@@ -107,38 +92,6 @@ class RLFrankaScenario(FrankaScenario):
             "blue_cube": self.blue_cube,
             "green_cube": self.green_cube,
         }
-        for obj in self.obstacle_list:
-            with rep.get.prims(obj.prim_path):
-                rep.modify.semantics([("class", obj.name)])
-        self.plug: BaseObject = Apple_plug(
-            position=np.array(self.cfg.obj_init_pos),
-            orientation=utils.rot.euler_angles_to_quat(
-                self.cfg.obj_init_euler),
-            mass=self.cfg.obj_mass,
-            )
-        self.plug_prim = self.plug.create_prim()
-        self.world.scene.add(self.plug_prim)
-        self.obstacle_list.append(self.plug_prim)
-
-        self.socket: BaseObject = Socket(
-            position=np.array(self.cfg.obj_init_pos2),
-            orientation=utils.rot.euler_angles_to_quat(
-                self.cfg.obj_init_euler2),
-            mass=self.cfg.obj_mass2,
-            )
-        self.socket_prim = self.socket.create_prim()
-        self.world.scene.add(self.socket_prim)
-        self.obstacle_list.append(self.socket_prim)
-
-        self.my_socket: BaseObject = MySocket(
-            position=np.array(self.cfg.obj_init_pos3),
-            orientation=utils.rot.euler_angles_to_quat(
-                self.cfg.obj_init_euler3),
-            mass=self.cfg.obj_mass3,
-            )
-        self.my_socket_prim = self.my_socket.create_prim()
-        self.world.scene.add(self.my_socket_prim)
-        self.obstacle_list.append(self.my_socket_prim)
 
     def reset(self):
         self.policy_steps = 0

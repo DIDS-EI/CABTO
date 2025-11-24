@@ -1,0 +1,53 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # Can pick up any object from the table if the hand is empty
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Can put an object on another object only if holding the first object
+    valid_args = list(itertools.product(["a", "b", "c", "d"], ["a", "b", "c", "d"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *args):
+        if args[0] == args[1]:
+            return None  # Cannot put onto itself
+        info = {}
+        info["pre"] = {f"Holding({args[0]})", f"On({args[1]},table) | On({args[1]},a) | On({args[1]},b) | On({args[1]},c) | On({args[1]},d)"}
+        info["add"] = {f"On({args[0]},{args[1]})", f"IsHandEmpty()"}
+        info["del_set"] = {f"Holding({args[0]})"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

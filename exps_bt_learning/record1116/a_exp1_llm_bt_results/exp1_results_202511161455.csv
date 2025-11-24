@@ -1,0 +1,7 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task6,1,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,1,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,1,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,2,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,2,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,2,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts

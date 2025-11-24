@@ -1,0 +1,171 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUpLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_lego", "center_big_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: left_franka's hand empty, object on some location, left_franka at same location (implied), BigBoxNeedTwoFrankaHoldTogether only affects big box
+        info["pre"] = {f"IsHandEmpty(left_franka)", f"On({obj},{loc})" for loc in ["left_table", "center_table", "center_big_box"] if not(obj == "center_big_box" and loc != "center_table")}
+        pre = {f"IsHandEmpty(left_franka)", f"On({obj},{loc})" for loc in ["left_table", "center_table", "center_big_box"]}
+        # But simplified to check presence of On(obj, any of the known object bases) - below we do explicit in code
+        # Let's generate preconditions properly:
+        possible_locs = ["left_table", "center_table", "center_big_box"]
+        # But from initial state and goals, left_lego is on left_table, center_big_box is on center_table, right_lego on right_table
+        # Restrict left_franka picks only objects at left_table and center_table (can reach)
+        pre = {f"IsHandEmpty(left_franka)"}
+        loc_options = []
+        for loc in possible_locs:
+            loc_options.append(f"On({obj},{loc})")
+        info["pre"] = {f"IsHandEmpty(left_franka)"} | set(loc_options)
+        info["add"] = {f"Holding(left_franka,{obj})"}
+        info["del_set"] = {f"IsHandEmpty(left_franka)"} | {f"On({obj},{loc})" for loc in possible_locs}
+        info["cost"] = 1
+        return info
+
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_lego", "center_big_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        possible_locs = ["right_table", "center_table", "center_big_box"]
+        info = {}
+        info["pre"] = {f"IsHandEmpty(right_franka)"}
+        loc_options = []
+        for loc in possible_locs:
+            loc_options.append(f"On({obj},{loc})")
+        info["pre"].update(loc_options)
+        info["add"] = {f"Holding(right_franka,{obj})"}
+        info["del_set"] = {f"IsHandEmpty(right_franka)"} | {f"On({obj},{loc})" for loc in possible_locs}
+        info["cost"] = 1
+        return info
+
+class PlaceInBigBoxLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # left_franka places left_lego or center_big_box (if held) into center_big_box or on box_board accordingly
+    valid_args = ["left_lego", "center_big_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: holding obj with left_franka
+        if obj == "center_big_box":
+            # placing big box onto box_board
+            info["pre"] = {f"Holding(left_franka,{obj})", "On(box_board,center_table)"}
+            info["add"] = {f"On({obj},box_board)", f"IsHandEmpty(left_franka)"}
+            info["del_set"] = {f"Holding(left_franka,{obj})", f"On({obj},center_table)"}
+        else:
+            # placing lego into big box
+            info["pre"] = {f"Holding(left_franka,{obj})", "On(center_big_box,center_table)"}
+            info["add"] = {f"In({obj},center_big_box)", f"IsHandEmpty(left_franka)"}
+            # Remove the holding of obj and any On(obj, loc) since now it's inside box
+            info["del_set"] = {f"Holding(left_franka,{obj})"} | {f"On({obj},{loc})" for loc in ["left_table", "center_table", "center_big_box"]}
+        info["cost"] = 1
+        return info
+
+class PlaceInBigBoxRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_lego", "center_big_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        if obj == "center_big_box":
+            info["pre"] = {f"Holding(right_franka,{obj})", "On(box_board,center_table)"}
+            info["add"] = {f"On({obj},box_board)", f"IsHandEmpty(right_franka)"}
+            info["del_set"] = {f"Holding(right_franka,{obj})", f"On({obj},center_table)"}
+        else:
+            info["pre"] = {f"Holding(right_franka,{obj})", "On(center_big_box,center_table)"}
+            info["add"] = {f"In({obj},center_big_box)", f"IsHandEmpty(right_franka)"}
+            info["del_set"] = {f"Holding(right_franka,{obj})"} | {f"On({obj},{loc})" for loc in ["right_table", "center_table", "center_big_box"]}
+        info["cost"] = 1
+        return info
+
+class HoldBigBoxTogether(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: left_franka and right_franka both empty handed, big box on center_table, BigBoxNeedTwoFrankaHoldTogether flag
+        info["pre"] = {"IsHandEmpty(left_franka)", "IsHandEmpty(right_franka)", "On(center_big_box,center_table)", "BigBoxNeedTwoFrankaHoldTogether()"}
+        # Added: both holding big box together (modeled as holding state for both arms)
+        info["add"] = {"Holding(left_franka,center_big_box)", "Holding(right_franka,center_big_box)"}
+        # Deleted: hands empty, big box on center_table
+        info["del_set"] = {"IsHandEmpty(left_franka)", "IsHandEmpty(right_franka)", "On(center_big_box,center_table)"}
+        info["cost"] = 1
+        return info
+
+class PlaceBigBoxOnBoardTogether(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: both arms holding big box and box_board on center_table, BigBoxNeedTwoFrankaHoldTogether flag
+        info["pre"] = {"Holding(left_franka,center_big_box)", "Holding(right_franka,center_big_box)", "On(box_board,center_table)", "BigBoxNeedTwoFrankaHoldTogether()"}
+        # Added: big box on box_board and hands empty, delete holding and hand empty
+        info["add"] = {"On(center_big_box,box_board)", "IsHandEmpty(left_franka)", "IsHandEmpty(right_franka)"}
+        info["del_set"] = {"Holding(left_franka,center_big_box)", "Holding(right_franka,center_big_box)"}
+        info["cost"] = 1
+        return info
+
+
+# Conditions
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class BigBoxNeedTwoFrankaHoldTogether(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

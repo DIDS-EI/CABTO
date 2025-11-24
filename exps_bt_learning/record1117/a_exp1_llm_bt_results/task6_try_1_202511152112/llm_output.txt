@@ -1,0 +1,205 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["apple", "wine", "banana", "book", "pen"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Hand is empty, object is on a table or other surface
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Added: Holding the object
+        info["add"] = {f"Holding({arg[0]})"}
+        # Deleted: Hand is empty, object is on a surface
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        return info
+```
+
+```python
+class DropOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["apple", "wine", "banana", "book", "pen"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Holding the object
+        info["pre"] = {f"Holding({arg[0]})"}
+        # Added: Hand is empty, object is on the table
+        info["add"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Deleted: Holding the object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        return info
+```
+
+```python
+class OpenCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["cabinet"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Cabinet is closed
+        info["pre"] = {f"IsClosed({arg[0]})"}
+        # Added: Cabinet is open
+        info["add"] = {f"Open({arg[0]})"}
+        # Deleted: Cabinet is closed
+        info["del_set"] = {f"IsClosed({arg[0]})"}
+        return info
+```
+
+```python
+class CloseCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["cabinet"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Cabinet is open
+        info["pre"] = {f"Open({arg[0]})"}
+        # Added: Cabinet is closed
+        info["add"] = {f"IsClosed({arg[0]})"}
+        # Deleted: Cabinet is open
+        info["del_set"] = {f"Open({arg[0]})"}
+        return info
+```
+
+```python
+class OpenFridge(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["fridge"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Fridge is closed
+        info["pre"] = {f"IsClosed({arg[0]})"}
+        # Added: Fridge is open
+        info["add"] = {f"Open({arg[0]})"}
+        # Deleted: Fridge is closed
+        info["del_set"] = {f"IsClosed({arg[0]})"}
+        return info
+```
+
+```python
+class CloseFridge(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["fridge"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Fridge is open
+        info["pre"] = {f"Open({arg[0]})"}
+        # Added: Fridge is closed
+        info["add"] = {f"IsClosed({arg[0]})"}
+        # Deleted: Fridge is open
+        info["del_set"] = {f"Open({arg[0]})"}
+        return info
+```
+
+```python
+class PutInCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["book", "pen"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Holding the object, cabinet is open
+        info["pre"] = {f"Holding({arg[0]})", f"Open(cabinet)"}
+        # Added: Object is in the cabinet, hand is empty
+        info["add"] = {f"In({arg[0]},cabinet)", f"IsHandEmpty()"}
+        # Deleted: Holding the object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        return info
+```
+
+```python
+class PutInFridge(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["banana", "wine"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Holding the object, fridge is open
+        info["pre"] = {f"Holding({arg[0]})", f"Open(fridge)"}
+        # Added: Object is in the fridge, hand is empty
+        info["add"] = {f"In({arg[0]},fridge)", f"IsHandEmpty()"}
+        # Deleted: Holding the object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        return info
+```
+
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class Open(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

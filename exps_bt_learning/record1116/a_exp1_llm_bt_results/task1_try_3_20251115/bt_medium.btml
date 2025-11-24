@@ -1,0 +1,12 @@
+selector
+    cond On(b,place_b)
+    sequence
+        cond IsEmpty(place_b)
+        selector
+            sequence
+                cond Holding(b)
+                act PlaceOn(b,place_b)
+            sequence
+                cond IsHandEmpty()
+                cond On(b,table)
+                act PickUp(b)

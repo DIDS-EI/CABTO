@@ -1,0 +1,9 @@
+selector
+    sequence
+        cond IsOpened(cabinet)
+        cond In(book,cabinet)
+    sequence
+        cond IsClosed(cabinet)
+        cond IsHandEmpty(robot)
+        cond In(book,cabinet)
+        act OpenContainer(robot,cabinet)

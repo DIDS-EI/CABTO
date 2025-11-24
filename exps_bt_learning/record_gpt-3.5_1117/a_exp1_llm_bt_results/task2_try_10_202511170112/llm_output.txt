@@ -1,0 +1,60 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["b", "a", "d", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {"IsHandEmpty()",
+                       f"On({obj},table)"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {"IsHandEmpty()", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["b","a","d","c"], ["b","a","d","c"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj1, obj2 = arg[0], arg[1]
+        info = {}
+        info["pre"] = {f"Holding({obj1})",
+                       # to avoid placing an object on itself
+                       # but this is not part of conditions, so can be filtered outside action generation if needed
+                       # Also ensure that obj1 != obj2 for practical use
+                      }
+        # Add On(obj1,obj2) and IsHandEmpty()
+        info["add"] = {f"On({obj1},{obj2})", "IsHandEmpty()"}
+        # Remove Holding(obj1)
+        info["del_set"] = {f"Holding({obj1})"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

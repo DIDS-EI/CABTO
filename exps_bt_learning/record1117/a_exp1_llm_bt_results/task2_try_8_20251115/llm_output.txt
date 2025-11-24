@@ -1,0 +1,103 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class MoveAOnB(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["a"], ["b"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"On(a,table)", "On(b,table)", "IsHandEmpty()"}
+        info["add"] = {f"On(a,{arg[1]})"}
+        all_objects = {"a", "b", "c", "d"}
+        info["del_set"] = {f"On(a,{obj})" for obj in all_objects if obj != arg[1]}
+        info["cost"] = 1
+        return info
+        
+class MoveCOnB(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["c"], ["b"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"On(c,table)", "On(b,table)", "IsHandEmpty()"}
+        info["add"] = {f"On(c,{arg[1]})"}
+        all_objects = {"a", "b", "c", "d"}
+        info["del_set"] = {f"On(c,{obj})" for obj in all_objects if obj != arg[1]}
+        info["cost"] = 1
+        return info
+        
+class MoveAOnC(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["a"], ["c"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"On(a,table)", "On(c,table)", "IsHandEmpty()"}
+        info["add"] = {f"On(a,{arg[1]})"}
+        all_objects = {"a", "b", "c", "d"}
+        info["del_set"] = {f"On(a,{obj})" for obj in all_objects if obj != arg[1]}
+        info["cost"] = 1
+        return info
+        
+class MoveBOnA(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["b"], ["a"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"On(b,table)", "On(a,table)", "IsHandEmpty()"}
+        info["add"] = {f"On(b,{arg[1]})"}
+        all_objects = {"a", "b", "c", "d"}
+        info["del_set"] = {f"On(b,{obj})" for obj in all_objects if obj != arg[1]}
+        info["cost"] = 1
+        return info
+        
+class MoveBOnD(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["b"], ["d"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"On(b,table)", "On(d,table)", "IsHandEmpty()"}
+        info["add"] = {f"On(b,{arg[1]})"}
+        all_objects = {"a", "b", "c", "d"}
+        info["del_set"] = {f"On(b,{obj})" for obj in all_objects if obj != arg[1]}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

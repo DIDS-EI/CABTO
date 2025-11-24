@@ -1,0 +1,15 @@
+selector
+    sequence
+        cond IsHalfFull(left_cup)
+        cond IsHalfFull(right_cup)
+    sequence
+        cond On(right_cup,right_table)
+        cond Holding(right_franka,right_cup)
+        selector
+            sequence
+                cond IsHalfFull(left_cup)
+                act AdjustRightCup(right_cup)
+            sequence
+                cond On(left_cup,left_table)
+                cond Holding(left_franka,left_cup)
+                act AdjustLeftCup(left_cup)

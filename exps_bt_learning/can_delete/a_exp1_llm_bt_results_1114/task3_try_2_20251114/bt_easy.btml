@@ -1,0 +1,7 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond IsHandEmpty(right_franka)
+        cond IsHandEmpty(left_franka)
+        cond BigBoxNeedTwoFranka()
+        act PutBigBoxOnBoard(center_big_box,box_board)

@@ -1,0 +1,119 @@
+
+Example 1:
+start_state = {"IsHandEmpty()"}
+objects = {"coffeecup","apple","table"}
+goal = ["IsHolding(coffeecup)","On(coffeecup,table)&IsHolding(apple)","On(coffeecup,table)&On(apple,table)"]
+
+```python
+class Grasp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["coffeecup","apple"]
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]={"IsHandEmpty()",f"IsNear({arg[0]})"}
+        info["add"]={f"IsHolding({arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty()"}
+        info["cost"] = 1
+        return info
+
+
+    def change_condition_set(self):
+        self.agent.condition_set |= (self.info["add"])
+        self.agent.condition_set -= self.info["del_set"]
+```
+```python
+class MoveTo(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["coffeecup","apple","table"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.target_obj = self.args[0]
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]=set()
+        info["add"]={f"IsNear({arg[0]})"}
+        info["del_set"] = {f'IsNear({place})' for place in cls.valid_args if place != arg[0]}
+        info["cost"] = 1
+        return info
+
+    def change_condition_set(self):
+        self.agent.condition_set |= (self.info["add"])
+        self.agent.condition_set -= self.info["del_set"] 
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsNear(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+Example 2:
+start_state = {"IsHandEmpty()"}
+objects = {"coffeecup","apple","table","orange"}
+goal = ["On(coffeecup,table)","On(coffeecup,table)&On(coffeecup,table)","On(coffeecup,table)&On(apple,table)&On(orange,table)"]
+
+```python
+class PutAOnB(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["coffeecup","apple","orange"]
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]={"IsHandEmpty()"}
+        info["add"]={f"IsHolding({arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty()"}
+        info["cost"] = 1
+        return info
+
+
+    def change_condition_set(self):
+        self.agent.condition_set |= (self.info["add"])
+        self.agent.condition_set -= self.info["del_set"]
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsNear(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

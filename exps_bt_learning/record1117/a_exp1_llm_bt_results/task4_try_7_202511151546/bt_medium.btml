@@ -1,0 +1,45 @@
+selector
+    sequence
+        cond On(right_box,left_table)
+        cond On(left_box2,right_table)
+    sequence
+        cond On(left_franka,right_table)
+        selector
+            selector
+                selector
+                    sequence
+                        cond On(right_box,left_table)
+                        selector
+                            sequence
+                                cond Holding(left_franka,left_box2)
+                                act DropOffLeftFranka(left_franka,right_table,left_box2)
+                            sequence
+                                cond IsHandEmpty(left_franka)
+                                cond On(left_box2,left_table)
+                                cond On(left_franka,left_table)
+                                act PickUpLeftFranka(left_franka,left_box2)
+                    sequence
+                        cond On(left_box2,left_table)
+                        cond On(left_franka,left_table)
+                        cond IsHandEmpty(left_franka)
+                        cond Holding(right_franka,right_box)
+                        cond On(right_franka,left_table)
+                        act DropOffRightFranka(right_franka,left_table,right_box)
+                sequence
+                    cond On(left_box2,left_table)
+                    cond On(left_franka,left_table)
+                    cond On(right_franka,right_table)
+                    cond On(right_box,right_table)
+                    cond IsHandEmpty(left_franka)
+                    cond IsHandEmpty(right_franka)
+                    cond On(right_franka,left_table)
+                    act PickUpRightFranka(right_franka,right_box)
+            sequence
+                cond Holding(left_franka,left_box1)
+                cond On(left_box2,left_table)
+                cond On(left_franka,left_table)
+                cond On(right_franka,right_table)
+                cond On(right_box,right_table)
+                cond IsHandEmpty(right_franka)
+                cond On(right_franka,left_table)
+                act DropOffLeftFranka(left_franka,left_table,left_box1)

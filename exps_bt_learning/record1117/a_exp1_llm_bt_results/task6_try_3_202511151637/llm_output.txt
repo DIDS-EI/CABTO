@@ -1,0 +1,107 @@
+=== LLM Output ===
+
+```python
+class Open(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["fridge", "cabinet"]
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsClosed({arg[0]})"}
+        info["add"] = {f"Open({arg[0]})"}
+        info["del_set"] = {f"IsClosed({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class Close(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["fridge", "cabinet"]
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Open({arg[0]})"}
+        info["add"] = {f"IsClosed({arg[0]})"}
+        info["del_set"] = {f"Open({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["pen", "apple", "banana", "book"]
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Hand is empty and object is on the table
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Action's effect: Holding the object, hand is not empty
+        info["add"] = {f"Holding({arg[0]})"}
+        # Delete: Hand is empty, object on the table
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PlaceIn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["pen", "apple", "banana", "book"], ["fridge", "cabinet"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Object is being held and the storage unit is open
+        info["pre"] = {f"Holding({arg[0]})", f"Open({arg[1]})"}
+        # Action's effect: Object is in the storage unit
+        info["add"] = {f"In({arg[0]},{arg[1]})", "IsHandEmpty()"}
+        # Delete: Object is being held
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+```python
+class Open(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

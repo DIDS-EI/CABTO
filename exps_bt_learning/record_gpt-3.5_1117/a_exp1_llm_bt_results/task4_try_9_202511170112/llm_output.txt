@@ -1,0 +1,131 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUpLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # left_franka can pick up objects from left_table or right_table if on same table
+    valid_args = ["left_box1", "left_box2"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"IsHandEmpty(left_franka)", f"On({obj},left_table)", f"On(left_franka,left_table)"}
+        info["add"] = {f"IsHolding(left_franka,{obj})"}
+        info["del_set"] = {f"IsHandEmpty(left_franka)", f"On({obj},left_table)"}
+        info["cost"] = 1
+        return info
+
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls,*arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"IsHandEmpty(right_franka)", f"On({obj},right_table)", f"On(right_franka,right_table)"}
+        info["add"] = {f"IsHolding(right_franka,{obj})"}
+        info["del_set"] = {f"IsHandEmpty(right_franka)", f"On({obj},right_table)"}
+        info["cost"] = 1
+        return info
+
+class PlaceLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # left_franka places held object on either left_table or right_table
+    valid_args = list(itertools.product(["left_box1","left_box2"], ["left_table", "right_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls,*arg):
+        obj, place = arg
+        info = {}
+        info["pre"] = {f"IsHolding(left_franka,{obj})", f"On(left_franka,left_table)"}
+        # It is assumed that left_franka is on left_table always; no movement action provided, so position remains.
+        info["add"] = {f"IsHandEmpty(left_franka)", f"On({obj},{place})"}
+        info["del_set"] = {f"IsHolding(left_franka,{obj})"}
+        info["cost"] = 1
+        return info
+
+class PlaceRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # right_franka places held object on right_table or left_table
+    valid_args = list(itertools.product(["right_box"], ["right_table", "left_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        
+    @classmethod
+    def get_info(cls,*arg):
+        obj, place = arg
+        info = {}
+        info["pre"] = {f"IsHolding(right_franka,{obj})", f"On(right_franka,right_table)"}
+        info["add"] = {f"IsHandEmpty(right_franka)", f"On({obj},{place})"}
+        info["del_set"] = {f"IsHolding(right_franka,{obj})"}
+        info["cost"] = 1
+        return info
+
+class MoveLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_table", "right_table"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls,*arg):
+        place = arg[0]
+        other_place = "right_table" if place == "left_table" else "left_table"
+        info = {}
+        info["pre"] = {f"On(left_franka,{other_place})", "IsHandEmpty(left_franka)"}
+        info["add"] = {f"On(left_franka,{place})"}
+        info["del_set"] = {f"On(left_franka,{other_place})"}
+        info["cost"] = 1
+        return info
+
+class MoveRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_table", "left_table"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls,*arg):
+        place = arg[0]
+        other_place = "left_table" if place == "right_table" else "right_table"
+        info = {}
+        info["pre"] = {f"On(right_franka,{other_place})", "IsHandEmpty(right_franka)"}
+        info["add"] = {f"On(right_franka,{place})"}
+        info["del_set"] = {f"On(right_franka,{other_place})"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1  # actor
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2  # object, location
+
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 2  # actor, object
+```

@@ -1,0 +1,9 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond IsHandEmpty(right_franka)
+        cond On(right_franka,right_table)
+        cond On(left_franka,left_table)
+        cond IsHandEmpty(left_franka)
+        cond BigBoxNeedTwoFranka()
+        act PlaceCenterBigBox(center_big_box)

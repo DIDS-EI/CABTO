@@ -1,0 +1,21 @@
+selector
+    sequence
+        cond IsOpened(microwave)
+        cond IsOpened(oven)
+        cond IsSwitchedOn(light)
+    sequence
+        cond IsNoIsClosedIn(microwave)
+        selector
+            sequence
+                cond IsSwitchedOn(light)
+                selector
+                    sequence
+                        cond IsOpened(oven)
+                        act OpenContainer(microwave)
+                    sequence
+                        cond IsClosed(oven)
+                        act OpenContainer(oven)
+            sequence
+                cond IsClosed(oven)
+                cond IsSwitchedOff(light)
+                act TurnOnDevice(light)

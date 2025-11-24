@@ -1,0 +1,59 @@
+selector
+    sequence
+        cond On(b,c)
+        cond On(a,b)
+        cond On(c,d)
+    sequence
+        cond On(b,c)
+        selector
+            sequence
+                cond On(b,table)
+                selector
+                    selector
+                        sequence
+                            cond On(a,table)
+                            selector
+                                sequence
+                                    cond IsHandEmpty()
+                                    selector
+                                        sequence
+                                            cond On(c,d)
+                                            act PutAOnB(a,b)
+                                        sequence
+                                            cond On(d,table)
+                                            cond On(c,table)
+                                            act PutAOnB(c,d)
+                                sequence
+                                    cond On(d,table)
+                                    cond Holding(c)
+                                    act Move(c,table)
+                        sequence
+                            cond Holding(a)
+                            cond On(d,table)
+                            cond Holding(c)
+                            act Drop(a)
+                    sequence
+                        cond Holding(d)
+                        cond Holding(a)
+                        cond Holding(c)
+                        act Move(d,table)
+            sequence
+                cond Holding(d)
+                cond Holding(a)
+                cond Holding(b)
+                cond Holding(c)
+                act Drop(b)
+    sequence
+        cond Holding(d)
+        cond IsHandEmpty()
+        cond Holding(c)
+        cond Holding(a)
+        cond Holding(b)
+        selector
+            sequence
+                cond On(c,b)
+                act Swap(c,b)
+            sequence
+                cond On(b,table)
+                cond On(c,table)
+                act PutAOnB(c,b)

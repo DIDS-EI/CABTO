@@ -1,0 +1,24 @@
+selector
+    sequence
+        cond On(left_lego,center_big_box)
+        cond On(center_big_box,box_board)
+    sequence
+        cond On(left_franka,left_table)
+        cond LeftFrankaCanOnlyDoLeftAction()
+        selector
+            sequence
+                cond On(center_big_box,box_board)
+                selector
+                    sequence
+                        cond Holding(left_franka,left_lego)
+                        act DropLeftFranka(left_lego,center_big_box)
+                    sequence
+                        cond On(left_lego,left_table)
+                        cond IsHandEmpty(left_franka)
+                        act PickUpLeftFranka(left_lego)
+            sequence
+                cond IsHandEmpty(right_franka)
+                cond On(left_lego,left_table)
+                cond BigBoxNeedTwoFranka()
+                cond IsHandEmpty(left_franka)
+                act PlaceCenterBigBox(center_big_box)

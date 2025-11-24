@@ -1,0 +1,2 @@
+﻿task name	action lib num no feedback	condition lib num no feedback	expanded num no feedback	act num (steps) no feedback	action lib num feedback	condition lib num feedback	expanded num feedback	act num (steps) feedback	easy success rate no feedback	medium success rate no feedback	hard success rate no feedback	all success rate no feedback	easy success rate feedback	medium success rate feedback	hard success rate feedback	all success rate feedback	average feedback times
+task5	5.6	8.0	122.8	4.5	6.0	8.0	225.8	4.8	0.0	50.0	50.0	0.0	0.0	60.0	40.0	0.0	3.0

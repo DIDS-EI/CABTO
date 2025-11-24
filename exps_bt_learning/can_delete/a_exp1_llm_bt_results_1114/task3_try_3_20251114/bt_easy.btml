@@ -1,0 +1,5 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond Holding(center_big_box)
+        act PutAOnB(center_big_box,box_board)

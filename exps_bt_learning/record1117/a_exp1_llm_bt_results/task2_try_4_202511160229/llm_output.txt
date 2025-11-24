@@ -1,0 +1,97 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Hand empty, object on table
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Add: Holding(object)
+        info["add"] = {f"Holding({arg[0]})"}
+        # Delete: Hand empty, object on table
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Only allow putting on objects different from the held one and not onto itself
+    valid_args = [(x,y) for x,y in itertools.product(["a","b","c","d"], repeat=2) if x != y]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        held_obj = arg[0]
+        dest_obj = arg[1]
+        info = {}
+        # Preconditions: Holding held_obj, destination object is on table or another object
+        # To put on another object, that object must not be held by anyone
+        # Here just require destination exists in vertical stack (On(dest_obj, something))
+        info["pre"] = {f"Holding({held_obj})", f"On({dest_obj},table)"}
+        # Add: On(held_obj, dest_obj), IsHandEmpty()
+        info["add"] = {f"On({held_obj},{dest_obj})", "IsHandEmpty()"}
+        # Delete: Holding(held_obj)
+        info["del_set"] = {f"Holding({held_obj})"}
+        # Also need to delete other On(held_obj, *) if stacking multiple levels later
+        # But from initial_state, objects only on table or on other objects, and action only allows put on objects on table
+        info["cost"] = 1
+        return info
+
+
+class PickUpFromObject(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: Hand empty, object is on some other object (not table)
+        # Since del_set must be certain, we enumerate all possible On(obj, _) except table
+        # Because initial_state and goal only involve table and other objects
+        on_relations = {f"On({obj},x)" for x in ["a", "b", "c", "d"] if x != obj}
+        info["pre"] = {"IsHandEmpty()"}
+        # To be sound, have to require On(obj, some object other than table)
+        # We'll just pick generalized: requires On(obj, something not table)
+        # Use condition OnObject(obj)
+        info["pre"].add(f"OnObject({obj})")
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {"IsHandEmpty()"}
+        # Also delete On(obj, some object)
+        info["del_set"].add(f"On({obj},x)")
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class OnObject(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

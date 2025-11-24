@@ -1,0 +1,79 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_cup", "right_milk"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {
+            "IsHandEmpty(right_franka)",
+            f"On({arg[0]}, right_table)",
+            "CanGrasp(right_franka,right_milk)" if arg[0] == "right_milk" else "",
+            "CanGrasp(right_franka,right_cup)" if arg[0] == "right_cup" else "",
+        }
+        info["add"] = {f"IsHolding(right_franka,{arg[0]})"}
+        info["del_set"] = {"IsHandEmpty(right_franka)", f"On({arg[0]}, right_table)"}
+        info["cost"] = 1
+        return info
+
+class PutDownRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["right_cup", "right_milk"], ["right_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {
+            f"IsHolding(right_franka,{arg[0]})",
+            f"On(right_franka,right_table)"
+        }
+        info["add"] = {f"On({arg[0]}, {arg[1]})", "IsEmpty(right_cup)" if arg[0] == "right_cup" else "IsFull(right_cup)" }
+        info["del_set"] = {f"IsHolding(right_franka,{arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class CheckCupFullnessRight(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHalfFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class CanGrasp(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class NeedSupport(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

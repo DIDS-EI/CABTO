@@ -1,0 +1,84 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["b", "a", "d", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        obj = arg[0]
+        info["pre"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.permutations(["b", "a", "d", "c"], 2))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        obj, target = arg[0], arg[1]
+        info["pre"] = {f"Holding({obj})"}
+        info["add"] = {f"On({obj},{target})", "IsHandEmpty()"}
+        # Remove Holding(obj), remove any On(obj, other) except on target
+        # We delete old On(obj, x) if x != target
+
+        all_targets = set(o for o in ["b", "a", "d", "c"] if o != obj)
+        del_on = {f"On({obj},{loc})" for loc in all_targets}
+        info["del_set"] = {f"Holding({obj})"}.union(del_on)
+        info["cost"] = 1
+        return info
+
+
+class PlaceOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["b", "a", "d", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        obj = arg[0]
+        info["pre"] = {f"Holding({obj})"}
+        info["add"] = {f"On({obj},table)", "IsHandEmpty()"}
+        # Delete holding(obj), delete any On(obj, X) except table
+        all_targets = set(o for o in ["b", "a", "d", "c"])  # all considered objects and table
+        del_on = {f"On({obj},{loc})" for loc in all_targets if loc != "table"}
+        info["del_set"] = {f"Holding({obj})"}.union(del_on)
+        info["cost"] = 1
+        return info
+
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

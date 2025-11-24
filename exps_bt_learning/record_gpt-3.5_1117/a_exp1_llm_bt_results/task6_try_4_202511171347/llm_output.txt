@@ -1,0 +1,161 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["pen", "banana", "book"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: hand empty, object on some surface
+        pre = {"IsHandEmpty()"}
+        # On obj,surface must hold for some surface in objects except fridge and cabinet since those are containers
+        surfaces = {"breakfast_table", "table"}
+        add_set = {f"Holding({obj})"}
+        del_set = {"IsHandEmpty()"}
+        # delete On(obj,surface) for surface in surfaces if present
+        del_on = {f"On({obj},{surface})" for surface in surfaces}
+        info["pre"] = pre.union(del_on)
+        info["add"] = add_set
+        info["del_set"] = del_set.union(del_on)
+        info["cost"] = 1
+        return info
+
+class Place(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # object can be placed on table or breakfast_table or inside fridge or cabinet(after opening)
+    valid_objs = ["pen", "banana", "book"]
+    valid_locs = ["breakfast_table", "table", "fridge", "cabinet"]
+    valid_args = list(itertools.product(valid_objs, valid_locs))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, loc = arg
+        info = {}
+        pre = {f"Holding({obj})", "IsHandEmpty()"}
+        del_set = {f"Holding({obj})"}
+        add_set = {"IsHandEmpty()"}
+        # If location is container, must be opened
+        if loc in {"fridge", "cabinet"}:
+            pre.add(f"IsOpened({loc})")
+            del_set.add(f"Holding({obj})")
+            add_set.add(f"In({obj},{loc})")
+        else:
+            # location is surface
+            pre.add(f"IsHandEmpty()")
+            del_set.add(f"Holding({obj})")
+            add_set.add(f"On({obj},{loc})")
+        info["pre"] = pre
+        info["add"] = add_set
+        info["del_set"] = del_set
+        info["cost"] = 1
+        return info
+
+class Open(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["fridge", "cabinet"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        loc = arg[0]
+        info = {}
+        pre = {f"IsClosed({loc})", "IsHandEmpty()"}
+        add_set = {f"IsOpened({loc})"}
+        del_set = {f"IsClosed({loc})"}
+        info["pre"] = pre
+        info["add"] = add_set
+        info["del_set"] = del_set
+        info["cost"] = 1
+        return info
+
+class Close(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["fridge", "cabinet"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        loc = arg[0]
+        # Only close if opened and hand empty
+        info = {}
+        pre = {f"IsOpened({loc})", "IsHandEmpty()"}
+        add_set = {f"IsClosed({loc})"}
+        del_set = {f"IsOpened({loc})"}
+        info["pre"] = pre
+        info["add"] = add_set
+        info["del_set"] = del_set
+        info["cost"] = 1
+        return info
+
+class PutIn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_objs = ["pen", "banana", "book"]
+    valid_containers = ["fridge", "cabinet"]
+    valid_args = list(itertools.product(valid_objs, valid_containers))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, cont = arg
+        info = {}
+        pre = {f"Holding({obj})", f"IsOpened({cont})"}
+        # obj must be not on surface or in container already
+        # For safety, remove any On(obj,surface) or In(obj,container) states
+        del_set = {f"Holding({obj})"}
+        surfaces = {"breakfast_table", "table"}
+        del_set.update({f"On({obj},{s})" for s in surfaces})
+        other_containers = {"fridge", "cabinet"}
+        del_set.update({f"In({obj},{c})" for c in other_containers})
+        add_set = {f"In({obj},{cont})", "IsHandEmpty()"}
+        info["pre"] = pre
+        info["add"] = add_set
+        info["del_set"] = del_set
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

@@ -1,0 +1,58 @@
+selector
+    sequence
+        cond IsSwitchedOn(oven)
+        cond In(pie,oven)
+        cond In(chickenleg,oven)
+    sequence
+        cond Holding(left_franka,pie)
+        selector
+            sequence
+                cond IsSwitchedOn(oven)
+                selector
+                    sequence
+                        cond IsOpened(oven)
+                        selector
+                            sequence
+                                cond In(chickenleg,oven)
+                                selector
+                                    sequence
+                                        cond IsAt(left_franka,oven)
+                                        act PutInOven(left_franka,pie)
+                                    sequence
+                                        cond IsHandEmpty(left_franka)
+                                        cond IsAt(left_franka,breakfast_table)
+                                        cond IsAt(left_franka,microwave)
+                                        cond IsAt(left_franka,table)
+                                        act Move(left_franka,oven)
+                            sequence
+                                cond IsAt(left_franka,microwave)
+                                cond Holding(right_franka,chickenleg)
+                                cond IsAt(left_franka,table)
+                                cond IsHandEmpty(left_franka)
+                                cond IsAt(right_franka,oven)
+                                cond IsAt(left_franka,breakfast_table)
+                                act PutInOven(right_franka,chickenleg)
+                    sequence
+                        cond IsHandEmpty(('left_franka',))
+                        cond IsAt(left_franka,microwave)
+                        cond IsAt(('left_franka',),oven)
+                        cond IsAt(left_franka,table)
+                        cond IsClosed(oven)
+                        cond Holding(right_franka,chickenleg)
+                        cond IsHandEmpty(left_franka)
+                        cond IsAt(right_franka,oven)
+                        cond IsAt(left_franka,breakfast_table)
+                        act OpenOven(left_franka)
+            sequence
+                cond IsHandEmpty(('left_franka',))
+                cond IsAt(left_franka,microwave)
+                cond IsSwitchedOff(oven)
+                cond IsAt(('left_franka',),oven)
+                cond IsClosed(oven)
+                cond IsHandEmpty(right_franka)
+                cond IsAt(left_franka,table)
+                cond Holding(right_franka,chickenleg)
+                cond IsHandEmpty(left_franka)
+                cond IsAt(right_franka,oven)
+                cond IsAt(left_franka,breakfast_table)
+                act SwitchOn(right_franka,oven)

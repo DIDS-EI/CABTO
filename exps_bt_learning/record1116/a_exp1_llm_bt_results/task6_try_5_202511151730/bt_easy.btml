@@ -1,0 +1,18 @@
+selector
+    sequence
+        cond In(apple,fridge)
+        cond IsOpened(fridge)
+    sequence
+        cond Holding(apple)
+        selector
+            sequence
+                cond IsOpened(fridge)
+                act PlaceIn(apple,fridge)
+            sequence
+                cond IsClosed(fridge)
+                act Open(fridge)
+    sequence
+        cond IsClosed(fridge)
+        cond IsHandEmpty()
+        cond On(apple,table)
+        act PickUp(apple)

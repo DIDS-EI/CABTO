@@ -1,0 +1,29 @@
+selector
+    cond On(a,b)
+    sequence
+        cond At(right_franka,table)
+        selector
+            selector
+                sequence
+                    cond Clear(b)
+                    selector
+                        sequence
+                            cond Holding(right_franka,a)
+                            act PutOnRightFranka(a,b)
+                        sequence
+                            cond IsHandEmpty(right_franka)
+                            cond Clear(a)
+                            cond On(a,table)
+                            act PickUpRightFranka(a)
+                sequence
+                    cond Holding(right_franka,b)
+                    cond Clear(a)
+                    cond Clear(c)
+                    cond On(a,table)
+                    act PutOnRightFranka(b,c)
+            sequence
+                cond Clear(a)
+                cond Holding(right_franka,b)
+                cond Holding(right_franka,c)
+                cond On(a,table)
+                act PutDownRightFranka(c)

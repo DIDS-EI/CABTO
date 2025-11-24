@@ -1,0 +1,4 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task1,1,easy,"On(a,place_a)",False,-1,-1,0,0,0,False,'LLM' object has no attribute 'request_instruction'
+task1,1,medium,"On(a,place_a) & On(b,place_b)",False,-1,-1,0,0,0,False,'LLM' object has no attribute 'request_instruction'
+task1,1,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,-1,-1,0,0,0,False,'LLM' object has no attribute 'request_instruction'

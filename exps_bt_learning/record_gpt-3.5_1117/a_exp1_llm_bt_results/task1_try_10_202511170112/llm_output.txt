@@ -1,0 +1,105 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: hand empty, object on table
+        info["pre"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        # Add: holding object
+        info["add"] = {f"Holding({obj})"}
+        # Delete: hand empty, object on table
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+class PickUpFromPlace(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: hand empty, obj is on some place (place_a,b,c)
+        places = {"place_a","place_b","place_c"}
+        preconds = {f"IsHandEmpty()"}
+        # at least one of these will be true but we must specify which exact place in action call
+        preconds.add(f"On({obj},place_a)")
+        preconds.add(f"On({obj},place_b)")
+        preconds.add(f"On({obj},place_c)")
+        info["pre"] = set()
+        # The valid_args are only obj names. To allow parameters for place we handle in subclass or fix here:
+        # We redesign to have 2 parameters: obj and place for clarity:
+        # So this class needs 2 params; fix below...
+        raise NotImplementedError("Use PickUpFromSpecificPlace instead")
+
+class PickUpFromSpecificPlace(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["a","b","c"], ["place_a","place_b","place_c"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, place = arg
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"On({obj},{place})", f"IsEmpty({place})"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},{place})", f"IsEmpty({place})"}
+        info["cost"] = 1
+        return info
+
+class PutDown(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["a","b","c"], ["place_a","place_b","place_c"]))
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        obj, place = arg
+        info = {}
+        info["pre"] = {f"Holding({obj})", f"IsEmpty({place})"}
+        info["add"] = {f"IsHandEmpty()", f"On({obj},{place})"}
+        info["del_set"] = {f"Holding({obj})", f"IsEmpty({place})"}
+        info["cost"] = 1
+        return info
+
+# Conditions for all involved predicates and initial/goal states
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

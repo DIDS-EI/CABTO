@@ -1,0 +1,4 @@
+selector
+    sequence
+        cond IsHolding(right_franka,right_box)
+        cond IsHolding(left_franka,left_box1)

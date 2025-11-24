@@ -1,0 +1,49 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task2,1,easy,"On(a,b)",True,12,2,2,3,0,False,
+task2,1,medium,"On(c,b) & On(b,a)",True,72,4,2,3,0,False,
+task2,1,hard,"On(a,c) & On(c,b) & On(b,d)",True,384,6,2,3,0,False,
+task2,2,easy,"On(a,b)",True,15,2,2,3,0,False,
+task2,2,medium,"On(c,b) & On(b,a)",True,79,4,2,3,0,False,
+task2,2,hard,"On(a,c) & On(c,b) & On(b,d)",True,197,6,2,3,0,False,
+task2,3,easy,"On(a,b)",True,15,2,2,3,0,False,
+task2,3,medium,"On(c,b) & On(b,a)",True,156,4,2,3,0,False,
+task2,3,hard,"On(a,c) & On(c,b) & On(b,d)",True,348,6,2,3,0,False,
+task2,4,easy,"On(a,b)",True,18,2,2,3,0,False,
+task2,4,medium,"On(c,b) & On(b,a)",True,139,4,2,3,0,False,
+task2,4,hard,"On(a,c) & On(c,b) & On(b,d)",True,499,6,2,3,0,False,
+task2,5,easy,"On(a,b)",True,18,2,2,3,0,False,
+task2,5,medium,"On(c,b) & On(b,a)",True,139,4,2,3,0,False,
+task2,5,hard,"On(a,c) & On(c,b) & On(b,d)",True,499,6,2,3,0,False,
+task2,6,easy,"On(a,b)",False,41,0,4,3,0,False,
+task2,6,medium,"On(c,b) & On(b,a)",False,432,0,4,3,0,False,
+task2,6,hard,"On(a,c) & On(c,b) & On(b,d)",False,3404,0,4,3,0,False,
+task2,6,easy,"On(a,b)",False,41,0,4,3,1,True,
+task2,6,medium,"On(c,b) & On(b,a)",False,432,0,4,3,1,True,
+task2,6,hard,"On(a,c) & On(c,b) & On(b,d)",False,3404,0,4,3,1,True,
+task2,6,easy,"On(a,b)",False,-1,-1,4,4,2,True,root node must be an instance of 'py_trees.behaviour.Behaviour' [<class 'NoneType'>]
+task2,6,medium,"On(c,b) & On(b,a)",False,-1,-1,4,4,2,True,root node must be an instance of 'py_trees.behaviour.Behaviour' [<class 'NoneType'>]
+task2,6,hard,"On(a,c) & On(c,b) & On(b,d)",False,-1,-1,4,4,2,True,root node must be an instance of 'py_trees.behaviour.Behaviour' [<class 'NoneType'>]
+task2,6,easy,"On(a,b)",False,-1,-1,4,4,3,True,root node must be an instance of 'py_trees.behaviour.Behaviour' [<class 'NoneType'>]
+task2,6,medium,"On(c,b) & On(b,a)",False,-1,-1,4,4,3,True,root node must be an instance of 'py_trees.behaviour.Behaviour' [<class 'NoneType'>]
+task2,6,hard,"On(a,c) & On(c,b) & On(b,d)",False,-1,-1,4,4,3,True,root node must be an instance of 'py_trees.behaviour.Behaviour' [<class 'NoneType'>]
+task2,7,easy,"On(a,b)",True,15,2,2,3,0,False,
+task2,7,medium,"On(c,b) & On(b,a)",True,79,4,2,3,0,False,
+task2,7,hard,"On(a,c) & On(c,b) & On(b,d)",True,228,6,2,3,0,False,
+task2,8,easy,"On(a,b)",False,-1,-1,4,3,0,False,Attempting to unstack an object from itself.
+task2,8,medium,"On(c,b) & On(b,a)",False,-1,-1,4,3,0,False,Attempting to unstack an object from itself.
+task2,8,hard,"On(a,c) & On(c,b) & On(b,d)",False,-1,-1,4,3,0,False,Attempting to unstack an object from itself.
+task2,8,easy,"On(a,b)",False,-1,-1,4,4,1,True,Attempting to unstack an object from itself.
+task2,8,medium,"On(c,b) & On(b,a)",False,-1,-1,4,4,1,True,Attempting to unstack an object from itself.
+task2,8,hard,"On(a,c) & On(c,b) & On(b,d)",False,-1,-1,4,4,1,True,Attempting to unstack an object from itself.
+task2,8,easy,"On(a,b)",False,3492,0,4,4,2,True,
+task2,8,medium,"On(c,b) & On(b,a)",False,7557,0,4,4,2,True,
+task2,8,hard,"On(a,c) & On(c,b) & On(b,d)",False,7034,0,4,4,2,True,
+task2,8,easy,"On(a,b)",False,3492,0,4,4,3,True,
+task2,8,medium,"On(c,b) & On(b,a)",False,7508,0,4,4,3,True,
+task2,8,hard,"On(a,c) & On(c,b) & On(b,d)",False,7041,0,4,4,3,True,
+task2,9,easy,"On(a,b)",True,15,2,2,3,0,False,
+task2,9,medium,"On(c,b) & On(b,a)",True,156,4,2,3,0,False,
+task2,9,hard,"On(a,c) & On(c,b) & On(b,d)",True,348,6,2,3,0,False,
+task2,10,easy,"On(a,b)",True,12,2,2,3,0,False,
+task2,10,medium,"On(c,b) & On(b,a)",True,42,4,2,3,0,False,
+task2,10,hard,"On(a,c) & On(c,b) & On(b,d)",True,227,6,2,3,0,False,

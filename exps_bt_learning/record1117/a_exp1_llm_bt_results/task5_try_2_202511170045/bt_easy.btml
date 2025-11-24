@@ -1,0 +1,2 @@
+selector
+    cond IsHalfFull(right_cup)

@@ -1,0 +1,152 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # Can pick up any object that is not a container
+    valid_args = ["pen", "book", "banana"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        # Preconditions: Hand must be empty and object must be on a surface (table or breakfast_table)
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table) | On({arg[0]},breakfast_table)"}
+        # Added: Holding the object
+        info["add"] = {f"Holding({arg[0]})"}
+        # Deleted: Hand is empty, object is no longer on the surface
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)", f"On({arg[0]},breakfast_table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Can put down any object on table or breakfast_table
+    valid_args = list(itertools.product(["pen", "book", "banana"], ["table", "breakfast_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        # Preconditions: Holding the object
+        info = {}
+        info["pre"] = {f"Holding({arg[0]})"}
+        # Added: Object is on the surface, Hand is empty
+        info["add"] = {f"On({arg[0]},{arg[1]})", "IsHandEmpty()"}
+        # Deleted: No longer holding the object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class Open(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # Can open fridge or cabinet
+    valid_args = ["fridge", "cabinet"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        # Preconditions: Must have empty hands and the container must be closed
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"IsClosed({arg[0]})"}
+        # Added: The container is open
+        info["add"] = {f"IsOpened({arg[0]})"}
+        # Deleted: The container is no longer closed
+        info["del_set"] = {f"IsClosed({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class Close(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # Can close fridge or cabinet
+    valid_args = ["fridge", "cabinet"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        # Preconditions: Must have empty hands and container must be open
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"IsOpened({arg[0]})"}
+        # Added: The container is closed
+        info["add"] = {f"IsClosed({arg[0]})"}
+        # Deleted: The container is no longer open
+        info["del_set"] = {f"IsOpened({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PutIn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Can put pen, book, or banana in the fridge or cabinet
+    valid_args = list(itertools.product(["pen", "book", "banana"], ["fridge", "cabinet"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        # Preconditions: Holding the object and container is open
+        info = {}
+        info["pre"] = {f"Holding({arg[0]})", f"IsOpened({arg[1]})"}
+        # Added: Object is in the container, Hand is empty
+        info["add"] = {f"In({arg[0]},{arg[1]})", "IsHandEmpty()"}
+        # Deleted: No longer holding the object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+
+```python
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

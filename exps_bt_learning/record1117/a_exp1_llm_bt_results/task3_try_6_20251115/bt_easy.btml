@@ -1,0 +1,7 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond Holding(right_franka,center_big_box)
+        cond Holding(left_franka,center_big_box)
+        cond BigBoxNeedTwoFranka()
+        act PlaceCenterBigBox(center_big_box)

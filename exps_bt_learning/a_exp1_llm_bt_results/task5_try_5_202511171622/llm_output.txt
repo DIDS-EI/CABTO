@@ -1,0 +1,113 @@
+=== LLM Output ===
+
+```python
+class PourLeftMilkToLeftCup(OGAction):
+    can_be_expanded = True
+    num_args = 3
+    valid_args = [("left_franka", "left_milk", "left_cup")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Precondition: Left Franka is empty, left milk on table, left cup is empty, cup needs grasp and support
+        info["pre"] = {
+            f"IsHandEmpty({arg[0]})",
+            f"On({arg[1]},left_table)",
+            f"IsEmpty({arg[2]})",
+            f"CupNeedGraspAndSupport()",
+            f"CanGrasp({arg[0]},{arg[1]})",
+            f"IsFull({arg[1]})"
+        }
+        # Add: Half full left cup, hand empty
+        info["add"] = {
+            f"IsHalfFull({arg[2]})",
+            f"IsHandEmpty({arg[0]})"
+        }
+        # Delete: Left cup is empty, left milk is full
+        info["del_set"] = {
+            f"IsEmpty({arg[2]})",
+            f"IsFull({arg[1]})"
+        }
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PourRightMilkToRightCup(OGAction):
+    can_be_expanded = True
+    num_args = 3
+    valid_args = [("right_franka", "right_milk", "right_cup")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Precondition: Right Franka is empty, right milk on table, right cup is empty, cup needs grasp and support
+        info["pre"] = {
+            f"IsHandEmpty({arg[0]})",
+            f"On({arg[1]},right_table)",
+            f"IsEmpty({arg[2]})",
+            f"CupNeedGraspAndSupport()",
+            f"CanGrasp({arg[0]},{arg[1]})",
+            f"IsFull({arg[1]})"
+        }
+        # Add: Half full right cup, hand empty
+        info["add"] = {
+            f"IsHalfFull({arg[2]})",
+            f"IsHandEmpty({arg[0]})"
+        }
+        # Delete: Right cup is empty, right milk is full
+        info["del_set"] = {
+            f"IsEmpty({arg[2]})",
+            f"IsFull({arg[1]})"
+        }
+        info["cost"] = 1
+        return info
+```
+
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1 
+```
+
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2 
+```
+
+```python
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1 
+```
+
+```python
+class IsFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1 
+```
+
+```python
+class IsHalfFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1 
+```
+
+```python
+class CupNeedGraspAndSupport(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+
+```python
+class CanGrasp(OGCondition):
+    can_be_expanded = True
+    num_args = 2 
+```

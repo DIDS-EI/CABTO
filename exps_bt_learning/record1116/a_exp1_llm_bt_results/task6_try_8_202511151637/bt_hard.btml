@@ -1,0 +1,8 @@
+selector
+    sequence
+        cond In(banana,fridge)
+        cond IsClosed(fridge)
+        cond In(book,cabinet)
+        cond In(apple,fridge)
+        cond In(pen,cabinet)
+        cond IsClosed(cabinet)

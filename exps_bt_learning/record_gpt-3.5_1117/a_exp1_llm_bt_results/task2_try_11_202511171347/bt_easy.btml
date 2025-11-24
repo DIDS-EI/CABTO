@@ -1,0 +1,5 @@
+selector
+    cond On(a,b)
+    sequence
+        cond Holding(a)
+        act PutOn(a,b)

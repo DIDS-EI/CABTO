@@ -1,6 +1,4 @@
 import os
-# os.environ["OPENAI_API_KEY"]="sk-4vD6bVtv67XcfoVS8802AdF75888473296D604D707FbC9Bf"
-# os.environ["OPENAI_BASE_URL"]= "https://gtapi.xiaoerchaoren.com:8932"
 
 # from openai import OpenAI
 import http.client

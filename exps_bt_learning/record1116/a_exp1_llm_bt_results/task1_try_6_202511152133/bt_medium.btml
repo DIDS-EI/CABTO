@@ -1,0 +1,14 @@
+selector
+    sequence
+        cond On(b,place_b)
+        cond On(c,place_c)
+    sequence
+        cond On(c,table)
+        cond IsHandEmpty()
+        selector
+            sequence
+                cond On(b,place_b)
+                act PutAOnB(c,place_c)
+            sequence
+                cond On(b,table)
+                act PutAOnB(b,place_b)

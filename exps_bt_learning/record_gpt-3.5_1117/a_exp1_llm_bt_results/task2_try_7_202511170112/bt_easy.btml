@@ -1,0 +1,25 @@
+selector
+    cond On(a,b)
+    sequence
+        cond Clear(b)
+        selector
+            selector
+                sequence
+                    cond Holding(robot,a)
+                    act PutOn(a,b)
+                sequence
+                    cond IsHandEmpty(robot)
+                    cond On(a,c)
+                    cond Clear(a)
+                    act PickUpFrom(a,c)
+            sequence
+                cond Clear(a)
+                cond On(a,c)
+                cond Holding(robot,d)
+                act PutOnTable(d)
+    sequence
+        cond Clear(a)
+        cond Holding(robot,b)
+        cond On(a,c)
+        cond Holding(robot,d)
+        act PutOnTable(b)

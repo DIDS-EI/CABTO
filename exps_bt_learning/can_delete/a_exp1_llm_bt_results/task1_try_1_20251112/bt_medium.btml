@@ -1,0 +1,65 @@
+selector
+    sequence
+        cond On(b,place_b)
+        cond On(a,place_a)
+    sequence
+        cond On(b,place_b)
+        selector
+            selector
+                selector
+                    selector
+                        selector
+                            sequence
+                                cond IsEmpty(place_a)
+                                selector
+                                    selector
+                                        sequence
+                                            cond IsHolding(a)
+                                            selector
+                                                sequence
+                                                    cond IsNear(place_a)
+                                                    act Place(a,place_a)
+                                                act MoveTo(place_a)
+                                        sequence
+                                            cond On(a,b)
+                                            cond IsHandEmpty()
+                                            cond IsNear(a)
+                                            act Grasp(a,b)
+                                    sequence
+                                        cond On(a,b)
+                                        cond IsHandEmpty()
+                                        act MoveTo(a)
+                            sequence
+                                cond IsEmpty(c)
+                                cond On(place_c,place_a)
+                                cond IsNear(place_c)
+                                cond On(a,b)
+                                act MoveObject(place_c,place_a,c)
+                        sequence
+                            cond On(place_c,c)
+                            cond IsHandEmpty()
+                            cond On(place_c,place_a)
+                            cond IsNear(place_c)
+                            cond On(a,b)
+                            act Grasp(place_c,c)
+                    sequence
+                        cond On(a,b)
+                        cond On(place_c,c)
+                        cond IsHandEmpty()
+                        cond On(place_c,place_a)
+                        act MoveTo(place_c)
+                sequence
+                    cond On(place_c,c)
+                    cond IsEmpty(place_c)
+                    cond On(place_b,a)
+                    cond On(place_c,place_a)
+                    cond On(a,b)
+                    cond IsNear(place_b)
+                    act MoveObject(place_b,a,place_c)
+            sequence
+                cond On(place_c,c)
+                cond IsEmpty(place_c)
+                cond On(place_b,a)
+                cond On(place_c,place_a)
+                cond On(a,b)
+                act MoveTo(place_b)

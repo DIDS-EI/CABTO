@@ -1,0 +1,65 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Hand empty, object on table
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Add: Holding object
+        info["add"] = {f"Holding({arg[0]})"}
+        # Delete: hand empty, object on table
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.permutations(["a", "b", "c", "d"], 2))  # cannot put on itself
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: holding first object, second object is on table or another object (not first object)
+        # But to keep simple, allow second object anywhere except holding object itself
+        info["pre"] = {f"Holding({arg[0]})"}
+        # Add: first object is on second object
+        info["add"] = {f"On({arg[0]},{arg[1]})", "IsHandEmpty()"}
+        # Delete: holding first object, previous On of first object on table or other objects,
+        # We don't track all On states explicitly, but here delete holding and remove previous On states of arg[0]
+        # So remove Holding(arg[0])
+        info["del_set"] = {f"Holding({arg[0]})"}
+        # Also remove all On(arg[0], *) except On(arg[0], arg[1]) just added
+        all_obj = {"a", "b", "c", "d", "table"}
+        # On(arg[0], *) can be On(arg[0],table) or On(arg[0], other objects)
+        old_ons = {f"On({arg[0]},{obj})" for obj in all_obj if obj != arg[1]}
+        info["del_set"] = info["del_set"].union(old_ons)
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

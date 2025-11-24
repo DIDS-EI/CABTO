@@ -1,0 +1,112 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task6,1,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,0,False,
+task6,1,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,0,False,
+task6,1,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9525,0,7,6,0,False,
+task6,1,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,1,True,
+task6,1,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,1,True,
+task6,1,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9420,0,7,6,1,True,
+task6,1,easy,"In(apple,fridge) & Open(cabinet)",False,376,0,7,6,2,True,
+task6,1,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",False,3122,0,7,6,2,True,
+task6,1,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,5962,0,7,6,2,True,
+task6,2,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,0,False,
+task6,2,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,0,False,
+task6,2,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9499,0,7,6,0,False,
+task6,2,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,1,True,
+task6,2,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,1,True,
+task6,2,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9497,0,7,6,1,True,
+task6,2,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,2,True,
+task6,2,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,2,True,
+task6,2,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9491,0,7,6,2,True,
+task6,2,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,3,True,
+task6,2,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,3,True,
+task6,2,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9521,0,7,6,3,True,
+task6,3,easy,"In(apple,fridge) & Open(cabinet)",True,102,4,4,6,0,False,
+task6,3,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,453,6,4,6,0,False,
+task6,3,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,8505,0,4,6,0,False,
+task6,3,easy,"In(apple,fridge) & Open(cabinet)",False,-1,-1,4,6,1,True,'IsClosed'
+task6,3,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",False,-1,-1,4,6,1,True,'On'
+task6,3,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,-1,-1,4,6,1,True,'In'
+task6,3,easy,"In(apple,fridge) & Open(cabinet)",False,-1,-1,4,6,2,True,'Open'
+task6,3,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",False,-1,-1,4,6,2,True,'Open'
+task6,3,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,8503,0,4,6,2,True,
+task6,3,easy,"In(apple,fridge) & Open(cabinet)",False,-1,-1,4,6,3,True,'Open'
+task6,3,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",False,-1,-1,4,6,3,True,'Open'
+task6,3,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,8309,0,4,6,3,True,
+task6,4,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,0,False,
+task6,4,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,0,False,
+task6,4,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9440,0,7,6,0,False,
+task6,4,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,1,True,
+task6,4,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,1,True,
+task6,4,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9515,0,7,6,1,True,
+task6,5,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,5,6,0,False,
+task6,5,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,5,6,0,False,
+task6,5,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9523,0,5,6,0,False,
+task6,5,easy,"In(apple,fridge) & Open(cabinet)",True,36,4,5,6,1,True,
+task6,5,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,184,6,5,6,1,True,
+task6,5,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,10137,0,5,6,1,True,
+task6,5,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,5,6,2,True,
+task6,5,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,5,6,2,True,
+task6,5,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9505,0,5,6,2,True,
+task6,5,easy,"In(apple,fridge) & Open(cabinet)",True,36,4,5,6,3,True,
+task6,5,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,184,6,5,6,3,True,
+task6,5,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,10048,0,5,6,3,True,
+task6,6,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,5,6,0,False,
+task6,6,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,5,6,0,False,
+task6,6,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9489,0,5,6,0,False,
+task6,6,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,5,6,1,True,
+task6,6,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,5,6,1,True,
+task6,6,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9315,0,5,6,1,True,
+task6,6,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,2,True,
+task6,6,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,2,True,
+task6,6,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9463,0,7,6,2,True,
+task6,6,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,3,True,
+task6,6,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,3,True,
+task6,6,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9518,0,7,6,3,True,
+task6,7,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,0,False,
+task6,7,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,0,False,
+task6,7,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9465,0,7,6,0,False,
+task6,7,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,1,True,
+task6,7,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,1,True,
+task6,7,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9498,0,7,6,1,True,
+task6,7,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,2,True,
+task6,7,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,2,True,
+task6,7,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9483,0,7,6,2,True,
+task6,7,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,3,True,
+task6,7,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,3,True,
+task6,7,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9488,0,7,6,3,True,
+task6,8,easy,"In(apple,fridge) & Open(cabinet)",True,102,4,4,6,0,False,
+task6,8,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,453,6,4,6,0,False,
+task6,8,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,8536,0,4,6,0,False,
+task6,8,easy,"In(apple,fridge) & Open(cabinet)",False,-1,-1,4,6,1,True,'IsClosed'
+task6,8,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",False,-1,-1,4,6,1,True,'On'
+task6,8,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,-1,-1,4,6,1,True,'In'
+task6,8,easy,"In(apple,fridge) & Open(cabinet)",False,-1,-1,4,6,2,True,'IsClosed'
+task6,8,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",False,-1,-1,4,6,2,True,'On'
+task6,8,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,-1,-1,4,6,2,True,'IsClosed'
+task6,8,easy,"In(apple,fridge) & Open(cabinet)",False,-1,-1,4,6,3,True,'Open'
+task6,8,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",False,-1,-1,4,6,3,True,'In'
+task6,8,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,-1,-1,4,6,3,True,'In'
+task6,9,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,5,6,0,False,
+task6,9,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,5,6,0,False,
+task6,9,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9465,0,5,6,0,False,
+task6,9,easy,"In(apple,fridge) & Open(cabinet)",True,59,4,7,6,1,True,
+task6,9,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,284,6,7,6,1,True,
+task6,9,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9479,0,7,6,1,True,
+task6,9,easy,"In(apple,fridge) & Open(cabinet)",False,-1,-1,7,6,2,True,'Open'
+task6,9,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",False,-1,-1,7,6,2,True,'Open'
+task6,9,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9124,0,7,6,2,True,
+task6,9,easy,"In(apple,fridge) & Open(cabinet)",False,-1,-1,7,7,3,True,'Open'
+task6,9,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",False,-1,-1,7,7,3,True,'Open'
+task6,9,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,9444,0,7,7,3,True,
+task6,10,easy,"In(apple,fridge) & Open(cabinet)",True,102,4,4,6,0,False,
+task6,10,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,453,6,4,6,0,False,
+task6,10,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,8538,0,4,6,0,False,
+task6,10,easy,"In(apple,fridge) & Open(cabinet)",True,102,4,4,6,1,True,
+task6,10,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,453,6,4,6,1,True,
+task6,10,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,8552,0,4,6,1,True,
+task6,10,easy,"In(apple,fridge) & Open(cabinet)",True,97,4,7,6,2,True,
+task6,10,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,399,6,7,6,2,True,
+task6,10,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,8493,0,7,6,2,True,
+task6,10,easy,"In(apple,fridge) & Open(cabinet)",True,85,4,4,6,3,True,
+task6,10,medium,"In(banana,fridge) & In(pen,cabinet) & Open(fridge)",True,276,6,4,6,3,True,
+task6,10,hard,"In(apple,fridge) & In(banana,fridge)& In(pen,cabinet) & In(book,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,8708,0,4,6,3,True,

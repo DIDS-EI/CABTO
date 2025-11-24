@@ -1,0 +1,49 @@
+selector
+    sequence
+        cond On(pie,breakfast_table)
+        cond IsSwitchedOn(radio)
+        cond IsOpened(microwave)
+        cond IsSwitchedOn(light)
+        cond IsOpened(oven)
+    sequence
+        cond IsClosed(oven)
+        selector
+            selector
+                sequence
+                    cond On(pie,breakfast_table)
+                    cond IsHandEmpty()
+                    selector
+                        sequence
+                            cond IsOpened(microwave)
+                            selector
+                                sequence
+                                    cond IsSwitchedOn(light)
+                                    selector
+                                        sequence
+                                            cond IsSwitchedOn(radio)
+                                            act Open(oven)
+                                        sequence
+                                            cond IsSwitchedOff(radio)
+                                            act SwitchOn(radio)
+                                sequence
+                                    cond IsSwitchedOff(radio)
+                                    cond IsSwitchedOff(light)
+                                    act SwitchOn(light)
+                        sequence
+                            cond IsClosed(microwave)
+                            cond IsSwitchedOff(light)
+                            cond IsSwitchedOff(radio)
+                            act Open(microwave)
+                sequence
+                    cond IsClosed(microwave)
+                    cond IsSwitchedOff(light)
+                    cond Holding(pie)
+                    cond IsSwitchedOff(radio)
+                    act PutOn(pie,breakfast_table)
+            sequence
+                cond IsClosed(microwave)
+                cond IsSwitchedOff(radio)
+                cond IsSwitchedOff(light)
+                cond IsHandEmpty()
+                cond On(pie,table)
+                act PickUp(pie)

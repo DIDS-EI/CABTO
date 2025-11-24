@@ -1,0 +1,9 @@
+selector
+    cond In(apple,cabinet)
+    sequence
+        cond Holding(apple)
+        act PlaceInCabinet(apple)
+    sequence
+        cond IsHandEmpty(robot)
+        cond On(apple)
+        act PickUpApple(apple)

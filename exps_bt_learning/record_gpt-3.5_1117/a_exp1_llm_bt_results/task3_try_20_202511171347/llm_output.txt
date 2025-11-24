@@ -1,0 +1,302 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUpLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_lego"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {
+            f"IsHandEmpty(left_franka)",
+            f"On({obj},left_table)",
+            f"On(left_franka,left_table)"
+        }
+        info["add"] = {f"Holding(left_franka,{obj})"}
+        info["del_set"] = {
+            f"IsHandEmpty(left_franka)",
+            f"On({obj},left_table)"
+        }
+        info["cost"] = 1
+        return info
+
+
+class PutDownLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_lego", "center_big_box"], ["left_table", "center_big_box", "center_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        dest = arg[1]
+        info = {}
+        info["pre"] = {
+            f"Holding(left_franka,{obj})",
+            f"On(left_franka,left_table)"
+        }
+        info["add"] = {
+            f"IsHandEmpty(left_franka)",
+            f"On({obj},{dest})"
+        }
+        info["del_set"] = {f"Holding(left_franka,{obj})"}
+        info["cost"] = 1
+        return info
+
+
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_lego"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {
+            f"IsHandEmpty(right_franka)",
+            f"On({obj},right_table)",
+            f"On(right_franka,right_table)"
+        }
+        info["add"] = {f"Holding(right_franka,{obj})"}
+        info["del_set"] = {
+            f"IsHandEmpty(right_franka)",
+            f"On({obj},right_table)"
+        }
+        info["cost"] = 1
+        return info
+
+
+class PutDownRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["right_lego", "center_big_box"], ["right_table", "center_big_box", "center_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        dest = arg[1]
+        info = {}
+        info["pre"] = {
+            f"Holding(right_franka,{obj})",
+            f"On(right_franka,right_table)"
+        }
+        info["add"] = {
+            f"IsHandEmpty(right_franka)",
+            f"On({obj},{dest})"
+        }
+        info["del_set"] = {f"Holding(right_franka,{obj})"}
+        info["cost"] = 1
+        return info
+
+
+class MoveLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_table", "center_table", "right_table", "box_board"], ["left_table", "center_table", "right_table", "box_board"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        frm = arg[0]
+        to = arg[1]
+        if frm == to:
+            # no-op move not allowed
+            return None
+        info = {}
+        info["pre"] = {f"On(left_franka,{frm})"}
+        info["add"] = {f"On(left_franka,{to})"}
+        info["del_set"] = {f"On(left_franka,{frm})"}
+        info["cost"] = 1
+        return info
+
+
+class MoveRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_table", "center_table", "right_table", "box_board"], ["left_table", "center_table", "right_table", "box_board"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        frm = arg[0]
+        to = arg[1]
+        if frm == to:
+            return None
+        info = {}
+        info["pre"] = {f"On(right_franka,{frm})"}
+        info["add"] = {f"On(right_franka,{to})"}
+        info["del_set"] = {f"On(right_franka,{frm})"}
+        info["cost"] = 1
+        return info
+
+
+class HoldBothBigBox(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # left_franka and right_franka hand both empty and on their tables, big box on center table, big box needs two hold together
+        info["pre"] = {
+            "IsHandEmpty(left_franka)",
+            "IsHandEmpty(right_franka)",
+            "On(left_franka,left_table)",
+            "On(right_franka,right_table)",
+            "On(center_big_box,center_table)",
+            "BigBoxNeedTwoFrankaHoldTogether()"
+        }
+        info["add"] = {
+            "Holding(left_franka,center_big_box)",
+            "Holding(right_franka,center_big_box)"
+        }
+        info["del_set"] = {
+            "IsHandEmpty(left_franka)",
+            "IsHandEmpty(right_franka)",
+            "On(center_big_box,center_table)"
+        }
+        info["cost"] = 1
+        return info
+
+
+class PutDownBigBoxByBoth(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["box_board", "center_table"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        dest = arg[0]
+        info = {}
+        info["pre"] = {
+            "Holding(left_franka,center_big_box)",
+            "Holding(right_franka,center_big_box)",
+            f"On(left_franka,left_table)",
+            f"On(right_franka,right_table)"
+        }
+        info["add"] = {
+            "IsHandEmpty(left_franka)",
+            "IsHandEmpty(right_franka)",
+            f"On(center_big_box,{dest})"
+        }
+        info["del_set"] = {
+            "Holding(left_franka,center_big_box)",
+            "Holding(right_franka,center_big_box)"
+        }
+        info["cost"] = 1
+        return info
+
+
+class PutInLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_lego", "right_lego"], ["center_big_box"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        lego = arg[0]
+        container = arg[1]
+        info = {}
+        info["pre"] = {
+            f"Holding(left_franka,{lego})",
+            f"On(left_franka,left_table)",
+            f"On({container},center_table)"
+        }
+        info["add"] = {
+            f"In({lego},{container})",
+            "IsHandEmpty(left_franka)"
+        }
+        info["del_set"] = {
+            f"Holding(left_franka,{lego})"
+        }
+        info["cost"] = 1
+        return info
+
+
+class PutInRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_lego", "right_lego"], ["center_big_box"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        lego = arg[0]
+        container = arg[1]
+        info = {}
+        info["pre"] = {
+            f"Holding(right_franka,{lego})",
+            f"On(right_franka,right_table)",
+            f"On({container},center_table)"
+        }
+        info["add"] = {
+            f"In({lego},{container})",
+            "IsHandEmpty(right_franka)"
+        }
+        info["del_set"] = {
+            f"Holding(right_franka,{lego})"
+        }
+        info["cost"] = 1
+        return info
+
+
+# Conditions
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class BigBoxNeedTwoFrankaHoldTogether(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

@@ -1,0 +1,168 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["chickenleg", "pie", "soup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Hand is empty, object is on table
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Added: Holding object
+        info["add"] = {f"Holding({arg[0]})"}
+        # Deleted: Hand is empty, object is on table
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PlaceIn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["chickenleg", "pie", "soup"], ["microwave", "oven"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Holding object, appliance is open
+        info["pre"] = {f"Holding({arg[0]})", f"IsOpened({arg[1]})"}
+        # Added: Object is in appliance
+        info["add"] = {f"In({arg[0]},{arg[1]})"}
+        # Deleted: Holding object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class Open(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["microwave", "oven"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Appliance is closed
+        info["pre"] = {f"IsClosed({arg[0]})"}
+        # Added: Appliance is opened
+        info["add"] = {f"IsOpened({arg[0]})"}
+        # Deleted: Appliance is closed
+        info["del_set"] = {f"IsClosed({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class Close(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["microwave", "oven"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Appliance is opened
+        info["pre"] = {f"IsOpened({arg[0]})"}
+        # Added: Appliance is closed
+        info["add"] = {f"IsClosed({arg[0]})"}
+        # Deleted: Appliance is opened
+        info["del_set"] = {f"IsOpened({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class SwitchOn(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["radio", "light", "microwave", "oven"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Appliance is switched off
+        info["pre"] = {f"IsSwitchedOff({arg[0]})"}
+        # Added: Appliance is switched on
+        info["add"] = {f"IsSwitchedOn({arg[0]})"}
+        # Deleted: Appliance is switched off
+        info["del_set"] = {f"IsSwitchedOff({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PlaceOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["pie"], ["breakfast_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Holding object
+        info["pre"] = {f"Holding({arg[0]})"}
+        # Added: Object is on destination
+        info["add"] = {f"On({arg[0]},{arg[1]})"}
+        # Deleted: Holding object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class IsSwitchedOff(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsSwitchedOn(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

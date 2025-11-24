@@ -1,0 +1,33 @@
+selector
+    sequence
+        cond In(chickenleg,oven)
+        cond IsSwitchedOn(light)
+        cond IsSwitchedOn(oven)
+        cond In(soup,microwave)
+        cond IsSwitchedOn(microwave)
+    sequence
+        cond On(chickenleg,table)
+        cond IsHandEmpty()
+        cond In(soup,microwave)
+        selector
+            sequence
+                cond IsSwitchedOn(oven)
+                selector
+                    sequence
+                        cond IsSwitchedOn(light)
+                        selector
+                            sequence
+                                cond IsSwitchedOn(microwave)
+                                act PutInOven(chickenleg)
+                            sequence
+                                cond IsSwitchedOff(microwave)
+                                act SwitchOnMicrowave()
+                    sequence
+                        cond IsSwitchedOff(light)
+                        cond IsSwitchedOff(microwave)
+                        act SwitchOnLight()
+            sequence
+                cond IsSwitchedOff(oven)
+                cond IsSwitchedOff(light)
+                cond IsSwitchedOff(microwave)
+                act SwitchOnOven()

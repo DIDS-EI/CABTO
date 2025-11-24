@@ -1,0 +1,48 @@
+selector
+    sequence
+        cond In(chickenleg,oven)
+        cond IsSwitchedOn(light)
+        cond IsSwitchedOn(oven)
+        cond In(soup,microwave)
+        cond IsSwitchedOn(microwave)
+    sequence
+        cond On(soup,table)
+        selector
+            selector
+                sequence
+                    cond In(chickenleg,oven)
+                    selector
+                        sequence
+                            cond IsSwitchedOn(light)
+                            selector
+                                sequence
+                                    cond IsSwitchedOn(microwave)
+                                    selector
+                                        sequence
+                                            cond IsSwitchedOn(oven)
+                                            act PutInMicrowave(soup)
+                                        sequence
+                                            cond IsSwitchedOff(oven)
+                                            act SwitchOnOven()
+                                sequence
+                                    cond IsSwitchedOff(oven)
+                                    cond IsSwitchedOff(microwave)
+                                    act SwitchOnMicrowave()
+                        sequence
+                            cond IsSwitchedOff(oven)
+                            cond IsSwitchedOff(light)
+                            cond IsSwitchedOff(microwave)
+                            act SwitchOnLight()
+                sequence
+                    cond IsSwitchedOff(oven)
+                    cond Holding(chickenleg)
+                    cond IsSwitchedOff(light)
+                    cond IsSwitchedOff(microwave)
+                    act PutInOven(chickenleg)
+            sequence
+                cond On(chickenleg,table)
+                cond IsSwitchedOff(light)
+                cond IsHandEmpty()
+                cond IsSwitchedOff(oven)
+                cond IsSwitchedOff(microwave)
+                act PickUpChickenLeg(chickenleg)

@@ -1,0 +1,44 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond On(box_board,center_table)
+        selector
+            selector
+                selector
+                    sequence
+                        cond Holding(right_franka,center_big_box)
+                        selector
+                            sequence
+                                cond Holding(left_franka,center_big_box)
+                                act MoveCenterBigBox(right_franka,center_big_box)
+                            sequence
+                                cond On(center_big_box,left_table)
+                                cond IsHandEmpty(left_franka)
+                                cond On(left_franka,left_table)
+                                act PickUpLeftFranka(left_franka,center_big_box)
+                    sequence
+                        cond On(center_big_box,right_table)
+                        cond On(center_big_box,left_table)
+                        cond IsHandEmpty(left_franka)
+                        cond IsHandEmpty(right_franka)
+                        cond On(right_franka,right_table)
+                        cond On(left_franka,left_table)
+                        act PickUpRightFranka(right_franka,center_big_box)
+                sequence
+                    cond On(center_big_box,right_table)
+                    cond On(center_big_box,left_table)
+                    cond IsHandEmpty(left_franka)
+                    cond On(right_franka,right_table)
+                    cond Holding(right_franka,right_lego)
+                    cond On(left_franka,left_table)
+                    cond On(center_big_box,center_table)
+                    act PutInRightFranka(right_franka,right_lego)
+            sequence
+                cond On(center_big_box,right_table)
+                cond On(center_big_box,left_table)
+                cond Holding(left_franka,left_lego)
+                cond On(right_franka,right_table)
+                cond Holding(right_franka,right_lego)
+                cond On(left_franka,left_table)
+                cond On(center_big_box,center_table)
+                act PutInLeftFranka(left_franka,left_lego)

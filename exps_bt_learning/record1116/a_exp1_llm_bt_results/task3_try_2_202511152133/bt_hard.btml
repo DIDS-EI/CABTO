@@ -1,0 +1,5 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond On(center_big_box,center_table)
+        act PutBigBoxOnBoard(center_big_box,box_board)

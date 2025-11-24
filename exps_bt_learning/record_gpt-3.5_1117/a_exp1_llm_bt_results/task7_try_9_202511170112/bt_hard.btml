@@ -1,0 +1,48 @@
+selector
+    sequence
+        cond On(pie,breakfast_table)
+        cond IsOpened(oven)
+        cond IsSwitchedOn(radio)
+        cond IsSwitchedOn(light)
+        cond IsOpened(microwave)
+    sequence
+        cond IsSwitchedOff(radio)
+        selector
+            sequence
+                cond IsSwitchedOn(light)
+                selector
+                    sequence
+                        cond IsOpened(oven)
+                        selector
+                            selector
+                                sequence
+                                    cond IsOpened(microwave)
+                                    selector
+                                        sequence
+                                            cond On(pie,breakfast_table)
+                                            act SwitchOnRadio()
+                                        sequence
+                                            cond Holding(pie)
+                                            act PutDownOnBreakfastTable(pie)
+                                sequence
+                                    cond Holding(pie)
+                                    cond IsClosed(microwave)
+                                    act OpenMicrowave()
+                            sequence
+                                cond IsHandEmpty()
+                                cond On(pie,table)
+                                cond IsClosed(microwave)
+                                act PickUp(pie)
+                    sequence
+                        cond IsHandEmpty()
+                        cond On(pie,table)
+                        cond IsClosed(oven)
+                        cond IsClosed(microwave)
+                        act OpenOven()
+            sequence
+                cond IsClosed(oven)
+                cond On(pie,table)
+                cond IsClosed(microwave)
+                cond IsHandEmpty()
+                cond IsSwitchedOff(light)
+                act SwitchOnLight()

@@ -1,0 +1,71 @@
+=== LLM Input ===
+
+Objects: {'a', 'b', 'place_a', 'c', 'place_c', 'place_b'}
+
+Start State: {'On(c,table)', 'On(a,table)', 'IsEmpty(place_a)', 'IsEmpty(place_b)', 'IsHandEmpty()', 'On(b,table)', 'IsEmpty(place_c)'}
+
+Easy Goal: On(a,place_a)
+Medium Goal: On(a,place_a) & On(b,place_b)
+Hard Goal: On(a,place_a) & On(b,place_b) & On(c,place_c)
+
+=== Prompt ===
+
+
+Based on the start_state, objects, and goals provided above, generate a complete and concise behavior library\
+: including all action nodes and condition nodes, implemented in Python code.
+Follow the rules below:
+1. Each action node should be implemented as a class, \
+with the class name matching the action name and inheriting from the 'OGAction' class.
+2. Each condition node should be implemented as a class, \
+with the class name matching the condition name and inheriting from the 'OGCondition' class.
+3. Each action info dictionary should include 3 keys: pre, add, and del_set, representing preconditions, added conditions, and deleted conditions, respectively.
+4. The valid_args of each action node represent the action parameters, selected from a, b, place_a, c, place_c, place_b; num_args indicates the number of parameters involved in the action, with some actions potentially involving multiple parameters.
+5. Condition nodes must cover all preconditions, added conditions, and deleted conditions of all actions, as well as all initial states and goal states of all tasks, and possibly more.
+6. The provided actions must be executable, with appropriate granularity (neither too coarse nor too fine). The combination and arrangement of these actions must be sufficient to accomplish the given task goals.The granularity of actions and state changes must be complete and logically consistent.
+7. Only provide the code, no explanation needed.
+8. Below is an example. 
+
+
+
+
+Example:
+start_state = {"IsHandEmpty()"}
+objects = {"coffeecup","apple","table","orange"}
+goals = ["On(coffeecup,table)","On(coffeecup,table)&On(apple,table)","On(coffeecup,table)&On(apple,table)&On(orange,table)"]
+
+```python
+class PutAOnB(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["coffeecup","apple","orange"], ["table"]))
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"]={"IsHandEmpty()"}
+        info["add"]={f"On({arg[0]},{arg[1]})"}
+        # 删除所有 On(arg[0], 其他位置) 的状态
+        all_locations = {args[1] for args in cls.valid_args}
+        info["del_set"] = {f"On({arg[0]},{loc})" for loc in all_locations if loc != arg[1]}
+        info["cost"] = 1
+        return info
+
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+         Here are the start_state, objects and goals, please generate the behavior libraries:
+start_state = {"On(c,table)", "On(a,table)", "IsEmpty(place_a)", "IsEmpty(place_b)", "IsHandEmpty()", "On(b,table)", "IsEmpty(place_c)"}
+objects = {"a", "b", "place_a", "c", "place_c", "place_b"}
+goal = ["On(a,place_a)", "On(a,place_a) & On(b,place_b)", "On(a,place_a) & On(b,place_b) & On(c,place_c)"]

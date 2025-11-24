@@ -1,0 +1,57 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"On({arg[0]},table)", "IsHandEmpty()"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {f"On({arg[0]},table)", "IsHandEmpty()"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["a", "b", "c", "d"], ["a", "b", "c", "d", "table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding({arg[0]})"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", "IsHandEmpty()"}
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

@@ -1,0 +1,37 @@
+selector
+    sequence
+        cond In(soup,microwave)
+        cond IsSwitchedOn(microwave)
+    sequence
+        cond IsSwitchedOff(microwave)
+        selector
+            selector
+                selector
+                    sequence
+                        cond In(soup,microwave)
+                        act SwitchOnDevice(microwave)
+                    sequence
+                        cond IsClosed(microwave)
+                        cond Holding(left_franka,soup)
+                        act PlaceInMicrowave(left_franka,soup)
+                sequence
+                    cond On(soup,table)
+                    cond IsClosed(microwave)
+                    cond IsHandEmpty(left_franka)
+                    act PickUp(left_franka,soup)
+            sequence
+                cond On(soup,table)
+                cond IsHandEmpty(left_franka)
+                cond IsOpened(microwave)
+                act CloseMicrowave()
+    sequence
+        cond On(soup,table)
+        cond IsOpened(microwave)
+        cond IsSwitchedOn(microwave)
+        selector
+            sequence
+                cond IsHandEmpty(left_franka)
+                act SwitchOffDevice(microwave)
+            sequence
+                cond Holding(left_franka,radio)
+                act PutDown(left_franka,radio)

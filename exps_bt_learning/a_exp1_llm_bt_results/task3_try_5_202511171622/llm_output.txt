@@ -1,0 +1,141 @@
+=== LLM Output ===
+
+```python
+class PickUpLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_lego", "box_board"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Left Fraka's hand is empty, object is on left_table or center_table, Left Fraka is at respective table
+        info["pre"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},left_table)" if arg[0] == "left_lego" else f"On({arg[0]},center_table)", f"On(left_franka,left_table)"}
+        # Added: Left Fraka is holding the object
+        info["add"] = {f"Holding(left_franka,{arg[0]})"}
+        # Deleted: Left Fraka's hand is empty, object is on respective table
+        info["del_set"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},left_table)" if arg[0] == "left_lego" else f"On({arg[0]},center_table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_lego"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Right Fraka's hand is empty, object is on right_table, Right Fraka is at right_table
+        info["pre"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},right_table)", f"On(right_franka,right_table)"}
+        # Added: Right Fraka is holding the object
+        info["add"] = {f"Holding(right_franka,{arg[0]})"}
+        # Deleted: Right Fraka's hand is empty, object is on right_table
+        info["del_set"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},right_table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PlaceInCenterBigBox(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_lego", "right_lego"], ["left_franka", "right_franka"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Actor Fraka is holding the object, both Frankas are at center_table, BigBoxNeedTwoFrankaHoldTogether
+        info["pre"] = {f"Holding({arg[1]},{arg[0]})", f"On(left_franka,center_table)", f"On(right_franka,center_table)", "BigBoxNeedTwoFrankaHoldTogether()"}
+        # Added: Object is in center_big_box
+        info["add"] = {f"In({arg[0]},center_big_box)"}
+        # Deleted: Actor Fraka is holding the object
+        info["del_set"] = {f"Holding({arg[1]},{arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PlaceBoxOnBoard(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Center big box is at center_table, both Frankas are at center_table, BigBoxNeedTwoFrankaHoldTogether
+        info["pre"] = {f"On(center_big_box,center_table)", f"On(left_franka,center_table)", f"On(right_franka,center_table)", "BigBoxNeedTwoFrankaHoldTogether()"}
+        # Added: Center big box is on box_board
+        info["add"] = {f"On(center_big_box,box_board)"}
+        # Deleted: Center big box is on center_table
+        info["del_set"] = {f"On(center_big_box,center_table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class MoveToCenterTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_franka", "right_franka"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: The actor franka is either at the left or right table
+        info["pre"] = {f"On({arg[0]},left_table)" if arg[0] == "left_franka" else f"On({arg[0]},right_table)"}
+        # Added: The actor franka is at the center table
+        info["add"] = {f"On({arg[0]},center_table)"}
+        # Deleted: The actor franka is not at their initial table
+        info["del_set"] = {f"On({arg[0]},left_table)" if arg[0] == "left_franka" else f"On({arg[0]},right_table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1 
+```
+
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2 
+```
+
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2 
+```
+
+```python
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2 
+```
+
+```python
+class BigBoxNeedTwoFrankaHoldTogether(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

@@ -1,0 +1,8 @@
+selector
+    sequence
+        cond Open(cabinet)
+        cond On(book,breakfast_table)
+    sequence
+        cond Holding(book)
+        cond Open(cabinet)
+        act PlaceOn(book,breakfast_table)

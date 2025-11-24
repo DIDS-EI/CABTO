@@ -1,0 +1,4 @@
+selector
+    sequence
+        cond In(apple,fridge)
+        cond In(pen,cabinet)

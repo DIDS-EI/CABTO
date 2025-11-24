@@ -50,6 +50,9 @@ while [[ "$#" -gt 0 ]]; do
     esac
 done
 
+# 设置 CUDA 环境变量（在启动前设置，避免 CUDA 初始化错误）
+export CUDA_VISIBLE_DEVICES=0
+
 if [ "$use_extension" = true ]; then
     echo "Starting Isaac Sim with extension..."
 
@@ -58,11 +61,12 @@ if [ "$use_extension" = true ]; then
     ./isaac-sim.sh --/isaac/startup/ros_bridge_extension= --/rtx/ecoMode/enabled=True \
     --ext-folder $current_folder/sim_extension \
     --enable dexrl.sim_extension \
+    --/physics/cudaDevice=0
     # --/physics/suppressReadback=True \
-    # --/physics/cudaDevice=0
 else
     echo "Starting original Isaac Sim..."
     export XDG_DATA_HOME=/home/cys/.local/share
-    ./isaac-sim.sh --/isaac/startup/ros_bridge_extension= --/rtx/ecoMode/enabled=True
+    ./isaac-sim.sh --/isaac/startup/ros_bridge_extension= --/rtx/ecoMode/enabled=True \
+    --/physics/cudaDevice=0
 fi
 

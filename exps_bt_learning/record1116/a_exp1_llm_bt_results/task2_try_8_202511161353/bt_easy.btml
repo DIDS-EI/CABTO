@@ -1,0 +1,60 @@
+selector
+    cond On(a,b)
+    sequence
+        cond Clear(b)
+        selector
+            selector
+                sequence
+                    cond Holding(a)
+                    act Stack(a,b)
+                sequence
+                    cond IsHandEmpty()
+                    cond Clear(a)
+                    cond On(a,table)
+                    act PickUp(a)
+            sequence
+                cond Clear(d)
+                cond Holding(c)
+                cond Clear(a)
+                cond On(a,table)
+                act Stack(c,d)
+    sequence
+        cond On(c,b)
+        selector
+            selector
+                selector
+                    sequence
+                        cond Clear(a)
+                        cond On(a,table)
+                        selector
+                            sequence
+                                cond Clear(c)
+                                selector
+                                    sequence
+                                        cond IsHandEmpty()
+                                        cond Clear(d)
+                                        act Unstack(c,b)
+                                    sequence
+                                        cond Holding(d)
+                                        act PutDown(d)
+                            sequence
+                                cond IsHandEmpty()
+                                cond Clear(d)
+                                cond On(d,c)
+                                act Unstack(d,c)
+                    sequence
+                        cond Holding(a)
+                        cond Clear(d)
+                        cond On(d,c)
+                        act PutDown(a)
+                sequence
+                    cond IsHandEmpty()
+                    cond On(a,d)
+                    cond Clear(a)
+                    cond On(d,c)
+                    act Unstack(a,d)
+            sequence
+                cond On(a,d)
+                cond Holding(a)
+                cond On(d,c)
+                act PutDown(a)

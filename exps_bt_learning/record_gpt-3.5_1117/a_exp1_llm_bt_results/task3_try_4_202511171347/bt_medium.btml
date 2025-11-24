@@ -1,0 +1,12 @@
+selector
+    cond In(right_lego,center_big_box)
+    sequence
+        cond On(center_big_box,center_table)
+        selector
+            sequence
+                cond Holding(right_franka,right_lego)
+                act PlaceLegoInBigBoxRightFranka(right_lego,center_big_box)
+            sequence
+                cond On(right_lego,right_table)
+                cond IsHandEmpty(right_franka)
+                act PickUpRightFranka(right_lego)

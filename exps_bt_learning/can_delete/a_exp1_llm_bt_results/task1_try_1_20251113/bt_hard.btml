@@ -1,0 +1,26 @@
+selector
+    sequence
+        cond On(a,place_a)
+        cond On(b,place_b)
+        cond On(c,place_c)
+    sequence
+        cond On(a,table)
+        cond IsEmpty(place_a)
+        cond IsHandEmpty()
+        selector
+            sequence
+                cond On(b,place_b)
+                selector
+                    sequence
+                        cond On(c,place_c)
+                        act PutAOnB(a,place_a)
+                    sequence
+                        cond On(c,table)
+                        cond IsEmpty(place_c)
+                        act PutCOnC(c,place_c)
+            sequence
+                cond On(b,table)
+                cond On(c,table)
+                cond IsEmpty(place_b)
+                cond IsEmpty(place_c)
+                act PutCOnC(b,place_b)

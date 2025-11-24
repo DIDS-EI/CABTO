@@ -1,0 +1,16 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task6,1,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,1,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,1,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,2,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,5,6,0,False,'Open'
+task6,2,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,93,0,5,6,0,False,
+task6,2,hard,"In(banana,fridge)  & IsClosed(fridge)",False,21,0,5,6,0,False,
+task6,2,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,5,6,1,True,'Open'
+task6,2,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,56,0,5,6,1,True,
+task6,2,hard,"In(banana,fridge)  & IsClosed(fridge)",False,36,0,5,6,1,True,
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",True,458,6,7,8,0,False,
+task7,1,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,102,4,7,8,0,False,
+task7,1,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,2120,5,7,8,0,False,
+task7,2,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",True,2240,6,7,8,0,False,
+task7,2,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,244,4,7,8,0,False,
+task7,2,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,5915,5,7,8,0,False,

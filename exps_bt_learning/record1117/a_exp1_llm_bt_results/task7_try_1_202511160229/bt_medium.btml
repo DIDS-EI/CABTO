@@ -1,0 +1,43 @@
+selector
+    sequence
+        cond IsSwitchedOn(microwave)
+        cond In(soup,microwave)
+    sequence
+        cond IsSwitchedOn(microwave)
+        selector
+            selector
+                selector
+                    sequence
+                        cond Holding(left_franka,soup)
+                        selector
+                            sequence
+                                cond IsOpened(microwave)
+                                act PutInContainerLeftFranka(soup,microwave)
+                            sequence
+                                cond IsClosed(microwave)
+                                act OpenContainerLeftFranka(microwave)
+                    sequence
+                        cond IsOpened(oven)
+                        cond IsClosed(microwave)
+                        cond In(soup,oven)
+                        cond IsHandEmpty(left_franka)
+                        act RemoveFromContainerLeftFranka(soup,oven)
+                sequence
+                    cond IsOpened(oven)
+                    cond IsClosed(microwave)
+                    cond In(soup,oven)
+                    cond Holding(left_franka,pie)
+                    act PutInContainerLeftFranka(pie,oven)
+            sequence
+                cond IsClosed(oven)
+                cond IsClosed(microwave)
+                cond In(soup,oven)
+                cond Holding(left_franka,pie)
+                act OpenContainerLeftFranka(oven)
+    sequence
+        cond IsSwitchedOff(microwave)
+        cond IsClosed(microwave)
+        cond Holding(left_franka,pie)
+        cond In(soup,oven)
+        cond IsClosed(oven)
+        act SwitchOnDevice(microwave)

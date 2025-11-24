@@ -1,0 +1,15 @@
+selector
+    sequence
+        cond Open(cabinet)
+        cond In(book,cabinet)
+    sequence
+        cond Open(cabinet)
+        cond IsClosed(cabinet)
+        selector
+            sequence
+                cond Holding(book)
+                act PutInCabinet(book)
+            sequence
+                cond IsHandEmpty()
+                cond On(book,table)
+                act PickUp(book)

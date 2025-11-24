@@ -1,0 +1,48 @@
+selector
+    sequence
+        cond IsOpened(oven)
+        cond IsOpened(microwave)
+        cond IsSwitchedOn(light)
+        cond On(pie,breakfast_table)
+        cond IsSwitchedOn(radio)
+    sequence
+        cond IsClosed(microwave)
+        selector
+            sequence
+                cond IsOpened(oven)
+                selector
+                    selector
+                        sequence
+                            cond On(pie,breakfast_table)
+                            selector
+                                sequence
+                                    cond IsSwitchedOn(radio)
+                                    selector
+                                        sequence
+                                            cond IsSwitchedOn(light)
+                                            act OpenAppliance(microwave)
+                                        sequence
+                                            cond IsSwitchedOff(light)
+                                            act SwitchOnAppliance(light)
+                                sequence
+                                    cond IsSwitchedOff(light)
+                                    cond IsSwitchedOff(radio)
+                                    act SwitchOnAppliance(radio)
+                        sequence
+                            cond IsSwitchedOff(light)
+                            cond Holding(pie)
+                            cond IsSwitchedOff(radio)
+                            act PlaceOnBreakfastTable(pie)
+                    sequence
+                        cond IsSwitchedOff(light)
+                        cond IsHandEmpty()
+                        cond On(pie,table)
+                        cond IsSwitchedOff(radio)
+                        act PickUpFromTable(pie)
+            sequence
+                cond On(pie,table)
+                cond IsSwitchedOff(radio)
+                cond IsSwitchedOff(light)
+                cond IsHandEmpty()
+                cond IsClosed(oven)
+                act OpenAppliance(oven)

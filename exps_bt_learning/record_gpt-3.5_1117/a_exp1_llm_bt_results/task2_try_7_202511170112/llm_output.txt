@@ -1,0 +1,90 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["b", "a", "d", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: hand empty and object is on the table
+        info["pre"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        # Added: holding object
+        info["add"] = {f"Holding({obj})"}
+        # Deleted: hand empty, object on table
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.permutations(["b", "a", "d", "c"], 2))  # exclude putting on itself
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj1, obj2 = arg
+        info = {}
+        # Preconditions: holding obj1, obj2 is clear (no block on obj2)
+        info["pre"] = {f"Holding({obj1})", f"Clear({obj2})"}
+        # Added: hand empty, On(obj1, obj2), obj2 not clear anymore
+        info["add"] = {f"IsHandEmpty()", f"On({obj1},{obj2})"}
+        # Deleted: holding obj1, obj2 clear
+        info["del_set"] = {f"Holding({obj1})", f"Clear({obj2})"}
+        info["cost"] = 1
+        return info
+
+
+class PutOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["b", "a", "d", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: holding obj
+        info["pre"] = {f"Holding({obj})"}
+        # Added: hand empty, On(obj,table)
+        info["add"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        # Deleted: holding obj
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+
+class Clear(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

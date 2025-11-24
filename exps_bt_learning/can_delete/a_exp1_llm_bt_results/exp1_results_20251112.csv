@@ -1,0 +1,13 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,error
+task1,1,easy,"On(a,place_a)",False,-1,-1,No module named 'autopep8'
+task1,1,medium,"On(a,place_a) & On(b,place_b)",False,-1,-1,No module named 'autopep8'
+task1,1,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,-1,-1,No module named 'autopep8'
+task1,2,easy,"On(a,place_a)",False,-1,-1,tuple index out of range
+task1,2,medium,"On(a,place_a) & On(b,place_b)",False,-1,-1,tuple index out of range
+task1,2,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,-1,-1,tuple index out of range
+task2,1,easy,"On(a,b)",False,-1,-1,No module named 'autopep8'
+task2,1,medium,"On(a,b) & On(b,c)",False,-1,-1,No module named 'autopep8'
+task2,1,hard,"On(a,b) & On(b,c) & On(c,d)",False,-1,-1,No module named 'autopep8'
+task2,2,easy,"On(a,b)",False,-1,-1,No module named 'autopep8'
+task2,2,medium,"On(a,b) & On(b,c)",False,-1,-1,No module named 'autopep8'
+task2,2,hard,"On(a,b) & On(b,c) & On(c,d)",False,-1,-1,No module named 'autopep8'

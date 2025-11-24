@@ -1,0 +1,21 @@
+selector
+    cond On(book,breakfast_table)
+    sequence
+        cond Holding(book)
+        act PutDown(book,breakfast_table)
+    sequence
+        cond In(book,fridge)
+        selector
+            sequence
+                cond IsOpened(fridge)
+                selector
+                    sequence
+                        cond IsHandEmpty()
+                        act TakeOutFridge(book,breakfast_table)
+                    sequence
+                        cond Holding(pen)
+                        act PutDown(pen,breakfast_table)
+            sequence
+                cond Holding(pen)
+                cond IsClosed(fridge)
+                act OpenFridge()

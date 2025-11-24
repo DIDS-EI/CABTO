@@ -1,0 +1,101 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["b", "c", "a", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PutAOnB(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["b", "c", "a", "d"], ["b", "c", "a", "d"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding({arg[0]})", f"On({arg[1]},table)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", f"IsHandEmpty()"}
+        info["del_set"] = {f"Holding({arg[0]})", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class Stack(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["b", "c", "a", "d"], ["b", "c", "a", "d"]))
+
+    def __init__(self, *args): 
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding({arg[0]})", f"Clear({arg[1]})"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", f"IsHandEmpty()", f"Clear({arg[0]})"}
+        info["del_set"] = {f"Holding({arg[0]})", f"Clear({arg[1]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class Unstack(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["b", "c", "a", "d"], ["b", "c", "a", "d"]))
+
+    def __init__(self, *args): 
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"On({arg[0]},{arg[1]})", f"Clear({arg[0]})", f"IsHandEmpty()"}
+        info["add"] = {f"Holding({arg[0]})", f"Clear({arg[1]})"}
+        info["del_set"] = {f"On({arg[0]},{arg[1]})", f"Clear({arg[0]})", f"IsHandEmpty()"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class Clear(OGCondition):
+    can_be_expanded = True
+    num_args = 1 
+```

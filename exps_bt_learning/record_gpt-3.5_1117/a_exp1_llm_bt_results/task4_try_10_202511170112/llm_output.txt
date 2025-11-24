@@ -1,0 +1,108 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUpLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_box1", "left_box2"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: left_franka hand empty, left_franka on left_table, object on left_table
+        info["pre"] = {f"IsHandEmpty(left_franka)", f"On(left_franka,left_table)", f"On({obj},left_table)"}
+        # Add: holding object by left_franka
+        info["add"] = {f"IsHolding(left_franka,{obj})"}
+        # Delete: hand empty, object on left_table
+        info["del_set"] = {f"IsHandEmpty(left_franka)", f"On({obj},left_table)"}
+        info["cost"] = 1
+        return info
+
+
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_box"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: right_franka hand empty, right_franka on right_table, object on right_table
+        info["pre"] = {f"IsHandEmpty(right_franka)", f"On(right_franka,right_table)", f"On({obj},right_table)"}
+        # Add: holding object by right_franka
+        info["add"] = {f"IsHolding(right_franka,{obj})"}
+        # Delete: hand empty, object on right_table
+        info["del_set"] = {f"IsHandEmpty(right_franka)", f"On({obj},right_table)"}
+        info["cost"] = 1
+        return info
+
+
+class PutLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_box1", "left_box2"], ["left_table", "right_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, dest = arg
+        info = {}
+        # Preconditions: left_franka is holding obj, left_franka on some table (left_table or right_table)
+        # Actually, initial conditions fix left_franka on left_table, so keep that for consistency.
+        info["pre"] = {f"IsHolding(left_franka,{obj})", f"On(left_franka,left_table)"}
+        # Add: hand empty, object on destination table
+        info["add"] = {f"IsHandEmpty(left_franka)", f"On({obj},{dest})"}
+        # Delete: holding object
+        info["del_set"] = {f"IsHolding(left_franka,{obj})"}
+        info["cost"] = 1
+        return info
+
+
+class PutRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["right_box"], ["right_table", "left_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, dest = arg
+        info = {}
+        # Preconditions: right_franka is holding obj, right_franka on right_table
+        info["pre"] = {f"IsHolding(right_franka,{obj})", f"On(right_franka,right_table)"}
+        # Add: hand empty, object on destination table
+        info["add"] = {f"IsHandEmpty(right_franka)", f"On({obj},{dest})"}
+        # Delete: holding object
+        info["del_set"] = {f"IsHolding(right_franka,{obj})"}
+        info["cost"] = 1
+        return info
+
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

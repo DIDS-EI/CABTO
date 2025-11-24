@@ -1,0 +1,91 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Hand empty, object on table
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Added: holding object
+        info["add"] = {f"Holding({arg[0]})"}
+        # Deleted: hand empty, object on table
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["a", "b", "c", "d"], ["a", "b", "c", "d"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        # arg0: object being put, arg1: object to put on
+        # cannot put on itself
+        if arg[0] == arg[1]:
+            return None
+        info = {}
+        # Preconditions: holding object, target object is clear (no object on it)
+        info["pre"] = {f"Holding({arg[0]})", f"Clear({arg[1]})"}
+        # Added: hand empty, object on target, target no longer clear, held object not held anymore
+        info["add"] = {"IsHandEmpty()", f"On({arg[0]},{arg[1]})", f"HoldingEmpty({arg[0]})"}  # HoldingEmpty means object no longer held
+        # Deleted: holding object, target clear
+        info["del_set"] = {f"Holding({arg[0]})", f"Clear({arg[1]})"}
+        info["cost"] = 1
+        return info
+
+
+class PutOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: holding object
+        info["pre"] = {f"Holding({arg[0]})"}
+        # Added: hand empty, object on table, object is clear
+        info["add"] = {"IsHandEmpty()", f"On({arg[0]},table)", f"Clear({arg[0]})"}
+        # Deleted: holding object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+
+class Clear(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

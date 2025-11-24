@@ -1,0 +1,20 @@
+selector
+    sequence
+        cond In(chickenleg,oven)
+        cond IsSwitchedOn(oven)
+    sequence
+        cond IsSwitchedOff(oven)
+        selector
+            selector
+                sequence
+                    cond In(chickenleg,oven)
+                    act SwitchOnOven()
+                sequence
+                    cond IsNotIn(chickenleg,oven)
+                    cond Holding(chickenleg)
+                    act PutInOven(chickenleg)
+            sequence
+                cond On(chickenleg)
+                cond IsNotIn(chickenleg,oven)
+                cond IsHandEmpty()
+                act PickUp(chickenleg)

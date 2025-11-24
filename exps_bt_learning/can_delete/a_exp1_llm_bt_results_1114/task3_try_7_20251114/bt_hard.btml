@@ -1,0 +1,43 @@
+selector
+    sequence
+        cond On(center_big_box,box_board)
+        cond On(left_lego,center_big_box)
+        cond On(right_lego,center_big_box)
+    sequence
+        cond On(left_franka,left_table)
+        cond LeftFrankaCanOnlyDoLeftAction()
+        selector
+            sequence
+                cond Holding(left_franka,left_lego)
+                selector
+                    selector
+                        sequence
+                            cond On(center_big_box,box_board)
+                            selector
+                                sequence
+                                    cond On(right_lego,center_big_box)
+                                    act DropLeftFranka(left_lego,center_big_box)
+                                sequence
+                                    cond RightFrankaCanOnlyDoRightAction()
+                                    cond Holding(right_franka,right_lego)
+                                    cond On(right_franka,right_table)
+                                    act DropRightFranka(right_lego,center_big_box)
+                        sequence
+                            cond RightFrankaCanOnlyDoRightAction()
+                            cond Holding(right_franka,right_lego)
+                            cond On(right_franka,right_table)
+                            act PutAOnB(center_big_box,box_board)
+                    sequence
+                        cond IsHandEmpty(right_franka)
+                        cond On(right_lego,right_table)
+                        cond RightFrankaCanOnlyDoRightAction()
+                        cond On(right_franka,right_table)
+                        act PickUpRightFranka(right_lego)
+            sequence
+                cond On(right_lego,right_table)
+                cond IsHandEmpty(right_franka)
+                cond On(right_franka,right_table)
+                cond On(left_lego,left_table)
+                cond IsHandEmpty(left_franka)
+                cond RightFrankaCanOnlyDoRightAction()
+                act PickUpLeftFranka(left_lego)

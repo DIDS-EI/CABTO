@@ -1,0 +1,7 @@
+selector
+    cond On(big_box,board)
+    sequence
+        cond IsHandEmpty(right_robot)
+        cond On(big_box,center_table)
+        cond IsHandEmpty(left_robot)
+        act LiftBigBox(big_box,board)

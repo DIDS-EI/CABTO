@@ -1,0 +1,181 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class OGAction:
+    def __init__(self, *args):
+        self.args = args
+
+class OGCondition:
+    pass
+
+class OpenFridge(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *args):
+        info = {}
+        info["pre"] = {"IsClosed(fridge)"}
+        info["add"] = {"IsOpened(fridge)"}
+        info["del_set"] = {"IsClosed(fridge)"}
+        info["cost"] = 1
+        return info
+
+class CloseFridge(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *args):
+        info = {}
+        info["pre"] = {"IsOpened(fridge)"}
+        info["add"] = {"IsClosed(fridge)"}
+        info["del_set"] = {"IsOpened(fridge)"}
+        info["cost"] = 1
+        return info
+
+class OpenCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*args):
+        info = {}
+        info["pre"] = {"IsClosed(cabinet)"}
+        info["add"] = {"IsOpened(cabinet)"}
+        info["del_set"] = {"IsClosed(cabinet)"}
+        info["cost"] = 1
+        return info
+
+class CloseCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*args):
+        info = {}
+        info["pre"] = {"IsOpened(cabinet)"}
+        info["add"] = {"IsClosed(cabinet)"}
+        info["del_set"] = {"IsOpened(cabinet)"}
+        info["cost"] = 1
+        return info
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["pen", "banana", "book"]
+    
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: hand empty and object On some location, location known by On(obj,loc)
+        info["pre"] = {"IsHandEmpty()", f"On({obj},breakfast_table)"} if obj == "pen" else \
+                      {"IsHandEmpty()", f"On({obj},table)"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {"IsHandEmpty()", f"On({obj},breakfast_table)"} if obj == "pen" else {"IsHandEmpty()", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+class PutIntoFridge(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["banana"]
+    
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"Holding({obj})", "IsOpened(fridge)"}
+        info["add"] = {f"In({obj},fridge)"}
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+class PutIntoCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["book"]
+
+    def __init__(self,*args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls,*arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"Holding({obj})", "IsOpened(cabinet)"}
+        info["add"] = {f"In({obj},cabinet)"}
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["book","pen"], ["breakfast_table","table"]))
+
+    def __init__(self,*args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls,*arg):
+        obj, loc = arg[0], arg[1]
+        info = {}
+        info["pre"] = {f"Holding({obj})"}
+        info["add"] = {f"On({obj},{loc})", "IsHandEmpty()"}
+        info["del_set"] = {f"Holding({obj})"}
+        # Remove any previous On(obj,other_locs)
+        all_locs = {"breakfast_table","table"}
+        info["del_set"].update({f"On({obj},{location})" for location in all_locs if location != loc})
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

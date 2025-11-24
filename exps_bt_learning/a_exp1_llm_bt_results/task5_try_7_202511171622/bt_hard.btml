@@ -1,0 +1,35 @@
+selector
+    sequence
+        cond On(right_milk,right_table)
+        cond IsHalfFull(right_cup)
+        cond IsHandEmpty(left_franka)
+        cond IsHandEmpty(right_franka)
+        cond On(left_milk,left_table)
+        cond IsHalfFull(left_cup)
+    sequence
+        cond IsHandEmpty(left_franka)
+        cond On(left_milk,left_table)
+        selector
+            sequence
+                cond Holding(right_franka,right_milk)
+                selector
+                    sequence
+                        cond IsHalfFull(right_cup)
+                        selector
+                            sequence
+                                cond IsHalfFull(left_cup)
+                                act DropRightFranka(right_milk,right_table)
+                            sequence
+                                cond IsEmpty(left_cup)
+                                act PourRightFranka(right_milk,left_cup)
+                    sequence
+                        cond IsEmpty(left_cup)
+                        cond IsEmpty(right_cup)
+                        act PourRightFranka(right_milk,right_cup)
+            sequence
+                cond On(right_milk,right_table)
+                cond IsEmpty(left_cup)
+                cond CanGrasp(right_franka,right_milk)
+                cond IsHandEmpty(right_franka)
+                cond IsEmpty(right_cup)
+                act PickUpRightFranka(right_milk)

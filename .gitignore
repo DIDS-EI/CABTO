@@ -85,9 +85,3 @@ sim_extension/dexrl.sim_extension/dexrl/sim
 *jpg
 *png
 
-/assets/*
-/exps_bt_learning/can_delete/*
-/exps_bt_learning/record*/*
-/exps_bt_learning/a_exp1_llm_bt_results/*
-/exps_bt_learning/a_exp3_cross_feedback_results/*
-/exps_bt_learning/a_exp1_llm_bt_tasks/task_error_examples/*

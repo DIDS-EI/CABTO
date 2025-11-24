@@ -1,0 +1,51 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PutAOnB(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_box", "right_box"], ["right_table", "left_table"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"On({arg[0]},left_table)", f"IsHandEmpty(left_franka)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})"}
+        info["del_set"] = {f"On({arg[0]},left_table)"}
+        info["cost"] = 1
+        return info
+
+class MoveRightBox(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["right_box"], ["left_table", "right_table"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"On({arg[0]},right_table)", f"IsHandEmpty(right_franka)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})"}
+        info["del_set"] = {f"On({arg[0]},right_table)"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

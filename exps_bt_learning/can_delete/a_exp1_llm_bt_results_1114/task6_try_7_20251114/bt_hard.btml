@@ -1,0 +1,37 @@
+selector
+    sequence
+        cond In(pen,cabinet)
+        cond IsClosed(cabinet)
+        cond IsClosed(fridge)
+        cond In(apple,fridge)
+    sequence
+        cond Holding(pen)
+        selector
+            sequence
+                cond IsClosed(fridge)
+                selector
+                    sequence
+                        cond IsClosed(cabinet)
+                        selector
+                            sequence
+                                cond In(apple,fridge)
+                                act DropToCabinet(pen)
+                            sequence
+                                cond Holding(apple)
+                                act DropToFridge(apple)
+                    sequence
+                        cond Holding(apple)
+                        cond IsClosed(cabinet)==False
+                        act CloseCabinet()
+            sequence
+                cond Holding(apple)
+                cond IsClosed(fridge)==False
+                cond IsClosed(cabinet)==False
+                act CloseFridge()
+    sequence
+        cond On(pen,table)
+        cond IsClosed(cabinet)==False
+        cond IsClosed(fridge)==False
+        cond IsHandEmpty()
+        cond Holding(apple)
+        act PickUp(pen)

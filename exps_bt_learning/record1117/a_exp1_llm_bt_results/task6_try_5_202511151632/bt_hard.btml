@@ -1,0 +1,56 @@
+selector
+    sequence
+        cond In(apple,fridge)
+        cond IsClosed(fridge)
+        cond IsClosed(cabinet)
+        cond In(pen,cabinet)
+    sequence
+        cond In(apple,fridge)
+        selector
+            sequence
+                cond IsClosed(fridge)
+                selector
+                    sequence
+                        cond IsOpen(cabinet)
+                        selector
+                            selector
+                                sequence
+                                    cond In(pen,cabinet)
+                                    act CloseContainer(cabinet)
+                                sequence
+                                    cond Holding(pen)
+                                    act PutInContainer(pen,cabinet)
+                            sequence
+                                cond IsHandEmpty()
+                                cond On(pen,table)
+                                act PickUp(pen)
+                    sequence
+                        cond IsHandEmpty()
+                        cond IsClosed(cabinet)
+                        cond On(pen,table)
+                        act OpenContainer(cabinet)
+            sequence
+                cond IsHandEmpty()
+                cond IsClosed(cabinet)
+                cond On(pen,table)
+                cond IsOpen(fridge)
+                act CloseContainer(fridge)
+    sequence
+        cond IsClosed(cabinet)
+        cond On(pen,table)
+        selector
+            sequence
+                cond IsOpen(fridge)
+                selector
+                    sequence
+                        cond Holding(apple)
+                        act PutInContainer(apple,fridge)
+                    sequence
+                        cond IsHandEmpty()
+                        cond On(apple,table)
+                        act PickUp(apple)
+            sequence
+                cond IsClosed(fridge)
+                cond IsHandEmpty()
+                cond On(apple,table)
+                act OpenContainer(fridge)

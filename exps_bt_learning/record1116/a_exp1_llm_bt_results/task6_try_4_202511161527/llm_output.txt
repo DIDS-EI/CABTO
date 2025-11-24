@@ -1,0 +1,369 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class OpenFridge(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsClosed(fridge)", "IsHandEmpty()"}
+        info["add"] = {"IsOpened(fridge)"}
+        info["del_set"] = {"IsClosed(fridge)"}
+        info["cost"] = 1
+        return info
+
+
+class CloseFridge(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsOpened(fridge)", "IsHandEmpty()"}
+        info["add"] = {"IsClosed(fridge)"}
+        info["del_set"] = {"IsOpened(fridge)"}
+        info["cost"] = 1
+        return info
+
+
+class OpenCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsClosed(cabinet)", "IsHandEmpty()"}
+        info["add"] = {"IsOpened(cabinet)"}
+        info["del_set"] = {"IsClosed(cabinet)"}
+        info["cost"] = 1
+        return info
+
+
+class CloseCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsOpened(cabinet)", "IsHandEmpty()"}
+        info["add"] = {"IsClosed(cabinet)"}
+        info["del_set"] = {"IsOpened(cabinet)"}
+        info["cost"] = 1
+        return info
+
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # objects movable and on some location: book, banana, pen
+    valid_args = ["book", "banana", "pen"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: hand is empty, object is on some location or inside an opened container if object is inside fridge or cabinet
+        # Since On predicates exist only for table/breakfast_table, and In predicates exist for fridge/cabinet
+        # We allow PickUp for On(object,location) if object={book,banana,pen}, location in {table,breakfast_table}
+        # Also PickUp for In(object,container) requires container is opened
+        preconds = {f"IsHandEmpty()"}
+        # Object possible locations: On or In
+        # We don't restrict here which place; preconditions must be strict when creating ground actions
+        # Let PickUp apply to both On and In predicates.
+        # So we add either On(obj,loc) or In(obj,cont) with container opened
+        # For PickUp from fridge or cabinet, container must be opened.
+        # For simplicity, here we define all valid PickUp as any of: On(obj, location) with location in known places, or In(obj, container) with IsOpened(container)
+        # We define valid places and containers below:
+        locations = ["table", "breakfast_table"]
+        containers = ["cabinet", "fridge"]
+        # Implement precondition as a disjunction, but since OGAction's pre is a set, we add union of conditions to allow state matching
+        # To avoid ambiguity, we define PickUpBookFromTable etc. separately below for ease.
+        # Here general PickUp precondition is left generic, will be specialized with valid_args.
+        # So in get_info we construct preconditions accordingly:
+        # First check if obj on a location
+        # Add all On(obj, loc) for loc in locations or In(obj, cont) + IsOpened(cont) for cont in containers
+        # Must be only one precondition set? OGAction does not support disjunction.
+        # So we provide all combined preconditions: "On(obj,loc)" and "IsHandEmpty()" or "In(obj,cont)" and "IsOpened(cont)" and "IsHandEmpty()"
+        # Since disjunction is not supported, we will implement separate PickUp actions per location/container for each object.
+        # So skip general PickUp here.
+
+        info["pre"] = set()
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {"IsHandEmpty()"}
+        # Delete On or In predicate depending on where object was
+        # This must be implemented in subclass
+        info["cost"] = 1
+        return info
+
+
+class PickUpBookFromTable(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "On(book,table)"}
+        info["add"] = {"Holding(book)"}
+        info["del_set"] = {"IsHandEmpty()", "On(book,table)"}
+        info["cost"] = 1
+        return info
+
+
+class PickUpBookFromBreakfastTable(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "On(book,breakfast_table)"}
+        info["add"] = {"Holding(book)"}
+        info["del_set"] = {"IsHandEmpty()", "On(book,breakfast_table)"}
+        info["cost"] = 1
+        return info
+
+
+class PickUpBananaFromTable(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "On(banana,table)"}
+        info["add"] = {"Holding(banana)"}
+        info["del_set"] = {"IsHandEmpty()", "On(banana,table)"}
+        info["cost"] = 1
+        return info
+
+
+class PickUpPenFromBreakfastTable(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "On(pen,breakfast_table)"}
+        info["add"] = {"Holding(pen)"}
+        info["del_set"] = {"IsHandEmpty()", "On(pen,breakfast_table)"}
+        info["cost"] = 1
+        return info
+
+
+class PickUpBookFromCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "In(book,cabinet)", "IsOpened(cabinet)"}
+        info["add"] = {"Holding(book)"}
+        info["del_set"] = {"IsHandEmpty()", "In(book,cabinet)"}
+        info["cost"] = 1
+        return info
+
+
+class PickUpBananaFromFridge(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "In(banana,fridge)", "IsOpened(fridge)"}
+        info["add"] = {"Holding(banana)"}
+        info["del_set"] = {"IsHandEmpty()", "In(banana,fridge)"}
+        info["cost"] = 1
+        return info
+
+
+class PutDown(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # valid_args: (object, place)
+    valid_args = list(itertools.product(["book", "banana", "pen"], ["table", "breakfast_table", "cabinet", "fridge"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, place = arg
+        info = {}
+        # Preconditions: holding the object, and if place is cabinet/fridge must be opened
+        preconds = {f"Holding({obj})"}
+        if place in ["cabinet", "fridge"]:
+            preconds.add(f"IsOpened({place})")
+        info["pre"] = preconds
+        info["add"] = {"IsHandEmpty()"}
+        # Add On or In depending on place: if place is cabinet/fridge, In(obj,place), else On(obj,place)
+        if place in ["cabinet", "fridge"]:
+            info["add"].add(f"In({obj},{place})")
+            # Remove possible prior On predicates of obj on table or breakfast_table
+            info["del_set"] = {f"Holding({obj})"}
+            info["del_set"].update({f"On({obj},table)", f"On({obj},breakfast_table)"})
+            info["del_set"].discard(f"In({obj},{place})")  # Don't delete what we add
+        else:
+            info["add"].add(f"On({obj},{place})")
+            # Remove possible prior In predicates obj in fridge or cabinet
+            info["del_set"] = {f"Holding({obj})"}
+            info["del_set"].update({f"In({obj},fridge)", f"In({obj},cabinet)"})
+            info["del_set"].discard(f"On({obj},{place})")
+        info["cost"] = 1
+        return info
+
+
+class PutDownBookOnBreakfastTable(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"Holding(book)"}
+        info["add"] = {"IsHandEmpty()", "On(book,breakfast_table)"}
+        info["del_set"] = {"Holding(book)"}
+        info["cost"] = 1
+        return info
+
+
+class PutDownBookInCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"Holding(book)", "IsOpened(cabinet)"}
+        info["add"] = {"IsHandEmpty()", "In(book,cabinet)"}
+        info["del_set"] = {"Holding(book)"}
+        info["cost"] = 1
+        return info
+
+
+class PutDownBananaInFridge(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"Holding(banana)", "IsOpened(fridge)"}
+        info["add"] = {"IsHandEmpty()", "In(banana,fridge)"}
+        info["del_set"] = {"Holding(banana)"}
+        info["cost"] = 1
+        return info
+
+
+class PutDownBananaOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = []
+
+    def __init__(self,*args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls,*arg):
+        info = {}
+        info["pre"] = {"Holding(banana)"}
+        info["add"] = {"IsHandEmpty()", "On(banana,table)"}
+        info["del_set"] = {"Holding(banana)"}
+        info["cost"] = 1
+        return info
+
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

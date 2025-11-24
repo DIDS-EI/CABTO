@@ -1,0 +1,121 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class Pour(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Either robot can pour milk into cups
+    valid_args = list(itertools.product(["left_franka", "right_franka"], ["left_cup", "right_cup"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Robot is grasping the milk and cup needs support
+        milk = "left_milk" if arg[0] == "left_franka" else "right_milk"
+        info["pre"] = {f"IsHandEmpty({arg[0]})", f"CanGrasp({arg[0]},{milk})", f"YouCanOnlyPourIfSupported({arg[0]},{arg[1]})", f"CupNeedGraspAndSupport()", f"IsEmpty({arg[1]})", f"IsFull({milk})"}
+        # Added: Cup content becomes half full
+        info["add"] = {f"IsHalfFull({arg[1]})"}
+        # Deleted: Cup empty status, milk full status
+        info["del_set"] = {f"IsEmpty({arg[1]})", f"IsFull({milk})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # For each franka, it can grasp certain items based on initial conditions
+    valid_args = list(itertools.product(["left_franka", "right_franka"], ["left_milk", "right_milk", "left_cup", "right_cup"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Franka can grasp object and its hand is empty
+        info["pre"] = {f"CanGrasp({arg[0]},{arg[1]})", f"IsHandEmpty({arg[0]})"}
+        # Added: Franka is now holding the object
+        info["add"] = {f"Holding({arg[0]},{arg[1]})"}
+        # Deleted: Franka's hand empty status
+        info["del_set"] = {f"IsHandEmpty({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class Drop(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Franka can drop objects onto certain tables
+    valid_args = list(itertools.product(["left_franka", "right_franka"], ["left_table", "right_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Franka is holding the object
+        info["pre"] = {f"Holding({arg[0]}, any_object)"}
+        # Added: Object is on the table, Franka's hand becomes empty
+        info["add"] = {f"IsHandEmpty({arg[0]})", f"On(any_object,{arg[1]})"}
+        # Deleted: Franka holding status
+        info["del_set"] = {f"Holding({arg[0]}, any_object)"}
+        info["cost"] = 1
+        return info
+```
+```python
+class IsFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsOneFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsHalfFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class CanGrasp(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class CupNeedGraspAndSupport(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+```python
+class YouCanOnlyPourIfSupported(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

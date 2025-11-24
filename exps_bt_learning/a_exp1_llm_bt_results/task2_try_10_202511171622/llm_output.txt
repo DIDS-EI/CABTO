@@ -1,0 +1,71 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # Can pick up any object a, c, d, b from the table
+    valid_args = ["a", "c", "d", "b"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Hand is empty, object is on the table
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Added: Holding the object
+        info["add"] = {f"Holding({arg[0]})"}
+        # Deleted: Hand is empty, object is on the table
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Can put any object onto another object
+    valid_args = list(itertools.product(["a", "c", "d", "b"], ["a", "c", "d", "b", "table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Holding an object, target surface is clear
+        info["pre"] = {f"Holding({arg[0]})", f"Clear({arg[1]})"}
+        # Added: Object is on the target surface, hand is empty
+        info["add"] = {f"On({arg[0]},{arg[1]})", "IsHandEmpty()"}
+        # Deleted: Hand is holding the object, target surface is clear
+        info["del_set"] = {f"Holding({arg[0]})", f"Clear({arg[1]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class Clear(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class TableIsClear(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

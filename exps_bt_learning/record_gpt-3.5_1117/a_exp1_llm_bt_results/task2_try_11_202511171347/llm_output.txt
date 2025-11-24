@@ -1,0 +1,74 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: hand empty, obj on table or on another object
+        # Since all objects start on table, and after picking up, On(obj, something) changes
+        # but we can just check "On(obj, something)"
+        # Here we use the condition: must be On(obj, something)
+        # We'll generalize On(obj, X)
+        # For pre, we require IsHandEmpty(), On(obj,X)
+        # Because we do not know exact location in precondition, we include any On(obj,anything)
+        # But for implementation, keep pre simplified for the action.
+        # We will check "IsHandEmpty()" and "On(obj,loc)" where loc in objects + table
+        locations = ["table"] + list(cls.valid_args)
+        pre_on_conditions = {f"On({obj},{loc})" for loc in locations}
+        info["pre"] = {"IsHandEmpty()"}.union(pre_on_conditions)
+        # Added: Holding(obj)
+        info["add"] = {f"Holding({obj})"}
+        # Deleted: IsHandEmpty(), and On(obj, loc) for all loc
+        info["del_set"] = {"IsHandEmpty()"}.union(pre_on_conditions)
+        info["cost"] = 1
+        return info
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.permutations(["a","b","c","d"], 2))  # a != b
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, target = arg[0], arg[1]
+        info = {}
+        # Preconditions: Holding(obj), target is on table or on another object (On(target,loc))
+        # But to allow stacking on any object without needing its location (stacking), we require:
+        # Holding(obj) and target exists (object)
+        info["pre"] = {f"Holding({obj})"}.union({f"NotHolding({target})"})  # Add NotHolding(target) to avoid holding target itself?
+        # We do not have NotHolding condition in initial or goal. Remove that.
+        # Simplify pre to just Holding(obj)
+        info["pre"] = {f"Holding({obj})"}
+        # Added: On(obj,target), IsHandEmpty()
+        info["add"] = {f"On({obj},{target})", "IsHandEmpty()"}
+        # Deleted: Holding(obj)
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

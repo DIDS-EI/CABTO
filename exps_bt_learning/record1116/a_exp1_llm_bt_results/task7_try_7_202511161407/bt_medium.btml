@@ -1,0 +1,9 @@
+selector
+    sequence
+        cond In(soup,microwave)
+        cond IsSwitchedOn(microwave)
+    sequence
+        cond In(soup,microwave)
+        cond IsHandEmpty(right_franka)
+        cond IsSwitchedOff(microwave)
+        act SwitchOnDevice(right_franka,microwave)

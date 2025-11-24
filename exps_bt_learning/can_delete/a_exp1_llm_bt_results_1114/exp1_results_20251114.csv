@@ -1,0 +1,580 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task1,1,easy,"On(a,place_a)",False,1,0,3,4,0,False,
+task1,1,medium,"On(a,place_a) & On(b,place_b)",False,1,0,3,4,0,False,
+task1,1,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,1,0,3,4,0,False,
+task1,1,easy,"On(a,place_a)",False,1,0,3,4,1,True,
+task1,1,medium,"On(a,place_a) & On(b,place_b)",False,1,0,3,4,1,True,
+task1,1,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,1,0,3,4,1,True,
+task1,1,easy,"On(a,place_a)",False,1,0,3,5,2,True,
+task1,1,medium,"On(a,place_a) & On(b,place_b)",False,1,0,3,5,2,True,
+task1,1,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,1,0,3,5,2,True,
+task1,1,easy,"On(a,place_a)",False,1,0,3,5,3,True,
+task1,1,medium,"On(a,place_a) & On(b,place_b)",False,1,0,3,5,3,True,
+task1,1,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,1,0,3,5,3,True,
+task1,2,easy,"On(a,place_a)",True,3,2,2,4,0,False,
+task1,2,medium,"On(a,place_a) & On(b,place_b)",False,13,0,2,4,0,False,
+task1,2,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,73,0,2,4,0,False,
+task1,2,easy,"On(a,place_a)",True,7,2,3,6,1,True,
+task1,2,medium,"On(a,place_a) & On(b,place_b)",True,31,4,3,6,1,True,
+task1,2,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",True,133,6,3,6,1,True,
+task1,3,easy,"On(a,place_a)",True,16,1,3,4,0,False,
+task1,3,medium,"On(a,place_a) & On(b,place_b)",True,47,2,3,4,0,False,
+task1,3,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",True,214,3,3,4,0,False,
+task1,4,easy,"On(a,place_a)",True,3,2,2,4,0,False,
+task1,4,medium,"On(a,place_a) & On(b,place_b)",False,13,0,2,4,0,False,
+task1,4,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,73,0,2,4,0,False,
+task1,4,easy,"On(a,place_a)",True,71,2,3,5,1,True,
+task1,4,medium,"On(a,place_a) & On(b,place_b)",True,154,4,3,5,1,True,
+task1,4,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",True,622,6,3,5,1,True,
+task1,5,easy,"On(a,place_a)",True,7,2,2,4,0,False,
+task1,5,medium,"On(a,place_a) & On(b,place_b)",True,31,4,2,4,0,False,
+task1,5,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",True,133,6,2,4,0,False,
+task1,6,easy,"On(a,place_a)",True,7,2,2,4,0,False,
+task1,6,medium,"On(a,place_a) & On(b,place_b)",True,31,4,2,4,0,False,
+task1,6,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",True,133,6,2,4,0,False,
+task1,7,easy,"On(a,place_a)",True,16,1,3,4,0,False,
+task1,7,medium,"On(a,place_a) & On(b,place_b)",True,47,2,3,4,0,False,
+task1,7,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",True,214,3,3,4,0,False,
+task1,8,easy,"On(a,place_a)",True,3,2,2,4,0,False,
+task1,8,medium,"On(a,place_a) & On(b,place_b)",False,13,0,2,4,0,False,
+task1,8,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,73,0,2,4,0,False,
+task1,8,easy,"On(a,place_a)",True,3,2,3,7,1,True,
+task1,8,medium,"On(a,place_a) & On(b,place_b)",False,13,0,3,7,1,True,
+task1,8,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,73,0,3,7,1,True,
+task1,8,easy,"On(a,place_a)",True,3,2,3,5,2,True,
+task1,8,medium,"On(a,place_a) & On(b,place_b)",False,13,0,3,5,2,True,
+task1,8,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,73,0,3,5,2,True,
+task1,8,easy,"On(a,place_a)",True,3,2,5,4,3,True,
+task1,8,medium,"On(a,place_a) & On(b,place_b)",False,13,0,5,4,3,True,
+task1,8,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",False,73,0,5,4,3,True,
+task1,9,easy,"On(a,place_a)",True,16,1,3,4,0,False,
+task1,9,medium,"On(a,place_a) & On(b,place_b)",True,47,2,3,4,0,False,
+task1,9,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",True,214,3,3,4,0,False,
+task1,10,easy,"On(a,place_a)",True,9,2,2,4,0,False,
+task1,10,medium,"On(a,place_a) & On(b,place_b)",True,40,4,2,4,0,False,
+task1,10,hard,"On(a,place_a) & On(b,place_b) & On(c,place_c)",True,176,6,2,4,0,False,
+task2,1,easy,"On(a,b)",True,2,1,1,4,0,False,
+task2,1,medium,"On(a,b) & On(b,c)",True,5,2,1,4,0,False,
+task2,1,hard,"On(a,b) & On(b,c) & On(c,d)",True,16,3,1,4,0,False,
+task2,2,easy,"On(a,b)",True,10,1,3,3,0,False,
+task2,2,medium,"On(a,b) & On(b,c)",False,46,0,3,3,0,False,
+task2,2,hard,"On(a,b) & On(b,c) & On(c,d)",False,566,0,3,3,0,False,
+task2,2,easy,"On(a,b)",True,20,1,4,3,1,True,
+task2,2,medium,"On(a,b) & On(b,c)",False,174,0,4,3,1,True,
+task2,2,hard,"On(a,b) & On(b,c) & On(c,d)",False,5790,0,4,3,1,True,
+task2,2,easy,"On(a,b)",True,20,1,5,3,2,True,
+task2,2,medium,"On(a,b) & On(b,c)",False,252,0,5,3,2,True,
+task2,2,hard,"On(a,b) & On(b,c) & On(c,d)",False,20695,0,5,3,2,True,
+task2,2,easy,"On(a,b)",True,34,1,6,3,3,True,
+task2,2,medium,"On(a,b) & On(b,c)",False,304,0,6,3,3,True,
+task2,2,hard,"On(a,b) & On(b,c) & On(c,d)",False,20919,0,6,3,3,True,
+task2,3,easy,"On(a,b)",True,15,2,2,3,0,False,
+task2,3,medium,"On(a,b) & On(b,c)",True,77,4,2,3,0,False,
+task2,3,hard,"On(a,b) & On(b,c) & On(c,d)",True,255,6,2,3,0,False,
+task2,4,easy,"On(a,b)",True,2,1,1,6,0,False,
+task2,4,medium,"On(a,b) & On(b,c)",True,4,2,1,6,0,False,
+task2,4,hard,"On(a,b) & On(b,c) & On(c,d)",True,9,3,1,6,0,False,
+task2,5,easy,"On(a,b)",True,2,1,1,6,0,False,
+task2,5,medium,"On(a,b) & On(b,c)",True,4,2,1,6,0,False,
+task2,5,hard,"On(a,b) & On(b,c) & On(c,d)",True,9,3,1,6,0,False,
+task2,6,easy,"On(a,b)",True,3,2,2,3,0,False,
+task2,6,medium,"On(a,b) & On(b,c)",False,8,0,2,3,0,False,
+task2,6,hard,"On(a,b) & On(b,c) & On(c,d)",False,8,0,2,3,0,False,
+task2,6,easy,"On(a,b)",True,3,2,2,5,1,True,
+task2,6,medium,"On(a,b) & On(b,c)",False,8,0,2,5,1,True,
+task2,6,hard,"On(a,b) & On(b,c) & On(c,d)",False,25,0,2,5,1,True,
+task2,6,easy,"On(a,b)",True,18,2,4,5,2,True,
+task2,6,medium,"On(a,b) & On(b,c)",False,169,0,4,5,2,True,
+task2,6,hard,"On(a,b) & On(b,c) & On(c,d)",False,1265,0,4,5,2,True,
+task2,6,easy,"On(a,b)",True,59,2,5,4,3,True,
+task2,6,medium,"On(a,b) & On(b,c)",False,878,0,5,4,3,True,
+task2,6,hard,"On(a,b) & On(b,c) & On(c,d)",False,4115,0,5,4,3,True,
+task2,7,easy,"On(a,b)",True,2,1,1,6,0,False,
+task2,7,medium,"On(a,b) & On(b,c)",True,5,2,1,6,0,False,
+task2,7,hard,"On(a,b) & On(b,c) & On(c,d)",True,16,3,1,6,0,False,
+task2,8,easy,"On(a,b)",True,15,2,2,3,0,False,
+task2,8,medium,"On(a,b) & On(b,c)",True,77,4,2,3,0,False,
+task2,8,hard,"On(a,b) & On(b,c) & On(c,d)",True,255,6,2,3,0,False,
+task2,9,easy,"On(a,b)",True,9,2,2,3,0,False,
+task2,9,medium,"On(a,b) & On(b,c)",False,9,0,2,3,0,False,
+task2,9,hard,"On(a,b) & On(b,c) & On(c,d)",False,9,0,2,3,0,False,
+task2,9,easy,"On(a,b)",True,12,2,3,3,1,True,
+task2,9,medium,"On(a,b) & On(b,c)",True,55,4,3,3,1,True,
+task2,9,hard,"On(a,b) & On(b,c) & On(c,d)",False,55,0,3,3,1,True,
+task2,9,easy,"On(a,b)",True,12,2,3,3,2,True,
+task2,9,medium,"On(a,b) & On(b,c)",True,55,4,3,3,2,True,
+task2,9,hard,"On(a,b) & On(b,c) & On(c,d)",False,55,0,3,3,2,True,
+task2,9,easy,"On(a,b)",True,12,2,3,3,3,True,
+task2,9,medium,"On(a,b) & On(b,c)",True,55,4,3,3,3,True,
+task2,9,hard,"On(a,b) & On(b,c) & On(c,d)",False,55,0,3,3,3,True,
+task2,10,easy,"On(a,b)",True,15,2,2,3,0,False,
+task2,10,medium,"On(a,b) & On(b,c)",True,91,4,2,3,0,False,
+task2,10,hard,"On(a,b) & On(b,c) & On(c,d)",True,582,6,2,3,0,False,
+task3,1,easy,"On(center_big_box,box_board)",True,6,3,5,6,0,False,
+task3,1,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,14,0,5,6,0,False,
+task3,1,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,50,0,5,6,0,False,
+task3,1,easy,"On(center_big_box,box_board)",True,6,3,5,6,1,True,
+task3,1,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,14,0,5,6,1,True,
+task3,1,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,50,0,5,6,1,True,
+task3,1,easy,"On(center_big_box,box_board)",True,6,3,5,6,2,True,
+task3,1,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,14,0,5,6,2,True,
+task3,1,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,50,0,5,6,2,True,
+task3,1,easy,"On(center_big_box,box_board)",True,6,3,5,8,3,True,
+task3,1,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,14,0,5,8,3,True,
+task3,1,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,50,0,5,8,3,True,
+task3,2,easy,"On(center_big_box,box_board)",False,1,0,4,5,0,False,
+task3,2,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,2,0,4,5,0,False,
+task3,2,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,5,0,4,5,0,False,
+task3,2,easy,"On(center_big_box,box_board)",False,2,0,5,5,1,True,
+task3,2,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,5,0,5,5,1,True,
+task3,2,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,16,0,5,5,1,True,
+task3,2,easy,"On(center_big_box,box_board)",True,6,1,5,5,2,True,
+task3,2,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",True,9,2,5,5,2,True,
+task3,2,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",True,16,3,5,5,2,True,
+task3,3,easy,"On(center_big_box,box_board)",False,4,0,5,6,0,False,
+task3,3,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,29,0,5,6,0,False,
+task3,3,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,101,0,5,6,0,False,
+task3,3,easy,"On(center_big_box,box_board)",False,2,0,7,6,1,True,
+task3,3,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,25,0,7,6,1,True,
+task3,3,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,884,0,7,6,1,True,
+task3,3,easy,"On(center_big_box,box_board)",False,2,0,7,6,2,True,
+task3,3,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,25,0,7,6,2,True,
+task3,3,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,884,0,7,6,2,True,
+task3,3,easy,"On(center_big_box,box_board)",False,2,0,8,6,3,True,
+task3,3,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,25,0,8,6,3,True,
+task3,3,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,884,0,8,6,3,True,
+task3,4,easy,"On(center_big_box,box_board)",True,5,1,5,6,0,False,
+task3,4,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",True,16,3,5,6,0,False,
+task3,4,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",True,46,5,5,6,0,False,
+task3,5,easy,"On(center_big_box,box_board)",False,1,0,5,6,0,False,
+task3,5,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,6,0,5,6,0,False,
+task3,5,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,22,0,5,6,0,False,
+task3,5,easy,"On(center_big_box,box_board)",False,1,0,5,7,1,True,
+task3,5,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,6,0,5,7,1,True,
+task3,5,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,22,0,5,7,1,True,
+task3,5,easy,"On(center_big_box,box_board)",False,1,0,6,6,2,True,
+task3,5,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,6,0,6,6,2,True,
+task3,5,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,22,0,6,6,2,True,
+task3,5,easy,"On(center_big_box,box_board)",False,1,0,6,6,3,True,
+task3,5,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,6,0,6,6,3,True,
+task3,5,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,22,0,6,6,3,True,
+task3,6,easy,"On(center_big_box,box_board)",False,1,0,4,6,0,False,
+task3,6,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,3,0,4,6,0,False,
+task3,6,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,19,0,4,6,0,False,
+task3,6,easy,"On(center_big_box,box_board)",False,1,0,6,6,1,True,
+task3,6,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,3,0,6,6,1,True,
+task3,6,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,19,0,6,6,1,True,
+task3,6,easy,"On(center_big_box,box_board)",False,1,0,6,7,2,True,
+task3,6,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,3,0,6,7,2,True,
+task3,6,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,19,0,6,7,2,True,
+task3,6,easy,"On(center_big_box,box_board)",False,1,0,6,7,3,True,
+task3,6,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,3,0,6,7,3,True,
+task3,6,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,19,0,6,7,3,True,
+task3,7,easy,"On(center_big_box,box_board)",False,3,0,5,6,0,False,
+task3,7,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,9,0,5,6,0,False,
+task3,7,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,90,2,5,6,0,False,
+task3,7,easy,"On(center_big_box,box_board)",False,3,0,5,6,1,True,
+task3,7,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,9,0,5,6,1,True,
+task3,7,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,90,2,5,6,1,True,
+task3,7,easy,"On(center_big_box,box_board)",False,3,0,5,6,2,True,
+task3,7,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,9,0,5,6,2,True,
+task3,7,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,90,2,5,6,2,True,
+task3,7,easy,"On(center_big_box,box_board)",False,3,0,5,6,3,True,
+task3,7,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,9,0,5,6,3,True,
+task3,7,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,90,2,5,6,3,True,
+task3,8,easy,"On(center_big_box,box_board)",False,1,0,6,6,0,False,
+task3,8,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,3,0,6,6,0,False,
+task3,8,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,19,0,6,6,0,False,
+task3,8,easy,"On(center_big_box,box_board)",False,1,0,8,6,1,True,
+task3,8,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,3,0,8,6,1,True,
+task3,8,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,19,0,8,6,1,True,
+task3,8,easy,"On(center_big_box,box_board)",False,1,0,8,6,2,True,
+task3,8,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,5,0,8,6,2,True,
+task3,8,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,115,0,8,6,2,True,
+task3,8,easy,"On(center_big_box,box_board)",True,6,3,9,6,3,True,
+task3,8,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,72,0,9,6,3,True,
+task3,8,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,1826,0,9,6,3,True,
+task3,9,easy,"On(center_big_box,box_board)",True,2,1,3,6,0,False,
+task3,9,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",True,5,2,3,6,0,False,
+task3,9,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",True,16,3,3,6,0,False,
+task3,10,easy,"On(center_big_box,box_board)",False,1,0,6,6,0,False,
+task3,10,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,3,0,6,6,0,False,
+task3,10,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,19,0,6,6,0,False,
+task3,10,easy,"On(center_big_box,box_board)",False,1,0,6,6,1,True,
+task3,10,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,3,0,6,6,1,True,
+task3,10,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,19,0,6,6,1,True,
+task3,10,easy,"On(center_big_box,box_board)",False,1,0,6,9,2,True,
+task3,10,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,3,0,6,9,2,True,
+task3,10,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,19,0,6,9,2,True,
+task3,10,easy,"On(center_big_box,box_board)",False,1,0,6,6,3,True,
+task3,10,medium,"On(center_big_box,box_board)&On(left_lego,center_big_box)",False,3,0,6,6,3,True,
+task3,10,hard,"On(center_big_box,box_board)&On(left_lego,center_big_box)&On(right_lego,center_big_box)",False,19,0,6,6,3,True,
+task4,1,easy,"On(left_box,right_table)",True,5,3,5,3,0,False,
+task4,1,medium,"On(left_box,right_table)&On(right_box,left_table)",True,115,5,5,3,0,False,
+task4,1,hard,"On(left_box, right_table) & On(right_box, left_box)",True,115,3,5,3,0,False,
+task4,2,easy,"On(left_box,right_table)",True,3,2,4,3,0,False,
+task4,2,medium,"On(left_box,right_table)&On(right_box,left_table)",False,3,0,4,3,0,False,
+task4,2,hard,"On(left_box, right_table) & On(right_box, left_box)",True,19,2,4,3,0,False,
+task4,2,easy,"On(left_box,right_table)",True,3,2,6,3,1,True,
+task4,2,medium,"On(left_box,right_table)&On(right_box,left_table)",False,3,0,6,3,1,True,
+task4,2,hard,"On(left_box, right_table) & On(right_box, left_box)",True,19,2,6,3,1,True,
+task4,2,easy,"On(left_box,right_table)",True,3,2,7,4,2,True,
+task4,2,medium,"On(left_box,right_table)&On(right_box,left_table)",False,3,0,7,4,2,True,
+task4,2,hard,"On(left_box, right_table) & On(right_box, left_box)",True,19,2,7,4,2,True,
+task4,2,easy,"On(left_box,right_table)",True,4,1,8,3,3,True,
+task4,2,medium,"On(left_box,right_table)&On(right_box,left_table)",True,28,2,8,3,3,True,
+task4,2,hard,"On(left_box, right_table) & On(right_box, left_box)",True,19,1,8,3,3,True,
+task4,3,easy,"On(left_box,right_table)",False,-1,-1,4,3,0,False,'IsHandEmpty'
+task4,3,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,4,3,0,False,'IsHandEmpty'
+task4,3,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,4,3,0,False,'IsHandEmpty'
+task4,3,easy,"On(left_box,right_table)",False,-1,-1,6,4,1,True,'IsHandEmpty'
+task4,3,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,6,4,1,True,'IsHandEmpty'
+task4,3,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,6,4,1,True,'IsHandEmpty'
+task4,3,easy,"On(left_box,right_table)",False,-1,-1,8,4,2,True,'IsHandEmpty'
+task4,3,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,8,4,2,True,'IsHandEmpty'
+task4,3,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,8,4,2,True,'IsHandEmpty'
+task4,3,easy,"On(left_box,right_table)",False,-1,-1,8,4,3,True,'IsHandEmpty'
+task4,3,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,8,4,3,True,'IsHandEmpty'
+task4,3,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,8,4,3,True,'IsHandEmpty'
+task4,4,easy,"On(left_box,right_table)",True,3,2,4,3,0,False,
+task4,4,medium,"On(left_box,right_table)&On(right_box,left_table)",True,19,4,4,3,0,False,
+task4,4,hard,"On(left_box, right_table) & On(right_box, left_box)",True,3,2,4,3,0,False,
+task4,5,easy,"On(left_box,right_table)",False,-1,-1,4,3,0,False,'IsHandEmpty'
+task4,5,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,4,3,0,False,'IsHandEmpty'
+task4,5,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,4,3,0,False,'IsHandEmpty'
+task4,5,easy,"On(left_box,right_table)",False,-1,-1,6,6,1,True,'IsHandEmpty'
+task4,5,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,6,6,1,True,'IsHandEmpty'
+task4,5,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,6,6,1,True,'IsHandEmpty'
+task4,5,easy,"On(left_box,right_table)",False,-1,-1,6,8,2,True,'IsHandEmpty'
+task4,5,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,6,8,2,True,'IsHandEmpty'
+task4,5,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,6,8,2,True,'IsHandEmpty'
+task4,5,easy,"On(left_box,right_table)",False,-1,-1,8,8,3,True,'IsHandEmpty'
+task4,5,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,8,8,3,True,'IsHandEmpty'
+task4,5,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,8,8,3,True,'IsHandEmpty'
+task4,6,easy,"On(left_box,right_table)",True,3,2,6,3,0,False,
+task4,6,medium,"On(left_box,right_table)&On(right_box,left_table)",True,19,4,6,3,0,False,
+task4,6,hard,"On(left_box, right_table) & On(right_box, left_box)",True,19,2,6,3,0,False,
+task4,7,easy,"On(left_box,right_table)",False,-1,-1,4,4,0,False,'IsHandEmpty'
+task4,7,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,4,4,0,False,'IsHandEmpty'
+task4,7,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,4,4,0,False,'IsHandEmpty'
+task4,7,easy,"On(left_box,right_table)",False,-1,-1,6,4,1,True,'IsHandEmpty'
+task4,7,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,6,4,1,True,'IsHandEmpty'
+task4,7,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,6,4,1,True,'IsHandEmpty'
+task4,7,easy,"On(left_box,right_table)",False,-1,-1,6,4,2,True,'IsHandEmpty'
+task4,7,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,6,4,2,True,'IsHandEmpty'
+task4,7,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,6,4,2,True,'IsHandEmpty'
+task4,7,easy,"On(left_box,right_table)",True,4,1,8,4,3,True,
+task4,7,medium,"On(left_box,right_table)&On(right_box,left_table)",True,27,2,8,4,3,True,
+task4,7,hard,"On(left_box, right_table) & On(right_box, left_box)",True,4,1,8,4,3,True,
+task4,8,easy,"On(left_box,right_table)",True,3,2,4,3,0,False,
+task4,8,medium,"On(left_box,right_table)&On(right_box,left_table)",True,19,4,4,3,0,False,
+task4,8,hard,"On(left_box, right_table) & On(right_box, left_box)",True,19,2,4,3,0,False,
+task4,9,easy,"On(left_box,right_table)",False,-1,-1,5,3,0,False,tuple index out of range
+task4,9,medium,"On(left_box,right_table)&On(right_box,left_table)",False,-1,-1,5,3,0,False,tuple index out of range
+task4,9,hard,"On(left_box, right_table) & On(right_box, left_box)",False,-1,-1,5,3,0,False,tuple index out of range
+task4,9,easy,"On(left_box,right_table)",True,5,1,6,3,1,True,
+task4,9,medium,"On(left_box,right_table)&On(right_box,left_table)",True,28,3,6,3,1,True,
+task4,9,hard,"On(left_box, right_table) & On(right_box, left_box)",True,5,1,6,3,1,True,
+task4,10,easy,"On(left_box,right_table)",True,2,1,2,3,0,False,
+task4,10,medium,"On(left_box,right_table)&On(right_box,left_table)",True,5,2,2,3,0,False,
+task4,10,hard,"On(left_box, right_table) & On(right_box, left_box)",True,2,1,2,3,0,False,
+task5,1,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,4,8,0,False,'IsHolding'
+task5,1,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,1,0,4,8,0,False,
+task5,1,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,13,0,4,8,0,False,
+task5,1,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,5,8,1,True,'IsHolding'
+task5,1,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,4,0,5,8,1,True,
+task5,1,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,36,0,5,8,1,True,
+task5,1,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,8,2,True,'IsHolding'
+task5,1,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,9,0,6,8,2,True,
+task5,1,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,186,0,6,8,2,True,
+task5,1,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,2,0,6,9,3,True,
+task5,1,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,9,0,6,9,3,True,
+task5,1,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,186,0,6,9,3,True,
+task5,2,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,2,8,0,False,'IsHolding'
+task5,2,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,1,0,2,8,0,False,
+task5,2,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,2,8,0,False,'IsHolding'
+task5,2,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,4,7,1,True,'IsHolding'
+task5,2,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,1,0,4,7,1,True,
+task5,2,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,5,0,4,7,1,True,
+task5,2,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,4,8,2,True,'IsHolding'
+task5,2,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,1,0,4,8,2,True,
+task5,2,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,5,0,4,8,2,True,
+task5,2,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,4,7,3,True,'IsHolding'
+task5,2,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,1,0,4,7,3,True,
+task5,2,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,5,0,4,7,3,True,
+task5,3,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,4,3,0,False,'IsHandEmpty'
+task5,3,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,1,0,4,3,0,False,
+task5,3,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,4,3,0,False,'IsHandEmpty'
+task5,3,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,5,1,True,'CanGrasp'
+task5,3,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,5,1,True,'CanGrasp'
+task5,3,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,39,0,6,5,1,True,
+task5,3,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,15,0,6,6,2,True,
+task5,3,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,5197,0,6,6,2,True,
+task5,3,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,39,0,6,6,2,True,
+task5,3,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,9,0,6,6,3,True,
+task5,3,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,225,0,6,6,3,True,
+task5,3,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,81,0,6,6,3,True,
+task5,4,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,5,0,False,'Holding'
+task5,4,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,5,0,False,'Holding'
+task5,4,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,5,0,False,'Holding'
+task5,4,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,5,1,True,'Holding'
+task5,4,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,5,1,True,'Holding'
+task5,4,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,5,1,True,'Holding'
+task5,4,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,5,2,True,'Holding'
+task5,4,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,5,2,True,'Holding'
+task5,4,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,5,2,True,'Holding'
+task5,4,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,6,3,True,'Holding'
+task5,4,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,6,3,True,'Holding'
+task5,4,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,6,3,True,'Holding'
+task5,5,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,4,8,0,False,'IsHolding'
+task5,5,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,4,8,0,False,'IsHandEmpty'
+task5,5,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,4,8,0,False,'IsHandEmpty'
+task5,5,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,8,1,True,'IsHolding'
+task5,5,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,8,1,True,'IsHandEmpty'
+task5,5,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,8,1,True,'IsHandEmpty'
+task5,5,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,9,2,True,'IsHolding'
+task5,5,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,9,2,True,'IsHandEmpty'
+task5,5,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,9,2,True,'IsHandEmpty'
+task5,5,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,10,3,True,'IsHolding'
+task5,5,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,10,3,True,'IsHandEmpty'
+task5,5,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,10,3,True,'IsHandEmpty'
+task5,6,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,4,6,0,False,'IsHolding'
+task5,6,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,1,0,4,6,0,False,
+task5,6,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,48,0,4,6,0,False,
+task5,6,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,5,6,1,True,'IsHolding'
+task5,6,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,294,0,5,6,1,True,
+task5,6,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,2423,0,5,6,1,True,
+task5,6,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,5,7,2,True,'IsHolding'
+task5,6,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,294,0,5,7,2,True,
+task5,6,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,2423,0,5,7,2,True,
+task5,6,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,5,7,3,True,'IsEmpty'
+task5,6,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,5,7,3,True,'IsEmpty'
+task5,6,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,5,7,3,True,'IsEmpty'
+task5,7,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,8,0,False,'IsHolding'
+task5,7,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,19,0,6,8,0,False,
+task5,7,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,301,0,6,8,0,False,
+task5,7,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,11,1,True,'IsHolding'
+task5,7,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,19,0,6,11,1,True,
+task5,7,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,301,0,6,11,1,True,
+task5,7,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,11,2,True,'IsHolding'
+task5,7,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,19,0,6,11,2,True,
+task5,7,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,301,0,6,11,2,True,
+task5,7,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,3,0,6,12,3,True,
+task5,7,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,19,0,6,12,3,True,
+task5,7,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,301,0,6,12,3,True,
+task5,8,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,4,7,0,False,'IsHolding'
+task5,8,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,4,7,0,False,'IsHolding'
+task5,8,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,4,7,0,False,'IsHolding'
+task5,8,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,14,0,3,10,1,True,
+task5,8,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,35,0,3,10,1,True,
+task5,8,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,56,0,3,10,1,True,
+task5,8,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,22,0,4,8,2,True,
+task5,8,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,78,0,4,8,2,True,
+task5,8,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,112,0,4,8,2,True,
+task5,8,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,22,0,5,8,3,True,
+task5,8,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,78,0,5,8,3,True,
+task5,8,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,112,0,5,8,3,True,
+task5,9,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,3,7,0,False,'IsHolding'
+task5,9,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,1,0,3,7,0,False,
+task5,9,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,1,0,3,7,0,False,
+task5,9,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,7,1,True,'IsFull'
+task5,9,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,7,1,True,'IsFull'
+task5,9,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,7,1,True,'IsFull'
+task5,9,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,8,8,2,True,'IsHolding'
+task5,9,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),True,225,4,8,8,2,True,
+task5,9,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,19,0,8,8,2,True,
+task5,9,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,8,8,3,True,'IsHolding'
+task5,9,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),True,225,4,8,8,3,True,
+task5,9,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,19,0,8,8,3,True,
+task5,10,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,5,7,0,False,'Holding'
+task5,10,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,5,7,0,False,'Holding'
+task5,10,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,5,7,0,False,'Holding'
+task5,10,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,7,1,True,'Holding'
+task5,10,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,7,1,True,'Holding'
+task5,10,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,7,1,True,'Holding'
+task5,10,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,7,2,True,'Holding'
+task5,10,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,7,2,True,'Holding'
+task5,10,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,7,2,True,'Holding'
+task5,10,easy,"IsHolding(right_franka,right_cup) & IsHalfFull(right_cup)",False,-1,-1,6,7,3,True,'IsEmpty'
+task5,10,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,-1,-1,6,7,3,True,'IsEmpty'
+task5,10,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,-1,-1,6,7,3,True,'IsEmpty'
+task6,1,easy,"In(apple,fridge)",True,2,1,4,5,0,False,
+task6,1,medium,"In(apple,fridge) & In(pen,cabinet)",True,5,2,4,5,0,False,
+task6,1,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",True,5,2,4,5,0,False,
+task6,2,easy,"In(apple,fridge)",False,-1,-1,3,5,0,False,'Holding'
+task6,2,medium,"In(apple,fridge) & In(pen,cabinet)",False,-1,-1,3,5,0,False,'Holding'
+task6,2,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,-1,-1,3,5,0,False,'Holding'
+task6,2,easy,"In(apple,fridge)",False,-1,-1,3,6,1,True,'Holding'
+task6,2,medium,"In(apple,fridge) & In(pen,cabinet)",False,-1,-1,3,6,1,True,'Holding'
+task6,2,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,-1,-1,3,6,1,True,'Holding'
+task6,2,easy,"In(apple,fridge)",False,-1,-1,5,5,2,True,'Holding'
+task6,2,medium,"In(apple,fridge) & In(pen,cabinet)",False,-1,-1,5,5,2,True,'Holding'
+task6,2,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,-1,-1,5,5,2,True,'Holding'
+task6,2,easy,"In(apple,fridge)",False,-1,-1,5,5,3,True,'Holding'
+task6,2,medium,"In(apple,fridge) & In(pen,cabinet)",False,-1,-1,5,5,3,True,'Holding'
+task6,2,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,-1,-1,5,5,3,True,'Holding'
+task6,3,easy,"In(apple,fridge)",True,3,2,3,6,0,False,
+task6,3,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,6,0,False,
+task6,3,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,6,0,False,
+task6,3,easy,"In(apple,fridge)",True,3,2,3,6,1,True,
+task6,3,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,6,1,True,
+task6,3,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,6,1,True,
+task6,3,easy,"In(apple,fridge)",True,3,2,3,6,2,True,
+task6,3,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,6,2,True,
+task6,3,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,6,2,True,
+task6,3,easy,"In(apple,fridge)",True,3,2,3,6,3,True,
+task6,3,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,6,3,True,
+task6,3,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,6,3,True,
+task6,4,easy,"In(apple,fridge)",True,3,2,3,6,0,False,
+task6,4,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,6,0,False,
+task6,4,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,6,0,False,
+task6,4,easy,"In(apple,fridge)",True,3,2,3,6,1,True,
+task6,4,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,6,1,True,
+task6,4,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,6,1,True,
+task6,4,easy,"In(apple,fridge)",True,3,2,3,6,2,True,
+task6,4,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,6,2,True,
+task6,4,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,6,2,True,
+task6,4,easy,"In(apple,fridge)",True,3,2,3,7,3,True,
+task6,4,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,7,3,True,
+task6,4,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,7,3,True,
+task6,5,easy,"In(apple,fridge)",True,2,1,4,5,0,False,
+task6,5,medium,"In(apple,fridge) & In(pen,cabinet)",True,5,2,4,5,0,False,
+task6,5,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",True,5,2,4,5,0,False,
+task6,6,easy,"In(apple,fridge)",True,4,2,3,6,0,False,
+task6,6,medium,"In(apple,fridge) & In(pen,cabinet)",True,15,4,3,6,0,False,
+task6,6,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",True,15,4,3,6,0,False,
+task6,7,easy,"In(apple,fridge)",True,3,2,3,6,0,False,
+task6,7,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,6,0,False,
+task6,7,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,6,0,False,
+task6,7,easy,"In(apple,fridge)",True,3,2,3,10,1,True,
+task6,7,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,10,1,True,
+task6,7,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,10,1,True,
+task6,7,easy,"In(apple,fridge)",True,3,2,5,10,2,True,
+task6,7,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,5,10,2,True,
+task6,7,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,5,10,2,True,
+task6,7,easy,"In(apple,fridge)",True,6,2,7,10,3,True,
+task6,7,medium,"In(apple,fridge) & In(pen,cabinet)",False,99,0,7,10,3,True,
+task6,7,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,150,0,7,10,3,True,
+task6,8,easy,"In(apple,fridge)",True,3,2,5,6,0,False,
+task6,8,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,5,6,0,False,
+task6,8,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,5,6,0,False,
+task6,8,easy,"In(apple,fridge)",True,3,2,5,6,1,True,
+task6,8,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,5,6,1,True,
+task6,8,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,5,6,1,True,
+task6,8,easy,"In(apple,fridge)",True,3,2,5,6,2,True,
+task6,8,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,5,6,2,True,
+task6,8,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,5,6,2,True,
+task6,8,easy,"In(apple,fridge)",True,6,2,7,6,3,True,
+task6,8,medium,"In(apple,fridge) & In(pen,cabinet)",False,99,0,7,6,3,True,
+task6,8,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,150,0,7,6,3,True,
+task6,9,easy,"In(apple,fridge)",True,3,2,4,6,0,False,
+task6,9,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,4,6,0,False,
+task6,9,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,4,6,0,False,
+task6,9,easy,"In(apple,fridge)",True,5,2,6,6,1,True,
+task6,9,medium,"In(apple,fridge) & In(pen,cabinet)",False,57,0,6,6,1,True,
+task6,9,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,84,0,6,6,1,True,
+task6,9,easy,"In(apple,fridge)",True,5,2,6,6,2,True,
+task6,9,medium,"In(apple,fridge) & In(pen,cabinet)",False,57,0,6,6,2,True,
+task6,9,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,84,0,6,6,2,True,
+task6,9,easy,"In(apple,fridge)",True,5,2,6,6,3,True,
+task6,9,medium,"In(apple,fridge) & In(pen,cabinet)",False,57,0,6,6,3,True,
+task6,9,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,84,0,6,6,3,True,
+task6,10,easy,"In(apple,fridge)",True,3,2,3,6,0,False,
+task6,10,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,6,0,False,
+task6,10,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,6,0,False,
+task6,10,easy,"In(apple,fridge)",True,3,2,3,7,1,True,
+task6,10,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,7,1,True,
+task6,10,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,7,1,True,
+task6,10,easy,"In(apple,fridge)",True,3,2,3,7,2,True,
+task6,10,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,7,2,True,
+task6,10,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,7,2,True,
+task6,10,easy,"In(apple,fridge)",True,3,2,3,7,3,True,
+task6,10,medium,"In(apple,fridge) & In(pen,cabinet)",False,13,0,3,7,3,True,
+task6,10,hard,"In(apple,fridge) & In(pen,cabinet) & IsClosed(fridge) & IsClosed(cabinet)",False,13,0,3,7,3,True,
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,-1,-1,7,6,0,False,'IsHandEmpty'
+task7,1,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,-1,-1,7,6,0,False,'IsHandEmpty'
+task7,1,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,-1,-1,7,6,0,False,'IsHandEmpty'
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,7,3,6,7,1,True,
+task7,1,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,135,0,6,7,1,True,
+task7,1,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,782,0,6,7,1,True,
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,7,3,6,7,2,True,
+task7,1,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,135,0,6,7,2,True,
+task7,1,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,782,0,6,7,2,True,
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,9,3,5,7,3,True,
+task7,1,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,35,0,5,7,3,True,
+task7,1,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,171,0,5,7,3,True,
+task7,2,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,-1,-1,6,6,0,False,'IsHandEmpty'
+task7,2,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,-1,-1,6,6,0,False,'IsHandEmpty'
+task7,2,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,-1,-1,6,6,0,False,'IsHandEmpty'
+task7,2,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,-1,-1,6,6,1,True,'IsHandEmpty'
+task7,2,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,-1,-1,6,6,1,True,'IsHandEmpty'
+task7,2,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,-1,-1,6,6,1,True,'IsHandEmpty'
+task7,2,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,-1,-1,6,6,2,True,'IsHandEmpty'
+task7,2,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,-1,-1,6,6,2,True,'IsHandEmpty'
+task7,2,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,-1,-1,6,6,2,True,'IsHandEmpty'
+task7,2,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,-1,-1,7,6,3,True,'IsHandEmpty'
+task7,2,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,-1,-1,7,6,3,True,'IsHandEmpty'
+task7,2,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,-1,-1,7,6,3,True,'IsHandEmpty'
+task7,3,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,5,2,5,6,0,False,
+task7,3,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",True,65,4,5,6,0,False,
+task7,3,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",True,326,5,5,6,0,False,
+task7,4,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,14,3,6,7,0,False,
+task7,4,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,171,2,6,7,0,False,
+task7,4,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,1011,1,6,7,0,False,
+task7,4,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,9,3,6,13,1,True,
+task7,4,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",True,142,5,6,13,1,True,
+task7,4,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",True,818,6,6,13,1,True,
+task7,5,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,5,3,7,7,0,False,
+task7,5,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",True,70,5,7,7,0,False,
+task7,5,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",True,435,6,7,7,0,False,
+task7,6,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,4,2,5,6,0,False,
+task7,6,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",True,33,4,5,6,0,False,
+task7,6,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",True,150,5,5,6,0,False,
+task7,7,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,5,2,4,5,0,False,
+task7,7,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,27,0,4,5,0,False,
+task7,7,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,27,0,4,5,0,False,
+task7,7,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,5,2,5,6,1,True,
+task7,7,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,27,0,5,6,1,True,
+task7,7,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,114,0,5,6,1,True,
+task7,7,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,5,2,5,6,2,True,
+task7,7,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,27,0,5,6,2,True,
+task7,7,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,114,0,5,6,2,True,
+task7,7,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,5,2,5,7,3,True,
+task7,7,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,27,0,5,7,3,True,
+task7,7,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,114,0,5,7,3,True,
+task7,8,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,-1,-1,7,6,0,False,'On'
+task7,8,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,-1,-1,7,6,0,False,'On'
+task7,8,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,-1,-1,7,6,0,False,'On'
+task7,8,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,9,3,7,6,1,True,
+task7,8,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,277,0,7,6,1,True,
+task7,8,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,1696,0,7,6,1,True,
+task7,8,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,9,3,7,7,2,True,
+task7,8,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,277,0,7,7,2,True,
+task7,8,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,1696,0,7,7,2,True,
+task7,8,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,9,3,7,7,3,True,
+task7,8,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,277,0,7,7,3,True,
+task7,8,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,1696,0,7,7,3,True,
+task7,9,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,5,0,5,6,0,False,
+task7,9,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,65,0,5,6,0,False,
+task7,9,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,326,0,5,6,0,False,
+task7,9,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,5,0,5,6,1,True,
+task7,9,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,65,0,5,6,1,True,
+task7,9,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,326,0,5,6,1,True,
+task7,9,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,10,0,7,7,2,True,
+task7,9,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,233,0,7,7,2,True,
+task7,9,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,1092,0,7,7,2,True,
+task7,9,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,16,0,7,7,3,True,
+task7,9,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,973,0,7,7,3,True,
+task7,9,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,6116,0,7,7,3,True,
+task7,10,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,-1,-1,5,6,0,False,'Holding'
+task7,10,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,-1,-1,5,6,0,False,'Holding'
+task7,10,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,-1,-1,5,6,0,False,'Holding'
+task7,10,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,-1,-1,7,6,1,True,'Holding'
+task7,10,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,-1,-1,7,6,1,True,'Holding'
+task7,10,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,-1,-1,7,6,1,True,'Holding'
+task7,10,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,-1,-1,7,6,2,True,'Holding'
+task7,10,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,-1,-1,7,6,2,True,'Holding'
+task7,10,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,-1,-1,7,6,2,True,'Holding'
+task7,10,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",False,-1,-1,7,6,3,True,'Holding'
+task7,10,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",False,-1,-1,7,6,3,True,'Holding'
+task7,10,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",False,-1,-1,7,6,3,True,'Holding'

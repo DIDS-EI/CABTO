@@ -1,0 +1,28 @@
+selector
+    cond On(book,breakfast_table)
+    sequence
+        cond Holding(book)
+        act PutIn(book,breakfast_table)
+    sequence
+        cond In(book,cabinet)
+        selector
+            selector
+                sequence
+                    cond IsOpened(cabinet)
+                    selector
+                        sequence
+                            cond IsHandEmpty()
+                            act PickUpFromCabinet(book)
+                        sequence
+                            cond Holding(banana)
+                            act PutIn(banana,breakfast_table)
+                sequence
+                    cond IsClosed(cabinet)
+                    cond IsHandEmpty()
+                    cond Holding(banana)
+                    act OpenCabinet()
+            sequence
+                cond IsClosed(cabinet)
+                cond Holding(pen)
+                cond Holding(banana)
+                act PutOn(pen,breakfast_table)

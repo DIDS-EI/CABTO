@@ -1,0 +1,125 @@
+=== LLM Output ===
+
+```python
+class Grasp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", f"IsNear({arg[0]})"}
+        info["add"] = {f"IsHolding({arg[0]})"}
+        info["del_set"] = {"IsHandEmpty()"}
+        info["cost"] = 1
+        return info
+    
+    def change_condition_set(self):
+        self.agent.condition_set |= (self.info["add"])
+        self.agent.condition_set -= self.info["del_set"]
+
+
+class MoveTo(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d", "table"]
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.target_obj = self.args[0]
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = set()
+        info["add"] = {f"IsNear({arg[0]})"}
+        info["del_set"] = {f"IsNear({place})" for place in cls.valid_args if place != arg[0]}
+        info["cost"] = 1
+        return info
+    
+    def change_condition_set(self):
+        self.agent.condition_set |= (self.info["add"])
+        self.agent.condition_set -= self.info["del_set"]
+
+
+class Stack(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = ["a", "b", "c", "d"]
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.top_obj = self.args[0]
+        self.bottom_obj = self.args[1]
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHolding({arg[0]})", f"On({arg[1]},table)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", f"IsHandEmpty()"}
+        info["del_set"] = {f"IsHolding({arg[0]})", f"On({arg[1]},table)"}
+        info["cost"] = 2
+        return info
+    
+    def change_condition_set(self):
+        self.agent.condition_set |= (self.info["add"])
+        self.agent.condition_set -= self.info["del_set"]
+
+
+class Unstack(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = ["a", "b", "c", "d"]
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.top_obj = self.args[0]
+        self.bottom_obj = self.args[1]
+    
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"On({arg[0]},{arg[1]})"}
+        info["add"] = {f"IsHandEmpty()", f"IsHolding({arg[0]})"}
+        info["del_set"] = {f"On({arg[0]},{arg[1]})"}
+        info["cost"] = 2
+        return info
+    
+    def change_condition_set(self):
+        self.agent.condition_set |= (self.info["add"])
+        self.agent.condition_set -= self.info["del_set"]
+
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class IsNear(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class IsOnTable(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+start_state = {"IsHandEmpty()", "On(b,table)", "On(d,table)", "On(a,table)", "On(c,table)"}
+objects = {"a", "b", "c", "d"}
+goal = ["On(a,b)", "On(a,b) & On(b,c)", "On(a,b) & On(b,c) & On(c,d)"]
+```

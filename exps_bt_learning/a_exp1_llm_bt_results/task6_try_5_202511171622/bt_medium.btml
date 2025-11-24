@@ -1,0 +1,5 @@
+selector
+    cond On(book,breakfast_table)
+    sequence
+        cond Holding(book)
+        act DropOnTable(book,breakfast_table)

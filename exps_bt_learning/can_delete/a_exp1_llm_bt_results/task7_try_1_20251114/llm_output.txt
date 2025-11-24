@@ -1,0 +1,111 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PutInMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["soup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "On(soup,table)", "IsNotIn(soup,microwave)"}
+        info["add"] = {f"In({arg[0]},microwave)", "IsNotIn(soup,table)"}
+        info["del_set"] = {"On(soup,table)"}
+        info["cost"] = 1
+        return info
+
+class PutInOven(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["chickenleg"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "On(chickenleg,table)", "IsNotIn(chickenleg,oven)"}
+        info["add"] = {f"In({arg[0]},oven)", "IsNotIn(chickenleg,table)"}
+        info["del_set"] = {"On(chickenleg,table)"}
+        info["cost"] = 1
+        return info
+
+class SwitchOnLight(OGAction):
+    can_be_expanded = True
+    num_args = 0
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(light)"}
+        info["add"] = {"IsSwitchedOn(light)"}
+        info["del_set"] = {"IsSwitchedOff(light)"}
+        info["cost"] = 1
+        return info
+
+class SwitchOnMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 0
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(microwave)"}
+        info["add"] = {"IsSwitchedOn(microwave)"}
+        info["del_set"] = {"IsSwitchedOff(microwave)"}
+        info["cost"] = 1
+        return info
+
+class SwitchOnOven(OGAction):
+    can_be_expanded = True
+    num_args = 0
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(oven)"}
+        info["add"] = {"IsSwitchedOn(oven)"}
+        info["del_set"] = {"IsSwitchedOff(oven)"}
+        info["cost"] = 1
+        return info
+
+class IsNotIn(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsSwitchedOff(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsSwitchedOn(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

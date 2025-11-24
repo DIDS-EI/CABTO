@@ -1,0 +1,30 @@
+selector
+    sequence
+        cond IsOpened(oven)
+        cond IsOpened(microwave)
+        cond IsSwitchedOn(radio)
+        cond IsSwitchedOn(light)
+    sequence
+        cond IsClosed(microwave)
+        selector
+            sequence
+                cond IsOpened(oven)
+                selector
+                    sequence
+                        cond IsSwitchedOn(light)
+                        selector
+                            sequence
+                                cond IsSwitchedOn(radio)
+                                act OpenAppliance(microwave)
+                            sequence
+                                cond IsSwitchedOff(radio)
+                                act SwitchOn(radio)
+                    sequence
+                        cond IsSwitchedOff(radio)
+                        cond IsSwitchedOff(light)
+                        act SwitchOn(light)
+            sequence
+                cond IsSwitchedOff(radio)
+                cond IsClosed(oven)
+                cond IsSwitchedOff(light)
+                act OpenAppliance(oven)

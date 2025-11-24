@@ -1,0 +1,14 @@
+```python
+pre = {
+    "Holding(red)",
+    "On(green,table)"
+}
+
+add = {
+    "On(red,green)"
+}
+
+del_set = {
+    "Holding(red)"
+}
+```

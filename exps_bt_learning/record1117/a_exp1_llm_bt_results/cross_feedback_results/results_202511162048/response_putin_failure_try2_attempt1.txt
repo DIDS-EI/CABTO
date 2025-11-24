@@ -1,0 +1,14 @@
+```python
+pre = {
+    "Holding(apple)",
+    "IsOpen(cabinet)"
+}
+
+add = {
+    "In(apple,cabinet)"
+}
+
+del_set = {
+    "Holding(apple)"
+}
+```

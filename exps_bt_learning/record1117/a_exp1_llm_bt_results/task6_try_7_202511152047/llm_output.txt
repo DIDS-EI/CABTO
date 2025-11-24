@@ -1,0 +1,160 @@
+=== LLM Output ===
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["apple", "pen", "book", "banana", "wine"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Hand must be empty and the object on the table or breakfast_table
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)|On({arg[0]},breakfast_table)"}
+        # Add: Hand is holding the object
+        info["add"] = {f"Holding({arg[0]})"}
+        # Delete: Hand is empty, object on the table or breakfast_table
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)", f"On({arg[0]},breakfast_table)"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PlaceOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Allow placing on the table only
+    valid_args = list(itertools.product(["apple", "pen", "book", "banana"], ["table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Must be holding the object
+        info["pre"] = {f"Holding({arg[0]})"}
+        # Add: Hand is empty, object is on the table
+        info["add"] = {f"IsHandEmpty()", f"On({arg[0]},{arg[1]})"}
+        # Delete: Holding the object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PlaceOnBreakfastTable(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # Allow placing on the breakfast_table only
+    valid_args = list(itertools.product(["apple", "pen", "book", "banana"], ["breakfast_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Must be holding the object
+        info["pre"] = {f"Holding({arg[0]})"}
+        # Add: Hand is empty, object is on the breakfast_table
+        info["add"] = {f"IsHandEmpty()", f"On({arg[0]},{arg[1]})"}
+        # Delete: Holding the object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class OpenContainer(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["fridge", "cabinet"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Container is closed
+        info["pre"] = {f"IsClosed({arg[0]})"}
+        # Add: Container is opened
+        info["add"] = {f"IsOpened({arg[0]})"}
+        # Delete: Container is closed
+        info["del_set"] = {f"IsClosed({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class CloseContainer(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["fridge", "cabinet"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Container is opened
+        info["pre"] = {f"IsOpened({arg[0]})"}
+        # Add: Container is closed
+        info["add"] = {f"IsClosed({arg[0]})"}
+        # Delete: Container is opened
+        info["del_set"] = {f"IsOpened({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PlaceInContainer(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["wine", "book", "pen", "banana"], ["fridge", "cabinet"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Must be holding the object and container is open
+        info["pre"] = {f"Holding({arg[0]})", f"IsOpened({arg[1]})"}
+        # Add: Object is in the container, hand is empty
+        info["add"] = {f"In({arg[0]},{arg[1]})", f"IsHandEmpty()"}
+        # Delete: Holding the object
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

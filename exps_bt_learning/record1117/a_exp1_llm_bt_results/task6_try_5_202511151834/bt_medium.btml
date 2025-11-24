@@ -1,0 +1,47 @@
+selector
+    sequence
+        cond IsOpened(cabinet)
+        cond In(book,cabinet)
+        cond In(pen,cabinet)
+    sequence
+        cond IsOpened(cabinet)
+        selector
+            selector
+                selector
+                    sequence
+                        cond In(book,cabinet)
+                        selector
+                            sequence
+                                cond Holding(robot2,pen)
+                                act PutInCabinet(robot2,pen)
+                            sequence
+                                cond IsHandEmpty(robot2)
+                                cond On(pen,table)
+                                act PickUp(robot2,pen)
+                    sequence
+                        cond On(pen,table)
+                        cond Holding(robot2,book)
+                        act PutInCabinet(robot2,book)
+                sequence
+                    cond IsHandEmpty(robot2)
+                    cond On(book,table)
+                    cond On(pen,table)
+                    act PickUp(robot2,book)
+            sequence
+                cond Holding(robot2,banana)
+                cond IsOpened(fridge)
+                cond On(book,table)
+                cond On(pen,table)
+                act PutInFridge(robot2,banana)
+    sequence
+        cond Holding(robot2,banana)
+        cond IsClosed(cabinet)
+        cond On(book,table)
+        cond On(pen,table)
+        selector
+            sequence
+                cond IsOpened(fridge)
+                act OpenCabinet(robot2)
+            sequence
+                cond IsClosed(fridge)
+                act OpenFridge(right_franka)

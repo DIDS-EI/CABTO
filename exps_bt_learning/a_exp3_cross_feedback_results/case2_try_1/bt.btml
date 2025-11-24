@@ -1,0 +1,56 @@
+selector
+    cond On(red,green)
+    sequence
+        cond Clear(green)
+        selector
+            selector
+                selector
+                    selector
+                        sequence
+                            cond Holding(red)
+                            act Stack(red,green)
+                        sequence
+                            cond IsHandEmpty()
+                            cond On(red,table)
+                            cond Clear(red)
+                            act Unstack(red,table)
+                    sequence
+                        cond On(red,table)
+                        cond Clear(red)
+                        cond Holding(green)
+                        act PutDown(green,table)
+                sequence
+                    cond IsHandEmpty()
+                    cond On(red,table)
+                    cond On(green,red)
+                    act Unstack(green,red)
+            sequence
+                cond Clear(yellow)
+                cond On(red,table)
+                cond Holding(yellow)
+                cond On(green,red)
+                act Stack(yellow,yellow)
+    sequence
+        cond On(green,red)
+        cond On(yellow,green)
+        selector
+            sequence
+                cond On(red,table)
+                selector
+                    sequence
+                        cond Clear(yellow)
+                        selector
+                            sequence
+                                cond IsHandEmpty()
+                                act Unstack(yellow,green)
+                            sequence
+                                cond Holding(yellow)
+                                act PutDown(yellow,table)
+                    sequence
+                        cond IsHandEmpty()
+                        cond On(yellow,yellow)
+                        act Unstack(yellow,yellow)
+            sequence
+                cond Holding(red)
+                cond On(yellow,yellow)
+                act PutDown(red,table)

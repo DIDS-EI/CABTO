@@ -1,0 +1,158 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["pen", "banana", "book"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: hand empty, object is on some surface (table or breakfast_table)
+        # The object must be on table or breakfast_table (from initial state and goal)
+        surfaces = {"table", "breakfast_table"}
+        pre = {f"IsHandEmpty()"}
+        # object on any surface (must exist)
+        pre = pre.union({f"On({obj},{surface})" for surface in surfaces})
+        # Actually must pick one surface from valid_args sets: enforce pre from all surfaces?
+        # For planning, to be safe: only one surface
+ 
+        # We choose pre as object on any surface, but planner will use concrete pre from get_info call with specific location
+        # So better to use union, but in this code, for simplicity, we'll assume only one pre is required for pick up,
+        # So we need to accept only one surface at a time.
+        # But since valid_args doesn't enumerate surfaces, we encode just IsHandEmpty and On(obj,surface) as pre. The external call provide surface?
+
+        # For completeness, here we require one of those preconditions, but this code design uses sets only; probabilistic steps are done in planner.
+
+        # Added: Holding object
+        info["pre"] = {f"IsHandEmpty()"}
+        # actual pre depends on object location, so we rely on external calls to generate parameters including location. Here we keep only core pre.
+        # So for safety, in our design, each action will take (object,) parameters. The planner knows location from state.
+        # So in the get_info, we cannot encode On(obj,loc), as loc not passed.
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},breakfast_table)", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+class PutDown(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["pen", "banana", "book"], ["breakfast_table", "table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, place = arg
+        info = {}
+        info["pre"] = {f"Holding({obj})"}
+        info["add"] = {f"IsHandEmpty()", f"On({obj},{place})"}
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+class OpenContainer(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["fridge", "cabinet"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        container = arg[0]
+        info = {}
+        info["pre"] = {f"IsClosed({container})"}
+        info["add"] = {f"IsOpened({container})"}
+        info["del_set"] = {f"IsClosed({container})"}
+        info["cost"] = 1
+        return info
+
+class CloseContainer(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["fridge", "cabinet"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        container = arg[0]
+        info = {}
+        info["pre"] = {f"IsOpened({container})"}
+        info["add"] = {f"IsClosed({container})"}
+        info["del_set"] = {f"IsOpened({container})"}
+        info["cost"] = 1
+        return info
+
+class PutInContainer(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["banana", "book", "pen"], ["fridge", "cabinet"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        obj, container = arg
+        info = {}
+        info["pre"] = {f"Holding({obj})", f"IsOpened({container})"}
+        info["add"] = {f"In({obj},{container})"}
+        # object no longer on any table or breakfast_table after put in container
+        info["del_set"] = {f"Holding({obj})", f"On({obj},table)", f"On({obj},breakfast_table)"}
+        info["cost"] = 1
+        return info
+
+class PickUpFromContainer(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["banana", "book", "pen"], ["fridge", "cabinet"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+    
+    @classmethod
+    def get_info(cls, *arg):
+        obj, container = arg
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"In({obj},{container})", f"IsOpened({container})"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {f"IsHandEmpty()", f"In({obj},{container})"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

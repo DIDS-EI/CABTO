@@ -15,12 +15,12 @@ class ExtSimCfg:
 
     ###### ext_scenario_name = "OneFrankaExtScenario"
     # ext_scenario_name = "CoverExtScenario"
-    # ext_scenario_name = "BlocksExtScenario"
+    ext_scenario_name = "BlocksExtScenario"
 
-    ###### ext_scenario_name = "MultiFrankaExtScenario" 
+    ##### ext_scenario_name = "MultiFrankaExtScenario" 
     # ext_scenario_name = "MultiFrankaCleanExtScenario" 
     # ext_scenario_name = "MultiFrankaHandOverExtScenario"
-    ext_scenario_name = "MultiFrankaPourExtScenario"
+    # ext_scenario_name = "MultiFrankaPourExtScenario"
 
 
 

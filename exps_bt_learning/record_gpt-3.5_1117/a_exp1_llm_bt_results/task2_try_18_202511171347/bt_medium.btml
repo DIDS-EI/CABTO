@@ -1,0 +1,24 @@
+selector
+    sequence
+        cond On(c,b)
+        cond On(b,a)
+    sequence
+        cond On(c,b)
+        selector
+            sequence
+                cond Holding(b)
+                act Stack(b,a)
+            sequence
+                cond On(b,table)
+                cond IsHandEmpty()
+                act PickUp(b)
+    sequence
+        cond On(b,table)
+        selector
+            sequence
+                cond Holding(c)
+                act Stack(c,b)
+            sequence
+                cond On(c,table)
+                cond IsHandEmpty()
+                act PickUp(c)

@@ -1,0 +1,37 @@
+selector
+    sequence
+        cond On(book,breakfast_table)
+        cond On(cake,breakfast_table)
+    sequence
+        cond Holding(left_franka,cake)
+        selector
+            sequence
+                cond On(book,breakfast_table)
+                act PutOnBreakfastTable(left_franka,cake)
+            sequence
+                cond Holding(right_franka,book)
+                act PutOnBreakfastTable(right_franka,book)
+    sequence
+        cond On(cake,table)|On(cake,breakfast_table)
+        selector
+            selector
+                sequence
+                    cond Holding(right_franka,book)
+                    selector
+                        sequence
+                            cond IsHandEmpty(left_franka)
+                            act PickUp(left_franka,cake)
+                        sequence
+                            cond Holding(left_franka,pen)
+                            act PutOnTable(left_franka,pen)
+                sequence
+                    cond Holding(left_franka,pen)
+                    cond IsHandEmpty(right_franka)
+                    cond On(book,table)|On(book,breakfast_table)
+                    act PickUp(right_franka,book)
+            sequence
+                cond IsOpened(cabinet)
+                cond Holding(right_franka,pen)
+                cond Holding(left_franka,pen)
+                cond On(book,table)|On(book,breakfast_table)
+                act PutInCabinet(right_franka,pen)

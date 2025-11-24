@@ -1,0 +1,5 @@
+selector
+    sequence
+        cond On(b,place_b)
+        cond On(c,place_c)
+        cond On(a,place_a)

@@ -1,0 +1,46 @@
+selector
+    sequence
+        cond On(a,c)
+        cond On(b,d)
+        cond On(c,b)
+    sequence
+        cond On(a,c)
+        cond Holding(robot,c)
+        selector
+            selector
+                selector
+                    selector
+                        selector
+                            sequence
+                                cond Clear(b)
+                                cond On(b,d)
+                                act Stack(c,b)
+                            sequence
+                                cond Clear(d)
+                                cond Holding(robot,b)
+                                act Stack(b,d)
+                        sequence
+                            cond IsHandEmpty(robot)
+                            cond Clear(d)
+                            cond On(b,a)
+                            cond Clear(b)
+                            act UnStack(b,a)
+                    sequence
+                        cond Clear(d)
+                        cond Clear(b)
+                        cond On(b,a)
+                        cond Holding(robot,a)
+                        act PutDown(a)
+                sequence
+                    cond On(a,b)
+                    cond Clear(d)
+                    cond Clear(a)
+                    cond On(b,a)
+                    cond IsHandEmpty(robot)
+                    act UnStack(a,b)
+            sequence
+                cond Clear(d)
+                cond On(a,b)
+                cond On(b,a)
+                cond Holding(robot,a)
+                act PutDown(a)

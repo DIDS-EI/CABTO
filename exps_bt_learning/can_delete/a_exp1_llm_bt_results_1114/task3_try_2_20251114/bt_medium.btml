@@ -1,0 +1,17 @@
+selector
+    sequence
+        cond On(center_big_box,box_board)
+        cond On(left_lego,center_big_box)
+    sequence
+        cond IsHandEmpty(right_franka)
+        cond BigBoxNeedTwoFranka()
+        selector
+            sequence
+                cond On(left_lego,center_big_box)
+                cond IsHandEmpty(left_franka)
+                act PutBigBoxOnBoard(center_big_box,box_board)
+            sequence
+                cond On(left_lego,left_table)
+                cond LeftFrankaCanOnlyDoLeftAction()
+                cond On(left_franka,left_table)
+                act PutLeftLegoOnCenterBox(left_lego,center_big_box)

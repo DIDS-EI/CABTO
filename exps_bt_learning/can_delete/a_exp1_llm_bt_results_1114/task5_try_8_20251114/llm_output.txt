@@ -1,0 +1,99 @@
+=== LLM Output ===
+
+```python
+class TransferCup(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["right_cup"], ["right_table", "left_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHolding(right_franka,{arg[0]})", f"On({arg[0]},{arg[1]})", f"IsHandEmpty(right_franka)"}
+        info["add"] = {f"On({arg[0]}, {arg[1]})", f"IsHandEmpty(left_franka)"}
+        info["del_set"] = {f"On({arg[0]},left_table)"}
+        info["cost"] = 1
+        return info
+
+class PickRightCup(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_cup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},right_table)", f"CanGrasp(right_franka,{arg[0]})"}
+        info["add"] = {f"IsHolding(right_franka,{arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},right_table)"}
+        info["cost"] = 1
+        return info
+
+class DropCup(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["right_cup", "left_cup"], ["right_table", "left_table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHolding(right_franka,{arg[0]})", f"IsHandEmpty(right_franka)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", f"IsHandEmpty(right_franka)"}
+        info["del_set"] = {f"IsHolding(right_franka,{arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class FillCup(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["right_cup", "left_cup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"On({arg[0]},right_table)", f"IsFull(right_milk)", f"IsHandEmpty(right_franka)"}
+        info["add"] = {f"IsHalfFull({arg[0]})"}
+        info["del_set"] = {f"IsEmpty({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class IsFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class CanGrasp(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsHalfFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class NeedSupport(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

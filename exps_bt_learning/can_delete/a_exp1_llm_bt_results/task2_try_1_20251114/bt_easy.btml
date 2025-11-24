@@ -1,0 +1,6 @@
+selector
+    cond On(a,b)
+    sequence
+        cond IsHandEmpty()
+        cond On(a,table)
+        act PutAOnB(a,b)

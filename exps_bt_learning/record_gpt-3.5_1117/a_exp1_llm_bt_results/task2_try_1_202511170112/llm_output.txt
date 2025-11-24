@@ -1,0 +1,103 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["b", "a", "d", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: hand empty and obj on table
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Added: holding obj
+        info["add"] = {f"Holding({arg[0]})"}
+        # Deleted: hand empty & obj on table
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PutDown(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["b", "a", "d", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: holding obj
+        info["pre"] = {f"Holding({arg[0]})"}
+        # Added: hand empty, obj on table
+        info["add"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        # Deleted: holding obj
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class Stack(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["b", "a", "d", "c"], ["b", "a", "d", "c"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj1, obj2 = arg
+        info = {}
+        # Preconditions: holding obj1, obj2 clear on table or on something (obj2 must not be obj1)
+        info["pre"] = {f"Holding({obj1})", f"Clear({obj2})"}
+        # Added: hand empty, obj1 on obj2
+        info["add"] = {"IsHandEmpty()", f"On({obj1},{obj2})", f"Clear({obj1})"}
+        # Deleted: holding obj1, obj2 clear (obj2 now not clear as obj1 is on it)
+        info["del_set"] = {f"Holding({obj1})", f"Clear({obj2})"}
+        info["cost"] = 1
+        return info
+
+class Unstack(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["b", "a", "d", "c"], ["b", "a", "d", "c"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj1, obj2 = arg
+        info = {}
+        # Preconditions: hand empty, obj1 on obj2, obj1 clear
+        info["pre"] = {"IsHandEmpty()", f"On({obj1},{obj2})", f"Clear({obj1})"}
+        # Added: holding obj1, obj2 clear
+        info["add"] = {f"Holding({obj1})", f"Clear({obj2})"}
+        # Deleted: hand empty, obj1 on obj2, obj1 clear
+        info["del_set"] = {"IsHandEmpty()", f"On({obj1},{obj2})", f"Clear({obj1})"}
+        info["cost"] = 1
+        return info
+
+class Clear(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

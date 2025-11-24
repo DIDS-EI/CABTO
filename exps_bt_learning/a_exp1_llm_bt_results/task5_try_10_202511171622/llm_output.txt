@@ -1,0 +1,117 @@
+=== LLM Output ===
+
+```python
+class Pour(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [("right_milk", "right_cup"), ("left_milk", "left_cup")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        # Preconditions: Milk is full, CupNeedGraspAndSupport, Cup is empty
+        info["pre"] = {f"IsFull({arg[0]})", "CupNeedGraspAndSupport()", f"IsEmpty({arg[1]})"}
+        # Added: Cup is half full
+        info["add"] = {f"IsHalfFull({arg[1]})"}
+        # Deleted: Cup is no longer empty
+        info["del_set"] = {f"IsEmpty({arg[1]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_milk", "right_milk"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        actor = "left_franka" if arg[0] == "left_milk" else "right_franka"
+        # Preconditions: Hand is empty, Milk is on the corresponding table
+        info["pre"] = {f"IsHandEmpty({actor})", f"On({arg[0]},{actor.split('_')[0]}_table)"}
+        # Added: Holding milk
+        info["add"] = {f"Holding({actor},{arg[0]})"}
+        # Deleted: Hand is no longer empty, Milk is moved from table
+        info["del_set"] = {f"IsHandEmpty({actor})", f"On({arg[0]},{actor.split('_')[0]}_table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PutDown(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["left_milk", "right_milk"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        actor = "left_franka" if arg[0] == "left_milk" else "right_franka"
+        # Preconditions: Holding milk
+        info["pre"] = {f"Holding({actor},{arg[0]})"}
+        # Added: Milk is on the table
+        info["add"] = {f"On({arg[0]},{actor.split('_')[0]}_table)"}
+        # Deleted: No longer holding milk
+        info["del_set"] = {f"Holding({actor},{arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class IsFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class IsHalfFull(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class CupNeedGraspAndSupport(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```
+
+```python
+class CanGrasp(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

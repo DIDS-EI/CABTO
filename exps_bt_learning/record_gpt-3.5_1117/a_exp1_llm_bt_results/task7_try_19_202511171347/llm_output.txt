@@ -1,0 +1,197 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class OGAction:
+    pass
+
+class OGCondition:
+    pass
+
+# Actions to open containers (oven, microwave)
+class Open(OAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        container = arg[0]
+        info = {}
+        info["pre"] = {f"IsClosed({container})"}
+        info["add"] = {f"IsOpened({container})"}
+        info["del_set"] = {f"IsClosed({container})"}
+        info["cost"] = 1
+        return info
+
+class Close(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        container = arg[0]
+        info = {}
+        info["pre"] = {f"IsOpened({container})"}
+        info["add"] = {f"IsClosed({container})"}
+        info["del_set"] = {f"IsOpened({container})"}
+        info["cost"] = 1
+        return info
+
+# Actions to switch on devices (oven, microwave, radio, light)
+class SwitchOn(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave", "radio", "light"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        device = arg[0]
+        # For oven and microwave, must be opened or closed? Let's check goal:
+        # No explicit constraint in initial state or goals.
+        # Assume device can be switched on if it is switched off.
+        info = {}
+        info["pre"] = {f"IsSwitchedOff({device})"}
+        info["add"] = {f"IsSwitchedOn({device})"}
+        info["del_set"] = {f"IsSwitchedOff({device})"}
+        info["cost"] = 1
+        return info
+
+class SwitchOff(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["oven", "microwave", "radio", "light"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        device = arg[0]
+        info = {}
+        info["pre"] = {f"IsSwitchedOn({device})"}
+        info["add"] = {f"IsSwitchedOff({device})"}
+        info["del_set"] = {f"IsSwitchedOn({device})"}
+        info["cost"] = 1
+        return info
+
+# Actions to put items into containers: chickenleg into oven, pie into oven, soup into microwave
+class PutIn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["chickenleg", "pie", "soup"], ["oven", "microwave"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        item, container = arg
+        info = {}
+
+        # Preconditions:
+        # container is opened for putting items inside
+        # item must be on some surface (table or breakfast_table)
+        # For chickenleg and pie must be put in oven, soup in microwave (valid args guarantee this)
+        required_on = {"chickenleg": ["table", "breakfast_table"], "pie": ["table", "breakfast_table"], "soup": ["table", "breakfast_table"]}
+        # info["pre"] requires item on table or breakfast_table (adding breakfast_table because goal says on breakfast_table for pie in the last goal)
+        pre_on = set()
+        for place in required_on[item]:
+            pre_on.add(f"On({item},{place})")
+
+        info["pre"] = pre_on.union({f"IsOpened({container})"})
+        # We do not require container to be switched on to put item in it
+        # Default is hand empty in initial state, but no explicit pick up/drop actions required per problem
+        # Assume implicit handling or direct action verbs
+
+        info["add"] = {f"In({item},{container})"}
+        # Remove On(item, any surface) because item is now inside container
+        del_set = set()
+        for place in required_on[item]:
+            del_set.add(f"On({item},{place})")
+        info["del_set"] = del_set
+        info["cost"] = 1
+        return info
+
+# Action to put pie on breakfast_table (goal requires On(pie,breakfast_table), so we need a put action here)
+class PutOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["pie"], ["breakfast_table", "table"]))
+
+    def __init__(self,*args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        item, place = arg
+        info = {}
+        # Preconditions: item is in some container or on some surface other than the target place
+        # We'll allow removing In(item, container) or On(item, other_place) before putting on breakfast_table
+        # Add precondition: hand empty
+
+        # From initial state and goals, assume item currently is in oven or on table.
+        # We allow action as long as On(item, other place) or In(item,container) is True.
+        # For correctness, let's assume item can be put on breakfast_table if:
+        # Preconditions: (In(item, container) or On(item, place_other_than_target)) and IsHandEmpty()
+        # For simplicity, require item to be either In(item, oven) or On(item, table) or On(item, breakfast_table) (but that last wouldn't require put).
+        # So pre: IsHandEmpty(), and (In or On but not at goal place)
+        # We'll just require IsHandEmpty() for now (simplified).
+        
+        info["pre"] = {"IsHandEmpty()"}
+        # Add On(item, place)
+        info["add"] = {f"On({item},{place})"}
+        # Delete In(item, oven), In(item, microwave), On(item, table) or On(item, breakfast_table if not equal to place)
+        del_set = set()
+        del_set.add(f"In({item},oven)")
+        del_set.add(f"In({item},microwave)")
+        del_set.add(f"On({item},table)")
+        if place != "breakfast_table":
+            del_set.add(f"On({item},breakfast_table)")
+        else:
+            del_set.discard(f"On({item},breakfast_table)")
+        info["del_set"] = del_set
+        info["cost"] = 1
+        return info
+
+# Conditions for all relevant predicates in initial state, goals, and action pre/post sets
+
+class IsSwitchedOff(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsSwitchedOn(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

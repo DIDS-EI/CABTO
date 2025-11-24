@@ -1,0 +1,23 @@
+selector
+    sequence
+        cond In(pen,cabinet)
+        cond IsClosed(cabinet)
+    sequence
+        cond IsOpen(cabinet)
+        selector
+            sequence
+                cond In(pen,cabinet)
+                act CloseCabinet()
+            sequence
+                cond Holding(pen)
+                act PutPenInCabinet(pen)
+    sequence
+        cond IsClosed(cabinet)
+        selector
+            sequence
+                cond Holding(pen)
+                act OpenCabinet()
+            sequence
+                cond IsHandEmpty()
+                cond On(pen,table)
+                act PickUpPen(pen)

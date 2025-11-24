@@ -1,0 +1,15 @@
+selector
+    sequence
+        cond In(pen,cabinet)
+        cond On(book,breakfast_table)
+    sequence
+        cond IsHandEmpty()
+        cond IsClosed(cabinet)
+        cond On(pen,table)
+        selector
+            sequence
+                cond On(book,breakfast_table)
+                act PutInCabinet(pen)
+            sequence
+                cond On(book,table)
+                act MoveToBreakfastTable(book)

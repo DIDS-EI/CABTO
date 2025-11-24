@@ -1,0 +1,8 @@
+selector
+    sequence
+        cond In(chickenleg,oven)
+        cond IsSwitchedOn(oven)
+    sequence
+        cond In(chickenleg,oven)
+        cond IsSwitchedOff(oven)
+        act SwitchOn(right_franka,oven)

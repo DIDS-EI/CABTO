@@ -1,0 +1,7 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,5,2,5,6,0,False,
+task7,1,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",True,65,4,5,6,0,False,
+task7,1,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",True,326,5,5,6,0,False,
+task7,2,easy,"In(chickenleg,oven) & IsSwitchedOn(oven)",True,5,2,5,6,0,False,
+task7,2,medium,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave)",True,39,4,5,6,0,False,
+task7,2,hard,"In(chickenleg,oven) & IsSwitchedOn(oven) & IsSwitchedOn(microwave) & In(soup,microwave) & IsSwitchedOn(light)",True,174,5,5,6,0,False,

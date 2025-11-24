@@ -1,0 +1,12 @@
+selector
+    cond On(big_box,board)
+    sequence
+        cond On(left_robot,left_table)
+        selector
+            sequence
+                cond Holding(left_robot,big_box)
+                act PutDownLeft(big_box,board)
+            sequence
+                cond On(big_box,center_table)
+                cond IsHandEmpty(left_robot)
+                act PickUpLeft(big_box)

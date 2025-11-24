@@ -1,0 +1,12 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond Holding(right_franka,center_big_box)
+        cond Holding(left_franka,center_big_box)
+        act PlaceCenterBigBoxOnBoxBoard(center_big_box)
+    sequence
+        cond IsHandEmpty(left_franka)
+        cond On(center_big_box,center_table)
+        cond BigBoxNeedTwoFrankaHoldTogether()
+        cond IsHandEmpty(right_franka)
+        act HoldCenterBigBoxTogether(center_big_box)

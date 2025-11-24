@@ -1,0 +1,4 @@
+selector
+    sequence
+        cond On(b,a)
+        cond On(c,b)

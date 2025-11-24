@@ -66,6 +66,7 @@ class Robot:
         self.cfg = cfg
         # 优先使用本地路径，如果不存在则使用 Nucleus 路径
         local_path = os.path.join(global_config.isaacsim_data_path, "Robots/Franka/franka.usd")
+        # local_path = "/home/cys/RL_sim2real_WS/Sim2Real/assets/franka/franka.usd" 
         if os.path.exists(local_path):
             path_to_robot_usd = local_path
         else:
@@ -635,25 +636,80 @@ class FrankaScenario:
     #             stuck_count = 0
     #         last_gripper_pos = current_gripper_pos
 
+    # def close_gripper(self):
+    #     self.current_gripper_pos = 0.02  # 使用0.02而不是0，确保能夹住物体
+    #     articulation_action = ArticulationAction(joint_positions=[self.current_gripper_pos]*2,joint_indices=(7,8))
+    #     stuck_count = 0
+    #     while not np.allclose(self.articulation.get_joint_positions()[7:], np.array([self.current_gripper_pos, self.current_gripper_pos]), atol=0.004):
+    #         # 持续应用动作，确保夹爪持续施加力来夹住物体
+    #         self.articulation.apply_action(articulation_action)
+    #         last_gripper_pos = self.articulation.get_joint_positions()[7:]
+    #         yield
+    #         current_gripper_pos = self.articulation.get_joint_positions()[7:]
+    #         # print(current_gripper_pos,last_gripper_pos)
+    #         if np.allclose(last_gripper_pos, current_gripper_pos, atol=0.001):
+    #             # print("gripper stuck")
+    #             stuck_count += 1
+    #             if stuck_count > 20:
+    #                 break
+    #         else:
+    #             stuck_count = 0
+    #         last_gripper_pos = current_gripper_pos
+
+
     def close_gripper(self):
-        self.current_gripper_pos = 0.02  # 使用0.02而不是0，确保能夹住物体
-        articulation_action = ArticulationAction(joint_positions=[self.current_gripper_pos]*2,joint_indices=(7,8))
+        # 渐进式关闭夹爪，避免关闭过快导致物体被挤出
+        target_gripper_pos = 0.02  # 目标位置，使用 0.02 而不是 0，允许夹爪在遇到物体时继续施加力
+        
+        # 获取当前夹爪位置
+        current_gripper_pos = self.robot.articulation.get_joint_positions()[7:]
+        start_gripper_pos = np.mean(current_gripper_pos)  # 起始位置（取两个手指的平均值）
+        
+        # 计算关闭步长，使用较小的步长使关闭更平滑
+        step_size = 0.002  # 每次关闭的步长（2mm）
+        num_steps = max(1, int(abs(start_gripper_pos - target_gripper_pos) / step_size))
+        
         stuck_count = 0
-        while not np.allclose(self.articulation.get_joint_positions()[7:], np.array([self.current_gripper_pos, self.current_gripper_pos]), atol=0.004):
-            # 持续应用动作，确保夹爪持续施加力来夹住物体
-            self.articulation.apply_action(articulation_action)
-            last_gripper_pos = self.articulation.get_joint_positions()[7:]
+        max_iterations = 200  # 增加最大迭代次数，确保夹爪有足够时间关闭
+        
+        for _ in range(max_iterations):
+            # 持续应用关闭动作，而不是只应用一次
+            articulation_action = ArticulationAction(joint_positions=[self.current_gripper_pos]*2, joint_indices=(7,8))
+            self.robot.articulation.apply_action(articulation_action)
+            
             yield
-            current_gripper_pos = self.articulation.get_joint_positions()[7:]
-            # print(current_gripper_pos,last_gripper_pos)
-            if np.allclose(last_gripper_pos, current_gripper_pos, atol=0.001):
-                # print("gripper stuck")
-                stuck_count += 1
-                if stuck_count > 20:
-                    break
+            
+            current_gripper_pos = self.robot.articulation.get_joint_positions()[7:]
+            
+            # 检查是否已经关闭到目标位置（允许一定的容差）
+            if np.allclose(current_gripper_pos, np.array([self.current_gripper_pos, self.current_gripper_pos]), atol=0.004):
+                # 已经到达目标位置，继续施加力一段时间以确保夹紧
+                for _ in range(10):
+                    articulation_action = ArticulationAction(joint_positions=[self.current_gripper_pos]*2, joint_indices=(7,8))
+                    self.robot.articulation.apply_action(articulation_action)
+                    yield
+                break
+            
+            # 检查是否卡住（位置不再变化）
+            if not hasattr(self, '_last_gripper_pos_check'):
+                self._last_gripper_pos_check = current_gripper_pos.copy()
             else:
-                stuck_count = 0
-            last_gripper_pos = current_gripper_pos
+                if np.allclose(self._last_gripper_pos_check, current_gripper_pos, atol=0.001):
+                    stuck_count += 1
+                    if stuck_count > 20:
+                        # 即使卡住，也继续施加力一段时间
+                        for _ in range(10):
+                            articulation_action = ArticulationAction(joint_positions=[self.current_gripper_pos]*2, joint_indices=(7,8))
+                            self.robot.articulation.apply_action(articulation_action)
+                            yield
+                        break
+                else:
+                    stuck_count = 0
+                self._last_gripper_pos_check = current_gripper_pos.copy()
+        
+        # 清理临时属性
+        if hasattr(self, '_last_gripper_pos_check'):
+            delattr(self, '_last_gripper_pos_check')
 
     def move_to_object(self,obj_name):
         obj = self.obj_map[obj_name]

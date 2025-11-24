@@ -1,0 +1,44 @@
+selector
+    sequence
+        cond IsHolding(right_franka,right_cup)
+        cond IsHalfFull(right_cup)
+    sequence
+        cond On(right_cup,right_table)
+        cond CanGrasp(right_franka,right_cup)
+        selector
+            selector
+                sequence
+                    cond IsHandEmpty(right_franka)
+                    selector
+                        selector
+                            sequence
+                                cond IsHalfFull(right_cup)
+                                act PickUpFromTable(right_franka,right_cup)
+                            sequence
+                                cond IsEmpty(right_cup)
+                                cond IsHolding(left_franka,right_milk)
+                                cond IsFull(right_milk)
+                                act PourIntoCup(left_franka,right_cup)
+                        sequence
+                            cond CanGrasp(left_franka,right_milk)
+                            cond IsEmpty(right_cup)
+                            cond On(right_milk,left_table)
+                            cond IsFull(right_milk)
+                            cond IsHandEmpty(left_franka)
+                            act PickUpFromTable(left_franka,right_milk)
+                sequence
+                    cond CanGrasp(left_franka,right_milk)
+                    cond IsEmpty(right_cup)
+                    cond On(right_milk,left_table)
+                    cond IsFull(right_milk)
+                    cond IsHandEmpty(left_franka)
+                    cond IsHolding(right_franka,left_cup)
+                    act PlaceOnTable(right_franka,left_cup)
+            sequence
+                cond IsHolding(left_franka,left_milk)
+                cond CanGrasp(left_franka,right_milk)
+                cond IsEmpty(right_cup)
+                cond On(right_milk,left_table)
+                cond IsFull(right_milk)
+                cond IsHolding(right_franka,left_cup)
+                act PlaceOnTable(left_franka,left_milk)

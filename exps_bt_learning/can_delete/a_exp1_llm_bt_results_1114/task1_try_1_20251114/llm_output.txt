@@ -1,0 +1,73 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PutAOnB(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = itertools.product(["a", "b", "c"], ["place_a", "place_b", "place_c"])
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})"}
+        all_locations = {args[1] for args in cls.valid_args}
+        info["del_set"] = {f"On({arg[0]},{loc})" for loc in all_locations if loc != arg[1]}
+        info["cost"] = 1
+        return info
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class Drop(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = itertools.product(["a", "b", "c"], ["place_a", "place_b", "place_c"])
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding({arg[0]})"}
+        info["add"] = {f"IsEmpty({arg[1]})", f"On({arg[0]},{arg[1]})"}
+        info["del_set"] = {f"Holding({arg[0]})", f"IsEmpty({arg[1]})"}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

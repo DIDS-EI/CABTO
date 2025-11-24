@@ -1,0 +1,53 @@
+selector
+    sequence
+        cond On(pie,breakfast_table)
+        cond IsSwitchedOn(radio)
+        cond IsOpened(microwave)
+        cond IsOpened(oven)
+        cond IsSwitchedOn(light)
+    sequence
+        cond IsOpened(oven)
+        selector
+            sequence
+                cond IsSwitchedOn(radio)
+                selector
+                    selector
+                        sequence
+                            cond IsOpened(microwave)
+                            selector
+                                sequence
+                                    cond IsSwitchedOn(light)
+                                    selector
+                                        sequence
+                                            cond Holding(left_franka,pie)
+                                            act PutDownLeftFranka(pie,breakfast_table)
+                                        sequence
+                                            cond In(pie,oven)
+                                            cond IsHandEmpty(left_franka)
+                                            act PickDownLeftFranka(pie,oven)
+                                sequence
+                                    cond IsSwitchedOff(light)
+                                    cond In(pie,oven)
+                                    cond IsHandEmpty(left_franka)
+                                    act SwitchOnLeftFranka(light)
+                        sequence
+                            cond IsSwitchedOff(light)
+                            cond In(pie,oven)
+                            cond IsClosed(microwave)
+                            cond IsHandEmpty(left_franka)
+                            act OpenDeviceLeftFranka(microwave)
+                    sequence
+                        cond IsSwitchedOff(microwave)
+                        cond IsClosed(microwave)
+                        cond IsSwitchedOff(light)
+                        cond Holding(left_franka,soup)
+                        cond In(pie,oven)
+                        act PutInMicrowaveLeftFranka(soup)
+            sequence
+                cond IsSwitchedOff(microwave)
+                cond IsSwitchedOff(radio)
+                cond IsClosed(microwave)
+                cond IsSwitchedOff(light)
+                cond Holding(left_franka,soup)
+                cond In(pie,oven)
+                act SwitchOnLeftFranka(radio)

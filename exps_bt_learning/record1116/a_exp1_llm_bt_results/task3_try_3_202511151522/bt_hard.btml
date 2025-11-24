@@ -1,0 +1,7 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond BigBoxNeedTwoFranka()
+        cond On(center_big_box,right_lego)
+        cond On(center_big_box,left_lego)
+        act MoveBigBoxToBoard(center_big_box,box_board)

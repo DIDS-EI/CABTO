@@ -1,0 +1,24 @@
+selector
+    sequence
+        cond On(book,breakfast_table)
+        cond On(cake,breakfast_table)
+    sequence
+        cond Holding(cake)
+        selector
+            selector
+                selector
+                    sequence
+                        cond On(book,breakfast_table)
+                        act PlaceOnTable(cake,breakfast_table)
+                    sequence
+                        cond Holding(book)
+                        act PlaceOnTable(book,breakfast_table)
+                sequence
+                    cond IsHandEmpty()
+                    cond On(book,table)
+                    act PickUpFromTable(book)
+            sequence
+                cond On(book,table)
+                cond IsOpened(cabinet)
+                cond Holding(pen)
+                act PlaceInCabinet(pen,cabinet)

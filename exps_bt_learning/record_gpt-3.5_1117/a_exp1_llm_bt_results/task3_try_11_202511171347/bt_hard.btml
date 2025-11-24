@@ -1,0 +1,22 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond BigBoxLiftedTogether()
+        cond On(box_board,center_table)
+        selector
+            sequence
+                cond On(left_franka,center_table)
+                selector
+                    sequence
+                        cond On(right_franka,center_table)
+                        act TwoFrankaPlaceBigBoxOnBoard()
+                    sequence
+                        cond On(right_franka,box_board)
+                        cond On(right_franka,right_table)
+                        act MoveRightFranka(center_table)
+            sequence
+                cond On(right_franka,box_board)
+                cond On(left_franka,box_board)
+                cond On(right_franka,right_table)
+                cond On(left_franka,left_table)
+                act MoveLeftFranka(center_table)

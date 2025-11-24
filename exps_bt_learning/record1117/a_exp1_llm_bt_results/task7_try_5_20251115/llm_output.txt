@@ -1,0 +1,93 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class TurnOnMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(microwave)"}
+        info["add"] = {"IsSwitchedOn(microwave)"}
+        info["del_set"] = {"IsSwitchedOff(microwave)"}
+        info["cost"] = 1
+        return info
+
+class TurnOnLight(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls):
+        info = {}
+        info["pre"] = {"IsSwitchedOff(light)"}
+        info["add"] = {"IsSwitchedOn(light)"}
+        info["del_set"] = {"IsSwitchedOff(light)"}
+        info["cost"] = 1
+        return info
+
+class PutChickenlegInOven(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["chickenleg"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsNotIn({})".format(arg[0]), "IsSwitchedOff(oven)"}
+        info["add"] = {"In({},{})".format(arg[0], "oven")}
+        info["del_set"] = {"IsNotIn({})".format(arg[0])}
+        info["cost"] = 1
+        return info
+
+class PutSoupInMicrowave(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["soup"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsNotIn({})".format(arg[0]), "IsSwitchedOff(microwave)"}
+        info["add"] = {"In({},{})".format(arg[0], "microwave")}
+        info["del_set"] = {"IsNotIn({})".format(arg[0])}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class IsSwitchedOff(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsSwitchedOn(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsNotIn(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```

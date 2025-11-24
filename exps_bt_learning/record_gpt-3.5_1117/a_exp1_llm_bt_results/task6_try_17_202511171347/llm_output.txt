@@ -1,0 +1,265 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class OpenFridge(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsClosed(fridge)", "IsHandEmpty()"}
+        info["add"] = {"IsOpened(fridge)"}
+        info["del_set"] = {"IsClosed(fridge)"}
+        info["cost"] = 1
+        return info
+
+
+class CloseFridge(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsOpened(fridge)", "IsHandEmpty()"}
+        info["add"] = {"IsClosed(fridge)"}
+        info["del_set"] = {"IsOpened(fridge)"}
+        info["cost"] = 1
+        return info
+
+
+class OpenCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsClosed(cabinet)", "IsHandEmpty()"}
+        info["add"] = {"IsOpened(cabinet)"}
+        info["del_set"] = {"IsClosed(cabinet)"}
+        info["cost"] = 1
+        return info
+
+
+class CloseCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 0
+    valid_args = [()]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsOpened(cabinet)", "IsHandEmpty()"}
+        info["add"] = {"IsClosed(cabinet)"}
+        info["del_set"] = {"IsOpened(cabinet)"}
+        info["cost"] = 1
+        return info
+
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["pen", "banana", "book"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: Hand empty, object on some place, and for banana and book the container must be opened if applicable
+        pre = {"IsHandEmpty()"}
+        # Object must be On(obj,loc) where loc is from valid containers/tables
+        on_states = set()
+        # From initial state objects that could hold objects: breakfast_table, table, fridge (if open), cabinet (if open)
+        # We safely do not rely on environment state here, just assume On(obj,loc) holds
+        # For generalized, we only put On(obj,loc) under preconditions
+        # Since banana is on table, pen on breakfast_table, book on table initially
+        # So we include On(obj,loc) for all locations objects can be
+        # But as per instructions, conditions cover all states, so we do pre = IsHandEmpty() + On(obj,loc)
+        # To handle fridges/cabinets opened state, we will add them in pre if needed
+        # Let's consider all locations an object could be on
+        locations = {"breakfast_table", "table"}
+        # For banana and book, they can also be in fridge/cabinet
+        container_open_requirements = {
+            "banana": ("fridge", "IsOpened(fridge)"),
+            "book": ("cabinet", "IsOpened(cabinet)"),
+            "pen": None  # no container
+        }
+        valid_preconditions = set()
+        for loc in locations:
+            valid_preconditions.add(f"On({obj},{loc})")
+        # also possible in fridge or cabinet if open
+        if obj in container_open_requirements and container_open_requirements[obj] is not None:
+            container, is_open_cond = container_open_requirements[obj]
+            valid_preconditions.add(f"In({obj},{container})")
+            valid_preconditions.add(is_open_cond)
+        # So to keep it consistent, we allow pick up only if On or In (and container open)
+        # But since it's an action precondition, we should specify one of these must hold
+        # For this behavior library we will assume pick up from On only
+        # For PICKUP from In(container) we can design a separate action if needed (e.g. PickUpFromFridge)
+        # Here, to ensure action is executable from initial state and for banana/book on table, use On only
+        info["pre"] = {"IsHandEmpty()"}
+        # We will require On(obj,loc) from valid Args - we combine valid locs for each obj below
+        add_pre = set()
+        if obj == "banana" or obj == "book":
+            add_pre = {f"On({obj},table)", f"On({obj},breakfast_table)"}
+        else:  # pen only on breakfast_table
+            add_pre = {f"On({obj},breakfast_table)"}
+        # But we require exactly one valid location from which to pick up, 
+        # so pre should have On(obj,loc) for one loc (not multiple).
+        # We'll relax as we don't know actual loc param, runtime ensures precond, so add all possible locations
+        info["pre"].update(add_pre)
+        # Add holding object, remove hand empty and On(obj,loc)
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {"IsHandEmpty()"}
+        # Remove On(obj,loc) for all possible locs corresponding to the obj
+        info["del_set"].update(add_pre)
+        info["cost"] = 1
+        return info
+
+
+class PutIn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["pen", "banana", "book"], ["fridge", "cabinet", "breakfast_table", "table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, dest = arg
+        info = {}
+        info["pre"] = {f"Holding({obj})", "IsHandEmpty()"}  # IsHandEmpty() wrong here, object is held, need hand empty false
+        # Correct precondition: holding obj only
+        info["pre"].remove("IsHandEmpty()")
+        # preset correct pre: holding(obj)
+        info["pre"] = {f"Holding({obj})"}
+        # If container destination is fridge or cabinet, they must be opened for PutIn
+        if dest == "fridge":
+            info["pre"].add("IsOpened(fridge)")
+        elif dest == "cabinet":
+            info["pre"].add("IsOpened(cabinet)")
+        # Add: on or in obj at dest + hand empty
+        if dest in {"fridge", "cabinet"}:
+            info["add"] = {f"In({obj},{dest})", "IsHandEmpty()"}
+            # For containers, object no longer 'On' the container, so remove any On(obj,dest) but effectively only In(obj,dest) added
+        else:
+            info["add"] = {f"On({obj},{dest})", "IsHandEmpty()"}
+        # Del: holding obj
+        info["del_set"] = {f"Holding({obj})"}
+        # Also, removing previous On or In from old locations for consistency 
+        # but here we do not know old location, so we won't delete other positions
+        info["cost"] = 1
+        return info
+
+
+class PickUpFromFridge(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["banana"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions hand empty, fridge opened, object in fridge
+        info["pre"] = {"IsHandEmpty()", "IsOpened(fridge)", f"In({obj},fridge)"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {"IsHandEmpty()", f"In({obj},fridge)"}
+        info["cost"] = 1
+        return info
+
+
+class PickUpFromCabinet(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["book"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions hand empty, cabinet opened, object in cabinet
+        info["pre"] = {"IsHandEmpty()", "IsOpened(cabinet)", f"In({obj},cabinet)"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {"IsHandEmpty()", f"In({obj},cabinet)"}
+        info["cost"] = 1
+        return info
+
+
+class PutOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["book", "pen"], ["breakfast_table", "table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, loc = arg
+        info = {}
+        info["pre"] = {f"Holding({obj})"}
+        info["add"] = {f"On({obj},{loc})", "IsHandEmpty()"}
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+
+class IsClosed(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class IsOpened(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

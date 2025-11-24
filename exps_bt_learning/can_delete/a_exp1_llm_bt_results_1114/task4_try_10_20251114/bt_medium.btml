@@ -1,0 +1,15 @@
+selector
+    sequence
+        cond On(left_box,right_table)
+        cond On(right_box,left_table)
+    sequence
+        cond IsHandEmpty(right_franka)
+        cond On(right_box,right_table)
+        selector
+            sequence
+                cond On(left_box,right_table)
+                act MoveRightBox(right_box,left_table)
+            sequence
+                cond On(left_box,left_table)
+                cond IsHandEmpty(left_franka)
+                act PutAOnB(left_box,right_table)

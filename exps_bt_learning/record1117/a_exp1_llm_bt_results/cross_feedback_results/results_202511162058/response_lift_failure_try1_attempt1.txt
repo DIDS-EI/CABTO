@@ -1,0 +1,14 @@
+```python
+pre = {
+    "On(big_box,board)",
+    "Not(Holding(big_box))"
+}
+
+add = {
+    "Holding(big_box)"
+}
+
+del_set = {
+    "On(big_box,board)"
+}
+```

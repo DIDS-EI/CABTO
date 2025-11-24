@@ -1,0 +1,112 @@
+=== LLM Output ===
+
+```python
+class PickUpLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [("left_franka", "left_lego"), ("left_franka", "center_big_box")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty({arg[0]})", f"On({arg[1]},left_table)", f"On({arg[0]},left_table)"}
+        info["add"] = {f"Holding({arg[0]},{arg[1]})"}
+        info["del_set"] = {f"IsHandEmpty({arg[0]})", f"On({arg[1]},left_table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PickUpRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [("right_franka", "right_lego")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty({arg[0]})", f"On({arg[1]},right_table)", f"On({arg[0]},right_table)"}
+        info["add"] = {f"Holding({arg[0]},{arg[1]})"}
+        info["del_set"] = {f"IsHandEmpty({arg[0]})", f"On({arg[1]},right_table)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class HoldTogetherAndMoveBoxToBoard(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [("left_franka", "right_franka")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {
+            f"Holding({arg[0]},center_big_box)",
+            f"Holding({arg[1]},center_big_box)",
+            "BigBoxNeedTwoFrankaHoldTogether()"
+        }
+        info["add"] = {f"On(center_big_box,box_board)"}
+        info["del_set"] = {f"Holding({arg[0]},center_big_box)", f"Holding({arg[1]},center_big_box)"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class PlaceIn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [("left_lego", "center_big_box"), ("right_lego", "center_big_box")]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        actor = "left_franka" if arg[0] == "left_lego" else "right_franka"
+        info = {}
+        info["pre"] = {f"Holding({actor},{arg[0]})", f"On(center_big_box,center_table)"}
+        info["add"] = {f"In({arg[0]},{arg[1]})", f"IsHandEmpty({actor})"}
+        info["del_set"] = {f"Holding({actor},{arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class In(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+
+```python
+class BigBoxNeedTwoFrankaHoldTogether(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

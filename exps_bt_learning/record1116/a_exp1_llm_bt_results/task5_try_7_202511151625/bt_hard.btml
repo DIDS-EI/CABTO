@@ -1,0 +1,52 @@
+selector
+    sequence
+        cond On(right_milk,right_table)
+        cond IsHalfFull(left_cup)
+        cond IsHandEmpty(left_franka)
+        cond On(left_milk,left_table)
+        cond IsHandEmpty(right_franka)
+        cond IsHalfFull(right_cup)
+    sequence
+        cond Holding(right_franka,right_milk)
+        selector
+            sequence
+                cond IsHalfFull(left_cup)
+                selector
+                    sequence
+                        cond On(left_milk,left_table)
+                        cond IsHandEmpty(left_franka)
+                        selector
+                            sequence
+                                cond IsHalfFull(right_cup)
+                                act PlaceDown(right_franka,right_milk)
+                            sequence
+                                cond IsEmpty(right_cup)
+                                cond IsFull(right_milk)
+                                act Pour(right_franka,right_cup)
+                    sequence
+                        cond Holding(left_franka,left_milk)
+                        cond IsEmpty(right_cup)
+                        cond IsFull(right_milk)
+                        act PlaceDown(left_franka,left_milk)
+            sequence
+                cond Holding(left_franka,left_milk)
+                cond IsEmpty(right_cup)
+                cond IsFull(right_milk)
+                cond IsEmpty(left_cup)
+                cond IsFull(left_milk)
+                act Pour(left_franka,left_cup)
+    sequence
+        cond CanGrasp(right_franka,right_milk)
+        cond IsEmpty(right_cup)
+        cond IsFull(right_milk)
+        cond IsEmpty(left_cup)
+        cond IsHandEmpty(right_franka)
+        cond IsFull(left_milk)
+        selector
+            sequence
+                cond Holding(left_franka,left_milk)
+                act PickUp(right_franka,right_milk)
+            sequence
+                cond IsHandEmpty(left_franka)
+                cond CanGrasp(left_franka,left_milk)
+                act PickUp(left_franka,left_milk)

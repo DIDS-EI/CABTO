@@ -1,0 +1,88 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    # can pick up a, b, or c from the table only (initial locations)
+    valid_args = ["a", "b", "c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+
+class PickUpFromPlace(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # pick up object from a place (place_a, place_b, place_c) when it's not on table
+    valid_args = list(itertools.product(["a","b","c"], ["place_a","place_b","place_c"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, place = arg
+        info = {}
+        info["pre"] = {f"IsHandEmpty()", f"On({obj},{place})"}
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},{place})"}
+        info["cost"] = 1
+        return info
+
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # put object onto a location (place_a, place_b, place_c, or table)
+    valid_args = list(itertools.product(["a","b","c"], ["place_a","place_b","place_c","table"]))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, place = arg
+        info = {}
+        info["pre"] = {f"Holding({obj})", f"IsEmpty({place})"} if place != "table" else {f"Holding({obj})"}
+        info["add"] = {f"IsHandEmpty()", f"On({obj},{place})"}
+        info["del_set"] = {f"Holding({obj})"}
+        # If not putting on table, place becomes not empty
+        if place != "table":
+            info["del_set"].add(f"IsEmpty({place})")
+        # When putting on table, no IsEmpty condition changed since table assumed infinite
+        info["cost"] = 1
+        return info
+
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

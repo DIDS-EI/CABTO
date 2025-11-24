@@ -1,0 +1,35 @@
+selector
+    cond On(a,b)
+    sequence
+        cond Clear(b)
+        selector
+            selector
+                selector
+                    selector
+                        sequence
+                            cond IsHolding(a)
+                            selector
+                                sequence
+                                    cond IsNear(b)
+                                    act PutOn(a,b)
+                                act MoveTo(b)
+                        sequence
+                            cond IsHandEmpty()
+                            cond IsNear(a)
+                            cond Clear(a)
+                            act Grasp(a)
+                    sequence
+                        cond IsHandEmpty()
+                        cond Clear(a)
+                        act MoveTo(a)
+                sequence
+                    cond IsHolding(c)
+                    cond IsNear(d)
+                    cond Clear(a)
+                    cond Clear(d)
+                    act PutOn(c,d)
+            sequence
+                cond IsHolding(c)
+                cond Clear(a)
+                cond Clear(d)
+                act MoveTo(d)

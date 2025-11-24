@@ -1,0 +1,97 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PutAOnB(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["a", "b", "c"], ["place_a", "place_b", "place_c"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)", f"IsEmpty({arg[1]})"}
+        info["add"] = {f"On({arg[0]},{arg[1]})"}
+        # Remove all On(arg[0], other locations) states
+        all_locations = {args[1] for args in cls.valid_args}
+        info["del_set"] = {f"On({arg[0]},{loc})" for loc in all_locations if loc != arg[1]}
+        info["cost"] = 1
+        return info
+
+class PutBOnC(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["a", "b", "c"], ["place_a", "place_b", "place_c"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)", f"IsEmpty({arg[1]})"}
+        info["add"] = {f"On({arg[0]},{arg[1]})"}
+        all_locations = {args[1] for args in cls.valid_args}
+        info["del_set"] = {f"On({arg[0]},{loc})" for loc in all_locations if loc != arg[1]}
+        info["cost"] = 1
+        return info
+
+class PutCOnC(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["a", "b", "c"], ["place_a", "place_b", "place_c"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)", f"IsEmpty({arg[1]})"}
+        info["add"] = {f"On({arg[0]},{arg[1]})"}
+        all_locations = {args[1] for args in cls.valid_args}
+        info["del_set"] = {f"On({arg[0]},{loc})" for loc in all_locations if loc != arg[1]}
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+# Precondition instances
+class OnAOnTable(On):
+    def __init__(self):
+        self.state = "On(a, table)"
+
+class OnBOnTable(On):
+    def __init__(self):
+        self.state = "On(b, table)"
+
+class OnCOnTable(On):
+    def __init__(self):
+        self.state = "On(c, table)"
+
+class IsEmptyPlaceA(IsEmpty):
+    def __init__(self):
+        self.state = "IsEmpty(place_a)"
+
+class IsEmptyPlaceB(IsEmpty):
+    def __init__(self):
+        self.state = "IsEmpty(place_b)"
+
+class IsEmptyPlaceC(IsEmpty):
+    def __init__(self):
+        self.state = "IsEmpty(place_c)"
+```

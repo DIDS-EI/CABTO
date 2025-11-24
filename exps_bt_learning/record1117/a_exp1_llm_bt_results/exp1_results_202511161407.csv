@@ -1,0 +1,106 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task6,1,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,1,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,1,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,2,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,6,6,0,False,'Open'
+task6,2,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,6,6,0,False,'Open'
+task6,2,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,6,6,0,False,'Open'
+task6,3,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,3,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,3,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,4,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,4,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,4,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,5,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,5,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,5,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,6,easy,"In(book,cabinet) & Open(cabinet)",True,29,3,10,6,0,False,
+task6,6,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,211,0,10,6,0,False,
+task6,6,hard,"In(banana,fridge)  & IsClosed(fridge)",True,29,4,10,6,0,False,
+task6,7,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,7,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,7,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,8,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,8,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,8,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,9,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,9,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,9,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,10,easy,"In(book,cabinet) & Open(cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,10,medium,"On(book,breakfast_table) & In(pen,cabinet)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task6,10,hard,"In(banana,fridge)  & IsClosed(fridge)",False,-1,-1,0,0,0,False,Failed to generate behavior library without syntax errors after 5 attempts
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,579,0,20,8,0,False,
+task7,1,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,88,3,20,8,0,False,
+task7,1,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,5874,6,20,8,0,False,
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,2,0,8,8,1,True,
+task7,1,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,2,0,8,8,1,True,
+task7,1,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,65,0,8,8,1,True,
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,2,0,8,8,2,True,
+task7,1,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,2,0,8,8,2,True,
+task7,1,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,65,0,8,8,2,True,
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,2,0,8,8,3,True,
+task7,1,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,2,0,8,8,3,True,
+task7,1,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,65,0,8,8,3,True,
+task7,2,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,34,0,6,7,0,False,
+task7,2,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,9,3,6,7,0,False,
+task7,2,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,326,5,6,7,0,False,
+task7,2,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,-1,-1,8,9,1,True,unhashable type: 'set'
+task7,2,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,-1,-1,8,9,1,True,unhashable type: 'set'
+task7,2,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,-1,-1,8,9,1,True,unhashable type: 'set'
+task7,2,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,-1,-1,8,9,2,True,unhashable type: 'set'
+task7,2,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,-1,-1,8,9,2,True,unhashable type: 'set'
+task7,2,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,-1,-1,8,9,2,True,unhashable type: 'set'
+task7,2,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,6485,0,8,9,3,True,
+task7,2,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,1373,0,8,9,3,True,
+task7,2,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,6037,0,8,9,3,True,
+task7,3,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",True,11,3,13,7,0,False,
+task7,3,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,5,2,13,7,0,False,
+task7,3,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,625,5,13,7,0,False,
+task7,4,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,2,0,8,8,0,False,
+task7,4,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,2,0,8,8,0,False,
+task7,4,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,65,0,8,8,0,False,
+task7,5,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",True,965,5,9,8,0,False,
+task7,5,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,126,3,9,8,0,False,
+task7,5,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,5793,6,9,8,0,False,
+task7,6,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,477,0,11,8,0,False,
+task7,6,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,75,3,11,8,0,False,
+task7,6,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,3925,6,11,8,0,False,
+task7,6,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,8095,0,16,8,1,True,
+task7,6,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,224,0,16,8,1,True,
+task7,6,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,7002,0,16,8,1,True,
+task7,6,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,7894,0,11,8,2,True,
+task7,6,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,224,0,11,8,2,True,
+task7,6,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,6992,0,11,8,2,True,
+task7,7,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,146,0,17,8,0,False,
+task7,7,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,73,3,17,8,0,False,
+task7,7,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,7617,6,17,8,0,False,
+task7,7,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,566,0,7,8,1,True,
+task7,7,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,66,4,7,8,1,True,
+task7,7,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,6675,6,7,8,1,True,
+task7,7,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,3,0,7,8,2,True,
+task7,7,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,3,0,7,8,2,True,
+task7,7,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,6219,0,7,8,2,True,
+task7,7,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,3,0,7,8,3,True,
+task7,7,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,3,0,7,8,3,True,
+task7,7,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,6196,0,7,8,3,True,
+task7,8,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,2,0,7,7,0,False,
+task7,8,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,2,0,7,7,0,False,
+task7,8,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,-1,-1,7,7,0,False,root node must be an instance of 'py_trees.behaviour.Behaviour' [<class 'NoneType'>]
+task7,8,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",True,5645,6,8,8,1,True,
+task7,8,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,793,4,8,8,1,True,
+task7,8,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,8278,6,8,8,1,True,
+task7,9,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",True,432,4,7,8,0,False,
+task7,9,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,63,3,7,8,0,False,
+task7,9,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,65,0,7,8,0,False,
+task7,9,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,590,0,7,8,1,True,
+task7,9,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,120,0,7,8,1,True,
+task7,9,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,452,0,7,8,1,True,
+task7,9,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,590,0,7,8,2,True,
+task7,9,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,120,0,7,8,2,True,
+task7,9,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,452,0,7,8,2,True,
+task7,9,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,980,0,9,9,3,True,
+task7,9,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,268,0,9,9,3,True,
+task7,9,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,1177,0,9,9,3,True,
+task7,10,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",True,1321,4,19,8,0,False,
+task7,10,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",True,155,3,19,8,0,False,
+task7,10,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",True,9308,6,19,8,0,False,

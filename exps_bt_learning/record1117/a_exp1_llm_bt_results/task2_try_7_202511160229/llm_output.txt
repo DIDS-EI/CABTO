@@ -1,0 +1,91 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: Hand empty, object is on table (only "table" as initial/support location)
+        info["pre"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        # Add: holding the object
+        info["add"] = {f"Holding({obj})"}
+        # Delete: hand empty, object on table
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.permutations(["a", "b", "c", "d"], 2))
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj1, obj2 = arg
+        info = {}
+        # Preconditions: holding obj1, obj2 is clear (nothing on obj2)
+        # For clarity, we require that no object is on obj2:
+        info["pre"] = {f"Holding({obj1})", f"Clear({obj2})"}
+        # Add: hand empty, obj1 on obj2, obj1 is clear
+        info["add"] = {f"IsHandEmpty()", f"On({obj1},{obj2})", f"Clear({obj1})"}
+        # Delete: holding obj1, clear obj2
+        info["del_set"] = {f"Holding({obj1})", f"Clear({obj2})"}
+        info["cost"] = 1
+        return info
+
+
+class PutOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: holding obj
+        info["pre"] = {f"Holding({obj})"}
+        # Add: hand empty, obj on table, obj clear
+        info["add"] = {f"IsHandEmpty()", f"On({obj},table)", f"Clear({obj})"}
+        # Delete: holding obj
+        info["del_set"] = {f"Holding({obj})"}
+        info["cost"] = 1
+        return info
+
+
+class Clear(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

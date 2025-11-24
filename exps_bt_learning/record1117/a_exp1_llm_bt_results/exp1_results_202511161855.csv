@@ -1,0 +1,22 @@
+﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
+task1,1,easy,"On(a,place_a)",True,3,2,2,4,0,False,
+task1,1,medium,"On(b,place_b) & On(c,place_c)",False,13,0,2,4,0,False,
+task1,1,hard,"On(b,place_a) & On(a,place_c) & On(c,place_b)",False,73,0,2,4,0,False,
+task2,1,easy,"On(a,b)",True,2,1,1,4,0,False,
+task2,1,medium,"On(c,b) & On(b,a)",True,5,2,1,4,0,False,
+task2,1,hard,"On(a,c) & On(c,b) & On(b,d)",True,16,3,1,4,0,False,
+task3,1,easy,"In(left_lego,center_big_box)",False,-1,-1,4,6,0,False,'IsHandEmpty'
+task3,1,medium,"In(right_lego,center_big_box)",False,2,0,4,6,0,False,
+task3,1,hard,"On(center_big_box,box_board)",False,2,0,4,6,0,False,
+task4,1,easy,"On(left_box1,right_table)",True,3,2,4,3,0,False,
+task4,1,medium,"On(left_box2,right_table)&On(right_box,left_table)",False,3,0,4,3,0,False,
+task4,1,hard,"IsHolding(left_franka,left_box1)&IsHolding(right_franka,right_box)",True,5,2,4,3,0,False,
+task5,1,easy,IsHalfFull(right_cup),False,1,0,4,7,0,False,
+task5,1,medium,IsHalfFull(right_cup) & IsHalfFull(left_cup),False,1,0,4,7,0,False,
+task5,1,hard,"IsHalfFull(right_cup) & IsHalfFull(left_cup) & IsHandEmpty(left_franka) & IsHandEmpty(right_franka) & On(left_milk,left_table) & On(right_milk,right_table)",False,13,0,4,7,0,False,
+task6,1,easy,"In(book,cabinet) & IsOpened(cabinet)",True,2,1,4,6,0,False,
+task6,1,medium,"On(book,breakfast_table)",True,2,1,4,6,0,False,
+task6,1,hard,"In(banana,fridge)  & IsClosed(fridge)",True,2,1,4,6,0,False,
+task7,1,easy,"In(chickenleg,oven) & IsSwitchedOn(oven) & In(pie,oven)",False,-1,-1,8,7,0,False,'On'
+task7,1,medium,"IsSwitchedOn(microwave) & In(soup,microwave) ",False,-1,-1,8,7,0,False,'On'
+task7,1,hard,"IsOpened(microwave) & IsOpened(oven) & IsSwitchedOn(light) & IsSwitchedOn(radio) & On(pie,breakfast_table)",False,-1,-1,8,7,0,False,'On'

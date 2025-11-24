@@ -1,0 +1,58 @@
+动作 Lift(big_box,board) 执行失败，请你帮忙分析 pre、add 和 del 是否有错误，重新生成 pre、add 和 del，用 set 的 Python 格式给出。
+
+**当前动作定义：**
+- 动作名称：Lift(big_box,board)
+- 当前前置条件（pre）：['On(big_box,board)']
+- 当前添加效果（add）：['On(big_box,board)']
+- 当前删除效果（del）：['On(big_box,board)']
+
+**任务要求：**
+1. 仔细观察图片中的场景，理解动作执行失败的原因
+2. 分析当前 pre、add、del 中存在的问题
+3. 输出修正后的正确的 pre、add、del
+
+**输出格式：**
+请严格按照以下 Python 代码格式输出，不要添加任何其他内容：
+
+```python
+pre = {
+    "条件1",
+    "条件2",
+    ...
+}
+
+add = {
+    "效果1",
+    "效果2",
+    ...
+}
+
+del_set = {
+    "效果1",
+    "效果2",
+    ...
+}
+```
+
+**示例：**
+```python
+pre = {
+    "Holding(apple)",
+    "IsOpen(cabinet)"
+}
+
+add = {
+    "In(apple,cabinet)"
+}
+
+del_set = {
+    "Holding(apple)"
+}
+```
+
+**注意事项：**
+- pre 条件应该包含动作执行所需的所有前置条件
+- add 效果应该包含动作执行后新增的所有状态
+- del_set 效果应该包含动作执行后删除的所有状态
+- 确保 pre、add、del_set 的逻辑正确性和完整性
+- 必须使用 Python set 格式（用大括号 {} 包围，每个元素用引号括起来）

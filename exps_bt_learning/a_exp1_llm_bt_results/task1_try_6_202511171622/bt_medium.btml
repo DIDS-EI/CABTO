@@ -1,0 +1,29 @@
+selector
+    sequence
+        cond On(b,place_b)
+        cond On(c,place_c)
+    sequence
+        cond IsEmpty(place_c)
+        selector
+            selector
+                sequence
+                    cond On(b,place_b)
+                    selector
+                        sequence
+                            cond Holding(c)
+                            act Drop(c,place_c)
+                        sequence
+                            cond IsHandEmpty()
+                            cond On(c,table)
+                            act PickUp(c)
+                sequence
+                    cond On(c,table)
+                    cond IsEmpty(place_b)
+                    cond Holding(b)
+                    act Drop(b,place_b)
+            sequence
+                cond IsHandEmpty()
+                cond On(b,table)
+                cond IsEmpty(place_b)
+                cond On(c,table)
+                act PickUp(b)

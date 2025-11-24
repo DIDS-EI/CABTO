@@ -1,0 +1,94 @@
+=== LLM Output ===
+
+```python
+class MoveObjectWithLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_box1", "left_box2"], ["left_table", "right_table"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},{arg[1]})", "On(left_franka,left_table)"}
+        info["add"] = {f"IsHolding(left_franka,{arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty(left_franka)", f"On({arg[0]},{arg[1]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PlaceObjectWithLeftFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["left_box1", "left_box2"], ["left_table", "right_table"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHolding(left_franka,{arg[0]})", "On(left_franka,left_table)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", "IsHandEmpty(left_franka)"}
+        info["del_set"] = {f"IsHolding(left_franka,{arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class MoveObjectWithRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["right_box"], ["left_table", "right_table"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},{arg[1]})", "On(right_franka,right_table)"}
+        info["add"] = {f"IsHolding(right_franka,{arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty(right_franka)", f"On({arg[0]},{arg[1]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class PlaceObjectWithRightFranka(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = list(itertools.product(["right_box"], ["left_table", "right_table"]))
+    
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"IsHolding(right_franka,{arg[0]})", "On(right_franka,right_table)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", "IsHandEmpty(right_franka)"}
+        info["del_set"] = {f"IsHolding(right_franka,{arg[0]})"}
+        info["cost"] = 1
+        return info
+```
+```python
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```
+```python
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class IsHolding(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+```
+```python
+class OnTable(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

@@ -1,0 +1,10 @@
+selector
+    sequence
+        cond In(banana,fridge)
+        cond IsClosed(fridge)
+        cond In(wine,fridge)
+    sequence
+        cond In(banana,fridge)
+        cond Open(fridge)
+        cond In(wine,fridge)
+        act CloseContainer(robot2,fridge)

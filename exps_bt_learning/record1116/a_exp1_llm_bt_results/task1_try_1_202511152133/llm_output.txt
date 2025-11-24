@@ -1,0 +1,174 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PutAOnPlaceA(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [["a", "place_a"]]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "On(a,table)", "IsEmpty(place_a)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", "IsEmpty(place_a)"}
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)", "IsEmpty(place_a)"}
+        info["cost"] = 1
+        return info
+
+class PutBOnPlaceB(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [["b", "place_b"]]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "On(b,table)", "IsEmpty(place_b)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", "IsEmpty(place_b)"}
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)", "IsEmpty(place_b)"}
+        info["cost"] = 1
+        return info
+
+class PutCOnPlaceC(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    valid_args = [["c", "place_c"]]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", "On(c,table)", "IsEmpty(place_c)"}
+        info["add"] = {f"On({arg[0]},{arg[1]})", "IsEmpty(place_c)"}
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)", "IsEmpty(place_c)"}
+        info["cost"] = 1
+        return info
+
+class PickUpA(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PickUpB(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["b"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class PickUpC(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["cost"] = 1
+        return info
+
+class DropA(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding({arg[0]})", "IsEmpty(place_a)"}
+        info["add"] = {"IsHandEmpty()", f"On({arg[0]},place_a)"}
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class DropB(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["b"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding({arg[0]})", "IsEmpty(place_b)"}
+        info["add"] = {"IsHandEmpty()", f"On({arg[0]},place_b)"}
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class DropC(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["c"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        info = {}
+        info["pre"] = {f"Holding({arg[0]})", "IsEmpty(place_c)"}
+        info["add"] = {"IsHandEmpty()", f"On({arg[0]},place_c)"}
+        info["del_set"] = {f"Holding({arg[0]})"}
+        info["cost"] = 1
+        return info
+
+class IsEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+```

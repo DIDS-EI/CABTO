@@ -1,0 +1,19 @@
+selector
+    sequence
+        cond IsOpened(cabinet)
+        cond In(book,cabinet)
+    sequence
+        cond Holding(book)
+        selector
+            selector
+                sequence
+                    cond IsOpened(cabinet)
+                    act PutIn(book,cabinet)
+                sequence
+                    cond IsHandEmpty()
+                    cond IsClosed(cabinet)
+                    act Open(cabinet)
+            sequence
+                cond Holding(banana)
+                cond IsClosed(cabinet)
+                act PutOn(banana,table)

@@ -1,0 +1,5 @@
+selector
+    cond On(left_box,right_table)
+    sequence
+        cond On(left_box,left_table)
+        act TransferLeftBoxToRightTable(left_box)

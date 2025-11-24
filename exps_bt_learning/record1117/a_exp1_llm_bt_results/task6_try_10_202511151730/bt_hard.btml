@@ -1,0 +1,55 @@
+selector
+    sequence
+        cond IsClosed(cabinet)
+        cond IsClosed(fridge)
+        cond In(banana,fridge)
+        cond In(apple,cabinet)
+    sequence
+        cond In(apple,cabinet)
+        selector
+            sequence
+                cond IsOpened(fridge)
+                selector
+                    sequence
+                        cond IsClosed(cabinet)
+                        selector
+                            selector
+                                sequence
+                                    cond In(banana,fridge)
+                                    act CloseContainer(fridge)
+                                sequence
+                                    cond Holding(banana)
+                                    act PutObjectInContainer(banana,fridge)
+                            sequence
+                                cond On(banana,table)
+                                cond IsHandEmpty()
+                                act PickUpObject(banana)
+                    sequence
+                        cond IsOpened(cabinet)
+                        cond On(banana,table)
+                        cond IsHandEmpty()
+                        act CloseContainer(cabinet)
+            sequence
+                cond IsOpened(cabinet)
+                cond IsClosed(fridge)
+                cond On(banana,table)
+                cond IsHandEmpty()
+                act OpenContainer(fridge)
+    sequence
+        cond IsClosed(fridge)
+        cond On(banana,table)
+        selector
+            sequence
+                cond Holding(apple)
+                selector
+                    sequence
+                        cond IsOpened(cabinet)
+                        act PutObjectInContainer(apple,cabinet)
+                    sequence
+                        cond IsClosed(cabinet)
+                        act OpenContainer(cabinet)
+            sequence
+                cond IsClosed(cabinet)
+                cond On(apple,table)
+                cond IsHandEmpty()
+                act PickUpObject(apple)

@@ -1,0 +1,86 @@
+=== LLM Output ===
+
+```python
+import itertools
+
+class PickUp(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: Hand empty, object on table
+        info["pre"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        # Effects: holding object, object no longer on table, hand no longer empty
+        info["add"] = {f"Holding({obj})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({obj},table)"}
+        info["cost"] = 1
+        return info
+
+class PutOn(OGAction):
+    can_be_expanded = True
+    num_args = 2
+    # actor holds obj, puts it on target. Target can be any object except the object itself.
+    valid_args = list(itertools.product(["a", "b", "c", "d"], ["a", "b", "c", "d"]))
+    # filter out pairs where obj == target to prevent putting on itself
+    valid_args = [pair for pair in valid_args if pair[0] != pair[1]]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj, target = arg[0], arg[1]
+        info = {}
+        # Preconditions: holding obj
+        info["pre"] = {f"Holding({obj})"}
+        # Effects: on(obj,target), hand empty, no longer holding obj
+        info["add"] = {f"On({obj},{target})", "IsHandEmpty()"}
+        # Delete old on(obj,*) states except the new one, plus holding(obj)
+        all_targets = {"a", "b", "c", "d", "table"}
+        old_ons = {f"On({obj},{loc})" for loc in all_targets if loc != target}
+        info["del_set"] = {f"Holding({obj})"}.union(old_ons)
+        info["cost"] = 1
+        return info
+
+class PutOnTable(OGAction):
+    can_be_expanded = True
+    num_args = 1
+    valid_args = ["a", "b", "c", "d"]
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    @classmethod
+    def get_info(cls, *arg):
+        obj = arg[0]
+        info = {}
+        # Preconditions: holding obj
+        info["pre"] = {f"Holding({obj})"}
+        # Effects: on(obj,table), hand empty, no longer holding obj
+        info["add"] = {f"On({obj},table)", "IsHandEmpty()"}
+        # Delete all on(obj,*) except on table, plus holding(obj)
+        all_targets = {"a", "b", "c", "d", "table"}
+        old_ons = {f"On({obj},{loc})" for loc in all_targets if loc != "table"}
+        info["del_set"] = {f"Holding({obj})"}.union(old_ons)
+        info["cost"] = 1
+        return info
+
+class IsHandEmpty(OGCondition):
+    can_be_expanded = True
+    num_args = 0
+
+class On(OGCondition):
+    can_be_expanded = True
+    num_args = 2
+
+class Holding(OGCondition):
+    can_be_expanded = True
+    num_args = 1
+```

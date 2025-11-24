@@ -1,0 +1,8 @@
+selector
+    cond On(center_big_box,box_board)
+    sequence
+        cond On(right_franka,right_table)
+        cond On(center_big_box,center_table)
+        cond On(left_franka,left_table)
+        cond BigBoxNeedTwoFrankaHoldTogether()
+        act MoveCenterBoxOnBoard(center_big_box,box_board)
