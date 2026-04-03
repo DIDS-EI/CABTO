@@ -1,0 +1,19 @@
+[simulation]
+isaacsim_path = /path/to/IsaacSim4.2
+data_path     = /path/to/OmniBT-Data/
+model_path    = /path/to/models/
+
+[real]
+left_arm_ip    = 192.168.100.100
+right_arm_ip   = 192.168.100.101
+left_hand_port = /dev/ttyUSB0
+right_hand_port= /dev/ttyUSB1
+
+top_camera_id  = 000000000000
+three_camera_id= 000000000000
+left_camera_id = 000000000000
+right_camera_id= 000000000000
+
+[api]
+api_key  = sk-YOUR_API_KEY_HERE
+base_url = https://api.openai.com/v1

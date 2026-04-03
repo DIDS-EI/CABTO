@@ -4,7 +4,7 @@ import configparser
 root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 assets_path = os.path.join(root_path, "assets")
 config_ini = configparser.ConfigParser()
-config_ini.read(os.path.join(root_path, "task_stage"))
+config_ini.read(os.path.join(root_path, "global_config.ini"))
 
 isaacsim_path = config_ini["simulation"]["isaacsim_path"]
 data_path = config_ini["simulation"]["data_path"]
