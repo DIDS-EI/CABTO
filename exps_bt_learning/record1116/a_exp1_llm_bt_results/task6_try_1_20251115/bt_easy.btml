@@ -1,7 +1,0 @@
-selector
-    cond In(apple,fridge)
-    sequence
-        cond IsClosed(fridge)
-        cond On(apple,table)
-        cond IsHandEmpty()
-        act PutInFridge(apple)

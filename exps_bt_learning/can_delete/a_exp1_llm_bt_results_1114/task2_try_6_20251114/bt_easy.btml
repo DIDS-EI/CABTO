@@ -1,9 +1,0 @@
-selector
-    cond On(a,b)
-    sequence
-        cond Holding(a)
-        act PutAOnB(a,b)
-    sequence
-        cond On(a,table)
-        cond IsHandEmpty()
-        act MoveObjectToTable(a)

@@ -1,0 +1,51 @@
+{
+  "task": "storage",
+  "instruction": "put the item into the carton and store the carton on the shelf",
+  "backend": "oracle",
+  "success": true,
+  "rounds": [
+    {
+      "round": 1,
+      "plan_source": "fallback",
+      "n_steps": 2,
+      "steps": [
+        {
+          "step": "pack_item",
+          "args": {
+            "item": "item_g1",
+            "arm": "_L"
+          },
+          "add": [
+            "in_carton(item_g1)",
+            "holding_nothing(_L)"
+          ],
+          "gt_ok": true,
+          "gt_violations": []
+        },
+        {
+          "step": "carry_to_shelf",
+          "args": {
+            "carton": "carton",
+            "arm": "_R"
+          },
+          "add": [
+            "on_shelf(carton)",
+            "holding_nothing(_R)"
+          ],
+          "gt_ok": true,
+          "gt_violations": []
+        }
+      ],
+      "goal": [
+        "in_carton(item_g1)",
+        "on_shelf(carton)"
+      ],
+      "goal_state": {
+        "in_carton(item_g1)": true,
+        "on_shelf(carton)": true
+      },
+      "success": true
+    }
+  ],
+  "n_rounds": 1
+}

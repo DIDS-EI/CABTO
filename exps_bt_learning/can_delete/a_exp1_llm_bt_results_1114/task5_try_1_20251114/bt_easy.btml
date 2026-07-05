@@ -1,9 +1,0 @@
-selector
-    sequence
-        cond IsHalfFull(right_cup)
-        cond IsHolding(right_franka,right_cup)
-    sequence
-        cond Holding(right_franka,right_milk)
-        cond IsEmpty(right_cup)
-        cond IsHolding(right_franka,right_cup)
-        act FillRightCup(right_cup)

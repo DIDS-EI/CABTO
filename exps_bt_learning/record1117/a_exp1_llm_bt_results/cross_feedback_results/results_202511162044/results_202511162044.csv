@@ -1,2 +1,0 @@
-﻿image_name,action_name,case_type,current_pre,current_add,current_del,error_type,error_description,feedback_times,success,llm_pre,llm_add,llm_del,ground_truth_pre,ground_truth_add,ground_truth_del
-putin_failure.png,"PutIn(apple,cabinet)",analysis,{'Holding(apple)'},"{'In(apple,cabinet)'}",{'Holding(apple)'},missing,Pre : IsOpen(cabinet) missing,0,True,"{'IsOpen(cabinet)', 'Holding(apple)'}","{'In(apple,cabinet)'}",{'Holding(apple)'},"{'IsOpen(cabinet)', 'Holding(apple)'}","{'In(apple,cabinet)'}",{'Holding(apple)'}

@@ -1,0 +1,5 @@
+# generated dual-arm program (code-as-policy)
+def run(exe):
+    exe.execute_step({'name': 'pack_item', 'args': {'item': 'item_g1', 'arm': '_L'}})  # pack_item(item='item_g1', arm='_L')
+    exe.execute_step({'name': 'carry_to_shelf', 'args': {'carton': 'carton', 'arm': '_R'}})  # carry_to_shelf(carton='carton', arm='_R')
+    return True

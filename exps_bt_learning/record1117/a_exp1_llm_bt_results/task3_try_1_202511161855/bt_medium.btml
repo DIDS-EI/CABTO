@@ -1,6 +1,0 @@
-selector
-    cond In(right_lego,center_big_box)
-    sequence
-        cond Holding(left_franka,right_lego)
-        cond BigBoxNeedTwoFrankaHoldTogether()
-        act PutInCenterBigBox(right_lego)

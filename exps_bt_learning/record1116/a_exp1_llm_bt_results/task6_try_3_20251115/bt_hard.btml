@@ -1,8 +1,0 @@
-selector
-    sequence
-        cond In(pen,cabinet)
-        cond IsClosed(cabinet)
-    sequence
-        cond IsHandEmpty()
-        cond On(pen,table)
-        act PutInCabinet(pen)

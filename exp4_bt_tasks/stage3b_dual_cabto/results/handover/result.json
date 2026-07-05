@@ -1,0 +1,60 @@
+{
+  "task": "handover",
+  "instruction": "hand the box over from the left arm to the right arm and place it on the right side of the table",
+  "backend": "oracle",
+  "success": true,
+  "rounds": [
+    {
+      "round": 1,
+      "plan_source": "fallback",
+      "n_steps": 3,
+      "steps": [
+        {
+          "step": "pick_arm",
+          "args": {
+            "obj": "box0",
+            "arm": "_L"
+          },
+          "add": [
+            "held(box0,_L)"
+          ],
+          "gt_ok": true,
+          "gt_violations": []
+        },
+        {
+          "step": "handover",
+          "args": {
+            "obj": "box0"
+          },
+          "add": [
+            "handed_over(box0)",
+            "held(box0,_R)"
+          ],
+          "gt_ok": true,
+          "gt_violations": []
+        },
+        {
+          "step": "place_to",
+          "args": {
+            "obj": "box0",
+            "arm": "_R"
+          },
+          "add": [
+            "at_place(box0)",
+            "holding_nothing(_R)"
+          ],
+          "gt_ok": true,
+          "gt_violations": []
+        }
+      ],
+      "goal": [
+        "at_place(box0)"
+      ],
+      "goal_state": {
+        "at_place(box0)": true
+      },
+      "success": true
+    }
+  ],
+  "n_rounds": 1
+}

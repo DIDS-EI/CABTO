@@ -1,9 +1,0 @@
-selector
-    sequence
-        cond IsOpened(cabinet)
-        cond In(book,cabinet)
-    sequence
-        cond IsClosed(cabinet)
-        cond IsHandEmpty(right_franka)
-        cond In(book,cabinet)
-        act Open(right_franka,cabinet)

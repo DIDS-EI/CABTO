@@ -1,5 +1,0 @@
-selector
-    sequence
-        cond In(banana,fridge)
-        cond Open(fridge)
-        cond In(pen,cabinet)

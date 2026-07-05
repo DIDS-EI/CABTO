@@ -1,0 +1,17 @@
+{
+  "task": "storage_pack_and_shelve",
+  "success": true,
+  "item_g1_in": true,
+  "item_g2_in": true,
+  "carton_on_shelf": true,
+  "carton_final": [
+    0.3,
+    -0.2,
+    0.431
+  ],
+  "shelf_xy": [
+    0.3,
+    -0.2
+  ],
+  "shelf_deck_z": 0.43
+}

@@ -1,0 +1,37 @@
+{
+  "task": "cover",
+  "success": true,
+  "n_pairs": 3,
+  "pairs": {
+    "g": {
+      "covered": true,
+      "xy_off": 0.0027,
+      "z_gap": -0.0001,
+      "lid_final": [
+        0.5217,
+        -0.0021,
+        0.4499
+      ]
+    },
+    "r": {
+      "covered": true,
+      "xy_off": 0.0113,
+      "z_gap": -0.0001,
+      "lid_final": [
+        0.5184,
+        0.0789,
+        0.4499
+      ]
+    },
+    "b": {
+      "covered": true,
+      "xy_off": 0.0048,
+      "z_gap": -0.0001,
+      "lid_final": [
+        0.5222,
+        -0.0943,
+        0.4499
+      ]
+    }
+  }
+}

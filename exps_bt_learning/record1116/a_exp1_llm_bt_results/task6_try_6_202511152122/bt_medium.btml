@@ -1,4 +1,0 @@
-selector
-    sequence
-        cond In(pen,cabinet)
-        cond On(book,breakfast_table)

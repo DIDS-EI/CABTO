@@ -1,5 +1,0 @@
-selector
-    sequence
-        cond On(a,place_c)
-        cond On(b,place_a)
-        cond On(c,place_b)

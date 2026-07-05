@@ -3,8 +3,8 @@ import itertools
 
 class PickUp(OGAction):
     can_be_expanded = True
-    num_args = 2
-    valid_args = list(itertools.product(["robot"], ["soup", "pie", "chickenleg"]))
+    num_args = 1
+    valid_args = ["soup", "pie", "chickenleg"]
 
     def __init__(self, *args):
         super().__init__(*args)
@@ -12,8 +12,8 @@ class PickUp(OGAction):
     @classmethod
     def get_info(cls, *arg):
         info = {}
-        info["pre"] = {f"IsHandEmpty({arg[0]})", f"On({arg[1]},table)"}
-        info["add"] = {f"Holding({arg[0]},{arg[1]})"}
-        info["del_set"] = {f"IsHandEmpty({arg[0]})", f"On({arg[1]},table)"}
+        info["pre"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
+        info["add"] = {f"Holding({arg[0]})"}
+        info["del_set"] = {f"IsHandEmpty()", f"On({arg[0]},table)"}
         info["cost"] = 1
         return info

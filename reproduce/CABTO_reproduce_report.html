@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CABTO 论文实验复现报告</title>
+<style>
+  :root{
+    --bg:#ffffff; --surface:#f7f7f5; --surface2:#f1efe8;
+    --text:#1a1a18; --muted:#5f5e5a; --hint:#888780;
+    --border:rgba(0,0,0,.12); --border2:rgba(0,0,0,.22);
+    --purple:#534AB7; --purple-bg:#EEEDFE;
+    --teal:#0F6E56; --teal-bg:#E1F5EE;
+    --blue:#185FA5; --blue-bg:#E6F1FB;
+    --amber:#854F0B; --amber-bg:#FAEEDA;
+    --red:#A32D2D; --red-bg:#FCEBEB;
+    --green:#3B6D11; --green-bg:#EAF3DE;
+    --gray-bg:#F1EFE8;
+    --mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'PingFang SC','Microsoft YaHei',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;font-size:15px;
+    -webkit-font-smoothing:antialiased;padding:0 0 80px}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+  header{padding:56px 28px 40px;border-bottom:1px solid var(--border);margin-bottom:40px;
+    background:var(--surface)}
+  header .wrap{padding:0}
+  .tag{display:inline-block;font-size:12px;font-weight:500;color:var(--purple);
+    background:var(--purple-bg);padding:4px 12px;border-radius:20px;margin-bottom:18px}
+  h1{font-size:32px;font-weight:600;letter-spacing:-.5px;margin-bottom:12px;line-height:1.2}
+  .sub{font-size:16px;color:var(--muted);max-width:760px}
+  .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+  .chip{font-size:12.5px;color:var(--muted);background:var(--bg);border:1px solid var(--border);
+    padding:5px 12px;border-radius:8px}
+  .chip b{color:var(--text);font-weight:500}
+  section{margin-bottom:48px}
+  h2{font-size:22px;font-weight:600;margin-bottom:8px;letter-spacing:-.3px;
+    display:flex;align-items:center;gap:12px}
+  h2 .n{width:30px;height:30px;border-radius:8px;background:var(--text);color:#fff;
+    font-size:15px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .lead{color:var(--muted);font-size:15px;margin-bottom:24px;max-width:820px}
+  h3{font-size:17px;font-weight:600;margin:28px 0 12px}
+  p{margin-bottom:14px}
+  .card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+  .card.soft{background:var(--surface)}
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  @media(max-width:720px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .metric{background:var(--surface2);border-radius:10px;padding:16px 18px}
+  .metric .lab{font-size:12.5px;color:var(--muted);margin-bottom:6px}
+  .metric .val{font-size:28px;font-weight:600;letter-spacing:-.5px}
+  .metric .val small{font-size:14px;font-weight:400;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 4px}
+  th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border)}
+  th{font-weight:500;color:var(--muted);font-size:12.5px;background:var(--surface)}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tr:last-child td{border-bottom:none}
+  .totalrow td{font-weight:600;background:var(--purple-bg)}
+  code{font-family:var(--mono);font-size:13px;background:var(--surface2);padding:1.5px 6px;border-radius:5px}
+  pre{font-family:var(--mono);font-size:12.5px;background:#1e1e1c;color:#e8e6df;padding:16px 18px;
+    border-radius:10px;overflow-x:auto;line-height:1.55;margin:8px 0 16px}
+  pre .c{color:#8a8780}pre .k{color:#c794d6}pre .s{color:#9ece6a}pre .f{color:#7aa2f7}
+  .pill{display:inline-block;font-size:11.5px;font-weight:500;padding:2px 9px;border-radius:6px;vertical-align:middle}
+  .ok{background:var(--green-bg);color:var(--green)}
+  .key{background:var(--amber-bg);color:var(--amber)}
+  .no{background:var(--red-bg);color:var(--red)}
+  .note{background:var(--blue-bg);border-left:3px solid var(--blue);padding:14px 18px;border-radius:0 8px 8px 0;
+    font-size:14px;color:var(--text);margin:16px 0}
+  .note.warn{background:var(--amber-bg);border-color:var(--amber)}
+  .note b{font-weight:500}
+  ul{margin:0 0 14px 22px}li{margin-bottom:7px}
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:18px 0}
+  .step{flex:1;min-width:180px;background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:16px 18px;position:relative}
+  .step+.step{margin-left:14px}
+  @media(max-width:720px){.step+.step{margin-left:0;margin-top:14px}}
+  .step .si{font-size:12px;color:var(--purple);font-weight:500;margin-bottom:8px}
+  .step h4{font-size:15px;font-weight:600;margin-bottom:6px}
+  .step p{font-size:13px;color:var(--muted);margin:0}
+  .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);margin:10px 0 18px}
+  .legend span{display:flex;align-items:center;gap:6px}
+  .sw{width:11px;height:11px;border-radius:3px}
+  footer{border-top:1px solid var(--border);padding-top:24px;color:var(--hint);font-size:13px}
+  .filelist{font-family:var(--mono);font-size:13px;color:var(--muted);line-height:1.9}
+  .filelist b{color:var(--text);font-weight:500}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="tag">AAAI 2026 · 离线复现 · zero-API / zero-GPU</span>
+    <h1>CABTO 论文实验复现报告</h1>
+    <p class="sub">Context-Aware Behavior Tree grOunding —— 以「离线重放」方式在本机无 GPU、无仿真器、无 LLM API key 的条件下，复现论文三组实验中可复现的全部部分，并对结果做一致性校验。</p>
+    <div class="meta">
+      <span class="chip">代码库 <b>/Users/yishuaicai/mywork/CABTO</b></span>
+      <span class="chip">复现目录 <b>CABTO_reproduce/</b></span>
+      <span class="chip">运行环境 <b>Python 3.11 · obtea 规划引擎</b></span>
+      <span class="chip">复现方式 <b>缓存 LLM 输出离线重放</b></span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<section>
+  <h2><span class="n">0</span>复现思路与可行性</h2>
+  <p class="lead">论文实验依赖真实 LLM（GPT-4o）、Molmo+cuRobo 视觉策略、Isaac Sim 仿真与 GPU。本机不具备这些条件。关键观察：作者在结果目录里完整保存了当时每一次真实 LLM 的输出（<code>llm_output.txt</code>）与精化后的动作库。因此可以构造一个 <b>ReplayLLM</b> 重放器替换真实 LLM，让原始实验流水线「代码抽取 → 行为库写盘 → obtea 规划 → sound&amp;complete 验证」在<b>零联网、零费用</b>下完整运行。</p>
+
+  <div class="grid g4">
+    <div class="metric"><div class="lab">纯 BT 规划内核</div><div class="val">✓ <small>离线全自动</small></div></div>
+    <div class="metric"><div class="lab">实验1 高层模型提议</div><div class="val">✓ <small>离线重放</small></div></div>
+    <div class="metric"><div class="lab">实验3 跨层精化</div><div class="val">✓ <small>离线复算校验</small></div></div>
+    <div class="metric"><div class="lab">实验2 底层策略采样</div><div class="val">◑ <small>仅组件级</small></div></div>
+  </div>
+
+  <div class="legend">
+    <span><span class="sw" style="background:var(--green)"></span>能离线全自动复现</span>
+    <span><span class="sw" style="background:var(--amber)"></span>组件可跑 / 端到端需 GPU+仿真</span>
+    <span><span class="sw" style="background:var(--red)"></span>本仓库未提供完整实现</span>
+  </div>
+
+  <table>
+    <thead><tr><th>实验</th><th>论文内容</th><th>复现等级</th><th>本次结果</th></tr></thead>
+    <tbody>
+      <tr><td>纯 BT 规划</td><td>OBTEA/HOBTEA sound&amp;complete 规划</td><td><span class="pill ok">离线全自动</span></td><td>内核跑通，可达性验证通过</td></tr>
+      <tr><td>实验 1</td><td>High-level model proposal（GPT-4o）</td><td><span class="pill ok">离线重放</span></td><td>7 任务 ×10 try ×3 难度 = 210 条，总成功率 <b>63.8%</b></td></tr>
+      <tr><td>实验 3</td><td>Cross-level refinement（反馈精化）</td><td><span class="pill ok">离线复算</span></td><td>10/10 重跑与作者记录 <b>100% 一致</b></td></tr>
+      <tr><td>实验 2</td><td>Low-level policy sampling（VLM）</td><td><span class="pill key">组件级</span> <span class="pill no">端到端缺失</span></td><td>一致性判定原子 <b>18/18 测试通过</b></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2><span class="n">1</span>离线重放机制</h2>
+  <p class="lead">重放器与原始 <code>btgym.llm.llm_gpt.LLM</code> 接口完全一致，但 <code>request()</code> 不联网，而是返回对应 <code>&lt;task&gt;_try_&lt;i&gt;/llm_output.txt</code> 里当时真实模型的输出。下游的代码抽取、库写盘、规划、验证全部使用<b>原始仓库代码</b>，未作任何篡改。</p>
+
+  <div class="flow">
+    <div class="step"><div class="si">STEP 1 · 重放</div><h4>取缓存输出</h4><p>ReplayLLM 从 70 个 try 目录读出当时 GPT-4o 的 <code>llm_output.txt</code>，原样返回。</p></div>
+    <div class="step"><div class="si">STEP 2 · 抽取</div><h4>写行为库</h4><p>沿用原始正则逻辑，把 OGAction/OGCondition 代码块写成 exec_lib。</p></div>
+    <div class="step"><div class="si">STEP 3 · 规划</div><h4>obtea 求解</h4><p>对 easy/medium/hard 三个 goal 调 BTExpInterface 规划出行为树。</p></div>
+    <div class="step"><div class="si">STEP 4 · 验证</div><h4>执行判定</h4><p>execute_bt 检查从初始态能否到达目标，error=0 即完备且一致。</p></div>
+  </div>
+
+  <pre><span class="c"># ReplayLLM：零联网、零费用替换真实 LLM</span>
+<span class="k">class</span> <span class="f">ReplayLLM</span>:
+    <span class="k">def</span> <span class="f">set_context</span>(self, task_name, try_idx):
+        self._cur_task, self._cur_try = task_name, try_idx
+    <span class="k">def</span> <span class="f">request</span>(self, message):           <span class="c"># 与原 LLM.request 同签名</span>
+        <span class="k">return</span> self._read_cached_output()   <span class="c"># 读 &lt;task&gt;_try_&lt;i&gt;/llm_output.txt</span></pre>
+</section>
+
+<section>
+  <h2><span class="n">2</span>实验 1 · High-level model proposal</h2>
+  <p class="lead">复现 GPT-4o 为 7 个任务集生成高层动作模型并由 sound&amp;complete 规划评估完备性的过程（first-proposal，即不带反馈轮）。共 <b>7 任务 × 10 次 × 3 难度 = 210 个规划验证</b>。</p>
+
+  <div class="grid g4">
+    <div class="metric"><div class="lab">总验证条目</div><div class="val">210</div></div>
+    <div class="metric"><div class="lab">整体成功率</div><div class="val">63.8<small>%</small></div></div>
+    <div class="metric"><div class="lab">最易任务 Cover</div><div class="val">100<small>%</small></div></div>
+    <div class="metric"><div class="lab">最难任务 Clean</div><div class="val">40<small>%</small></div></div>
+  </div>
+
+  <h3>各任务复现成功率（%）</h3>
+  <table>
+    <thead><tr><th>任务</th><th>名称</th><th class="num">easy</th><th class="num">medium</th><th class="num">hard</th><th class="num">综合</th></tr></thead>
+    <tbody>
+      <tr><td>task1</td><td>Cover（覆盖摆放）</td><td class="num">100.0</td><td class="num">100.0</td><td class="num">100.0</td><td class="num">100.0</td></tr>
+      <tr><td>task2</td><td>Blocks（积木堆叠）</td><td class="num">80.0</td><td class="num">80.0</td><td class="num">80.0</td><td class="num">80.0</td></tr>
+      <tr><td>task3</td><td>Clean（双臂清理）</td><td class="num">40.0</td><td class="num">30.0</td><td class="num">50.0</td><td class="num">40.0</td></tr>
+      <tr><td>task4</td><td>Handover（双臂交接）</td><td class="num">60.0</td><td class="num">50.0</td><td class="num">30.0</td><td class="num">46.7</td></tr>
+      <tr><td>task5</td><td>Pour（倒液体）</td><td class="num">60.0</td><td class="num">60.0</td><td class="num">60.0</td><td class="num">60.0</td></tr>
+      <tr><td>task6</td><td>HomeRearrangement（家居整理）</td><td class="num">40.0</td><td class="num">40.0</td><td class="num">50.0</td><td class="num">43.3</td></tr>
+      <tr><td>task7</td><td>MealPreparation（备餐）</td><td class="num">70.0</td><td class="num">80.0</td><td class="num">80.0</td><td class="num">76.7</td></tr>
+      <tr class="totalrow"><td>ALL</td><td>整体</td><td class="num">64.3</td><td class="num">62.9</td><td class="num">64.3</td><td class="num">63.8</td></tr>
+    </tbody>
+  </table>
+
+  <div style="position:relative;width:100%;height:330px;margin-top:18px">
+    <canvas id="exp1" role="img" aria-label="实验1各任务三难度成功率柱状图">实验1各任务成功率。</canvas>
+  </div>
+
+  <div class="note"><b>结论一致性：</b>复现曲线与论文表 1 的趋势完全吻合 —— 单臂简单任务（Cover/Blocks）几乎满分，而涉及双臂协同、互斥删除效果、长程依赖的任务（Clean/Handover/HomeRearrangement）成功率显著下降，正是论文用来论证"需要反馈与跨层精化"的核心证据。</div>
+</section>
+
+<section>
+  <h2><span class="n">3</span>实验 3 · Cross-level refinement</h2>
+  <p class="lead">论文实验 3 需视觉 LLM + failure 图片 + 仿真执行上下文，本机无法在线运行。改为<b>离线复算校验</b>：加载作者保存的「精化后动作库」，用 obtea 重跑 sound&amp;complete 验证，再与 <code>results.csv</code> 记录的 success 逐条对照。</p>
+
+  <div class="grid g4">
+    <div class="metric"><div class="lab">复算条目</div><div class="val">10</div></div>
+    <div class="metric"><div class="lab">与记录一致率</div><div class="val">100<small>%</small></div></div>
+    <div class="metric"><div class="lab">总成功率</div><div class="val">90<small>%</small></div></div>
+    <div class="metric"><div class="lab">无反馈成功率</div><div class="val">100<small>%</small></div></div>
+  </div>
+
+  <h3>逐 try 复算（case1 · Lift(big_box,board)）</h3>
+  <table>
+    <thead><tr><th class="num">try</th><th class="num">反馈次数</th><th>作者记录</th><th>离线重跑</th><th>一致</th><th class="num">扩展节点</th><th class="num">动作步数</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="num">0</td><td><span class="pill ok">成功</span></td><td><span class="pill ok">成功</span></td><td>✓</td><td class="num">2</td><td class="num">1</td></tr>
+      <tr><td class="num">2</td><td class="num">0</td><td><span class="pill ok">成功</span></td><td><span class="pill ok">成功</span></td><td>✓</td><td class="num">3</td><td class="num">2</td></tr>
+      <tr><td class="num">3</td><td class="num">0</td><td><span class="pill ok">成功</span></td><td><span class="pill ok">成功</span></td><td>✓</td><td class="num">5</td><td class="num">2</td></tr>
+      <tr><td class="num">4</td><td class="num">0</td><td><span class="pill ok">成功</span></td><td><span class="pill ok">成功</span></td><td>✓</td><td class="num">6</td><td class="num">2</td></tr>
+      <tr><td class="num">5</td><td class="num">1</td><td><span class="pill ok">成功</span></td><td><span class="pill ok">成功</span></td><td>✓</td><td class="num">5</td><td class="num">2</td></tr>
+      <tr><td class="num">6</td><td class="num">0</td><td><span class="pill ok">成功</span></td><td><span class="pill ok">成功</span></td><td>✓</td><td class="num">3</td><td class="num">2</td></tr>
+      <tr><td class="num">7</td><td class="num">3</td><td><span class="pill no">失败</span></td><td><span class="pill no">失败</span></td><td>✓</td><td class="num">11</td><td class="num">0</td></tr>
+      <tr><td class="num">8</td><td class="num">0</td><td><span class="pill ok">成功</span></td><td><span class="pill ok">成功</span></td><td>✓</td><td class="num">8</td><td class="num">2</td></tr>
+      <tr><td class="num">9</td><td class="num">0</td><td><span class="pill ok">成功</span></td><td><span class="pill ok">成功</span></td><td>✓</td><td class="num">4</td><td class="num">2</td></tr>
+      <tr><td class="num">10</td><td class="num">0</td><td><span class="pill ok">成功</span></td><td><span class="pill ok">成功</span></td><td>✓</td><td class="num">7</td><td class="num">2</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note"><b>校验通过：</b>10 条全部 <code>match=True</code>，包括 try5（1 次反馈后成功修正）与 try7（3 次反馈后仍失败）这两个边界 case 都被精确复现。说明作者保存的精化动作库与其记录的成功标记<b>完全自洽</b>，跨层精化机制的产物可被独立验证。</div>
+</section>
+
+<section>
+  <h2><span class="n">4</span>实验 2 · Low-level policy sampling</h2>
+  <p class="lead">论文实验 2 用 Molmo+cuRobo 在 Isaac Sim 中采样底层控制策略并验证一致性 <code>s_t ⊇ pre∪add\\del</code>。本仓库中该实验<b>没有端到端可运行的主循环</b>：<code>baselines/atoms</code> 是含 fake IK / fake collision / fake RNEA 的脚手架，agent 用 stub LLM，metrics 用随机数据。论文表 2 对照的 OpenVLA/VoxPoser/ReKep baseline 也未在仓库实现。</p>
+
+  <h3>可复现部分：一致性判定原子</h3>
+  <p>实验 2 唯一能离线全自动跑通的是底层一致性判定的四类原子（可达 reach、碰撞 collide、力矩 torque、技能 skill）及反馈合成 <code>compose_feedback</code>，对应论文中"在仿真里验证策略是否真能造出动作模型声称的状态转移"这一判定逻辑。</p>
+
+  <div class="grid g4">
+    <div class="metric"><div class="lab">测试用例</div><div class="val">18</div></div>
+    <div class="metric"><div class="lab">通过</div><div class="val">18</div></div>
+    <div class="metric"><div class="lab">通过率</div><div class="val">100<small>%</small></div></div>
+    <div class="metric"><div class="lab">外部依赖</div><div class="val">0</div></div>
+  </div>
+
+  <pre><span class="c"># python tests/test_atoms.py</span>
+PASS  test_reach_pass / marginal / fail_far / fail_missing
+PASS  test_collide_free / marginal / fail_penetration / empty
+PASS  test_torque_pass / marginal / fail / fallback_via_trajectory
+PASS  test_skill_pass / marginal / fail_new / done_is_pass
+PASS  test_compose_all_pass_no_hint / fail_generates_hint
+<span class="s">ALL ATOMS OK   （18/18）</span></pre>
+
+  <div class="note warn"><b>无法复现的部分（如实诚告）：</b>策略采样主循环、Molmo 视觉调用、cuRobo 运动规划、Isaac Sim 执行、表 2 的三个 VLM baseline，均需 GPU + 仿真环境，且本仓库未提供完整实现，因此本次<b>未予复现</b>。</div>
+</section>
+
+<section>
+  <h2><span class="n">5</span>复现产物</h2>
+  <p class="lead">全部脚本与结果落在 <code>CABTO_reproduce/</code>，可独立重跑。规划与验证使用仓库原始代码，重放器仅替换 LLM 网络调用。</p>
+  <div class="card soft">
+    <div class="filelist">
+CABTO_reproduce/<br>
+├─ <b>CABTO_reproduce_report.html</b>　本报告<br>
+├─ scripts/<br>
+│　├─ <b>replay_llm.py</b>　　　　离线重放 LLM 客户端<br>
+│　├─ <b>run_exp1_replay.py</b>　实验1：7×10×3 重放复现<br>
+│　└─ <b>run_exp3_replay.py</b>　实验3：精化库复算校验<br>
+└─ results/<br>
+　　├─ <b>exp1_replay_detail_*.csv</b>　210 条明细<br>
+　　├─ <b>exp1_replay_summary_*.csv</b>　各任务成功率<br>
+　　├─ <b>exp3_replay_detail_*.csv</b>　10 条逐 try 校验<br>
+　　└─ <b>exp3_replay_summary_*.csv</b>　反馈前后成功率<br>
+    </div>
+  </div>
+  <h3>重跑命令</h3>
+  <pre><span class="c"># 依赖：numpy sympy pandas py_trees antlr4-python3-runtime shortuuid</span>
+<span class="k">export</span> PYTHONPATH=/Users/yishuaicai/mywork/CABTO
+python scripts/run_exp1_replay.py     <span class="c"># 实验1 离线重放</span>
+python scripts/run_exp3_replay.py     <span class="c"># 实验3 离线复算</span>
+python /Users/yishuaicai/mywork/CABTO/tests/test_atoms.py   <span class="c"># 实验2 组件测试</span></pre>
+</section>
+
+<footer>
+  <p>本报告基于论文 2603.16809v1 与开源代码库 CABTO 的离线复现。实验 1/3 使用作者保存的真实 LLM 输出与精化库进行零联网重放与一致性校验；实验 2 受限于 GPU/仿真依赖仅复现组件级测试。所有数值来自本机实际运行产出的 CSV。</p>
+</footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+new Chart(document.getElementById('exp1'),{
+  type:'bar',
+  data:{
+    labels:['Cover','Blocks','Clean','Handover','Pour','HomeRearr.','MealPrep.'],
+    datasets:[
+      {label:'easy',data:[100,80,40,60,60,40,70],backgroundColor:'#AFA9EC',borderColor:'#534AB7',borderWidth:1},
+      {label:'medium',data:[100,80,30,50,60,40,80],backgroundColor:'#7F77DD',borderColor:'#534AB7',borderWidth:1},
+      {label:'hard',data:[100,80,50,30,60,50,80],backgroundColor:'#534AB7',borderColor:'#3C3489',borderWidth:1}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'top',labels:{font:{size:12},color:'#5f5e5a',boxWidth:12}}},
+    scales:{
+      y:{beginAtZero:true,max:100,ticks:{callback:v=>v+'%',font:{size:11},color:'#888780'},grid:{color:'rgba(0,0,0,.06)'}},
+      x:{ticks:{font:{size:11},color:'#5f5e5a',autoSkip:false,maxRotation:30},grid:{display:false}}
+    }
+  }
+});
+</script>
+
+</body>
+</html>

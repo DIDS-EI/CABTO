@@ -1,0 +1,388 @@
+{
+  "summary": {
+    "terse_json": {
+      "median_px": 20.4,
+      "mean_px": 24.3,
+      "n_fail_parse": 0,
+      "n": 8
+    },
+    "qwen_native": {
+      "median_px": 21.0,
+      "mean_px": 26.1,
+      "n_fail_parse": 0,
+      "n": 8
+    },
+    "grasp_terse": {
+      "median_px": 33.5,
+      "mean_px": 41.6,
+      "n_fail_parse": 0,
+      "n": 8
+    }
+  },
+  "samples": [
+    {
+      "seed": 0,
+      "cam": "overview",
+      "prompt": "terse_json",
+      "gt": [
+        238.3,
+        264.1
+      ],
+      "pred": [
+        235.0,
+        281.0
+      ],
+      "px_err": 17.2,
+      "raw": "```json\n[\n\t{\"point_2d\": [235, 281], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 0,
+      "cam": "overview",
+      "prompt": "qwen_native",
+      "gt": [
+        238.3,
+        264.1
+      ],
+      "pred": [
+        232.0,
+        281.0
+      ],
+      "px_err": 18.0,
+      "raw": "```json\n[\n\t{\"point_3d\": [232, 281], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 0,
+      "cam": "overview",
+      "prompt": "grasp_terse",
+      "gt": [
+        238.3,
+        264.1
+      ],
+      "pred": [
+        231.0,
+        281.0
+      ],
+      "px_err": 18.4,
+      "raw": "{\"point\": [231, 281]}"
+    },
+    {
+      "seed": 0,
+      "cam": "front",
+      "prompt": "terse_json",
+      "gt": [
+        203.5,
+        258.7
+      ],
+      "pred": [
+        182.0,
+        268.0
+      ],
+      "px_err": 23.4,
+      "raw": "```json\n[\n\t{\"point_2d\": [182, 268], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 0,
+      "cam": "front",
+      "prompt": "qwen_native",
+      "gt": [
+        203.5,
+        258.7
+      ],
+      "pred": [
+        192.0,
+        268.0
+      ],
+      "px_err": 14.8,
+      "raw": "```json\n[\n\t{\"point_2d\": [192, 268], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 0,
+      "cam": "front",
+      "prompt": "grasp_terse",
+      "gt": [
+        203.5,
+        258.7
+      ],
+      "pred": [
+        171.0,
+        268.0
+      ],
+      "px_err": 33.8,
+      "raw": "{\"point\": [171, 268]}"
+    },
+    {
+      "seed": 1,
+      "cam": "overview",
+      "prompt": "terse_json",
+      "gt": [
+        298.6,
+        237.4
+      ],
+      "pred": [
+        290.0,
+        248.0
+      ],
+      "px_err": 13.7,
+      "raw": "```json\n[\n\t{\"point_2d\": [290, 248], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 1,
+      "cam": "overview",
+      "prompt": "qwen_native",
+      "gt": [
+        298.6,
+        237.4
+      ],
+      "pred": [
+        260.0,
+        252.0
+      ],
+      "px_err": 41.3,
+      "raw": "```json\n[\n\t{\"point_3d\": [260, 252], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 1,
+      "cam": "overview",
+      "prompt": "grasp_terse",
+      "gt": [
+        298.6,
+        237.4
+      ],
+      "pred": [
+        252.0,
+        252.0
+      ],
+      "px_err": 48.9,
+      "raw": "{\"point\": [252, 252]}"
+    },
+    {
+      "seed": 1,
+      "cam": "front",
+      "prompt": "terse_json",
+      "gt": [
+        356.9,
+        250.9
+      ],
+      "pred": [
+        351.0,
+        262.0
+      ],
+      "px_err": 12.6,
+      "raw": "```json\n[\n\t{\"point_2d\": [351, 262], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 1,
+      "cam": "front",
+      "prompt": "qwen_native",
+      "gt": [
+        356.9,
+        250.9
+      ],
+      "pred": [
+        348.0,
+        262.0
+      ],
+      "px_err": 14.2,
+      "raw": "```json\n[\n\t{\"point_2d\": [348, 262], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 1,
+      "cam": "front",
+      "prompt": "grasp_terse",
+      "gt": [
+        356.9,
+        250.9
+      ],
+      "pred": [
+        252.0,
+        268.0
+      ],
+      "px_err": 106.3,
+      "raw": "{\"point\": [252, 268]}"
+    },
+    {
+      "seed": 2,
+      "cam": "overview",
+      "prompt": "terse_json",
+      "gt": [
+        226.8,
+        254.4
+      ],
+      "pred": [
+        222.0,
+        271.0
+      ],
+      "px_err": 17.3,
+      "raw": "```json\n[\n\t{\"point_2d\": [222, 271], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 2,
+      "cam": "overview",
+      "prompt": "qwen_native",
+      "gt": [
+        226.8,
+        254.4
+      ],
+      "pred": [
+        222.0,
+        271.0
+      ],
+      "px_err": 17.3,
+      "raw": "```json\n[\n\t{\"point_3d\": [222, 271], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 2,
+      "cam": "overview",
+      "prompt": "grasp_terse",
+      "gt": [
+        226.8,
+        254.4
+      ],
+      "pred": [
+        223.0,
+        271.0
+      ],
+      "px_err": 17.0,
+      "raw": "{\"point\": [223, 271], \"y\": 271}"
+    },
+    {
+      "seed": 2,
+      "cam": "front",
+      "prompt": "terse_json",
+      "gt": [
+        212.4,
+        236.1
+      ],
+      "pred": [
+        232.0,
+        218.0
+      ],
+      "px_err": 26.7,
+      "raw": "```json\n[\n\t{\"point_2d\": [232, 218], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 2,
+      "cam": "front",
+      "prompt": "qwen_native",
+      "gt": [
+        212.4,
+        236.1
+      ],
+      "pred": [
+        228.0,
+        218.0
+      ],
+      "px_err": 23.9,
+      "raw": "```json\n[\n\t{\"point_2d\": [228, 218], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 2,
+      "cam": "front",
+      "prompt": "grasp_terse",
+      "gt": [
+        212.4,
+        236.1
+      ],
+      "pred": [
+        228.0,
+        215.0
+      ],
+      "px_err": 26.3,
+      "raw": "{\"point\": [228, 215]}"
+    },
+    {
+      "seed": 3,
+      "cam": "overview",
+      "prompt": "terse_json",
+      "gt": [
+        214.1,
+        252.7
+      ],
+      "pred": [
+        262.0,
+        275.0
+      ],
+      "px_err": 52.9,
+      "raw": "```json\n[\n\t{\"point_2d\": [262, 275], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 3,
+      "cam": "overview",
+      "prompt": "qwen_native",
+      "gt": [
+        214.1,
+        252.7
+      ],
+      "pred": [
+        260.0,
+        271.0
+      ],
+      "px_err": 49.5,
+      "raw": "```json\n[\n\t{\"point_3d\": [260, 271], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 3,
+      "cam": "overview",
+      "prompt": "grasp_terse",
+      "gt": [
+        214.1,
+        252.7
+      ],
+      "pred": [
+        260.0,
+        271.0
+      ],
+      "px_err": 49.5,
+      "raw": "{\"point\": [260, 271]}"
+    },
+    {
+      "seed": 3,
+      "cam": "front",
+      "prompt": "terse_json",
+      "gt": [
+        200.4,
+        226.3
+      ],
+      "pred": [
+        171.0,
+        218.0
+      ],
+      "px_err": 30.5,
+      "raw": "```json\n[\n\t{\"point_2d\": [171, 218], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 3,
+      "cam": "front",
+      "prompt": "qwen_native",
+      "gt": [
+        200.4,
+        226.3
+      ],
+      "pred": [
+        171.0,
+        220.0
+      ],
+      "px_err": 30.0,
+      "raw": "```json\n[\n\t{\"point_2d\": [171, 220], \"label\": \"object on the table\"}\n]\n```"
+    },
+    {
+      "seed": 3,
+      "cam": "front",
+      "prompt": "grasp_terse",
+      "gt": [
+        200.4,
+        226.3
+      ],
+      "pred": [
+        171.0,
+        211.0
+      ],
+      "px_err": 33.1,
+      "raw": "{\"point\": [171, 211]}"
+    }
+  ],
+  "img_wh": [
+    512,
+    512
+  ]
+}

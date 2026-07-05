@@ -1,8 +1,0 @@
-﻿task name	action lib num	condition lib num	expanded num	act num	easy success rate no feedback	medium success rate no feedback	hard success rate no feedback	all success rate no feedback	easy success rate feedback	medium success rate feedback	hard success rate feedback	all success rate feedback	average feedback times
-task1	2.72	4.36	96.76	3.2	90.0	60.0	60.0	60.0	90.0	80.0	80.0	80.0	0.8
-task2	1.88	4.24	64.72	2.76	100.0	70.0	70.0	70.0	100.0	80.0	70.0	70.0	0.9
-task3	4.818181818181818	5.909090909090909	12.090909090909092	2.4545454545454546	30.0	20.0	20.0	20.0	50.0	30.0	30.0	30.0	2.3
-task4	5.375	3.125	19.791666666666668	2.1666666666666665	60.0	50.0	60.0	50.0	80.0	80.0	80.0	80.0	1.3
-task5	8.0	8.0	225.0	4.0	0.0	0.0	0.0	0.0	0.0	10.0	0.0	0.0	3.0
-task6	4.133333333333334	6.0	5.6	2.1333333333333333	90.0	30.0	30.0	30.0	90.0	30.0	30.0	30.0	2.1
-task7	5.733333333333333	7.8	139.0	3.8666666666666667	50.0	30.0	30.0	30.0	70.0	40.0	40.0	40.0	1.9

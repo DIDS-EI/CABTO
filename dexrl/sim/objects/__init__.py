@@ -1,1 +1,0 @@
-from dexrl.sim.objects.objects import *

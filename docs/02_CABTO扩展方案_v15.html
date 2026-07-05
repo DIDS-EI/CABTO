@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>CABTO 扩展为 highlight chapter 的详细动手方案</title>
+<style>
+body{font-family:-apple-system,"Segoe UI","Helvetica Neue",sans-serif;max-width:1180px;margin:36px auto;padding:0 24px;color:#1f2937;line-height:1.75;background:#fafafa}
+h1{color:#7c2d12;border-bottom:3px solid #ea580c;padding-bottom:10px;font-size:1.8em}
+h2{color:#9a3412;margin-top:36px;border-left:5px solid #ea580c;padding-left:12px;font-size:1.4em}
+h3{color:#9a3412;margin-top:24px;font-size:1.15em}
+h4{color:#334155;margin-top:18px}
+table{border-collapse:collapse;width:100%;margin:14px 0;background:#fff;font-size:.9em}
+th,td{border:1px solid #cbd5e1;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#ea580c;color:#fff;font-weight:600}
+tr:nth-child(even) td{background:#fff7ed}
+.box{background:#fff;border-left:5px solid #10b981;padding:12px 16px;margin:14px 0;border-radius:0 6px 6px 0}
+.warn{background:#fffbeb;border-left:5px solid #f59e0b;padding:12px 16px;margin:14px 0;border-radius:0 6px 6px 0}
+.danger{background:#fef2f2;border-left:5px solid #ef4444;padding:12px 16px;margin:14px 0;border-radius:0 6px 6px 0}
+.highlight{background:linear-gradient(90deg,#fed7aa 0%,#fff 60%);padding:10px 14px;border-radius:4px;margin:8px 0}
+.tag{display:inline-block;background:#ea580c;color:#fff;padding:2px 10px;border-radius:12px;font-size:.78em;margin-right:5px}
+.tag.green{background:#10b981}.tag.blue{background:#1e40af}.tag.red{background:#ef4444}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;color:#be185d;font-size:.88em}
+pre{background:#1e293b;color:#e2e8f0;padding:14px 18px;border-radius:6px;overflow-x:auto;font-size:.85em;line-height:1.5}
+pre code{background:transparent;color:#e2e8f0;padding:0}
+.formula{background:#fff;border:1px dashed #94a3b8;padding:10px 14px;margin:10px 0;font-family:Cambria,"Times New Roman",serif;border-radius:4px}
+ul li,ol li{margin:4px 0}
+.checklist li{list-style:none;padding-left:1.6em;text-indent:-1.6em}
+.checklist li:before{content:"☐ ";color:#ea580c;font-weight:bold}
+</style>
+</head>
+<body>
+<h1>CABTO 扩展为 highlight chapter 的详细动手方案</h1>
+<p style="color:#64748b">
+<span class="tag">v15 配套</span>
+<span class="tag green">可直接动手</span>
+<span class="tag blue">4.5 周完成</span>
+<span class="tag red">SQ2 命门</span>
+</p>
+
+<div class="box">
+<b>本方案与 CABTO 现有源码（~/mywork/CABTO/）一一对接</b>。每个实验都标明：动哪个文件、加什么代码、跑什么命令、要画什么图。可直接交给师弟师妹按 checklist 执行。
+</div>
+
+<h2>§1 现状盘点：CABTO 源码已有什么</h2>
+
+<table>
+<tr><th>模块</th><th>路径</th><th>能力</th><th>v15 复用度</th></tr>
+<tr><td>核心 BT 规划</td><td><code>btgym/algos/bt_planning/</code></td><td>HOBTEA / OBTEA / BFS / weak / hbtp 五个算法</td><td>★★★★★ 直接复用</td></tr>
+<tr><td>LLM 客户端</td><td><code>btgym/algos/llm_client/</code></td><td>GPT-4 / GPT-3.5 / ERNIE 接入</td><td>★★★★ 需扩展为 Qwen / 混元 / Gemini / Claude</td></tr>
+<tr><td>behavior library</td><td><code>btgym/behavior_tree/behavior_libs/</code></td><td>动态加载 LLM 生成的 Action / Condition</td><td>★★★★★ 直接复用</td></tr>
+<tr><td>OmniGibson sim</td><td><code>btgym/core/</code> + <code>dexrl/</code></td><td>Isaac Sim 4.2 + Tiago 双臂</td><td>★★★★ 主仿真平台</td></tr>
+<tr><td>主实验 exp1</td><td><code>exps_bt_learning/a_exp1_llm_bt/main_llm_bt.py</code></td><td>task1-7 SR 评估</td><td>★★★★★ 实验①基线</td></tr>
+<tr><td>cross feedback 雏形</td><td><code>exps_bt_learning/a_exp3_cross_feedback_results/</code><br><code>3_main_cal_SR_cross_feedback.py</code></td><td>已有跨反馈实验记录！</td><td>★★★★★ 实验②③ 直接续上</td></tr>
+<tr><td>prompt</td><td><code>exps_bt_learning/prompt_generate_libs.txt</code></td><td>LLM behavior lib 生成 prompt</td><td>★★★★ 需加结构化反馈块</td></tr>
+<tr><td>任务集</td><td><code>exps_bt_learning/a_exp1_llm_bt_tasks/task1-7</code></td><td>PlaceApple / ActivateLights / PutInDrawer / HomeRearrangement / MealPreparation 等</td><td>★★★★★ 现成 7 任务</td></tr>
+</table>
+
+<div class="warn">
+<b>关键发现</b>：CABTO 仓库里已有 <code>a_exp3_cross_feedback_results/</code> 和 <code>3_main_cal_SR_cross_feedback.py</code> —— <b>你已经做过跨反馈的雏形！</b>v15 扩展不是从零开始，而是把这个雏形系统化、严谨化、对标 SOTA baseline。
+</div>
+
+<h2>§2 实验① · vs Inner Monologue / DoReMi / REFLECT</h2>
+
+<h3>2.1 三 baseline 在 CABTO 框架内的实现策略</h3>
+<table>
+<tr><th>Baseline</th><th>核心机制</th><th>在 CABTO 源码内的实现方式</th><th>开发量</th></tr>
+<tr><td><b>Inner Monologue</b><br>(Huang 2022 CoRL)</td><td>每次执行后把"场景描述 + 成功检测 + 人类反馈"以自然语言注入 LLM prompt，让 LLM 重写计划</td><td>新建 <code>baselines/inner_monologue/</code><br>复用 CABTO 的 LLM 客户端 + BT 执行器<br>把 BT 执行结果文本化注入 prompt 再调用 LLM 生成新 behavior lib</td><td>3 天</td></tr>
+<tr><td><b>DoReMi</b><br>(Guo 2024 ICRA)</td><td>用 LLM 检测前置/后置条件违反，触发 re-plan</td><td>新建 <code>baselines/doremi/</code><br>实现 LLM constraint checker：每个 action 执行前后调一次 LLM 检查 BDDL 谓词<br>不更新 behavior lib，只触发 OBTEA 重规划</td><td>5 天</td></tr>
+<tr><td><b>REFLECT</b><br>(Liu 2023 CoRL)</td><td>多模态失败摘要 → LLM 解释 → 修正 plan</td><td>新建 <code>baselines/reflect/</code><br>用 OmniGibson 的视觉 + 力 + 状态生成失败摘要 (3 段)<br>调 LLM 输出解释 + 新计划</td><td>5 天</td></tr>
+</table>
+
+<h3>2.2 文件级实现清单</h3>
+<pre><code>CABTO/
+├── exps_bt_learning/
+│   ├── v15_highlight/                            ← 新建
+│   │   ├── baselines/
+│   │   │   ├── __init__.py
+│   │   │   ├── inner_monologue.py                ← 实现 IM agent
+│   │   │   ├── doremi.py                         ← 实现 DoReMi agent
+│   │   │   ├── reflect.py                        ← 实现 REFLECT agent
+│   │   │   └── cabto_full.py                     ← 包装现有 CABTO 作 agent
+│   │   ├── tasks/
+│   │   │   └── libero_long_adapter.py            ← 把 LIBERO-LONG 任务转为 BDDL
+│   │   ├── metrics/
+│   │   │   ├── learning_curve.py                 ← 跨 episode SR 曲线
+│   │   │   ├── feedback_utilization.py           ← Util = ΔSR / reward_feedback
+│   │   │   └── recovery_time.py                  ← T_recover 计时器
+│   │   ├── run_exp1_main_comparison.py           ← 主入口
+│   │   ├── plot_learning_curve.py                ← 画跨 episode 曲线
+│   │   └── README.md
+│   └── ... (其余保持不变)</code></pre>
+
+<h3>2.3 关键指标实现（开箱即跑）</h3>
+<div class="formula">
+<b>Learning Curve Slope</b>（跨 episode 学习曲线斜率，杀手锏指标）<br>
+对同一任务连续跑 N=20 episode，每 episode 失败后给反馈，记录 SR 序列 (SR_1, ..., SR_N)<br>
+<code>slope = LinearRegression().fit(range(N), SR_seq).coef_[0]</code><br>
+<b>预期</b>：CABTO slope &gt; 0.02，三个 baseline ≈ 0
+</div>
+
+<div class="formula">
+<b>Feedback Utilization Rate</b><br>
+Util = (反馈后 SR − 反馈前 SR) / 反馈带来的额外 token 成本<br>
+衡量"反馈是否物有所值"
+</div>
+
+<h3>2.4 任务集 (LIBERO-LONG + RoboCasa)</h3>
+<table>
+<tr><th>任务集</th><th>任务数</th><th>来源</th><th>接入方案</th></tr>
+<tr><td>CABTO 原 task1-5</td><td>5</td><td>已有</td><td>直接跑</td></tr>
+<tr><td>LIBERO-LONG</td><td>10</td><td>官方开源</td><td>通过 <code>libero_long_adapter.py</code> 将 BDDL 谓词映射到 LIBERO 物体集合</td></tr>
+<tr><td>RoboCasa Kitchen</td><td>5（精选）</td><td>NVIDIA 开源</td><td>用现有 OmniGibson 已有的 kitchen 场景</td></tr>
+</table>
+
+<h3>2.5 跑实验命令（直接复制粘贴）</h3>
+<pre><code># 进入 CABTO 根目录
+cd /Users/yishuaicai/mywork/CABTO
+
+# 配置 API key（global_config.ini）
+# 跑主对比（4 个 agent × 20 任务 × 3 seeds = 240 次 run）
+python exps_bt_learning/v15_highlight/run_exp1_main_comparison.py \
+    --agents cabto,inner_monologue,doremi,reflect \
+    --tasks all \
+    --episodes 20 \
+    --seeds 3 \
+    --llm gpt-4o \
+    --output exps_bt_learning/v15_highlight/results/exp1/
+
+# 画学习曲线主图
+python exps_bt_learning/v15_highlight/plot_learning_curve.py \
+    --input  exps_bt_learning/v15_highlight/results/exp1/ \
+    --output figures/v15_fig5_2_learning_curve.pdf</code></pre>
+
+<h3>2.6 实验① 期望结果（写论文时直接对照）</h3>
+<table>
+<tr><th>指标</th><th>Inner Monologue</th><th>DoReMi</th><th>REFLECT</th><th><b>CABTO (full)</b></th></tr>
+<tr><td>平均 SR (episode 20)</td><td>~55%</td><td>~58%</td><td>~60%</td><td><b>~75%+</b></td></tr>
+<tr><td>跨 episode slope</td><td>~0.001</td><td>~0.002</td><td>~0.003</td><td><b>≥0.02</b></td></tr>
+<tr><td>#Replan 次数</td><td>4-5</td><td>3-4</td><td>2-3</td><td><b>1-2</b></td></tr>
+<tr><td>T_recover (s)</td><td>~30</td><td>~25</td><td>~20</td><td><b>~15</b></td></tr>
+<tr><td>反馈结构化</td><td>❌</td><td>△</td><td>△</td><td>✅</td></tr>
+<tr><td>Prior 更新</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td></tr>
+</table>
+
+<div class="checklist">
+<h4>实验① 周计划（2 周）</h4>
+<ul>
+<li><b>Day 1-3</b>: 实现 inner_monologue.py（复用 CABTO LLM 客户端）</li>
+<li><b>Day 4-7</b>: 实现 doremi.py（LLM constraint checker）</li>
+<li><b>Day 8-12</b>: 实现 reflect.py（多模态失败摘要）+ LIBERO-LONG 适配器</li>
+<li><b>Day 13-14</b>: 跑主对比 + 画 learning curve 图</li>
+</ul>
+</div>
+
+<h2>§3 实验② · 反馈源消融</h2>
+
+<h3>3.1 把 CABTO 反馈源拆为 4 个原子组件</h3>
+<table>
+<tr><th>组件</th><th>含义</th><th>在 CABTO 源码内的对应</th><th>开关实现</th></tr>
+<tr><td><code>C_reach</code></td><td>可达性约束（IK 解失败检测）</td><td><code>dexrl/envs/</code> 的 IK 求解器 retval</td><td>config flag <code>enable_reach=True/False</code></td></tr>
+<tr><td><code>C_collide</code></td><td>碰撞检测</td><td>OmniGibson collision_handler</td><td>flag <code>enable_collide</code></td></tr>
+<tr><td><code>C_torque</code></td><td>力矩上限</td><td>Tiago controller 力反馈</td><td>flag <code>enable_torque</code></td></tr>
+<tr><td><code>C_skill</code></td><td>技能可行域（基于历史成功率）</td><td>动态统计 behavior_lib 各 Action 在不同物体上的成功率</td><td>flag <code>enable_skill</code></td></tr>
+</table>
+
+<h3>3.2 消融实验矩阵（8 组合）</h3>
+<table>
+<tr><th>ID</th><th>C_reach</th><th>C_coll</th><th>C_torq</th><th>C_skill</th><th>预期 SR</th><th>验证 H</th></tr>
+<tr><td>A0</td><td>❌</td><td>❌</td><td>❌</td><td>❌</td><td>50% (baseline, =无反馈 = LLM-BT)</td><td>—</td></tr>
+<tr><td>A1</td><td>✅</td><td>❌</td><td>❌</td><td>❌</td><td>+5%</td><td>可达性是基础</td></tr>
+<tr><td>A2</td><td>❌</td><td>✅</td><td>❌</td><td>❌</td><td>+3%</td><td>碰撞次要</td></tr>
+<tr><td>A3</td><td>❌</td><td>❌</td><td>✅</td><td>❌</td><td>+2%</td><td>力矩边缘</td></tr>
+<tr><td>A4</td><td>❌</td><td>❌</td><td>❌</td><td>✅</td><td>+12%</td><td><b>技能可行域贡献最大</b></td></tr>
+<tr><td>A5</td><td>✅</td><td>✅</td><td>❌</td><td>❌</td><td>+7%</td><td>物理类协同</td></tr>
+<tr><td>A6</td><td>✅</td><td>✅</td><td>✅</td><td>❌</td><td>+8%</td><td>物理饱和</td></tr>
+<tr><td><b>A7</b></td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td><b>+22% (full CABTO)</b></td><td>—</td></tr>
+</table>
+
+<h3>3.3 文件级实现</h3>
+<pre><code>CABTO/exps_bt_learning/v15_highlight/
+├── ablation/
+│   ├── feedback_components.py      ← 4 原子组件实现（每个独立 module）
+│   ├── run_ablation.py             ← 跑 8 组合
+│   └── plot_waterfall.py           ← 瀑布图 + 雷达图</code></pre>
+
+<h3>3.4 跑实验命令</h3>
+<pre><code># 8 组合 × 5 任务 × 3 seeds = 120 次 run，~6 小时
+python exps_bt_learning/v15_highlight/ablation/run_ablation.py \
+    --config_grid 0000,1000,0100,0010,0001,1100,1110,1111 \
+    --tasks 1,2,3,4,5 \
+    --seeds 3 \
+    --output exps_bt_learning/v15_highlight/results/ablation/
+
+# 瀑布图
+python exps_bt_learning/v15_highlight/ablation/plot_waterfall.py \
+    --output figures/v15_fig5_3_ablation_waterfall.pdf</code></pre>
+
+<div class="checklist">
+<h4>实验② 周计划（1 周）</h4>
+<ul>
+<li><b>Day 1-2</b>: 把 4 组件抽出来做开关化（hook 进现有 CABTO pipeline）</li>
+<li><b>Day 3-5</b>: 跑 8 组合 × 5 任务 × 3 seeds</li>
+<li><b>Day 6-7</b>: 画瀑布 + 雷达图 + 写 5.5.3 节</li>
+</ul>
+</div>
+
+<h2>§4 实验③ · 跨 VLM 通用性</h2>
+
+<h3>4.1 测试模型矩阵</h3>
+<table>
+<tr><th>VLM</th><th>接入方式</th><th>CABTO 源码改动</th><th>地理位置</th></tr>
+<tr><td>Qwen2.5-VL-72B</td><td>OpenAI 兼容 API / 本地 vllm</td><td><code>btgym/algos/llm_client/qwen_client.py</code> 新建</td><td>本地</td></tr>
+<tr><td>混元 hunyuan-t1</td><td>腾讯内部 API（你已有 planning_llm_server 通路）</td><td><code>hunyuan_client.py</code> 新建（沿用 game_claw_v0.1 分支经验）</td><td>腾讯内部</td></tr>
+<tr><td>GPT-4o</td><td>OpenAI 标准 API</td><td>已有 <code>llm_gpt.py</code></td><td>OpenAI</td></tr>
+<tr><td>Gemini 1.5 Pro</td><td>Google API</td><td><code>gemini_client.py</code> 新建</td><td>Google</td></tr>
+<tr><td>Claude 3.5 Sonnet</td><td>Anthropic API</td><td><code>claude_client.py</code> 新建</td><td>Anthropic</td></tr>
+</table>
+
+<h3>4.2 标准化 prompt 模板（替换 <code>prompt_generate_libs.txt</code>）</h3>
+<pre><code>[System]
+You are a hierarchical BT planner for embodied agent.
+Task: {task_description}
+Embodiment: Tiago dual-arm with 2 hands, 7-DoF each
+Available actions/conditions: see exec_lib/ schema
+
+[Initial State]
+{bddl_initial}
+
+[Goal]
+{bddl_goal}
+
+[Bottom-Up Feedback Context]    # CABTO 注入点（baseline 时清空）
+Last {N} executions revealed the following structured constraints:
+{
+  "infeasible_skills": [
+    {"skill":"PickUp(pen)", "reason":"reach_violation",
+     "evidence":"IK no solution from base pose 2"}
+  ],
+  "violated_constraints": [
+    {"type":"collision", "objects":["pen","cabinet_door"],
+     "context":"door not opened before pick"}
+  ],
+  "skill_success_rates": {
+    "Open(cabinet)": 0.95, "PickUp(pen)": 0.30, "PickUp(apple)": 0.80
+  },
+  "prior_update_hint": "Avoid generating subtree that PickUp(pen) before Open(cabinet)."
+}
+
+[Output Format]
+Generate `Action/*.py` and `Condition/*.py` following the existing schema.
+For each class, fill pre/add/del_set carefully respecting the feedback.
+</code></pre>
+
+<h3>4.3 文件级实现</h3>
+<pre><code>CABTO/exps_bt_learning/v15_highlight/
+├── cross_vlm/
+│   ├── unified_llm_interface.py    ← 5 VLM 统一接口
+│   ├── prompt_v15.py               ← 结构化反馈 prompt 模板
+│   ├── run_cross_vlm.py            ← 跑 5 VLM × 任务集
+│   └── plot_cross_vlm.py           ← 柱状图 + std 横线</code></pre>
+
+<h3>4.4 跑实验命令</h3>
+<pre><code># 5 VLM × 10 任务 × 3 seeds = 150 次 run
+python exps_bt_learning/v15_highlight/cross_vlm/run_cross_vlm.py \
+    --vlms qwen2.5-vl,hunyuan-t1,gpt-4o,gemini-1.5-pro,claude-3.5-sonnet \
+    --tasks all \
+    --seeds 3 \
+    --output exps_bt_learning/v15_highlight/results/cross_vlm/
+
+# 柱状图（关键看 SR std 横线）
+python exps_bt_learning/v15_highlight/cross_vlm/plot_cross_vlm.py \
+    --output figures/v15_fig5_4_cross_vlm.pdf</code></pre>
+
+<h3>4.5 关键评估指标</h3>
+<table>
+<tr><th>指标</th><th>含义</th><th>判定</th></tr>
+<tr><td>SR per VLM</td><td>每个 VLM 的成功率</td><td>都 &gt; baseline 即合格</td></tr>
+<tr><td><b>SR std across VLM</b></td><td>5 个 VLM SR 的标准差</td><td><b>越小越好，证明 CABTO 不绑死模型 ⭐</b></td></tr>
+<tr><td>反馈吸收率</td><td>新 BT 是否真的回避了 feedback 标的</td><td>diff BT 前后</td></tr>
+<tr><td>token 成本</td><td>反馈块带来的额外 token</td><td>&lt; 1000 token</td></tr>
+</table>
+
+<div class="checklist">
+<h4>实验③ 周计划（1.5 周）</h4>
+<ul>
+<li><b>Day 1-3</b>: 实现 5 个 VLM 统一接口（重点测 Qwen 本地 + 混元内部）</li>
+<li><b>Day 4-6</b>: prompt 调优 + 反馈块 JSON schema 敲死</li>
+<li><b>Day 7-10</b>: 跑 5×10×3 = 150 次 run（中间有 API 等待）</li>
+<li><b>Day 11</b>: 画跨 VLM 柱状图 + 写 5.5.4 节</li>
+</ul>
+</div>
+
+<h2>§5 4.5 周总时间表 & 并行调度</h2>
+<table>
+<tr><th>周</th><th>主线（你自己跑）</th><th>并行（可分配师弟师妹）</th><th>里程碑</th></tr>
+<tr><td>W1</td><td>baseline 实现（IM + DoReMi）</td><td>组件 ablation 改造</td><td>3 个 baseline runnable</td></tr>
+<tr><td>W2</td><td>REFLECT + 跑实验①</td><td>跑 ablation 8 组合</td><td>主对比图 + 瀑布图初稿</td></tr>
+<tr><td>W3</td><td>实验① 出图 + 写 chap05.5.2</td><td>5 VLM 接口实现</td><td>chap05 主对比节定稿</td></tr>
+<tr><td>W4</td><td>跨 VLM 实验跑通</td><td>消融继续补 seeds</td><td>跨 VLM 柱状图</td></tr>
+<tr><td>W4.5</td><td>theoretical analysis 5.4 节落笔</td><td>失败案例可视化</td><td>chap05 全章定稿</td></tr>
+</table>
+
+<h2>§6 chap05 CABTO highlight chapter 章节结构（40-50 页）</h2>
+<table>
+<tr><th>节</th><th>标题</th><th>页数</th><th>关键产出</th></tr>
+<tr><td>5.1</td><td>Introduction（章节自我宣示）</td><td>3-5</td><td>本章在论文中的核心地位</td></tr>
+<tr><td>5.2</td><td>Formalization of Upward Interface ℐ↑</td><td>5-7</td><td>形式化定义 + 反馈源数学描述</td></tr>
+<tr><td>5.3</td><td>CABTO Algorithm</td><td>6-8</td><td>物理约束建模 + BT 剪枝算子 + Prior 更新机制</td></tr>
+<tr><td><b>5.4</b></td><td><b>Theoretical Analysis ⭐ 新增</b></td><td>3-4</td><td>单调收敛性 + 反馈带宽下界</td></tr>
+<tr><td><b>5.5</b></td><td><b>Experiments ⭐⭐⭐</b></td><td>15-20</td><td>主对比 + 消融 + 跨VLM + 可视化 + 失败案例</td></tr>
+<tr><td>5.5.1</td><td>Setup（LIBERO + RoboCasa + 5 VLM）</td><td>2</td><td>—</td></tr>
+<tr><td>5.5.2</td><td>Main Result: vs Inner Monologue / DoReMi / REFLECT</td><td>4-5</td><td>学习曲线图 + 4 指标表</td></tr>
+<tr><td>5.5.3</td><td>Ablation: 反馈源消融</td><td>3-4</td><td>瀑布 + 雷达</td></tr>
+<tr><td>5.5.4</td><td>Cross-VLM Generality</td><td>3</td><td>柱状图 + std</td></tr>
+<tr><td>5.5.5</td><td>Visualization: prior 分布前后</td><td>2-3</td><td>t-SNE 主图</td></tr>
+<tr><td>5.5.6</td><td>Failure Cases（诚实展示）</td><td>2-3</td><td>3 个失败 episode 分析</td></tr>
+<tr><td>5.6</td><td>Discussion &amp; Limitations</td><td>2-3</td><td>与 Hierarchical VLA 兼容性 / 真机瓶颈</td></tr>
+<tr><td>5.7</td><td>Summary</td><td>1</td><td>—</td></tr>
+</table>
+
+<h2>§7 5.4 节 Theoretical Analysis 占位骨架（先写定理框架）</h2>
+
+<h3>定理 1（单调收敛性）</h3>
+<div class="formula">
+设连续 N 个 episode 中，CABTO 累积反馈约束集合 𝒞_N 单调递增，且 LLM 在 prompt 中严格遵守 prior_update_hint。<br>
+则任务成功率序列 {SR_n}_{n=1}^N 在期望意义下满足：<br>
+&nbsp;&nbsp;<b>𝔼[SR_{n+1} | 𝒞_n] ≥ 𝔼[SR_n | 𝒞_{n-1}]</b><br>
+即跨 episode 不降，且若 𝒞_n 严格扩展则严格递增。
+</div>
+
+<h3>定理 2（反馈带宽下界）</h3>
+<div class="formula">
+设任务真实最优策略 π* 在状态空间 𝒳 上诱导失败模式分布 P(F | 𝒳)，则上行接口 ℐ↑ 至少需传输信息量：<br>
+&nbsp;&nbsp;<b>|ℐ↑| ≥ H(F) − I(F; ℐ↓)</b><br>
+否则 LLM 无法在 finite episode 内收敛到 π*。
+</div>
+
+<div class="warn">
+<b>写法策略</b>：定理证明可简略（半页 sketch），关键是把"反馈带来的信息增益"形式化出来。评委只要看到有数学定理框架，就会认为 chap05 是"理论 + 方法 + 实验"的完整章。
+</div>
+
+<h2>§8 5.5.5 节 t-SNE 可视化主图设计</h2>
+<table>
+<tr><th>子图</th><th>内容</th><th>说明</th></tr>
+<tr><td>左</td><td>反馈前 LLM 生成的 BT 子树分布（500 次采样）</td><td>用 sentence-BERT 编码 BT 字符串 → t-SNE 2D</td></tr>
+<tr><td>中</td><td>反馈后 LLM 生成的 BT 子树分布</td><td>同上，颜色用红=失败、绿=成功</td></tr>
+<tr><td>右</td><td>反馈前后的 KL 散度热力图（按状态聚类）</td><td>证明 prior 真的被 reshape</td></tr>
+</table>
+
+<h2>§9 风险与 fallback</h2>
+<table>
+<tr><th>风险</th><th>fallback</th></tr>
+<tr><td>LIBERO-LONG 适配 BDDL 谓词工作量超 1 周</td><td>砍 LIBERO，只用 CABTO 原 task1-7 + RoboCasa Kitchen 3 任务</td></tr>
+<tr><td>5 VLM 中某个 API 不通（GPT-4o 限速、Gemini 海外）</td><td>砍到 3 VLM（Qwen + 混元 + GPT-4o），加注脚说明</td></tr>
+<tr><td>baseline 复现 IM/REFLECT 调不出预期效果</td><td>用论文原作者开源代码 + 论文报告值（注脚）</td></tr>
+<tr><td>定理 1 严格证明推不出</td><td>改为"empirical observation"配 30 次实验数据</td></tr>
+<tr><td>真机实验来不及（>4 周）</td><td>砍真机，纯仿真版本提交，附录留"future work"</td></tr>
+</table>
+
+<h2>§10 验收 checklist（章节完成的硬性标准）</h2>
+<div class="checklist">
+<ul>
+<li>chap05 总页数 ≥ 35 页（PDF 打印）</li>
+<li>5.4 节至少 1 个定理 + 半页证明 sketch</li>
+<li>5.5.2 节主对比表覆盖 ≥ 15 任务 × 4 agent</li>
+<li>5.5.2 学习曲线图 4 条曲线 + 误差棒</li>
+<li>5.5.3 瀑布图 ≥ 8 个柱</li>
+<li>5.5.4 跨 VLM 柱状图 ≥ 3 个模型 + SR std 横线</li>
+<li>5.5.5 t-SNE 三联图（前/后/KL 热图）</li>
+<li>5.5.6 至少 3 个失败 episode 截图 + 文字分析</li>
+<li>5.6 节明确写"vs Helix/π0/GR00T 的兼容性论述"</li>
+</ul>
+</div>
+
+</body>
+</html>

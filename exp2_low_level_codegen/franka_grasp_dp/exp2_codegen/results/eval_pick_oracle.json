@@ -1,0 +1,64 @@
+{
+  "summary": {
+    "backend": "oracle",
+    "n_succ": 2,
+    "n_total": 2,
+    "success_rate": 1.0,
+    "px_err_median": 9.2,
+    "px_err_mean": 8.9
+  },
+  "results": [
+    {
+      "obj": "dice_cube",
+      "seed": 0,
+      "success": true,
+      "px_err": {
+        "overview": 8.3,
+        "front": 10.3
+      },
+      "target_px": {
+        "overview": [
+          238.34098084443792,
+          266.81252581895194
+        ],
+        "front": [
+          203.73373520161752,
+          263.10812149426266
+        ]
+      },
+      "triangulated": [
+        0.5719138699683097,
+        -0.07366825159639143,
+        0.4225000000000004
+      ],
+      "cross_view_disagreement": 0.019918789785291838,
+      "error": null
+    },
+    {
+      "obj": "dice_cube",
+      "seed": 1,
+      "success": true,
+      "px_err": {
+        "overview": 7.0,
+        "front": 10.1
+      },
+      "target_px": {
+        "overview": [
+          298.5393202867044,
+          239.92219521286313
+        ],
+        "front": [
+          356.48624552458705,
+          255.27537230174758
+        ]
+      },
+      "triangulated": [
+        0.5518914599553334,
+        0.14414838282379572,
+        0.4225
+      ],
+      "cross_view_disagreement": 0.011654410389682186,
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "task": "pour",
+  "instruction": "pour the ball from the left can into the right cup",
+  "backend": "oracle",
+  "success": true,
+  "rounds": [
+    {
+      "round": 1,
+      "plan_source": "fallback",
+      "n_steps": 3,
+      "steps": [
+        {
+          "step": "pick_can",
+          "args": {
+            "obj": "canL",
+            "arm": "_L"
+          },
+          "add": [
+            "held(canL,_L)"
+          ],
+          "gt_ok": true,
+          "gt_violations": []
+        },
+        {
+          "step": "pour_into",
+          "args": {
+            "can": "canL",
+            "ball": "ballL",
+            "cup": "cupR",
+            "arm": "_L"
+          },
+          "add": [
+            "poured(canL)",
+            "in_cup(ballL,cupR)"
+          ],
+          "gt_ok": true,
+          "gt_violations": []
+        },
+        {
+          "step": "put_back_can",
+          "args": {
+            "can": "canL",
+            "arm": "_L"
+          },
+          "add": [
+            "holding_nothing(_L)"
+          ],
+          "gt_ok": true,
+          "gt_violations": []
+        }
+      ],
+      "goal": [
+        "in_cup(ballL,cupR)"
+      ],
+      "goal_state": {
+        "in_cup(ballL,cupR)": true
+      },
+      "success": true
+    }
+  ],
+  "n_rounds": 1
+}

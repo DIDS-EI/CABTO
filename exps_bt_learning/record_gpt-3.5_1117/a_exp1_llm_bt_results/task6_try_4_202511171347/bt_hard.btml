@@ -1,9 +1,0 @@
-selector
-    sequence
-        cond In(banana,fridge)
-        cond IsClosed(fridge)
-    sequence
-        cond In(banana,fridge)
-        cond IsOpened(fridge)
-        cond IsHandEmpty(right_franka)
-        act Close(right_franka,fridge)

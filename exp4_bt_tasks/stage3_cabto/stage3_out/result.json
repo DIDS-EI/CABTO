@@ -1,0 +1,143 @@
+{
+  "task": "stack the green block on the yellow block",
+  "objects": [
+    "green_block",
+    "yellow_block",
+    "blue_block"
+  ],
+  "backend": "oracle",
+  "max_rounds": 3,
+  "rounds": [
+    {
+      "round": 0,
+      "plan_source": "llm",
+      "plan": [
+        {
+          "name": "pick",
+          "args": {
+            "obj": "green_block"
+          },
+          "pre": [
+            "on_table(green_block)",
+            "clear(green_block)",
+            "holding_nothing()"
+          ],
+          "add": [
+            "in_gripper(green_block)",
+            "lifted(green_block)"
+          ],
+          "del": [
+            "on_table(green_block)",
+            "holding_nothing()"
+          ]
+        },
+        {
+          "name": "place_on",
+          "args": {
+            "obj": "green_block",
+            "dst": "yellow_block"
+          },
+          "pre": [
+            "in_gripper(green_block)",
+            "clear(yellow_block)"
+          ],
+          "add": [
+            "stacked_on(green_block,yellow_block)",
+            "holding_nothing()"
+          ],
+          "del": [
+            "in_gripper(green_block)",
+            "clear(yellow_block)"
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "idx": 0,
+          "name": "pick",
+          "args": {
+            "obj": "green_block"
+          },
+          "program_text": "def pick_green_block(runner, pointer):\n    p = pointer.locate_3d('the green block')   # VLM 打点→3D\n    grasp_z = p[2] - 0.30*BLOCK_FULL\n    runner.approach(p)\n    runner.align_xy(p)\n    runner.descend_to(grasp_z, lock_xy=p[:2])\n    runner.grasp(p[:2])\n    runner.lift()\n",
+          "exec_log": {
+            "skill": "pick",
+            "obj": "green_block",
+            "steps": [
+              "approach",
+              "align_xy",
+              "descend_to z=0.435",
+              "grasp",
+              "lift"
+            ],
+            "located_3d": [
+              0.500000000001463,
+              0.12000000000235098,
+              0.44987167392614275
+            ],
+            "grab_dz": -0.005113492109334428,
+            "grab_dxy": [
+              -0.003851128198630982,
+              0.002009747593325839
+            ],
+            "holding_after": true
+          },
+          "gt_ok": true,
+          "gt_violations": [],
+          "vlm_ok": null,
+          "vlm_violations": [],
+          "vlm_raw": "",
+          "agree": null,
+          "before_img": "/tmp/exp4_stage3/stage3_out/step0_before.png",
+          "after_img": "/tmp/exp4_stage3/stage3_out/step0_after.png"
+        },
+        {
+          "idx": 1,
+          "name": "place_on",
+          "args": {
+            "obj": "green_block",
+            "dst": "yellow_block"
+          },
+          "program_text": "def place_green_block_on_yellow_block(runner, pointer):\n    p = pointer.locate_3d('the yellow block')   # 定位目标顶面\n    tcp_xy = runner.move_above(p)\n    runner.descend_place(p[2], tcp_xy)\n    runner.place_release()\n    runner.retreat()\n    runner.settle()\n",
+          "exec_log": {
+            "skill": "place_on",
+            "obj": "green_block",
+            "dst": "yellow_block",
+            "steps": [
+              "move_above",
+              "refine_above",
+              "descend_place",
+              "place_release",
+              "retreat",
+              "settle"
+            ],
+            "located_3d": [
+              0.5000000000052824,
+              -0.1200000000006304,
+              0.44989224457978355
+            ]
+          },
+          "gt_ok": true,
+          "gt_violations": [],
+          "vlm_ok": null,
+          "vlm_violations": [],
+          "vlm_raw": "",
+          "agree": null,
+          "before_img": "/tmp/exp4_stage3/stage3_out/step1_before.png",
+          "after_img": "/tmp/exp4_stage3/stage3_out/step1_after.png"
+        }
+      ]
+    }
+  ],
+  "success": true,
+  "rounds_used": 1,
+  "final_stacked_on_green_yellow": true,
+  "final_true_predicates": [
+    "clear(blue_block)",
+    "clear(green_block)",
+    "holding_nothing()",
+    "lifted(green_block)",
+    "on_table(blue_block)",
+    "on_table(yellow_block)",
+    "stacked_on(green_block,yellow_block)"
+  ]
+}

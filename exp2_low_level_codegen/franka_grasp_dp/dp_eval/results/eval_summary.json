@@ -1,0 +1,15 @@
+{
+  "mode": "policy",
+  "policy": {
+    "success_rate": 0.0,
+    "per_object": {
+      "dice_cube": 0.0,
+      "soda_can": 0.0,
+      "rubber_ball": 0.0,
+      "wood_block": 0.0,
+      "tea_tin": 0.0
+    },
+    "n_trials": 10,
+    "render_warning": null
+  }
+}

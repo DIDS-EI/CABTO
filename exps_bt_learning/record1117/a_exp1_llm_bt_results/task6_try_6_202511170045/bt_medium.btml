@@ -1,9 +1,0 @@
-selector
-    cond On(book,breakfast_table)
-    sequence
-        cond Holding(book)
-        act Drop(book,breakfast_table)
-    sequence
-        cond On(book,table)
-        cond IsHandEmpty()
-        act PickUp(book)

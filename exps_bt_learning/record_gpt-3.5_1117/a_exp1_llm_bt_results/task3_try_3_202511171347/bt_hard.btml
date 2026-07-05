@@ -1,9 +1,0 @@
-selector
-    cond On(center_big_box,box_board)
-    sequence
-        cond Holding(left_franka,center_big_box)
-        act PlaceLeftFranka(center_big_box,box_board)
-    sequence
-        cond On(center_big_box,center_table)
-        cond IsHandEmpty(left_franka)
-        act PickUpLeftFranka(center_big_box)

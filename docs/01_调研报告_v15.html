@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>v15 调研报告 · 面向基础模型时代的分层智能体高层规划与低层控制接口方法研究</title>
+<style>
+body{font-family:-apple-system,"Segoe UI","Helvetica Neue",sans-serif;max-width:1080px;margin:36px auto;padding:0 24px;color:#1f2937;line-height:1.75;background:#fafafa}
+h1{color:#1e3a8a;border-bottom:3px solid #1e3a8a;padding-bottom:10px;font-size:1.8em}
+h2{color:#1e40af;margin-top:36px;border-left:5px solid #1e40af;padding-left:12px;font-size:1.4em}
+h3{color:#1e40af;margin-top:24px;font-size:1.15em}
+h4{color:#334155;margin-top:18px}
+table{border-collapse:collapse;width:100%;margin:14px 0;background:#fff;font-size:.92em}
+th,td{border:1px solid #cbd5e1;padding:7px 10px;text-align:left;vertical-align:top}
+th{background:#1e40af;color:#fff;font-weight:600}
+tr:nth-child(even) td{background:#f1f5f9}
+.box{background:#fff;border-left:5px solid #10b981;padding:12px 16px;margin:14px 0;border-radius:0 6px 6px 0;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.warn{background:#fff;border-left:5px solid #f59e0b;padding:12px 16px;margin:14px 0;border-radius:0 6px 6px 0}
+.danger{background:#fff;border-left:5px solid #ef4444;padding:12px 16px;margin:14px 0;border-radius:0 6px 6px 0}
+.tag{display:inline-block;background:#1e40af;color:#fff;padding:2px 10px;border-radius:12px;font-size:.78em;margin-right:5px}
+.tag.green{background:#10b981}
+.tag.orange{background:#f59e0b}
+.tag.red{background:#ef4444}
+.tag.gray{background:#64748b}
+code{background:#f1f5f9;padding:2px 6px;border-radius:4px;color:#be185d;font-size:.88em}
+.formula{background:#fff;border:1px dashed #94a3b8;padding:10px 14px;margin:10px 0;font-family:Cambria,"Times New Roman",serif;border-radius:4px}
+.highlight{background:linear-gradient(90deg,#fef3c7 0%,#fff 60%);padding:10px 14px;border-radius:4px;margin:8px 0}
+ul li{margin:4px 0}
+</style>
+</head>
+<body>
+<h1>v15 调研报告 · 面向基础模型时代的分层智能体高层规划与低层控制接口方法研究</h1>
+<p style="color:#64748b">
+<span class="tag">v15</span>
+<span class="tag green">不造词</span>
+<span class="tag orange">CABTO highlight</span>
+<span class="tag gray">2026-06-13</span>
+</p>
+
+<h2>§1 立意溯源：从 v7 → v15 的六次迭代</h2>
+<table>
+<tr><th>版本</th><th>主线词</th><th>致命问题</th><th>处置</th></tr>
+<tr><td>v7</td><td>长程组合泛化</td><td>半造词、与社区脱节</td><td>废</td></tr>
+<tr><td>v11</td><td>BT 作为 skill 表征</td><td>BT 中心化、易被攻击</td><td>废</td></tr>
+<tr><td>v12</td><td>分层式具身智能体 + 五层栈</td><td>五层划分过细、无社区共识</td><td>已交付但待升级</td></tr>
+<tr><td>v13</td><td>大小脑双向接口</td><td>造词"双向接口"</td><td>废</td></tr>
+<tr><td>v14</td><td>双系统范式 (Dual-System)</td><td>偏工业、非学术正名</td><td>废</td></tr>
+<tr><td><b>v15 ✅</b></td><td><b>Hierarchical Agent · High-Level Planning ↔ Low-Level Control</b></td><td>完全不造词、站 40 年血脉</td><td><b>最终版</b></td></tr>
+</table>
+
+<h2>§2 v15 的学术血脉：40 年分层架构</h2>
+<div class="box">
+<b>核心原则</b>：不造新词，直接踩在学界已认可的术语链上。每个关键词都能在 Russell-Norvig AIMA / Gat 1998 / Hi Robot ICML 2025 找到原文。
+</div>
+
+<table>
+<tr><th>年代</th><th>主导叫法</th><th>理论锚点</th><th>必引文献</th></tr>
+<tr><td>1980s</td><td>Sense-Plan-Act (SPA)</td><td>Shakey 项目</td><td>Nilsson 1980s</td></tr>
+<tr><td>1986</td><td>Subsumption (反 SPA)</td><td>反应式三层</td><td>Brooks 1986</td></tr>
+<tr><td>1995</td><td>Deliberative-Reactive</td><td>Agent 理论</td><td>Wooldridge &amp; Jennings 1995</td></tr>
+<tr><td><b>1998</b></td><td><b>Three-Layer Architecture (3T)</b></td><td>统一慎思 + 反应</td><td><b>Gat 1998</b>（机器人圈圣经，必引）</td></tr>
+<tr><td>1999</td><td>Options / HRL</td><td>SMDP + 时序抽象</td><td>Sutton-Precup 1999</td></tr>
+<tr><td>2010s</td><td>Hierarchical Planning + Control</td><td>ROS 时代标配</td><td>—</td></tr>
+<tr><td>2023</td><td>Hierarchical VLA</td><td>大模型上车</td><td>RT-2, HAMSTER (CoRL'24)</td></tr>
+<tr><td>2024</td><td>System 1/2</td><td>Kahneman 入侵 VLA</td><td>Figure Helix, π0/π0.5</td></tr>
+<tr><td><b>2025+</b></td><td><b>Dual-System VLA / 大脑+小脑</b></td><td>工业界共识</td><td>GR00T N1, Hi Robot (ICML'25), SaiVLA-0 (arXiv 2026.03)</td></tr>
+</table>
+
+<h2>§3 v15 标题 / OSQ / 三大 SQ（最终拍板版）</h2>
+
+<h3>3.1 标题</h3>
+<div class="highlight">
+<b>中文</b>：面向基础模型时代的分层智能体高层规划与低层控制接口方法研究<br>
+<b>英文</b>：Research on Interface Methods between High-Level Planning and Low-Level Control for Hierarchical Embodied Agents in the Era of Foundation Models
+</div>
+
+<h3>3.2 整体科学问题 (OSQ)</h3>
+<div class="formula">
+设分层智能体 𝒜 = ⟨π_H, π_L, ℐ↓, ℐ↑⟩，其中<br>
+&nbsp;&nbsp;π_H：高层规划器（VLM/LLM，~1–10 Hz）<br>
+&nbsp;&nbsp;π_L：低层控制器（Policy/MPC，~50–500 Hz）<br>
+&nbsp;&nbsp;ℐ↓：下行接口（中间表征）<br>
+&nbsp;&nbsp;ℐ↑：上行接口（反馈通路）<br><br>
+<b>OSQ</b>：如何在基础模型时代设计 ⟨ℐ↓, ℐ↑⟩，使其在<b>表达力 / 闭环性 / 可扩展性</b>三方面同时优于当前主流 Hierarchical VLA（RT-2/π0/Helix/GR00T N1）？
+</div>
+
+<h3>3.3 三大子科学问题</h3>
+<table>
+<tr><th>编号</th><th>中文</th><th>英文</th><th>维度</th><th>章节</th></tr>
+<tr><td>SQ1</td><td>高低层中间表征</td><td>Inter-Layer Representation</td><td>纵向↓</td><td>Ch3 Task2Morph + Ch4 HBTP</td></tr>
+<tr><td><b>SQ2 ⭐</b></td><td><b>低高层上行反馈</b></td><td><b>Bottom-Up Feedback</b></td><td><b>纵向↑</b></td><td><b>Ch5 CABTO (highlight)</b></td></tr>
+<tr><td>SQ3'</td><td>接口的横向可扩展性</td><td>Horizontal Interface Scalability</td><td>横向↔</td><td>Ch6 MRBTP + Ch7 Rsync</td></tr>
+</table>
+
+<h2>§4 五篇工作的最终落位（v15）</h2>
+<table>
+<tr><th>章</th><th>论文</th><th>SQ</th><th>角色</th><th>状态</th></tr>
+<tr><td>Ch3</td><td>Task2Morph</td><td>SQ1</td><td>任务→形态的特殊"中间表征"</td><td>已发表</td></tr>
+<tr><td>Ch4</td><td>HBTP</td><td>SQ1</td><td>BT 子树作为通用中间表征（SQ1 主力）</td><td>已发表</td></tr>
+<tr><td><b>Ch5</b></td><td><b>CABTO</b></td><td><b>SQ2 ⭐</b></td><td><b>唯一上行反馈机制 · 论文 highlight</b></td><td><b>AAAI 2026 + 待扩展实验</b></td></tr>
+<tr><td>Ch6</td><td>MRBTP</td><td>SQ3'</td><td>Agent 轴横向扩展（跨树合并）</td><td>AAAI'25 Oral</td></tr>
+<tr><td>Ch7</td><td>Rsync</td><td>SQ3'</td><td>Embodiment 轴横向扩展（残差迁移）</td><td>已发表</td></tr>
+</table>
+
+<h2>§5 四大创新点 I1-I4（全部不造词）</h2>
+<table>
+<tr><th>编号</th><th>创新</th><th>学界基础</th></tr>
+<tr><td>I1</td><td>BT 子树作为高低层中间表征，在可组合性/可解释性/可执行性三维 Pareto 最优</td><td>HAMSTER token / Hi Robot language / Biggar 2022 BT 范畴论</td></tr>
+<tr><td><b>I2 ⭐</b></td><td><b>物理约束驱动的上行反馈机制，首次在 Hierarchical VLA 框架内闭合 Low→High 反向通路</b></td><td>填补 Helix/π0/GR00T/Hi Robot 集体空白</td></tr>
+<tr><td>I3</td><td>多智能体高层规划的跨树合并算子</td><td>接续 RoCo / CoELA</td></tr>
+<tr><td>I4</td><td>任务条件形态生成 + 残差跨本体迁移的统一低层适配框架</td><td>接续 RT-X / HPT / Body Transformer</td></tr>
+</table>
+
+<h2>§6 vs 五类主流的差异化（评委必问）</h2>
+<table>
+<tr><th>主流方案</th><th>代表</th><th>接口形态</th><th>反馈通路</th><th>跨本体</th><th>v15 差异化</th></tr>
+<tr><td>端到端 VLA</td><td>RT-2, OpenVLA</td><td>隐式 latent</td><td>无</td><td>同构微调</td><td>I1 显式 BT + I2 双向 + I4 跨本体</td></tr>
+<tr><td>Hierarchical VLA</td><td>HAMSTER, HiRobot, π0</td><td>trajectory token / 语言</td><td>open-loop replan</td><td>少</td><td>I2 结构化反馈 + 持续闭环</td></tr>
+<tr><td>LLM + 经典 Planner</td><td>SayCan, Code as Policies</td><td>API 调用</td><td>语言摘要</td><td>无</td><td>结构化 + 物理约束 + prior 更新</td></tr>
+<tr><td>HRL Options</td><td>FuN, HIRO</td><td>subgoal embedding</td><td>termination + intrinsic</td><td>无</td><td>面向开放语义 + 可解释 BT</td></tr>
+<tr><td>BT + LLM</td><td>LLM-OBTEA, BT-Planner</td><td>BT 子树</td><td>多为单向</td><td>无</td><td>I2 上行反馈 + I4 跨本体</td></tr>
+</table>
+
+<h2>§7 CABTO 升级为 highlight chapter 的依据</h2>
+<div class="box">
+<b>什么是 highlight chapter？</b>博士论文里被反复引用、答辩开场就讲的"爆款章节"。30% 篇幅 + 最强实验 + 最干净 figure。一本博士论文最多 1-2 章是 highlight，其余是 substantial 和 supporting。
+</div>
+
+<table>
+<tr><th>候选</th><th>学术稀缺度</th><th>实验展示性</th><th>发表层次</th><th>适合 highlight？</th></tr>
+<tr><td>Task2Morph</td><td>中</td><td>中</td><td>中</td><td>❌</td></tr>
+<tr><td>HBTP</td><td>中</td><td>中</td><td>中</td><td>❌</td></tr>
+<tr><td><b>CABTO</b></td><td><b>极高（Bottom-Up 是 Hi Robot/π0/Helix/GR00T 集体空白）</b></td><td><b>高（失败→反馈→prior 更新可视化强）</b></td><td><b>AAAI 2026</b></td><td><b>✅ 是</b></td></tr>
+<tr><td>MRBTP</td><td>高</td><td>中</td><td>高 (AAAI Oral)</td><td>❌ 已 oral 不需再加持</td></tr>
+<tr><td>Rsync</td><td>中</td><td>高（真机视频）</td><td>中</td><td>△ 备选</td></tr>
+</table>
+
+<h2>§8 CABTO 扩展实验全设计（详见 02_CABTO扩展方案_v15.html）</h2>
+<table>
+<tr><th>实验</th><th>周数</th><th>论文加成</th><th>关键产出</th></tr>
+<tr><td>① vs Inner Monologue / DoReMi / REFLECT</td><td>2 周</td><td>⭐⭐⭐⭐⭐</td><td>跨 episode 学习曲线（CABTO 唯一上升）</td></tr>
+<tr><td>② 反馈源消融 (4 原子组件)</td><td>1 周</td><td>⭐⭐⭐⭐</td><td>瀑布图 + 雷达图</td></tr>
+<tr><td>③ 跨 VLM 通用性 (5 模型)</td><td>1.5 周</td><td>⭐⭐⭐⭐⭐</td><td>柱状图 + SR std 横线</td></tr>
+<tr><td colspan="3"><b>合计 4.5 周</b></td><td><b>chap05 升级为 40-50 页 highlight</b></td></tr>
+</table>
+
+<h2>§9 风险与对策</h2>
+<table>
+<tr><th>风险</th><th>对策</th></tr>
+<tr><td>"分层"概念过老</td><td>聚焦"基础模型时代的 ℐ↓/ℐ↑ 学习"，I1+I2 在基础模型出现前根本做不出来</td></tr>
+<tr><td>BT 又一次中心化</td><td>BT 不进标题，退居 SQ1 实现工具，论文主线是"高低层接口"</td></tr>
+<tr><td>5 篇老论文 vs 2026 新框架</td><td>框架追认 + CABTO 新扩展实验（跨 VLM、消融、vs 新 baseline）证明前瞻性</td></tr>
+<tr><td>CABTO 实验不够支撑 highlight</td><td>4.5 周三项扩展实验 + theoretical analysis 占位章节（5.4 节）</td></tr>
+<tr><td>SQ3' 横向太抽象</td><td>明确两轴：Agent 轴（MRBTP）和 Embodiment 轴（Rsync），各画一张图</td></tr>
+<tr><td>vs 工业界 VLA 怎么比</td><td>定位"学术 PhD 比可解释 + 可双向 + 可跨本体"，工业界比规模不比深度</td></tr>
+</table>
+
+<h2>§10 必引参考文献（21 篇 + CABTO 扩展实验相关）</h2>
+<h3>10.1 分层架构血脉（10 篇）</h3>
+<ol>
+<li>Brooks, R. A. (1986). A robust layered control system for a mobile robot. <i>IEEE J. Robotics Automation</i>.</li>
+<li>Gat, E. (1998). On three-layer architectures. <i>Artificial Intelligence and Mobile Robots</i>. ⭐</li>
+<li>Wooldridge, M. &amp; Jennings, N. R. (1995). Intelligent agents: theory and practice. <i>Knowledge Engineering Review</i>.</li>
+<li>Sutton, R. S., Precup, D., &amp; Singh, S. (1999). Between MDPs and semi-MDPs: A framework for temporal abstraction. <i>AI</i>.</li>
+<li>Vezhnevets, A. S., et al. (2017). FeUdal Networks for Hierarchical Reinforcement Learning. ICML.</li>
+<li>Russell, S. &amp; Norvig, P. (2020). AIMA 4th ed., §2.4.6.</li>
+<li>Brunskill, E. &amp; Li, L. (2014). PAC-inspired option discovery in lifelong reinforcement learning. ICML.</li>
+<li>Andreas, J., Klein, D., &amp; Levine, S. (2017). Modular multitask reinforcement learning with policy sketches. ICML.</li>
+<li>Pateria, S., et al. (2021). Hierarchical reinforcement learning: A comprehensive survey. <i>ACM CSUR</i>.</li>
+<li>Newell, A. (1990). Unified Theories of Cognition.</li>
+</ol>
+
+<h3>10.2 Hierarchical VLA / Dual-System (2023-2026)</h3>
+<ol start="11">
+<li>Zitkovich, B., et al. (2023). RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control. CoRL.</li>
+<li>Li, Y., et al. (2024). HAMSTER: Hierarchical Action Models for Open-World Robot Manipulation. CoRL.</li>
+<li>Physical Intelligence (2024). π0: A Vision-Language-Action Flow Model for General Robot Control. arXiv:2410.24164.</li>
+<li>Black, K., et al. (2025). π0.5: A VLA with Open-World Generalization. arXiv:2504.16054.</li>
+<li>Figure AI (2025). Helix: Vision-Language-Action Model for Generalist Humanoids. Technical Report.</li>
+<li>Shi, L., et al. (2025). Hi Robot: Open-Ended Instruction Following with Hierarchical VLAs. ICML 2025. ⭐</li>
+<li>NVIDIA (2025). GR00T N1: An Open Foundation Model for Generalist Humanoid Robots. arXiv:2503.14734.</li>
+</ol>
+
+<h3>10.3 Bottom-Up Feedback (CABTO vs 直接对手)</h3>
+<ol start="18">
+<li>Huang, W., et al. (2022). Inner Monologue: Embodied Reasoning through Planning with Language Models. CoRL. ⭐</li>
+<li>Guo, Y., et al. (2024). DoReMi: Grounding Language Model by Detecting and Recovering from Plan-Execution Misalignment. ICRA. ⭐</li>
+<li>Liu, Z., et al. (2023). REFLECT: Summarizing Robot Experiences for Failure Explanation and Correction. CoRL. ⭐</li>
+<li>Skreta, M., et al. (2024). RePLan: Robotic Replanning with Perception and Language Models. arXiv.</li>
+</ol>
+
+</body>
+</html>

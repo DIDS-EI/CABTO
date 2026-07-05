@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CABTO 论文理解 · Context-Aware Behavior Tree Grounding</title>
+<style>
+  :root{
+    --bg:#0d1117; --bg2:#11161f; --panel:#161b26; --panel2:#1b2230;
+    --border:#283042; --border2:#39435a;
+    --ink:#e7edf6; --ink2:#aeb9cc; --ink3:#7e8aa3;
+    --acc:#5b9dff; --acc2:#8b6dff; --teal:#33d6c2; --amber:#ffb454;
+    --good:#46d369; --bad:#ff6b6b; --warn:#ffcf5c;
+    --mono:'SF Mono',ui-monospace,'JetBrains Mono',Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,rgba(91,157,255,.08),transparent),radial-gradient(900px 500px at -10% 20%,rgba(139,109,255,.07),transparent),var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.65;font-size:15.5px;-webkit-font-smoothing:antialiased}
+  a{color:var(--acc);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 26px}
+  code,.mono{font-family:var(--mono)}
+
+  /* ---- top nav ---- */
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(13,17,23,.78);border-bottom:1px solid var(--border)}
+  .nav .wrap{display:flex;align-items:center;gap:18px;height:54px}
+  .nav .brand{font-weight:700;letter-spacing:.5px;color:var(--ink);font-size:15px}
+  .nav .brand b{color:var(--acc)}
+  .nav .links{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+  .nav .links a{color:var(--ink2);padding:6px 11px;border-radius:8px;font-size:13.5px}
+  .nav .links a:hover{background:var(--panel2);color:var(--ink);text-decoration:none}
+
+  /* ---- hero ---- */
+  .hero{padding:64px 0 38px;border-bottom:1px solid var(--border)}
+  .tagchip{display:inline-flex;align-items:center;gap:7px;background:linear-gradient(90deg,rgba(91,157,255,.16),rgba(139,109,255,.14));border:1px solid var(--border2);color:var(--acc);padding:5px 13px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.4px}
+  h1.title{font-size:40px;line-height:1.18;margin:18px 0 8px;font-weight:780;letter-spacing:-.5px}
+  h1.title span{background:linear-gradient(100deg,var(--acc),var(--acc2) 60%,var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--ink2);font-size:17px;max-width:760px}
+  .authors{margin-top:18px;color:var(--ink3);font-size:13.5px}
+  .authors b{color:var(--ink2);font-weight:600}
+  .meta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .meta-pill{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:13px;color:var(--ink2)}
+  .meta-pill b{color:var(--ink);font-weight:600}
+
+  /* ---- section ---- */
+  section{padding:48px 0;border-bottom:1px solid var(--border)}
+  .kicker{color:var(--teal);font-size:12.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase}
+  h2{font-size:27px;margin:8px 0 6px;font-weight:740;letter-spacing:-.3px}
+  h3{font-size:18.5px;margin:30px 0 10px;font-weight:680;color:var(--ink)}
+  p{color:var(--ink2)}
+  .lead{font-size:16.5px;color:var(--ink)}
+  strong{color:var(--ink);font-weight:650}
+  .hl{color:var(--amber);font-weight:600}
+  .hl2{color:var(--teal);font-weight:600}
+
+  /* ---- cards / grid ---- */
+  .grid{display:grid;gap:16px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--border);border-radius:14px;padding:20px 20px}
+  .card h4{margin:0 0 8px;font-size:15.5px;color:var(--ink);display:flex;align-items:center;gap:9px}
+  .card p{margin:0;font-size:14px}
+  .num-badge{width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#0d1117;flex:none}
+  .b1{background:var(--acc)} .b2{background:var(--teal)} .b3{background:var(--amber)}
+
+  /* ---- definition box ---- */
+  .defbox{background:linear-gradient(180deg,rgba(91,157,255,.06),transparent);border:1px solid var(--border2);border-left:3px solid var(--acc);border-radius:10px;padding:16px 18px;margin:16px 0}
+  .defbox .dt{font-weight:700;color:var(--acc);font-size:14px;letter-spacing:.3px}
+  .defbox.teal{border-left-color:var(--teal);background:linear-gradient(180deg,rgba(51,214,194,.06),transparent)}
+  .defbox.teal .dt{color:var(--teal)}
+  .defbox.amber{border-left-color:var(--amber);background:linear-gradient(180deg,rgba(255,180,84,.06),transparent)}
+  .defbox.amber .dt{color:var(--amber)}
+
+  /* ---- code ---- */
+  pre{background:#0a0e14;border:1px solid var(--border);border-radius:11px;padding:15px 16px;overflow:auto;font-family:var(--mono);font-size:12.8px;line-height:1.6;color:#c9d4e6;margin:14px 0}
+  pre .c{color:#6b7689}    /* comment */
+  pre .k{color:#ff9ec4}    /* keyword */
+  pre .s{color:#9ae6a0}    /* string */
+  pre .f{color:#8ec8ff}    /* func/class */
+  pre .n{color:#ffc46b}    /* number/literal */
+  .fpath{font-family:var(--mono);font-size:12px;color:var(--ink3);background:var(--panel2);border:1px solid var(--border);border-radius:6px;padding:2px 8px;display:inline-block}
+  .codecap{font-size:12px;color:var(--ink3);margin:-8px 0 14px;font-family:var(--mono)}
+
+  /* ---- formula ---- */
+  .formula{background:#0a0e14;border:1px solid var(--border2);border-radius:10px;padding:14px 18px;text-align:center;font-family:var(--mono);font-size:15px;color:#dfe8f5;margin:14px 0;overflow-x:auto}
+  .formula .lbl{float:right;color:var(--ink3);font-size:12px}
+
+  /* ---- table ---- */
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px;margin:16px 0}
+  table{border-collapse:collapse;width:100%;font-size:13px;min-width:560px}
+  th,td{padding:9px 12px;text-align:center;border-bottom:1px solid var(--border)}
+  thead th{background:var(--panel2);color:var(--ink2);font-weight:600;font-size:12px;letter-spacing:.3px;border-bottom:1px solid var(--border2)}
+  tbody tr:hover{background:rgba(91,157,255,.04)}
+  td.tl,th.tl{text-align:left}
+  td .up{color:var(--good);font-weight:600}
+  td .dim{color:var(--ink3)}
+  .arrow{color:var(--ink3)}
+  tfoot td{background:var(--panel);font-weight:600;color:var(--ink)}
+
+  /* ---- pipeline ---- */
+  .pipe{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:20px 0}
+  .pstep{position:relative;background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--border);border-radius:14px;padding:18px;overflow:hidden}
+  .pstep::before{content:"";position:absolute;inset:0 auto 0 0;width:3px}
+  .pstep.s1::before{background:var(--acc)} .pstep.s2::before{background:var(--teal)} .pstep.s3::before{background:var(--amber)}
+  .pstep .ph{font-size:12px;color:var(--ink3);letter-spacing:1px;text-transform:uppercase}
+  .pstep .pt{font-size:16px;font-weight:700;margin:5px 0 8px}
+  .pstep .pm{font-size:13px;color:var(--ink2)}
+  .pstep .tag{display:inline-block;margin-top:10px;font-size:11.5px;font-family:var(--mono);color:var(--teal);background:rgba(51,214,194,.1);border:1px solid rgba(51,214,194,.25);border-radius:6px;padding:2px 7px}
+
+  /* ---- callout ---- */
+  .note{border-radius:10px;padding:14px 16px;margin:16px 0;font-size:14px;border:1px solid}
+  .note.warn{background:rgba(255,180,84,.07);border-color:rgba(255,180,84,.3)}
+  .note.warn b{color:var(--amber)}
+  .note.info{background:rgba(91,157,255,.06);border-color:rgba(91,157,255,.28)}
+  .note.info b{color:var(--acc)}
+  .note.ok{background:rgba(70,211,105,.06);border-color:rgba(70,211,105,.28)}
+  .note.ok b{color:var(--good)}
+
+  ul.clean{list-style:none;padding:0;margin:12px 0}
+  ul.clean li{position:relative;padding:6px 0 6px 24px;color:var(--ink2);font-size:14.5px}
+  ul.clean li::before{content:"▹";position:absolute;left:2px;color:var(--acc);font-weight:700}
+  ul.clean li b{color:var(--ink)}
+
+  .map-row{display:grid;grid-template-columns:230px 1fr;gap:14px;align-items:start;padding:13px 0;border-bottom:1px dashed var(--border)}
+  .map-row:last-child{border-bottom:none}
+  .map-row .mk{font-size:14px;color:var(--ink);font-weight:600}
+  .map-row .mk small{display:block;color:var(--teal);font-size:11.5px;font-family:var(--mono);margin-top:3px;font-weight:400}
+  .map-row .mv{font-size:13.5px;color:var(--ink2)}
+  .map-row .mv .fpath{margin-top:6px}
+
+  .footer{padding:34px 0 60px;color:var(--ink3);font-size:13px}
+  .footer b{color:var(--ink2)}
+
+  @media (max-width:820px){
+    .g2,.g3,.pipe,.map-row{grid-template-columns:1fr}
+    h1.title{font-size:30px}
+    .nav .links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="wrap">
+    <div class="brand"><b>CABTO</b> · 论文理解</div>
+    <div class="links">
+      <a href="#problem">问题定义</a>
+      <a href="#framework">三阶段框架</a>
+      <a href="#algo">算法</a>
+      <a href="#exp">实验结果</a>
+      <a href="#code">代码映射</a>
+      <a href="#gap">一致性分析</a>
+    </div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="tagchip">◆ AAAI 2026 · cs.RO · arXiv:2603.16809v1</span>
+    <h1 class="title">CABTO：面向机器人操作的<br><span>上下文感知行为树落地</span></h1>
+    <p class="sub">首个高效求解 <b style="color:#e7edf6">BT Grounding（行为树落地）</b> 问题的框架——利用预训练大模型，在 BT 规划上下文与环境反馈的引导下，自动构造一个<strong>完备 (Complete)</strong> 且<strong>一致 (Consistent)</strong> 的行为树系统。</p>
+    <div class="authors">
+      <b>Yishuai Cai</b>, Xinglin Chen, Yunxin Mao, Kun Hu, Minglong Li, Yaodong Yang, Yuanpei Chen
+      &nbsp;·&nbsp; 国防科技大学 · PsiBot · 北京大学 · PKU-Psibot Lab
+    </div>
+    <div class="meta-row">
+      <div class="meta-pill"><b>7</b> 个任务集</div>
+      <div class="meta-pill"><b>3</b> 类机器人平台</div>
+      <div class="meta-pill"><b>21</b> 个目标</div>
+      <div class="meta-pill">环境 <b>Isaac Sim + OmniGibson</b></div>
+      <div class="meta-pill">VLM <b>Molmo + cuRobo</b></div>
+    </div>
+  </div>
+</header>
+
+<!-- TL;DR -->
+<section id="tldr">
+  <div class="wrap">
+    <div class="kicker">一句话总结</div>
+    <h2>这篇论文在解决什么？</h2>
+    <p class="lead" style="margin-top:10px">已有的 <strong>BT 规划</strong>（BT Planning）能提供"可证明成功"的行为树，但它有一个被默认忽视的前提：<span class="hl">它假设一个"已经落地好"的 BT 系统早已存在</span>——即高层动作模型与底层控制策略都已由专家手工设计完毕。CABTO 把"如何自动造出这个系统"本身定义为一个可求解的问题（<b>BT Grounding</b>），并用 LLM/VLM 作为启发式搜索器去高效求解。</p>
+
+    <div class="grid g3" style="margin-top:22px">
+      <div class="card">
+        <h4><span class="num-badge b1">问</span>问题</h4>
+        <p>形式化定义 BT Grounding：为给定任务集自动构造一个<strong>完备 + 一致</strong>的 BT 系统 Φ=⟨C, A⟩。给出朴素穷举算法并分析其 <span class="mono">O(2³ⁿ)</span> 指数复杂度。</p>
+      </div>
+      <div class="card">
+        <h4><span class="num-badge b2">法</span>方法</h4>
+        <p>CABTO 三阶段：LLM 提议高层动作模型 → VLM 采样底层控制策略 → 跨层精化不一致的动作模型。多模态上下文反馈贯穿全程，规避穷举。</p>
+      </div>
+      <div class="card">
+        <h4><span class="num-badge b3">验</span>验证</h4>
+        <p>7 任务集 × 3 平台（单臂/双臂 Franka、移动 Fetch）。规划上下文反馈让 GPT-4o 的系统<strong>完备率从 50% 升至 90%+</strong>；跨层精化把不一致动作的修正成功率从 12% 提至 74%。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="kicker">Problem Formulation</div>
+    <h2>BT Grounding 问题的形式化</h2>
+    <p>论文沿用 Cai et al. (2021) 的形式化：一个 BT 系统记作 <span class="mono">Φ = ⟨C, A⟩</span>。每个动作 <span class="mono">a ∈ A</span> 是一个二元组 <span class="mono">⟨hₐ, πₐ⟩</span>：</p>
+    <ul class="clean">
+      <li><b>动作模型 hₐ（意图效果）</b>：STRIPS 式三元组 <span class="mono">⟨pre, add, del⟩</span>——前置条件、添加效果、删除效果，这是高层规划用的"蓝图"。</li>
+      <li><b>控制策略 πₐ（实际效果）</b>：底层真正执行后造成的状态变化。</li>
+      <li><b>C</b>：所有条件节点的集合（状态由这些二元命题描述）。</li>
+    </ul>
+
+    <div class="formula">
+      sₜ₊ₖ = hₐ(sₜ) = πₐ(sₜ) = sₜ ∪ add(a) \ del(a)
+      <span class="lbl">理想：意图 = 实际</span>
+    </div>
+    <p style="font-size:14px;color:var(--ink3);margin-top:-4px">即在一个"良好设计"的 BT 系统里，只要当前状态满足前置条件，动作模型预测的状态转移要与策略实际造成的转移完全一致。围绕这一点，论文定义两条关键性质：</p>
+
+    <div class="grid g2" style="margin-top:18px">
+      <div class="defbox">
+        <span class="dt">Def 0.1 · 完备性 Completeness</span>
+        <p style="margin:8px 0 0;font-size:14px">对任务集 P 中<strong>每一个</strong>任务 p，任何「可靠且完备」的 BT 规划算法都能<strong>仅依据系统的动作模型</strong>生成一棵解决 p 的行为树。</p>
+        <p style="margin:8px 0 0;font-size:13px;color:var(--ink3)">→ 衡量 C 与 A 在"规划层"是否够用。例：动作集 {a₂,a₃} 只能解 {p₂,p₃} ⇒ 不完备；{a₁,a₂} 能解全部三任务 ⇒ 完备。</p>
+      </div>
+      <div class="defbox teal">
+        <span class="dt">Def 0.2 · 一致性 Consistency</span>
+        <p style="margin:8px 0 0;font-size:14px">动作 a 一致 ⟺ <span class="mono">preπ ⊆ preₕ</span> 且 <span class="mono">addπ = addₕ</span> 且 <span class="mono">delπ = delₕ</span>。即底层策略真能造出动作模型声称的状态转移。</p>
+        <p style="margin:8px 0 0;font-size:13px;color:var(--ink3)">→ 衡量"执行层"是否名副其实。例：a₁ 声称 Holding(apple) 但策略抓不起来 ⇒ 不一致；a₂ 没写 IsOpen(drawer) 前置就放抽屉 ⇒ 不一致。</p>
+      </div>
+    </div>
+
+    <div class="defbox amber">
+      <span class="dt">Problem 1 · BT Grounding</span>
+      <p style="margin:8px 0 0;font-size:14px">给定四元组 <span class="mono">⟨P, C_P, H_P, Π_P⟩</span>（任务集、合法条件节点集、合法动作模型集、合法控制策略集），求一个在 P 上<strong>同时完备且一致</strong>的 BT 系统 Φ=⟨C, A⟩，其中 <span class="mono">C⊆C_P</span>，每个 <span class="mono">a=⟨hₐ,πₐ⟩</span> 满足 <span class="mono">hₐ∈H_P, πₐ∈Π_P</span>。</p>
+    </div>
+
+    <h3>为什么不能直接穷举？</h3>
+    <p>论文给出朴素算法（Algorithm 1）：遍历 pre/add/del 的所有幂集组合枚举动作模型，逐一验证合法性与策略一致性。它正确但<strong>不可用</strong>——即便只施加 <span class="mono">add∩del=∅</span> 这类领域无关约束，搜索动作模型空间也是 <span class="hl mono">O(2³ⁿ)</span> 的指数复杂度；更何况"自动合成底层控制策略以达成特定效果"本身就是机器人学中尚未解决的根本难题。这正是 CABTO 用大模型做启发式搜索的动机。</p>
+  </div>
+</section>
+
+<!-- FRAMEWORK -->
+<section id="framework">
+  <div class="wrap">
+    <div class="kicker">The CABTO Framework</div>
+    <h2>三阶段：让大模型在上下文反馈中搜索</h2>
+    <p class="lead">CABTO 把落地过程拆成三个阶段，分别用<strong>规划上下文</strong>、<strong>执行上下文</strong>、<strong>跨层上下文</strong>引导大模型，从而绕开穷举。</p>
+
+    <div class="pipe">
+      <div class="pstep s1">
+        <div class="ph">Phase 1 · LLM</div>
+        <div class="pt">高层模型提议</div>
+        <div class="pm">LLM 依据任务集（目标、初始态、物体语义）以编程格式提出候选动作模型 H_E；用 <b style="color:#e7edf6">可靠且完备的 BT 规划算法</b>检验完备性。规划失败 ⇒ 把诊断信息 I_fail 回灌 LLM 再提议。</div>
+        <div class="tag">ctx = 规划上下文 I_fail</div>
+      </div>
+      <div class="pstep s2">
+        <div class="ph">Phase 2 · VLM</div>
+        <div class="pt">底层策略采样</div>
+        <div class="pm">VLM（Molmo 取关键点 + cuRobo IK + 夹爪 API）把符号意图翻译成可执行 Python 控制代码 π；在仿真中执行，检验是否达成 <span class="mono">sₜ ⊇ pre∪add\del</span>。匹配则 ⟨h,π⟩ 入库。</div>
+        <div class="tag">ctx = 执行上下文 I_e（图像/代码/反馈）</div>
+      </div>
+      <div class="pstep s3">
+        <div class="ph">Phase 3 · VLM</div>
+        <div class="pt">跨层精化</div>
+        <div class="pm">若某动作模型 N_max 次都采不到一致策略 ⇒ 判定不一致。融合规划上下文 {I_p} 与执行上下文 {I_e}，让 VLM 诊断根因（漏掉的空间前置、错误的符号效果）并改写出修正后的 h′。</div>
+        <div class="tag">ctx = 规划 {I_p} + 执行 {I_e}</div>
+      </div>
+    </div>
+
+    <h3>关键公式</h3>
+    <div class="formula">H_E = LLM(P, H_P) <span class="lbl">Eq.2 初始提议</span></div>
+    <div class="formula">H′ = LLM(P, H_U, I_fail) <span class="lbl">Eq.3 失败反馈再提议</span></div>
+    <div class="formula">π = VLM(h, Π_P, I_e) <span class="lbl">Eq.4 策略采样</span></div>
+    <div class="formula">h′ = VLM(h, H_U, {I_p}, Π_P, {I_e}) <span class="lbl">Eq.5 跨层精化</span></div>
+
+    <div class="note info" style="margin-top:22px">
+      <b>I_fail 里到底装了什么？</b> 论文说每个失败条目 I_p 封装了关键诊断：<strong>不完整 BT 的拓扑草图</strong>（BTML）和<strong>规划中展开的条件数量</strong>（expanded nodes）。这些符号线索帮助 LLM 定位"缺了哪个动作/条件"，从而提出更有希望的动作模型。代码里这一点被原样实现（见下方代码映射）。
+    </div>
+  </div>
+</section>
+
+<!-- ALGORITHM -->
+<section id="algo">
+  <div class="wrap">
+    <div class="kicker">Core Algorithm</div>
+    <h2>底层引擎：可靠且完备的 BT 规划</h2>
+    <p>CABTO 阶段 1 评估"完备性"靠的是 <strong>BT Expansion 系列算法</strong>（OBTEA / HOBTEA，源自 Cai et al.）。其"可靠 + 完备 + 最优"性质来自<strong>目标条件回归式扩展 + 优先队列最优搜索</strong>：从目标条件出发反向回归，每次只扩展当前最小代价的条件路径，直到某条件被初始状态满足。</p>
+
+    <h3>状态转移（严格 STRIPS）</h3>
+    <pre><span class="c"># btgym/algos/bt_planning/Action.py  (L118-123)</span>
+<span class="k">def</span> <span class="f">state_transition</span>(state, action):
+    <span class="k">if</span> <span class="k">not</span> action.pre <= state:
+        <span class="k">print</span>(<span class="s">'error: action not applicable'</span>); <span class="k">return</span> state
+    new_state = (state | action.add) - action.del_set
+    <span class="k">return</span> new_state</pre>
+    <p class="codecap">// 这就是公式 sₜ₊ₖ = sₜ ∪ add(a) \ del(a) 的直接落地</p>
+
+    <h3>回归扩展 + 支配剪枝（完备性 & 最优性的来源）</h3>
+    <pre><span class="c"># btgym/algos/bt_planning/HOBTEA.py  (回归扩展核心 L132-167，简化)</span>
+<span class="k">if</span> <span class="k">not</span> c & ((act.pre | act.add) - act.del_set) <= <span class="k">set</span>():  <span class="c"># 动作对条件 c 有正贡献</span>
+    <span class="k">if</span> (c - act.del_set) == c:                       <span class="c"># 且不破坏 c</span>
+        c_attr = (act.pre | c) - act.add               <span class="c"># 回归出新条件</span>
+        <span class="k">if</span> <span class="f">check_conflict</span>(c_attr): <span class="k">continue</span>           <span class="c"># 剪掉矛盾条件</span>
+        <span class="c"># 支配剪枝：已扩展过更弱的条件则跳过</span>
+        c_attr_node = <span class="f">Leaf</span>(<span class="k">type</span>=<span class="s">'cond'</span>, content=c_attr,
+                          min_cost=current_mincost + act.cost)
+<span class="c"># 用 heapq 按 min_cost 弹出 → 保证输出 minimum-cost BT；c <= start 即找到解</span></pre>
+
+    <div class="grid g2" style="margin-top:18px">
+      <div class="card">
+        <h4>统一入口 · BTExpInterface</h4>
+        <p><span class="fpath">btgym/algos/bt_planning/main_interface.py:29</span></p>
+        <p style="margin-top:10px"><b>输入</b>：执行库 / 自定义动作表、初始状态集 <span class="mono">cur_cond_set</span>、算法名（hobtea/obtea/bfs/weak/hbtp）、时限。</p>
+        <p style="margin-top:8px"><b>输出</b>：<span class="mono">process(goal)</span> → <span class="mono">post_process()</span> 返回 <span class="hl2">(BTML 字符串, 最小代价, 展开节点数)</span>。其中"展开节点数"正是 I_fail 反馈给 LLM 的诊断指标。</p>
+      </div>
+      <div class="card">
+        <h4>生成的 BT（真实产物 · BTML）</h4>
+        <p><span class="fpath">…/task3_try_1/bt_hard.btml</span></p>
+<pre style="margin:10px 0 0;font-size:11.6px"><span class="k">selector</span>
+  <span class="f">cond</span> On(center_big_box, box_board)
+  <span class="k">sequence</span>
+    <span class="f">cond</span> HeldBy(left_franka,right_franka,big_box)
+    <span class="f">act</span>  TwoFrankaPutDownBigBox(big_box,board)
+  <span class="k">sequence</span>
+    <span class="f">cond</span> IsHandEmpty(left_franka)
+    <span class="f">cond</span> IsHandEmpty(right_franka)
+    <span class="f">cond</span> On(center_big_box, center_table)
+    <span class="f">act</span>  TwoFrankaPickUpBigBox(big_box)</pre>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--ink3);margin-top:12px">↑ 双臂 Franka 协作搬运大箱子的真实规划结果——Selector(?) 实现"或"逻辑（已放好就直接成功，否则去抓），Sequence(→) 实现"与"逻辑（先满足前置再执行动作）。</p>
+  </div>
+</section>
+
+<!-- EXPERIMENTS -->
+<section id="exp">
+  <div class="wrap">
+    <div class="kicker">Experiments &amp; Results</div>
+    <h2>实验结果</h2>
+    <p class="lead">7 个任务集覆盖 3 类机器人平台，由易到难：单臂 Franka（Cover/Blocks）、双臂 Franka（Pour/Handover/Storage）、移动 Fetch（Tidy Home/Cook Meal）。下面同时给出<strong>论文表格</strong>与<strong>仓库里真实跑出的复现数据</strong>。</p>
+
+    <h3>① 论文表 1 · 高层模型提议（有无规划上下文 / GPT-3.5 vs GPT-4o）</h3>
+    <p style="font-size:13.5px">指标：<b style="color:#e7edf6">ASR</b>=平均规划成功率，<b style="color:#e7edf6">CSR</b>=任务集内全部任务同时成功的完备率，<b style="color:#e7edf6">FC</b>=平均反馈轮数。<span class="dim">"w/o → w" 表示从"无规划上下文"到"有规划上下文"。</span></p>
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th class="tl">任务集 / 平台</th><th>Acts</th><th>Conds</th><th>Steps</th><th>ASR (GPT-3.5)</th><th>CSR (GPT-3.5)</th><th>ASR (GPT-4o)</th><th>CSR (GPT-4o)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="tl">Cover <span class="dim">· 单臂Franka</span></td><td>2.0</td><td>4.4</td><td>4.0</td><td>60.0<span class="arrow">→</span><span class="up">66.7</span></td><td>40<span class="arrow">→</span><span class="up">50</span></td><td>100<span class="arrow">→</span><span class="up">100</span></td><td>100<span class="arrow">→</span><span class="up">100</span></td></tr>
+          <tr><td class="tl">Blocks <span class="dim">· 单臂Franka</span></td><td>2.3</td><td>3.1</td><td>4.1</td><td>70<span class="arrow">→</span>70</td><td>30<span class="arrow">→</span><span class="up">50</span></td><td>60<span class="arrow">→</span><span class="up">80</span></td><td>50<span class="arrow">→</span><span class="up">80</span></td></tr>
+          <tr><td class="tl">Pour <span class="dim">· 双臂Franka</span></td><td>5.5</td><td>8.1</td><td>3.6</td><td>80<span class="arrow">→</span><span class="up">96.7</span></td><td>70<span class="arrow">→</span><span class="up">90</span></td><td>66.7<span class="arrow">→</span><span class="up">100</span></td><td>60<span class="arrow">→</span><span class="up">100</span></td></tr>
+          <tr><td class="tl">Handover <span class="dim">· 双臂Franka</span></td><td>5.0</td><td>3.3</td><td>2.7</td><td>80<span class="arrow">→</span><span class="up">90</span></td><td>70<span class="arrow">→</span><span class="up">90</span></td><td>56.7<span class="arrow">→</span><span class="up">90</span></td><td>30<span class="arrow">→</span><span class="up">90</span></td></tr>
+          <tr><td class="tl">Storage <span class="dim">· 双臂Franka</span></td><td>6.0</td><td>5.4</td><td>2.2</td><td>56.7<span class="arrow">→</span><span class="up">73.3</span></td><td>0<span class="arrow">→</span><span class="up">60</span></td><td>53.3<span class="arrow">→</span><span class="up">76.7</span></td><td>20<span class="arrow">→</span><span class="up">70</span></td></tr>
+          <tr><td class="tl">Tidy Home <span class="dim">· 移动Fetch</span></td><td>5.6</td><td>6.0</td><td>2.9</td><td>53.3<span class="arrow">→</span><span class="up">56.7</span></td><td>40<span class="arrow">→</span><span class="up">50</span></td><td>53.3<span class="arrow">→</span><span class="up">90</span></td><td>30<span class="arrow">→</span><span class="up">90</span></td></tr>
+          <tr><td class="tl">Cook Meal <span class="dim">· 移动Fetch</span></td><td>6.8</td><td>7.9</td><td>5.1</td><td>70<span class="arrow">→</span>70</td><td>50<span class="arrow">→</span><span class="up">60</span></td><td>73.3<span class="arrow">→</span><span class="up">100</span></td><td>60<span class="arrow">→</span><span class="up">100</span></td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td class="tl">Total / 平均</td><td>4.7</td><td>5.5</td><td>3.5</td><td>67.1<span class="arrow">→</span><span class="up">74.8</span></td><td>42.9<span class="arrow">→</span><span class="up">64.3</span></td><td>66.2<span class="arrow">→</span><span class="up">91.0</span></td><td>50<span class="arrow">→</span><span class="up">90.0</span></td></tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="note ok"><b>结论：</b>规划上下文反馈是关键。GPT-4o 的<strong>完备率 (CSR) 从 50% 跃升至 90%</strong>，在复杂的双臂/移动任务上提升最显著；且有反馈时 GPT-4o（90%）显著优于 GPT-3.5（≈60%），说明强模型更善于利用形式化规划器的符号反馈。</p></div>
+
+    <h3>② 论文表 2 · 底层策略采样（5 个典型动作 · SR / 10 次）</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="tl">动作模型</th><th>OpenVLA<br><span class="dim">端到端</span></th><th>VoxPoser<br><span class="dim">分层</span></th><th>ReKep<br><span class="dim">分层</span></th><th>Molmo+cuRobo<br><span class="dim">规则</span></th><th>APIs</th><th>+Contexts<br><span class="dim">本文</span></th></tr></thead>
+        <tbody>
+          <tr><td class="tl">Pick(obj)</td><td>4/10</td><td>4/10</td><td>6/10</td><td>5/10</td><td>6/10</td><td class="up">7/10</td></tr>
+          <tr><td class="tl">Place(obj,loc)</td><td>5/10</td><td>3/10</td><td>7/10</td><td>5/10</td><td>6/10</td><td class="up">8/10</td></tr>
+          <tr><td class="tl">Open(container)</td><td>1/10</td><td>1/10</td><td>1/10</td><td>3/10</td><td>1/10</td><td class="up">4/10</td></tr>
+          <tr><td class="tl">Close(container)</td><td>2/10</td><td>2/10</td><td>3/10</td><td>4/10</td><td>2/10</td><td class="up">5/10</td></tr>
+          <tr><td class="tl">Toggle(switch)</td><td>2/10</td><td>1/10</td><td>4/10</td><td>6/10</td><td>5/10</td><td class="up">7/10</td></tr>
+        </tbody>
+        <tfoot><tr><td class="tl">Total</td><td>28%</td><td>22%</td><td>42%</td><td>46%</td><td>40%</td><td class="up">62%</td></tr></tfoot>
+      </table>
+    </div>
+    <p style="font-size:13.5px;color:var(--ink2)">不同策略各有所长：ReKep / 规则法擅长抓取；Molmo+cuRobo 在 Open/Close/Toggle 更好（语义关键点能准确识别把手与铰链）。<strong>由 VLM 依执行上下文采样策略类型+超参（+Contexts）综合最优，总成功率 62%</strong>。</p>
+
+    <h3>③ 论文表 3 · 跨层精化（修正不一致动作模型 · 有无环境反馈）</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="tl">动作 · 缺陷类型</th><th>Textual<br>Baseline</th><th>w/o<br>Feedback</th><th>with<br>Feedback</th><th>Avg.FC</th></tr></thead>
+        <tbody>
+          <tr><td class="tl">PutIn · <span class="dim">Pre 缺 IsOpen(container)</span></td><td>10%</td><td>40%</td><td class="up">80%</td><td>1.1</td></tr>
+          <tr><td class="tl">Stack · <span class="dim">Pre 缺 Clear(objb)</span></td><td>20%</td><td>30%</td><td class="up">70%</td><td>2.1</td></tr>
+          <tr><td class="tl">Lift · <span class="dim">Pre 缺 Holding(r2)（双臂）</span></td><td>10%</td><td>80%</td><td class="up">90%</td><td>0.3</td></tr>
+          <tr><td class="tl">Pick · <span class="dim">Add 未验 InReach（运动学）</span></td><td>20%</td><td>50%</td><td class="up">90%</td><td>0.8</td></tr>
+          <tr><td class="tl">Put · <span class="dim">Del 残留 At(loc_old)</span></td><td>0%</td><td>20%</td><td class="up">40%</td><td>2.4</td></tr>
+        </tbody>
+        <tfoot><tr><td class="tl">Total</td><td>12%</td><td>44%</td><td class="up">74%</td><td>1.3</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="note warn"><b>洞察：</b>环境反馈让修正率从 12% → 74%。但对<strong>缺乏直接视觉对应物的抽象符号</strong>（如 Put 的符号目标位置）效果有限——只到 40%，因为 VLM 难从图像里"看"出纯符号约束。</div>
+
+    <h3>④ 仓库真实复现数据（GPT-4o · 10 次 · 时间戳 202511171622）</h3>
+    <p style="font-size:13.5px">这是从代码实际跑出、落盘在 <span class="fpath">a_exp1_llm_bt_results/summary_results_gpt-4o_*.csv</span> 的"无反馈 → 有反馈"全任务成功率，独立佐证了反馈的有效性。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th class="tl">task</th><th>全成功率(无反馈)</th><th>全成功率(有反馈)</th><th>展开节点(无→有)</th><th>平均反馈次数</th></tr></thead>
+        <tbody>
+          <tr><td class="tl">task1</td><td>100%</td><td class="up">100%</td><td>57.7 → 57.7</td><td>0.0</td></tr>
+          <tr><td class="tl">task2</td><td>70%</td><td>70%</td><td>587.6 <span class="up">→ 272.9</span></td><td>0.9</td></tr>
+          <tr><td class="tl">task3</td><td>20%</td><td class="up">60%</td><td>6.6 → 10.7</td><td>1.6</td></tr>
+          <tr><td class="tl">task4</td><td>30%</td><td class="up">80%</td><td>234.7 <span class="up">→ 213.4</span></td><td>1.5</td></tr>
+          <tr><td class="tl">task5</td><td>60%</td><td class="up">80%</td><td>67.3 <span class="up">→ 59.9</span></td><td>0.9</td></tr>
+          <tr><td class="tl">task6</td><td>40%</td><td class="up">80%</td><td>20.7 → 20.5</td><td>1.2</td></tr>
+          <tr><td class="tl">task7</td><td>60%</td><td class="up">70%</td><td>2039 <span class="up">→ 1622</span></td><td>1.0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px;color:var(--ink3)">↑ 复现数值与论文趋势完全吻合：反馈不仅显著拉高成功率（task3/4/6 翻倍级提升），还常常<strong>降低规划展开节点数</strong>（更紧凑的动作库）。所有实验在单张 NVIDIA RTX 4090 上完成。</p>
+  </div>
+</section>
+
+<!-- CODE MAPPING -->
+<section id="code">
+  <div class="wrap">
+    <div class="kicker">Paper ↔ Code</div>
+    <h2>论文方法 → 代码实现映射</h2>
+    <p class="lead">代码库实际包含两层：<strong>① AAAI 论文 CABTO 的可运行实现</strong>，和 <strong>② 一个更新的 "v15" 博士论文扩展骨架</strong>。下面只梳理与论文直接对应的部分。</p>
+
+    <div class="card" style="margin-top:18px;padding:8px 22px">
+      <div class="map-row">
+        <div class="mk">动作模型 h = ⟨pre,add,del⟩<small>OGAction / OGCondition 基类</small></div>
+        <div class="mv">LLM 生成的每个动作类继承 <span class="mono">OGAction</span>，在 <span class="mono">get_info()</span> 里声明 pre/add/del_set/cost——直接就是 STRIPS 动作模型。
+          <span class="fpath">exps_bt_learning/a_exp1_llm_bt_tasks/_base/OGAction.py</span></div>
+      </div>
+      <div class="map-row">
+        <div class="mk">阶段1 · 高层提议<small>H_E = LLM(P, H_P)</small></div>
+        <div class="mv">prompt 模板 + few-shot + BDDL 解析（objects/init/goal）喂给 GPT；正则抽取 ```python 代码块，按基类落盘到 exec_lib/Action 与 /Condition，再由 ExecBehaviorLibrary 动态 importlib 加载。
+          <span class="fpath">llm_generate_lib_func.py · prompt_generate_libs.txt · tools.py</span></div>
+      </div>
+      <div class="map-row">
+        <div class="mk">阶段1 · I_fail 反馈回灌<small>H′ = LLM(P, H_U, I_fail)</small></div>
+        <div class="mv"><span class="mono">build_feedback_prompt()</span> 把【不完整 BT 的 BTML 拓扑】+【展开节点数 expanded_num】+【已执行动作序列】拼成反馈，append 进多轮 messages 再次请求（max 3 轮）——与论文 I_fail 定义逐字对应。
+          <span class="fpath">a_exp1_llm_bt/1_main_cal_SR_models_feedback.py:184</span></div>
+      </div>
+      <div class="map-row">
+        <div class="mk">完备性检验<small>sound &amp; complete BT planning</small></div>
+        <div class="mv"><span class="mono">BTExpInterface</span> 用 OBTEA/HOBTEA 对每个任务尝试合成 BT；<span class="mono">post_process()</span> 返回 (BTML, cost, expanded_num)，<span class="mono">execute_bt()</span> 判 goal⊆state 是否达成。
+          <span class="fpath">btgym/algos/bt_planning/{OBTEA,HOBTEA,main_interface}.py · validate_bt_fun.py</span></div>
+      </div>
+      <div class="map-row">
+        <div class="mk">阶段2 · 底层策略组件<small>π = VLM(h, Π_P, I_e)</small></div>
+        <div class="mv">组件齐全：Molmo gRPC 客户端（取抓取点/关键点）、cuRobo IK（碰撞free 运动）、Franka 单/双臂仿真。<span class="hl">但"采样π→执行→一致性检查"的端到端主循环未在仓库串成单一脚本</span>。
+          <span class="fpath">btgym/molmo/molmo_client.py · btgym/utils/helper.py · dexrl/sim/scenarios/multi_franka_sim.py</span></div>
+      </div>
+      <div class="map-row">
+        <div class="mk">阶段3 · 跨层精化<small>h′ = VLM(h, {I_p}, {I_e}, …)</small></div>
+        <div class="mv">完整可跑：用 GPT-4o 多模态（传入场景图像 a_exp3_pic/），结合 BTML（规划上下文）+ 执行失败序列（执行上下文）改写 pre/add/del；含 5 个缺陷案例 + 真实结果 results.csv / summary.csv / 精化后落盘的动作类。
+          <span class="fpath">a_exp1_llm_bt/3_main_cal_SR_cross_feedback.py:369</span></div>
+      </div>
+    </div>
+
+    <h3>LLM 真实输出样例（双臂 · task3 try1）</h3>
+    <pre><span class="c"># exps_bt_learning/a_exp1_llm_bt_results/task3_try_1.../llm_output.txt</span>
+<span class="k">class</span> <span class="f">PickUpLeftFranka</span>(OGAction):
+    can_be_expanded = <span class="n">True</span>
+    num_args = <span class="n">1</span>
+    valid_args = [<span class="s">"left_lego"</span>, <span class="s">"box_board"</span>, <span class="s">"center_big_box"</span>]
+
+    <span class="k">@classmethod</span>
+    <span class="k">def</span> <span class="f">get_info</span>(cls, *arg):
+        info = {}
+        info[<span class="s">"pre"</span>]     = {<span class="s">f"IsHandEmpty(left_franka)"</span>, <span class="s">f"On({arg[0]},left_table)"</span>}
+        info[<span class="s">"add"</span>]     = {<span class="s">f"Holding(left_franka,{arg[0]})"</span>}
+        info[<span class="s">"del_set"</span>] = {<span class="s">f"IsHandEmpty(left_franka)"</span>, <span class="s">f"On({arg[0]},left_table)"</span>}
+        info[<span class="s">"cost"</span>]    = <span class="n">1</span>
+        <span class="k">return</span> info</pre>
+    <p class="codecap">// LLM 直接产出符合 STRIPS 规范的可执行 Python 动作模型，左右臂分别建模——对应论文双臂平台</p>
+  </div>
+</section>
+
+<!-- GAP ANALYSIS -->
+<section id="gap">
+  <div class="wrap">
+    <div class="kicker">Consistency Check</div>
+    <h2>代码与论文：一致点 &amp; 差异点</h2>
+
+    <div class="grid g2">
+      <div class="card" style="border-color:rgba(70,211,105,.3)">
+        <h4 style="color:var(--good)">✓ 高度一致</h4>
+        <ul class="clean" style="margin:6px 0 0">
+          <li><b>STRIPS 动作模型 + 可靠完备 BT 回归扩展</b>：Action.py 的 state_transition + OBTEA/HOBTEA 最优扩展，就是 Φ=⟨C,A⟩ 与 BT planning 的实现。</li>
+          <li><b>阶段1（提议+I_fail 反馈）</b>：有真实 GPT-3.5/GPT-4o、有无反馈对比 CSV，对应论文表1。</li>
+          <li><b>阶段3（跨层精化）</b>：VLM+图像+规划/执行上下文修正 pre/add/del，有真实结果，对应论文表3。</li>
+          <li><b>平台与底层组件</b>：单/双臂 Franka 仿真、Molmo、cuRobo 都真实存在。</li>
+        </ul>
+      </div>
+      <div class="card" style="border-color:rgba(255,180,84,.3)">
+        <h4 style="color:var(--amber)">△ 差异 / 缺口</h4>
+        <ul class="clean" style="margin:6px 0 0">
+          <li><b>README 略有出入</b>：验证脚本实际默认 <span class="mono">obtea</span>（非 HOBTEA）；主仿真是 Franka（dexrl），OmniGibson/Tiago 未与实验主循环完全打通。</li>
+          <li><b>阶段2 无端到端主循环</b>：Molmo/cuRobo/IK 都是独立积木，缺少把它们拼成"策略采样+一致性验证"的统一脚本。</li>
+          <li><b>表2 的 baseline 缺失</b>：OpenVLA/VoxPoser/ReKep 在仓库中无可跑实现；ASR/CSR/FC 没有专门指标实现（用 success_rate/feedback_times 近似）。</li>
+          <li><b>"v15" 是论文之外的扩展层</b>：baselines/atoms（4 原子约束）、eval_v15（SR/CR/slope_k、定理1）、docs/*_v15 是博士论文规划与骨架（多为 TODO 与合成数据演示），不应当作 AAAI 论文已完成实验。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="note info" style="margin-top:20px">
+      <b>怎么读这个仓库？</b> 想复现论文 → 看 <span class="mono">exps_bt_learning/</span>（阶段1 & 3 可直接跑）+ <span class="mono">btgym/algos/bt_planning/</span>（规划引擎）。想理解底层执行 → 看 <span class="mono">btgym/molmo</span> + <span class="mono">btgym/utils/helper.py</span>(cuRobo) + <span class="mono">dexrl/sim</span>。想看后续研究方向 → 看 <span class="mono">docs/*_v15.html</span> 与 <span class="mono">baselines/atoms</span>（与本论文无关）。
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <p><b>CABTO: Context-Aware Behavior Tree Grounding for Robot Manipulation</b> · AAAI 2026 · arXiv:2603.16809v1</p>
+    <p>本页是基于论文全文 (9 页) 与代码库 <span class="mono">/Users/yishuaicai/mywork/CABTO</span> 的理解性整理：左栏论文方法，右栏代码实现，表格中"仓库真实复现数据"取自实际落盘的实验 CSV。仅作研究理解用途。</p>
+  </div>
+</footer>
+
+</body>
+</html>

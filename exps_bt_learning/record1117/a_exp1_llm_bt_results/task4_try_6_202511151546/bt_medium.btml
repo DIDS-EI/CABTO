@@ -1,4 +1,0 @@
-selector
-    sequence
-        cond On(right_box,left_table)
-        cond On(left_box2,right_table)

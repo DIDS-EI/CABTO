@@ -1,6 +1,0 @@
-selector
-    cond On(a,place_a)
-    sequence
-        cond On(a,table)
-        cond IsHandEmpty()
-        act PutAOnB(a,place_a)

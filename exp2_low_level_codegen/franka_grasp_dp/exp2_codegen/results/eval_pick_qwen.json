@@ -1,0 +1,532 @@
+{
+  "summary": {
+    "backend": "qwen",
+    "n_succ": 12,
+    "n_total": 20,
+    "success_rate": 0.6,
+    "px_err_median": 18.0,
+    "px_err_mean": 24.2
+  },
+  "results": [
+    {
+      "obj": "dice_cube",
+      "seed": 0,
+      "success": false,
+      "px_err": {
+        "overview": 16.6,
+        "front": 17.9
+      },
+      "target_px": {
+        "overview": [
+          232.0,
+          282.0
+        ],
+        "front": [
+          188.0,
+          271.0
+        ]
+      },
+      "triangulated": [
+        0.5712741840855735,
+        -0.09741128088493106,
+        0.3972591750543133
+      ],
+      "cross_view_disagreement": 0.019683035164716353,
+      "error": null
+    },
+    {
+      "obj": "dice_cube",
+      "seed": 1,
+      "success": true,
+      "px_err": {
+        "overview": 8.0,
+        "front": 8.1
+      },
+      "target_px": {
+        "overview": [
+          288.0,
+          237.0
+        ],
+        "front": [
+          338.0,
+          252.0
+        ]
+      },
+      "triangulated": [
+        0.5418990258153915,
+        0.11817509072939496,
+        0.42889008795208156
+      ],
+      "cross_view_disagreement": 0.07996091678797936,
+      "error": null
+    },
+    {
+      "obj": "dice_cube",
+      "seed": 2,
+      "success": true,
+      "px_err": {
+        "overview": 19.8,
+        "front": 23.8
+      },
+      "target_px": {
+        "overview": [
+          222.0,
+          278.0
+        ],
+        "front": [
+          208.0,
+          221.0
+        ]
+      },
+      "triangulated": [
+        0.4917520985933459,
+        -0.07719035228122767,
+        0.3996808636037895
+      ],
+      "cross_view_disagreement": 0.08088583730435416,
+      "error": null
+    },
+    {
+      "obj": "dice_cube",
+      "seed": 3,
+      "success": true,
+      "px_err": {
+        "overview": 15.2,
+        "front": 16.9
+      },
+      "target_px": {
+        "overview": [
+          208.0,
+          271.0
+        ],
+        "front": [
+          192.0,
+          220.0
+        ]
+      },
+      "triangulated": [
+        0.4684171117174086,
+        -0.10129214242091017,
+        0.40331242203080103
+      ],
+      "cross_view_disagreement": 0.03327269695298452,
+      "error": null
+    },
+    {
+      "obj": "wood_block",
+      "seed": 0,
+      "success": false,
+      "px_err": {
+        "overview": 17.6,
+        "front": 3.2
+      },
+      "target_px": {
+        "overview": [
+          232.0,
+          282.0
+        ],
+        "front": [
+          201.0,
+          268.0
+        ]
+      },
+      "triangulated": [
+        0.5480438582448246,
+        -0.08111150348155557,
+        0.3837080093540527
+      ],
+      "cross_view_disagreement": 0.034460742817067076,
+      "error": null
+    },
+    {
+      "obj": "wood_block",
+      "seed": 1,
+      "success": false,
+      "px_err": {
+        "overview": 2.3,
+        "front": 16.9
+      },
+      "target_px": {
+        "overview": [
+          288.0,
+          232.0
+        ],
+        "front": [
+          338.0,
+          248.0
+        ]
+      },
+      "triangulated": [
+        0.5446377373079713,
+        0.11698475372819286,
+        0.4415030149935366
+      ],
+      "cross_view_disagreement": 0.10910579760449497,
+      "error": null
+    },
+    {
+      "obj": "wood_block",
+      "seed": 2,
+      "success": true,
+      "px_err": {
+        "overview": 33.1,
+        "front": 23.0
+      },
+      "target_px": {
+        "overview": [
+          232.0,
+          225.0
+        ],
+        "front": [
+          218.0,
+          222.0
+        ]
+      },
+      "triangulated": [
+        0.5334090136222402,
+        -0.05358764565367139,
+        0.4933750314996195
+      ],
+      "cross_view_disagreement": 0.22933679825004888,
+      "error": null
+    },
+    {
+      "obj": "wood_block",
+      "seed": 3,
+      "success": true,
+      "px_err": {
+        "overview": 9.1,
+        "front": 14.3
+      },
+      "target_px": {
+        "overview": [
+          218.0,
+          248.0
+        ],
+        "front": [
+          201.0,
+          221.0
+        ]
+      },
+      "triangulated": [
+        0.49785478842741465,
+        -0.08145241807817608,
+        0.4478757544568754
+      ],
+      "cross_view_disagreement": 0.0038761037455672686,
+      "error": null
+    },
+    {
+      "obj": "soda_can",
+      "seed": 0,
+      "success": true,
+      "px_err": {
+        "overview": 22.1,
+        "front": 21.2
+      },
+      "target_px": {
+        "overview": [
+          232.0,
+          282.0
+        ],
+        "front": [
+          192.0,
+          271.0
+        ]
+      },
+      "triangulated": [
+        0.5645665338448085,
+        -0.09247125507138487,
+        0.39256873656764496
+      ],
+      "cross_view_disagreement": 0.020898595161200247,
+      "error": null
+    },
+    {
+      "obj": "soda_can",
+      "seed": 1,
+      "success": false,
+      "px_err": {
+        "overview": 20.7,
+        "front": 11.1
+      },
+      "target_px": {
+        "overview": [
+          290.0,
+          258.0
+        ],
+        "front": [
+          348.0,
+          268.0
+        ]
+      },
+      "triangulated": [
+        0.5188673815032243,
+        0.13998661363195442,
+        0.3659890624090452
+      ],
+      "cross_view_disagreement": 0.04849356464399258,
+      "error": null
+    },
+    {
+      "obj": "soda_can",
+      "seed": 2,
+      "success": true,
+      "px_err": {
+        "overview": 18.1,
+        "front": 24.4
+      },
+      "target_px": {
+        "overview": [
+          228.0,
+          276.0
+        ],
+        "front": [
+          202.0,
+          221.0
+        ]
+      },
+      "triangulated": [
+        0.5261652900369882,
+        -0.08285971195156928,
+        0.4212125503415396
+      ],
+      "cross_view_disagreement": 0.05655359230660318,
+      "error": null
+    },
+    {
+      "obj": "soda_can",
+      "seed": 3,
+      "success": false,
+      "px_err": {
+        "overview": 52.4,
+        "front": 24.4
+      },
+      "target_px": {
+        "overview": [
+          262.0,
+          275.0
+        ],
+        "front": [
+          182.0,
+          212.0
+        ]
+      },
+      "triangulated": [
+        0.6747261339917383,
+        -0.09576415101777086,
+        0.5070501470961196
+      ],
+      "cross_view_disagreement": 0.24088610127899446,
+      "error": null
+    },
+    {
+      "obj": "tea_tin",
+      "seed": 0,
+      "success": true,
+      "px_err": {
+        "overview": 94.0,
+        "front": 147.7
+      },
+      "target_px": {
+        "overview": [
+          232.0,
+          282.0
+        ],
+        "front": [
+          182.0,
+          268.0
+        ]
+      },
+      "triangulated": [
+        0.5801496573204533,
+        -0.10472697987144236,
+        0.4060512466866311
+      ],
+      "cross_view_disagreement": 0.0405456158627934,
+      "error": null
+    },
+    {
+      "obj": "tea_tin",
+      "seed": 1,
+      "success": true,
+      "px_err": {
+        "overview": 12.4,
+        "front": 8.4
+      },
+      "target_px": {
+        "overview": [
+          290.0,
+          238.0
+        ],
+        "front": [
+          348.0,
+          262.0
+        ]
+      },
+      "triangulated": [
+        0.5352506913794147,
+        0.13425741590619916,
+        0.413245979816142
+      ],
+      "cross_view_disagreement": 0.028484131672732557,
+      "error": null
+    },
+    {
+      "obj": "tea_tin",
+      "seed": 2,
+      "success": false,
+      "px_err": {
+        "overview": 21.2,
+        "front": 23.9
+      },
+      "target_px": {
+        "overview": [
+          222.0,
+          275.0
+        ],
+        "front": [
+          228.0,
+          218.0
+        ]
+      },
+      "triangulated": [
+        0.452468600160977,
+        -0.04862499282518154,
+        0.38189655123995375
+      ],
+      "cross_view_disagreement": 0.07883870570356465,
+      "error": null
+    },
+    {
+      "obj": "tea_tin",
+      "seed": 3,
+      "success": false,
+      "px_err": {
+        "overview": 52.9,
+        "front": 30.5
+      },
+      "target_px": {
+        "overview": [
+          262.0,
+          275.0
+        ],
+        "front": [
+          171.0,
+          218.0
+        ]
+      },
+      "triangulated": [
+        0.6879069743343482,
+        -0.10623799097414824,
+        0.5112981703103099
+      ],
+      "cross_view_disagreement": 0.2300432855721279,
+      "error": null
+    },
+    {
+      "obj": "rubber_ball",
+      "seed": 0,
+      "success": true,
+      "px_err": {
+        "overview": 23.4,
+        "front": 9.7
+      },
+      "target_px": {
+        "overview": [
+          233.0,
+          290.0
+        ],
+        "front": [
+          197.0,
+          278.0
+        ]
+      },
+      "triangulated": [
+        0.5580092199345814,
+        -0.08696524824242108,
+        0.3696765528732661
+      ],
+      "cross_view_disagreement": 0.06522554071156028,
+      "error": null
+    },
+    {
+      "obj": "rubber_ball",
+      "seed": 1,
+      "success": true,
+      "px_err": {
+        "overview": 10.6,
+        "front": 13.4
+      },
+      "target_px": {
+        "overview": [
+          292.0,
+          236.0
+        ],
+        "front": [
+          348.0,
+          271.0
+        ]
+      },
+      "triangulated": [
+        0.552043331935451,
+        0.13115893549609167,
+        0.41854597895099593
+      ],
+      "cross_view_disagreement": 0.014671383032011922,
+      "error": null
+    },
+    {
+      "obj": "rubber_ball",
+      "seed": 2,
+      "success": true,
+      "px_err": {
+        "overview": 21.5,
+        "front": 16.6
+      },
+      "target_px": {
+        "overview": [
+          222.0,
+          278.0
+        ],
+        "front": [
+          202.0,
+          258.0
+        ]
+      },
+      "triangulated": [
+        0.5082695748035763,
+        -0.08264425806923603,
+        0.37678533339622594
+      ],
+      "cross_view_disagreement": 0.05070916368021251,
+      "error": null
+    },
+    {
+      "obj": "rubber_ball",
+      "seed": 3,
+      "success": false,
+      "px_err": {
+        "overview": 32.2,
+        "front": 11.1
+      },
+      "target_px": {
+        "overview": [
+          238.0,
+          276.0
+        ],
+        "front": [
+          192.0,
+          222.0
+        ]
+      },
+      "triangulated": [
+        0.5795197798348504,
+        -0.09197810895906541,
+        0.4492532715898924
+      ],
+      "cross_view_disagreement": 0.08398090793024318,
+      "error": null
+    }
+  ]
+}

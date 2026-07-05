@@ -1,4 +1,0 @@
-﻿task_name,try_idx,difficulty,goal,success,expanded_num,act_num,action_lib_num,condition_lib_num,feedback_times,is_after_feedback,error
-task3,1,easy,"In(left_lego,center_big_box)",False,1,0,4,5,0,False,
-task3,1,medium,"In(right_lego,center_big_box)",False,1,0,4,5,0,False,
-task3,1,hard,"On(center_big_box,box_board)",False,9,0,4,5,0,False,

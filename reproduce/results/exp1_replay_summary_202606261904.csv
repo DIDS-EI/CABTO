@@ -1,0 +1,9 @@
+task,name,easy_SR,medium_SR,hard_SR,all_SR,n_try
+task1,Cover,100.0,100.0,100.0,100.0,10
+task2,Blocks,80.0,80.0,80.0,80.0,10
+task3,Clean,40.0,30.0,50.0,40.0,10
+task4,Handover,60.0,50.0,30.0,46.7,10
+task5,Pour,60.0,60.0,60.0,60.0,10
+task6,HomeRearrangement,40.0,40.0,50.0,43.3,10
+task7,MealPreparation,70.0,80.0,80.0,76.7,10
+ALL,Overall,64.3,62.9,64.3,63.8,10
