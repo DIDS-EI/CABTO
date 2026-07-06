@@ -4,7 +4,7 @@
 
 ### Context-Aware Behavior Tree Grounding for Robot Manipulation
 
-**AAAI 2026** &nbsp;·&nbsp; [📄 Paper (PDF)](https://arxiv.org/abs/2603.16809) &nbsp;·&nbsp; [🌐 Project Page](#)
+**AAAI 2026** &nbsp;·&nbsp; [📄 Paper (PDF)](https://arxiv.org/abs/2603.16809) &nbsp;·&nbsp; [🌐 Project Page](https://dids-ei.github.io/Project/CABTO/)
 
 ![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
 ![MuJoCo](https://img.shields.io/badge/MuJoCo-3.10-000000?logo=mujoco&logoColor=white)
