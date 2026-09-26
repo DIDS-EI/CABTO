@@ -1,0 +1,146 @@
+{
+  "task": "blocks",
+  "scene": null,
+  "seed": 0,
+  "program_source": "verbatim_previously_model_generated_programs",
+  "program_archive": "../tasks/blocks/generated_bt/generated_programs.json",
+  "program_sha256": {
+    "pick": "3f9d78d2a0f01f67c6f6c36cb0f91709a60331ffa59bf48c839dd8a6dafe7d8b",
+    "place": "329e9ad8afc14fa76e08d7794e9c96a224634a46eccd4219bb2742e3abc5b42d"
+  },
+  "binding": "trusted_task_local_atomic_physical_adapter",
+  "formal_bt": true,
+  "oracle": true,
+  "success": true,
+  "steps": [
+    {
+      "step": 0,
+      "action": "pick(object=yellow,support=green)",
+      "before": [
+        "at_source(red)",
+        "at_source(yellow)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(red)",
+        "holding(yellow)"
+      ],
+      "effect_ok": true,
+      "source": "def policy(api):\n    api.locate(\"green_block\")\n    api.approach(api.locate(\"green_block\")[0:3])\n    api.align_xy(api.locate(\"green_block\")[0:3])\n    api.descend_to(api.locate(\"green_block\")[2], api.locate(\"green_block\")[0:2])\n    api.grasp(api.locate(\"green_block\")[0:2])\n    api.record_grab_offset(\"green_block\")\n    api.lift()"
+    },
+    {
+      "step": 1,
+      "action": "place(object=yellow,support=green)",
+      "before": [
+        "at_source(red)",
+        "holding(yellow)"
+      ],
+      "after": [
+        "at_source(red)",
+        "at_target(yellow)",
+        "empty()"
+      ],
+      "effect_ok": true,
+      "source": "def policy(api):\n    pose = api.target_pose()\n    top_z = pose[2]\n    xyz = pose[:2]\n    tcp_xy = api.move_above(xyz)\n    if api.refine_above(tcp_xy) is not None:\n        tcp_xy = api.refine_above(tcp_xy)\n    api.descend_place(top_z, tcp_xy)\n    api.place_release()\n    api.retreat()\n    api.settle()"
+    },
+    {
+      "step": 2,
+      "action": "pick(object=red,support=blue)",
+      "before": [
+        "at_source(red)",
+        "at_target(yellow)",
+        "empty()"
+      ],
+      "after": [
+        "at_target(yellow)",
+        "holding(red)"
+      ],
+      "effect_ok": true,
+      "source": "def policy(api):\n    api.locate(\"green_block\")\n    api.approach(api.locate(\"green_block\")[0:3])\n    api.align_xy(api.locate(\"green_block\")[0:3])\n    api.descend_to(api.locate(\"green_block\")[2], api.locate(\"green_block\")[0:2])\n    api.grasp(api.locate(\"green_block\")[0:2])\n    api.record_grab_offset(\"green_block\")\n    api.lift()"
+    },
+    {
+      "step": 3,
+      "action": "place(object=red,support=blue)",
+      "before": [
+        "at_target(yellow)",
+        "holding(red)"
+      ],
+      "after": [
+        "at_target(red)",
+        "at_target(yellow)",
+        "empty()"
+      ],
+      "effect_ok": true,
+      "source": "def policy(api):\n    pose = api.target_pose()\n    top_z = pose[2]\n    xyz = pose[:2]\n    tcp_xy = api.move_above(xyz)\n    if api.refine_above(tcp_xy) is not None:\n        tcp_xy = api.refine_above(tcp_xy)\n    api.descend_place(top_z, tcp_xy)\n    api.place_release()\n    api.retreat()\n    api.settle()"
+    },
+    {
+      "step": 4,
+      "action": "home()",
+      "before": [
+        "at_target(red)",
+        "at_target(yellow)",
+        "empty()"
+      ],
+      "after": [
+        "at_target(red)",
+        "at_target(yellow)",
+        "empty()",
+        "home_completed()"
+      ],
+      "effect_ok": true,
+      "source": "api.home()"
+    }
+  ],
+  "objects": {
+    "yellow": {
+      "ok": true,
+      "xy_error_m": 3.410009639699819e-05,
+      "gap_m": -9.586606263170538e-06,
+      "tilt_deg": 3.872218816250528e-05,
+      "support_contact": true,
+      "support_upright": true,
+      "base_displacement_m": 4.79253971786815e-06,
+      "origin": [
+        0.5699761071884885,
+        0.1499756643079681,
+        0.4659808268047484
+      ]
+    },
+    "red": {
+      "ok": true,
+      "xy_error_m": 9.49273940747961e-05,
+      "gap_m": -9.586722983248586e-06,
+      "tilt_deg": 0.00010795426749913553,
+      "support_contact": true,
+      "support_upright": true,
+      "base_displacement_m": 4.792571782702231e-06,
+      "origin": [
+        0.5699065655154794,
+        -0.14998313023733273,
+        0.4659808266880388
+      ]
+    }
+  },
+  "released": true,
+  "hand_clearance_m": {
+    "yellow": 0.5187706960047935,
+    "red": 0.5187376086246182
+  },
+  "final_home": true,
+  "home_error_rad": 3.419192881234287e-09,
+  "completed_targets_preserved": true,
+  "forbidden_contacts": [],
+  "max_grasp_relative_slip_m": 0.003313369429922768,
+  "max_bilateral_contact_gap_s": 0.004,
+  "strict_weld_violation": false,
+  "grasp_verified": true,
+  "motion_verified": true,
+  "bt_status": "success",
+  "final_state": [
+    "at_target(red)",
+    "at_target(yellow)",
+    "empty()",
+    "home_completed()"
+  ],
+  "config_sha256": "36646f9fb3963c5e77da98a989cb7da31e5f50d386873e2602a0c582b775a8d2"
+}

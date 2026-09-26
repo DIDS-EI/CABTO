@@ -1,0 +1,47 @@
+{
+  "task": "dual_lift_shelf_storage_v3",
+  "box_physics": {
+    "wall_and_floor_thickness_mm": 8.0,
+    "flap_full_size_mm": [
+      56.0,
+      120.0,
+      5.0
+    ],
+    "flap_angle_deg": 35.0,
+    "flaps_are_collision_geoms": true,
+    "hinge_connectors_are_collision_geoms": true,
+    "flaps_fixed_to_same_rigid_body": true,
+    "tray_mass_kg": 0.8
+  },
+  "initial_bricks": {
+    "item0_xy": [
+      0.235,
+      0.205
+    ],
+    "item0_yaw_deg": 24.0,
+    "item1_xy": [
+      0.335,
+      -0.225
+    ],
+    "item1_yaw_deg": -31.0,
+    "layout_jitter_mm": 3.0
+  },
+  "episodes": 3,
+  "success_count": 3,
+  "all_success": true,
+  "all_effects_passed": true,
+  "all_stable": true,
+  "all_initial_penetrations_zero": true,
+  "all_items_contained": true,
+  "all_shelf_contact": true,
+  "max_shelf_xy_error_mm": 1.2723716579119142,
+  "max_shelf_height_error_mm": 0.08710638324005426,
+  "all_prepark_vertical_clearance": true,
+  "object_snap": false,
+  "arm_rehome": false,
+  "grasp": "item grasp-weld assisted; geometry-checked dual tray weld assistance",
+  "cooperative_program_source": "new backend-generated programs tested on v3 physical geometry, then fixed replay",
+  "cooperative_programs_all_first_attempt": true,
+  "source_hashes_match": true,
+  "video": "final_replay/seed0/rollout.mp4"
+}

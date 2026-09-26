@@ -1,0 +1,24 @@
+{
+  "success_count": 5,
+  "episodes": 5,
+  "total_boxes_on_table_initially": 3,
+  "task_boxes": 1,
+  "fixed_display_boxes": 2,
+  "removed_screen_positions": [
+    "lower_left",
+    "upper_right"
+  ],
+  "video_overlay_annotations": false,
+  "video_fps": 30,
+  "video_frames": 1261,
+  "simulation_seconds": 42.17600000000558,
+  "all_collision_free": true,
+  "all_handover_verified": true,
+  "all_support_contact": true,
+  "all_released": true,
+  "all_home": true,
+  "max_xy_error_mm": 0.5218606518693584,
+  "mode": "direct_box_face_contact_gated_weld_assisted",
+  "object_snap": false,
+  "source_hashes_match_current": true
+}

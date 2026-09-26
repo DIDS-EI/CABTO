@@ -1,0 +1,104 @@
+{
+  "version": "cover_kitchen_sort_v2",
+  "task": "cover",
+  "specification": "On a longer kitchen worktop, the upright bowl, chopping board, and pan form the back row. Shrimp, apple, and potato form the front row. Place shrimp into the bowl, apple onto the chopping board, and potato into the pan; release every object, withdraw, and return the arm to HOME.",
+  "robot_base": [
+    0.0,
+    0.0,
+    0.4
+  ],
+  "table_center": [
+    0.47,
+    0.0,
+    0.375
+  ],
+  "table_half_size": [
+    0.46,
+    0.36,
+    0.025
+  ],
+  "table_top": 0.4,
+  "support_row_y": 0.16,
+  "item_row_y": -0.19,
+  "supports": {
+    "bowl": [
+      0.31,
+      0.16
+    ],
+    "board": [
+      0.49,
+      0.16
+    ],
+    "pan": [
+      0.67,
+      0.16
+    ]
+  },
+  "items": {
+    "shrimp": [
+      0.31,
+      -0.19
+    ],
+    "apple": [
+      0.49,
+      -0.19
+    ],
+    "potato": [
+      0.67,
+      -0.19
+    ]
+  },
+  "pairs": [
+    [
+      "shrimp",
+      "bowl"
+    ],
+    [
+      "apple",
+      "board"
+    ],
+    [
+      "potato",
+      "pan"
+    ]
+  ],
+  "grip_offset_z": {
+    "shrimp": 0.011,
+    "apple": 0.002,
+    "potato": 0.003
+  },
+  "placement_origin_z": {
+    "shrimp": 0.016,
+    "apple": 0.047,
+    "potato": 0.03
+  },
+  "target_xy_tolerance_m": {
+    "shrimp": 0.025,
+    "apple": 0.03,
+    "potato": 0.025
+  },
+  "support_surface_z": {
+    "bowl": 0.008,
+    "board": 0.024,
+    "pan": 0.01
+  },
+  "support_surface_geom": {
+    "bowl": "bowl_floor",
+    "board": "board_top",
+    "pan": "pan_floor"
+  },
+  "jitter_m": 0.002,
+  "control": {
+    "dt": 0.002,
+    "sample_steps": 10,
+    "cartesian_speed_m_s": 0.15,
+    "lower_speed_m_s": 0.06,
+    "lift_speed_m_s": 0.1,
+    "joint_speed_rad_s": 0.8,
+    "transport_z": 0.66,
+    "settle_seconds": 0.3,
+    "gravity_compensation": true,
+    "grasp_mode": "strict",
+    "stable_seconds": 1.0
+  }
+}

@@ -1,0 +1,2492 @@
+{
+  "task": "cover_three_pairs_smooth_complete",
+  "perception": "oracle",
+  "control": "weld_assisted",
+  "arm_rehome": "controlled_actuator_interpolation",
+  "instant_rehome": false,
+  "object_snap": false,
+  "model_source": "local_qwen_vl",
+  "symbolic_models": "fixed_STRIPS_six_grounded_actions",
+  "samples": [
+    {
+      "success": true,
+      "action_model": {
+        "name": "pick_lid",
+        "args": {
+          "lid": "lid_g",
+          "base": "base_g"
+        },
+        "pre": [
+          "hand_empty()",
+          "at_source(lid_g)"
+        ],
+        "add": [
+          "holding(lid_g)"
+        ],
+        "del": [
+          "hand_empty()",
+          "at_source(lid_g)"
+        ],
+        "description": "Write one call to api.pick_lid_complete(). It performs the calibrated pick transition and finishes holding the lid."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nWrite one call to api.pick_lid_complete(). It performs the calibrated pick transition and finishes holding the lid.\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.pick_lid_complete(): zero arguments. It performs controlled HOME, approach, alignment, descent, grasp, lift, and offset measurement in the required order. Call exactly once.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    pose = api.pick_lid_complete()\n    return pose\n```",
+          "source": "def policy(api):\n    pose = api.pick_lid_complete()\n    return pose",
+          "sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "before": [
+              "at_source(lid_b)",
+              "at_source(lid_g)",
+              "at_source(lid_r)",
+              "clear(base_b)",
+              "clear(base_g)",
+              "clear(base_r)",
+              "hand_empty()"
+            ],
+            "after": [
+              "at_source(lid_b)",
+              "at_source(lid_r)",
+              "clear(base_b)",
+              "clear(base_g)",
+              "clear(base_r)",
+              "holding(lid_g)"
+            ],
+            "trace": [
+              {
+                "method": "pick_lid_complete",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "exception": null,
+            "diagnostics": {
+              "missing_pre": [],
+              "missing_add": [],
+              "remaining_del": [],
+              "missing_preserved_pre": [],
+              "required_transition_order": [
+                "pick_lid_complete"
+              ],
+              "missing_transition_calls": [],
+              "transition_order_ok": true,
+              "closed_command_issued": true,
+              "lift_command_issued": true,
+              "gripper_width_m": 0.03188109397820235,
+              "observed_missing_commands": [
+                "lift"
+              ]
+            },
+            "geometry": {
+              "g": {
+                "xy_m": 0.04074826104755151,
+                "gap_m": 0.2085962916269501,
+                "tilt_deg": 2.292303653639136,
+                "covered": false
+              },
+              "r": {
+                "xy_m": 0.09000003457096027,
+                "gap_m": -0.04008850097462602,
+                "tilt_deg": 0.0006135437455452701,
+                "covered": false
+              },
+              "b": {
+                "xy_m": 0.08999998371571687,
+                "gap_m": -0.04008760418440649,
+                "tilt_deg": 0.00031211353569198045,
+                "covered": false
+              }
+            },
+            "model": {
+              "name": "pick_lid",
+              "args": {
+                "lid": "lid_g",
+                "base": "base_g"
+              },
+              "pre": [
+                "hand_empty()",
+                "at_source(lid_g)"
+              ],
+              "add": [
+                "holding(lid_g)"
+              ],
+              "del": [
+                "hand_empty()",
+                "at_source(lid_g)"
+              ],
+              "description": "Write one call to api.pick_lid_complete(). It performs the calibrated pick transition and finishes holding the lid."
+            },
+            "code_sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676"
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "kind": "pick_lid",
+      "api_docs": {
+        "pick_lid_complete": "api.pick_lid_complete(): zero arguments. It performs controlled HOME, approach, alignment, descent, grasp, lift, and offset measurement in the required order. Call exactly once."
+      }
+    },
+    {
+      "success": true,
+      "action_model": {
+        "name": "place_lid",
+        "args": {
+          "lid": "lid_g",
+          "base": "base_g"
+        },
+        "pre": [
+          "holding(lid_g)",
+          "clear(base_g)"
+        ],
+        "add": [
+          "covered(lid_g,base_g)",
+          "hand_empty()"
+        ],
+        "del": [
+          "holding(lid_g)",
+          "clear(base_g)"
+        ],
+        "description": "Write one call to api.place_lid_complete(). It performs calibrated lowering, release, retreat, and settle; finish empty and withdrawn."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nWrite one call to api.place_lid_complete(). It performs calibrated lowering, release, retreat, and settle; finish empty and withdrawn.\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.place_lid_complete(): zero arguments. It moves above the matching base, aligns, lowers, releases, retreats, and settles in the required order. Call exactly once.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    pose = api.place_lid_complete()\n```",
+          "source": "def policy(api):\n    pose = api.place_lid_complete()",
+          "sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "before": [
+              "at_source(lid_b)",
+              "at_source(lid_r)",
+              "clear(base_b)",
+              "clear(base_g)",
+              "clear(base_r)",
+              "holding(lid_g)"
+            ],
+            "after": [
+              "at_source(lid_b)",
+              "at_source(lid_r)",
+              "clear(base_b)",
+              "clear(base_r)",
+              "covered(lid_g,base_g)",
+              "hand_empty()"
+            ],
+            "trace": [
+              {
+                "method": "place_lid_complete",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "exception": null,
+            "diagnostics": {
+              "missing_pre": [],
+              "missing_add": [],
+              "remaining_del": [],
+              "missing_preserved_pre": [],
+              "required_transition_order": [
+                "place_lid_complete"
+              ],
+              "missing_transition_calls": [],
+              "transition_order_ok": true
+            },
+            "geometry": {
+              "g": {
+                "xy_m": 0.0025028249015877873,
+                "gap_m": -8.686562243404028e-05,
+                "tilt_deg": 0.0005670149838932656,
+                "covered": true
+              },
+              "r": {
+                "xy_m": 0.08999996810165548,
+                "gap_m": -0.040088509583529386,
+                "tilt_deg": 0.00037999641738563583,
+                "covered": false
+              },
+              "b": {
+                "xy_m": 0.08999987634080195,
+                "gap_m": -0.0400875669386605,
+                "tilt_deg": 0.001297071008092161,
+                "covered": false
+              }
+            },
+            "model": {
+              "name": "place_lid",
+              "args": {
+                "lid": "lid_g",
+                "base": "base_g"
+              },
+              "pre": [
+                "holding(lid_g)",
+                "clear(base_g)"
+              ],
+              "add": [
+                "covered(lid_g,base_g)",
+                "hand_empty()"
+              ],
+              "del": [
+                "holding(lid_g)",
+                "clear(base_g)"
+              ],
+              "description": "Write one call to api.place_lid_complete(). It performs calibrated lowering, release, retreat, and settle; finish empty and withdrawn."
+            },
+            "code_sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "kind": "place_lid",
+      "api_docs": {
+        "place_lid_complete": "api.place_lid_complete(): zero arguments. It moves above the matching base, aligns, lowers, releases, retreats, and settles in the required order. Call exactly once."
+      }
+    }
+  ],
+  "episodes": [
+    {
+      "seed": 0,
+      "steps": [
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_b)",
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_b)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "hand_empty()"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_b)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "holding(lid_b)"
+          ],
+          "trace": [
+            {
+              "method": "pick_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "pick_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true,
+            "closed_command_issued": true,
+            "lift_command_issued": true,
+            "gripper_width_m": 0.032001150591725716,
+            "observed_missing_commands": [
+              "lift"
+            ]
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.0899996876741507,
+              "gap_m": -0.040089290519487286,
+              "tilt_deg": 0.0015905626591811361,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.0900000057182845,
+              "gap_m": -0.04008850643539413,
+              "tilt_deg": 0.0007136061594204115,
+              "covered": false
+            },
+            "b": {
+              "xy_m": 0.04195666276808848,
+              "gap_m": 0.21115329872018346,
+              "tilt_deg": 3.129334815635883,
+              "covered": false
+            }
+          },
+          "model": {
+            "name": "pick_lid",
+            "args": {
+              "lid": "lid_b",
+              "base": "base_b"
+            },
+            "pre": [
+              "hand_empty()",
+              "at_source(lid_b)"
+            ],
+            "add": [
+              "holding(lid_b)"
+            ],
+            "del": [
+              "hand_empty()",
+              "at_source(lid_b)"
+            ]
+          },
+          "code_sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_b)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "holding(lid_b)"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "hand_empty()"
+          ],
+          "trace": [
+            {
+              "method": "place_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "place_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.08999981155300488,
+              "gap_m": -0.04008974870537335,
+              "tilt_deg": 0.000614849227423784,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.08999992321433688,
+              "gap_m": -0.04008848487479527,
+              "tilt_deg": 0.0005692416938721266,
+              "covered": false
+            },
+            "b": {
+              "xy_m": 0.0017197475123526336,
+              "gap_m": -8.665756026926541e-05,
+              "tilt_deg": 0.0011829039260954969,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "place_lid",
+            "args": {
+              "lid": "lid_b",
+              "base": "base_b"
+            },
+            "pre": [
+              "holding(lid_b)",
+              "clear(base_b)"
+            ],
+            "add": [
+              "covered(lid_b,base_b)",
+              "hand_empty()"
+            ],
+            "del": [
+              "holding(lid_b)",
+              "clear(base_b)"
+            ]
+          },
+          "code_sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "hand_empty()"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "holding(lid_r)"
+          ],
+          "trace": [
+            {
+              "method": "pick_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "pick_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true,
+            "closed_command_issued": true,
+            "lift_command_issued": true,
+            "gripper_width_m": 0.03219884607304323,
+            "observed_missing_commands": [
+              "lift"
+            ]
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.08999977336230515,
+              "gap_m": -0.04008938153752084,
+              "tilt_deg": 0.0005491589963181014,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.04123208560748826,
+              "gap_m": 0.20815607942515474,
+              "tilt_deg": 2.151679311114706,
+              "covered": false
+            },
+            "b": {
+              "xy_m": 0.0017198267211730256,
+              "gap_m": -8.665755223491445e-05,
+              "tilt_deg": 0.001182856168056405,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "pick_lid",
+            "args": {
+              "lid": "lid_r",
+              "base": "base_r"
+            },
+            "pre": [
+              "hand_empty()",
+              "at_source(lid_r)"
+            ],
+            "add": [
+              "holding(lid_r)"
+            ],
+            "del": [
+              "hand_empty()",
+              "at_source(lid_r)"
+            ]
+          },
+          "code_sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "holding(lid_r)"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "hand_empty()"
+          ],
+          "trace": [
+            {
+              "method": "place_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "place_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.08999961621123899,
+              "gap_m": -0.040089196141082084,
+              "tilt_deg": 0.0013738974220931484,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.001722354649516118,
+              "gap_m": -8.689544165835228e-05,
+              "tilt_deg": 2.084327099243578e-05,
+              "covered": true
+            },
+            "b": {
+              "xy_m": 0.0017198941839989064,
+              "gap_m": -8.665754580872154e-05,
+              "tilt_deg": 0.0011827005559068384,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "place_lid",
+            "args": {
+              "lid": "lid_r",
+              "base": "base_r"
+            },
+            "pre": [
+              "holding(lid_r)",
+              "clear(base_r)"
+            ],
+            "add": [
+              "covered(lid_r,base_r)",
+              "hand_empty()"
+            ],
+            "del": [
+              "holding(lid_r)",
+              "clear(base_r)"
+            ]
+          },
+          "code_sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "hand_empty()"
+          ],
+          "after": [
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "holding(lid_g)"
+          ],
+          "trace": [
+            {
+              "method": "pick_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "pick_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true,
+            "closed_command_issued": true,
+            "lift_command_issued": true,
+            "gripper_width_m": 0.031971745081491504,
+            "observed_missing_commands": [
+              "lift"
+            ]
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.04074757221218307,
+              "gap_m": 0.2081981948079315,
+              "tilt_deg": 2.5124810275867175,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.0052474498058767685,
+              "gap_m": -8.71584573639006e-05,
+              "tilt_deg": 0.001232362741209097,
+              "covered": true
+            },
+            "b": {
+              "xy_m": 0.004018556602147493,
+              "gap_m": -8.702822769812713e-05,
+              "tilt_deg": 0.0005618472832174228,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "pick_lid",
+            "args": {
+              "lid": "lid_g",
+              "base": "base_g"
+            },
+            "pre": [
+              "hand_empty()",
+              "at_source(lid_g)"
+            ],
+            "add": [
+              "holding(lid_g)"
+            ],
+            "del": [
+              "hand_empty()",
+              "at_source(lid_g)"
+            ]
+          },
+          "code_sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "holding(lid_g)"
+          ],
+          "after": [
+            "covered(lid_b,base_b)",
+            "covered(lid_g,base_g)",
+            "covered(lid_r,base_r)",
+            "hand_empty()"
+          ],
+          "trace": [
+            {
+              "method": "place_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "place_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.002503646284759019,
+              "gap_m": -8.690773282526987e-05,
+              "tilt_deg": 9.267279347628093e-05,
+              "covered": true
+            },
+            "r": {
+              "xy_m": 0.0052475162200106345,
+              "gap_m": -8.714980760338165e-05,
+              "tilt_deg": 0.001341836414318953,
+              "covered": true
+            },
+            "b": {
+              "xy_m": 0.004018758244055874,
+              "gap_m": -8.693891823874367e-05,
+              "tilt_deg": 0.0015669221459365962,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "place_lid",
+            "args": {
+              "lid": "lid_g",
+              "base": "base_g"
+            },
+            "pre": [
+              "holding(lid_g)",
+              "clear(base_g)"
+            ],
+            "add": [
+              "covered(lid_g,base_g)",
+              "hand_empty()"
+            ],
+            "del": [
+              "holding(lid_g)",
+              "clear(base_g)"
+            ]
+          },
+          "code_sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+        }
+      ],
+      "initial_qpos": [
+        1.1031188361637757e-07,
+        -0.7842660270934075,
+        0.0001484701820816609,
+        -2.3610667532735423,
+        -0.0002545241454996823,
+        1.5700859411647194,
+        0.7849999961547043,
+        0.03999996717761805,
+        0.03999997274352505,
+        0.43000018422212877,
+        -3.090257261435086e-08,
+        0.4098824075887142,
+        0.9999999999533027,
+        1.2501598852192189e-06,
+        9.581791658803774e-06,
+        1.4324524156300478e-07,
+        0.42999996600614676,
+        0.089999873507327,
+        0.4098830588243899,
+        0.9999999999756515,
+        6.646013053973132e-06,
+        -2.1279280847659044e-06,
+        2.111759768741386e-08,
+        0.43000007977085997,
+        -0.08999988030511646,
+        0.40988380234464167,
+        0.9999999999700285,
+        -6.400434883797104e-06,
+        4.350475906871727e-06,
+        -2.2457587664004447e-07
+      ],
+      "kernel": {
+        "bt_expansion": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/__init__.py",
+          "sha256": "bab0549f7fcaa6c2bdd33b02d8c4d8233e7a5c41ffd454307651c6fd9da37fd2"
+        },
+        "bt_expansion.planning": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/planning.py",
+          "sha256": "8730a53df5c526809848da9fcedbc02ce4f17ca00322a52e133e8ec909d7f697"
+        },
+        "behavior_tree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/__init__.py",
+          "sha256": "ad77aee97bddc9c41924c5004be56843d937cccb33e88515c74ce2c87bcc8c5a"
+        },
+        "behavior_tree.BehaviorTree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/BehaviorTree.py",
+          "sha256": "512376d555f9f223027d521a3b644f6550c7128285aec61af2c1dcbd685e6038"
+        },
+        "bt_expansion.algorithm": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/algorithm.py",
+          "sha256": "ffbe33712df2d05068ccef24e7be90edb7f45e51978af4f99b18b51faa92ae50"
+        }
+      },
+      "success": true,
+      "stable": true,
+      "stable_seconds": 1.024,
+      "bt_status": "success",
+      "final_geometry": {
+        "g": {
+          "xy_m": 0.00250385041581699,
+          "gap_m": -8.680354752488295e-05,
+          "tilt_deg": 0.0012588107085900453,
+          "covered": true
+        },
+        "r": {
+          "xy_m": 0.005247472625369911,
+          "gap_m": -8.717918571549133e-05,
+          "tilt_deg": 0.000989570800290319,
+          "covered": true
+        },
+        "b": {
+          "xy_m": 0.004018593293481411,
+          "gap_m": -8.703579149160756e-05,
+          "tilt_deg": 0.00047841882570334103,
+          "covered": true
+        }
+      },
+      "pre_home_geometry": {
+        "g": {
+          "xy_m": 0.002503646284759019,
+          "gap_m": -8.690773282526987e-05,
+          "tilt_deg": 9.267279347628093e-05,
+          "covered": true
+        },
+        "r": {
+          "xy_m": 0.0052475162200106345,
+          "gap_m": -8.714980760338165e-05,
+          "tilt_deg": 0.001341836414318953,
+          "covered": true
+        },
+        "b": {
+          "xy_m": 0.004018758244055874,
+          "gap_m": -8.693891823874367e-05,
+          "tilt_deg": 0.0015669221459365962,
+          "covered": true
+        }
+      },
+      "final_state": [
+        "covered(lid_b,base_b)",
+        "covered(lid_g,base_g)",
+        "covered(lid_r,base_r)",
+        "hand_empty()"
+      ],
+      "final_home": true,
+      "home_error_rad": 0.008732259416553109,
+      "final_arm_qpos": [
+        -1.7544567125654115e-09,
+        -0.7840995775116137,
+        0.00018462201053076293,
+        -2.3622990380539934,
+        -0.0003165752500552847,
+        1.5698680509227927,
+        0.7849998678645841
+      ],
+      "assistance_events": [
+        {
+          "event": "controlled_actuator_home",
+          "reason": "before_lid_b",
+          "time": 0.16000000000000011,
+          "steps": 80,
+          "q_start": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.006473535977050165
+        },
+        {
+          "event": "controlled_actuator_home",
+          "reason": "before_lid_r",
+          "time": 14.784000000001607,
+          "steps": 80,
+          "q_start": [
+            -0.14088793494562532,
+            1.1942492245043315,
+            0.1604554846596281,
+            -0.4687561776769414,
+            -0.15002946978801945,
+            1.6712566130197788,
+            0.7172417325529973
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.008850034960970019
+        },
+        {
+          "event": "controlled_actuator_home",
+          "reason": "before_lid_g",
+          "time": 29.40799999999458,
+          "steps": 80,
+          "q_start": [
+            0.1662550568902763,
+            1.194774833359396,
+            -0.21711994638560816,
+            -0.4648025756966575,
+            0.20288521623730155,
+            1.6647671792491174,
+            0.854442299918839
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.008817566355452005
+        },
+        {
+          "event": "controlled_actuator_home",
+          "reason": "final_after_all_covers",
+          "time": 43.808000000007574,
+          "steps": 80,
+          "q_start": [
+            -0.019547651135447524,
+            1.181889897887017,
+            0.06653792265901168,
+            -0.4653005560787544,
+            -0.061900388947742274,
+            1.6610563442012127,
+            0.7957718560628548
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.008732259416553109
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "steps": [
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_b)",
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_b)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "hand_empty()"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_b)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "holding(lid_b)"
+          ],
+          "trace": [
+            {
+              "method": "pick_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "pick_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true,
+            "closed_command_issued": true,
+            "lift_command_issued": true,
+            "gripper_width_m": 0.03192603019529555,
+            "observed_missing_commands": [
+              "lift"
+            ]
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.0899696194911491,
+              "gap_m": -0.040089137509938866,
+              "tilt_deg": 0.0009821930176761124,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.09217432231416096,
+              "gap_m": -0.04008848764244238,
+              "tilt_deg": 0.00019501954366437542,
+              "covered": false
+            },
+            "b": {
+              "xy_m": 0.041561269914215326,
+              "gap_m": 0.21256285193669505,
+              "tilt_deg": 2.484331628836634,
+              "covered": false
+            }
+          },
+          "model": {
+            "name": "pick_lid",
+            "args": {
+              "lid": "lid_b",
+              "base": "base_b"
+            },
+            "pre": [
+              "hand_empty()",
+              "at_source(lid_b)"
+            ],
+            "add": [
+              "holding(lid_b)"
+            ],
+            "del": [
+              "hand_empty()",
+              "at_source(lid_b)"
+            ]
+          },
+          "code_sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_b)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "holding(lid_b)"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "hand_empty()"
+          ],
+          "trace": [
+            {
+              "method": "place_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "place_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.08996962688831969,
+              "gap_m": -0.0400891375099976,
+              "tilt_deg": 0.0009821930176761124,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.09217431291276006,
+              "gap_m": -0.04008848387704722,
+              "tilt_deg": 0.00021531521370316489,
+              "covered": false
+            },
+            "b": {
+              "xy_m": 0.0017209931491598723,
+              "gap_m": -8.665737601359913e-05,
+              "tilt_deg": 0.0011815486974974501,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "place_lid",
+            "args": {
+              "lid": "lid_b",
+              "base": "base_b"
+            },
+            "pre": [
+              "holding(lid_b)",
+              "clear(base_b)"
+            ],
+            "add": [
+              "covered(lid_b,base_b)",
+              "hand_empty()"
+            ],
+            "del": [
+              "holding(lid_b)",
+              "clear(base_b)"
+            ]
+          },
+          "code_sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "hand_empty()"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "holding(lid_r)"
+          ],
+          "trace": [
+            {
+              "method": "pick_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "pick_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true,
+            "closed_command_issued": true,
+            "lift_command_issued": true,
+            "gripper_width_m": 0.032269869951777684,
+            "observed_missing_commands": [
+              "lift"
+            ]
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.08996966512830191,
+              "gap_m": -0.04008913645829165,
+              "tilt_deg": 0.0009377011931604547,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.04139550741112753,
+              "gap_m": 0.21294032732054752,
+              "tilt_deg": 1.0545531952447154,
+              "covered": false
+            },
+            "b": {
+              "xy_m": 0.0017210762196971559,
+              "gap_m": -8.665736446911154e-05,
+              "tilt_deg": 0.0011816856473821093,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "pick_lid",
+            "args": {
+              "lid": "lid_r",
+              "base": "base_r"
+            },
+            "pre": [
+              "hand_empty()",
+              "at_source(lid_r)"
+            ],
+            "add": [
+              "holding(lid_r)"
+            ],
+            "del": [
+              "hand_empty()",
+              "at_source(lid_r)"
+            ]
+          },
+          "code_sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "holding(lid_r)"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "hand_empty()"
+          ],
+          "trace": [
+            {
+              "method": "place_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "place_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.08996967252547125,
+              "gap_m": -0.040089136458350605,
+              "tilt_deg": 0.0009377011931604547,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.0017144953672468943,
+              "gap_m": -8.674105952494182e-05,
+              "tilt_deg": 0.0016935012951359808,
+              "covered": true
+            },
+            "b": {
+              "xy_m": 0.001721147328104588,
+              "gap_m": -8.665735469959301e-05,
+              "tilt_deg": 0.0011818046945212064,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "place_lid",
+            "args": {
+              "lid": "lid_r",
+              "base": "base_r"
+            },
+            "pre": [
+              "holding(lid_r)",
+              "clear(base_r)"
+            ],
+            "add": [
+              "covered(lid_r,base_r)",
+              "hand_empty()"
+            ],
+            "del": [
+              "holding(lid_r)",
+              "clear(base_r)"
+            ]
+          },
+          "code_sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "hand_empty()"
+          ],
+          "after": [
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "holding(lid_g)"
+          ],
+          "trace": [
+            {
+              "method": "pick_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "pick_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true,
+            "closed_command_issued": true,
+            "lift_command_issued": true,
+            "gripper_width_m": 0.031880368189146586,
+            "observed_missing_commands": [
+              "lift"
+            ]
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.04113151932196645,
+              "gap_m": 0.2107528961619664,
+              "tilt_deg": 1.041756797337113,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.005316980105628411,
+              "gap_m": -8.72699892213169e-05,
+              "tilt_deg": 0.001718964205994606,
+              "covered": true
+            },
+            "b": {
+              "xy_m": 0.004809820575067225,
+              "gap_m": -8.716130493435781e-05,
+              "tilt_deg": 0.0016907872121484256,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "pick_lid",
+            "args": {
+              "lid": "lid_g",
+              "base": "base_g"
+            },
+            "pre": [
+              "hand_empty()",
+              "at_source(lid_g)"
+            ],
+            "add": [
+              "holding(lid_g)"
+            ],
+            "del": [
+              "hand_empty()",
+              "at_source(lid_g)"
+            ]
+          },
+          "code_sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "holding(lid_g)"
+          ],
+          "after": [
+            "covered(lid_b,base_b)",
+            "covered(lid_g,base_g)",
+            "covered(lid_r,base_r)",
+            "hand_empty()"
+          ],
+          "trace": [
+            {
+              "method": "place_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "place_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.0025247021388786523,
+              "gap_m": -8.681386995457174e-05,
+              "tilt_deg": 0.0011784637361074532,
+              "covered": true
+            },
+            "r": {
+              "xy_m": 0.005317228463332147,
+              "gap_m": -8.729735221091328e-05,
+              "tilt_deg": 0.0013530752787322767,
+              "covered": true
+            },
+            "b": {
+              "xy_m": 0.004809893398391544,
+              "gap_m": -8.719116407590599e-05,
+              "tilt_deg": 0.0013185853334771115,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "place_lid",
+            "args": {
+              "lid": "lid_g",
+              "base": "base_g"
+            },
+            "pre": [
+              "holding(lid_g)",
+              "clear(base_g)"
+            ],
+            "add": [
+              "covered(lid_g,base_g)",
+              "hand_empty()"
+            ],
+            "del": [
+              "holding(lid_g)",
+              "clear(base_g)"
+            ]
+          },
+          "code_sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+        }
+      ],
+      "initial_qpos": [
+        1.1031188361637757e-07,
+        -0.7842660270934075,
+        0.0001484701820816609,
+        -2.3610667532735423,
+        -0.0002545241454996823,
+        1.5700859411647194,
+        0.7849999961547043,
+        0.03999996717761805,
+        0.03999997274352505,
+        0.4300710080168756,
+        0.0027026407185623594,
+        0.4098825921861662,
+        0.9999999999636942,
+        7.4516904798809795e-06,
+        4.132021433057445e-06,
+        -9.749942941799697e-08,
+        0.4278649232169223,
+        0.09269182627627238,
+        0.409883049258204,
+        0.9999999999910782,
+        3.6862009927283265e-06,
+        -2.0625742722482093e-06,
+        1.6295601678542058e-08,
+        0.42887099680194635,
+        -0.09046000171895711,
+        0.40988377729047243,
+        0.9999999999978239,
+        -2.0277799029465077e-06,
+        4.393434707152365e-07,
+        -2.1750779891256267e-07
+      ],
+      "kernel": {
+        "bt_expansion": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/__init__.py",
+          "sha256": "bab0549f7fcaa6c2bdd33b02d8c4d8233e7a5c41ffd454307651c6fd9da37fd2"
+        },
+        "bt_expansion.planning": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/planning.py",
+          "sha256": "8730a53df5c526809848da9fcedbc02ce4f17ca00322a52e133e8ec909d7f697"
+        },
+        "behavior_tree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/__init__.py",
+          "sha256": "ad77aee97bddc9c41924c5004be56843d937cccb33e88515c74ce2c87bcc8c5a"
+        },
+        "behavior_tree.BehaviorTree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/BehaviorTree.py",
+          "sha256": "512376d555f9f223027d521a3b644f6550c7128285aec61af2c1dcbd685e6038"
+        },
+        "bt_expansion.algorithm": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/algorithm.py",
+          "sha256": "ffbe33712df2d05068ccef24e7be90edb7f45e51978af4f99b18b51faa92ae50"
+        }
+      },
+      "success": true,
+      "stable": true,
+      "stable_seconds": 1.024,
+      "bt_status": "success",
+      "final_geometry": {
+        "g": {
+          "xy_m": 0.0025245773601627886,
+          "gap_m": -8.68933830767693e-05,
+          "tilt_deg": 0.0002856979730324498,
+          "covered": true
+        },
+        "r": {
+          "xy_m": 0.005317335247832473,
+          "gap_m": -8.729869742735152e-05,
+          "tilt_deg": 0.0013378431442535985,
+          "covered": true
+        },
+        "b": {
+          "xy_m": 0.004809886854920236,
+          "gap_m": -8.721970650027444e-05,
+          "tilt_deg": 0.0009784059733593965,
+          "covered": true
+        }
+      },
+      "pre_home_geometry": {
+        "g": {
+          "xy_m": 0.0025247021388786523,
+          "gap_m": -8.681386995457174e-05,
+          "tilt_deg": 0.0011784637361074532,
+          "covered": true
+        },
+        "r": {
+          "xy_m": 0.005317228463332147,
+          "gap_m": -8.729735221091328e-05,
+          "tilt_deg": 0.0013530752787322767,
+          "covered": true
+        },
+        "b": {
+          "xy_m": 0.004809893398391544,
+          "gap_m": -8.719116407590599e-05,
+          "tilt_deg": 0.0013185853334771115,
+          "covered": true
+        }
+      },
+      "final_state": [
+        "covered(lid_b,base_b)",
+        "covered(lid_g,base_g)",
+        "covered(lid_r,base_r)",
+        "hand_empty()"
+      ],
+      "final_home": true,
+      "home_error_rad": 0.008787473564312908,
+      "final_arm_qpos": [
+        -3.906249153412431e-09,
+        -0.7840995768679796,
+        0.00018462707114900068,
+        -2.3622990370141252,
+        -0.000316581148395094,
+        1.5698680502138196,
+        0.7849998686790807
+      ],
+      "assistance_events": [
+        {
+          "event": "controlled_actuator_home",
+          "reason": "before_lid_b",
+          "time": 0.16000000000000011,
+          "steps": 80,
+          "q_start": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.006473535977050165
+        },
+        {
+          "event": "controlled_actuator_home",
+          "reason": "before_lid_r",
+          "time": 14.816000000001617,
+          "steps": 80,
+          "q_start": [
+            -0.10936010678952379,
+            1.1827767505938331,
+            0.028528356435756012,
+            -0.4709971179095817,
+            -0.026557836875460174,
+            1.668533014378471,
+            0.6890899951659762
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.008732129278986431
+        },
+        {
+          "event": "controlled_actuator_home",
+          "reason": "before_lid_g",
+          "time": 29.40799999999458,
+          "steps": 80,
+          "q_start": [
+            0.10042630857267616,
+            1.183229562529107,
+            -0.022372376516323587,
+            -0.4693370850494448,
+            0.020832385624174176,
+            1.6674597740472024,
+            0.8756407368273188
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.00872232094743513
+        },
+        {
+          "event": "controlled_actuator_home",
+          "reason": "final_after_all_covers",
+          "time": 43.93600000000773,
+          "steps": 80,
+          "q_start": [
+            -0.032378142220056624,
+            1.1873141346382707,
+            0.11621746715339464,
+            -0.45670902774215993,
+            -0.1083357531705468,
+            1.6559812719170992,
+            0.8040768135383446
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.008787473564312908
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "steps": [
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_b)",
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_b)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "hand_empty()"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_b)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "holding(lid_b)"
+          ],
+          "trace": [
+            {
+              "method": "pick_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "pick_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true,
+            "closed_command_issued": true,
+            "lift_command_issued": true,
+            "gripper_width_m": 0.031988197588848855,
+            "observed_missing_commands": [
+              "lift"
+            ]
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.09143825825704882,
+              "gap_m": -0.040088375862472936,
+              "tilt_deg": 0.0010929599930925608,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.08814865483991673,
+              "gap_m": -0.040088495629696075,
+              "tilt_deg": 0.0005172043491214105,
+              "covered": false
+            },
+            "b": {
+              "xy_m": 0.041890643146032434,
+              "gap_m": 0.21214505616437646,
+              "tilt_deg": 3.244969543566944,
+              "covered": false
+            }
+          },
+          "model": {
+            "name": "pick_lid",
+            "args": {
+              "lid": "lid_b",
+              "base": "base_b"
+            },
+            "pre": [
+              "hand_empty()",
+              "at_source(lid_b)"
+            ],
+            "add": [
+              "holding(lid_b)"
+            ],
+            "del": [
+              "hand_empty()",
+              "at_source(lid_b)"
+            ]
+          },
+          "code_sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_b)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "holding(lid_b)"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "hand_empty()"
+          ],
+          "trace": [
+            {
+              "method": "place_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "place_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.09143820867461322,
+              "gap_m": -0.040088408311882595,
+              "tilt_deg": 0.0010659335765187163,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.08814864721689923,
+              "gap_m": -0.04008846848240344,
+              "tilt_deg": 0.0006276258421919958,
+              "covered": false
+            },
+            "b": {
+              "xy_m": 0.001725277882035184,
+              "gap_m": -8.665727971302051e-05,
+              "tilt_deg": 0.0011890581311774764,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "place_lid",
+            "args": {
+              "lid": "lid_b",
+              "base": "base_b"
+            },
+            "pre": [
+              "holding(lid_b)",
+              "clear(base_b)"
+            ],
+            "add": [
+              "covered(lid_b,base_b)",
+              "hand_empty()"
+            ],
+            "del": [
+              "holding(lid_b)",
+              "clear(base_b)"
+            ]
+          },
+          "code_sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "at_source(lid_r)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "hand_empty()"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "holding(lid_r)"
+          ],
+          "trace": [
+            {
+              "method": "pick_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "pick_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true,
+            "closed_command_issued": true,
+            "lift_command_issued": true,
+            "gripper_width_m": 0.03218769347919728,
+            "observed_missing_commands": [
+              "lift"
+            ]
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.09143825634591743,
+              "gap_m": -0.040088420699391614,
+              "tilt_deg": 0.0009225284011045271,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.041433825062814275,
+              "gap_m": 0.21276392664700866,
+              "tilt_deg": 2.324296241496097,
+              "covered": false
+            },
+            "b": {
+              "xy_m": 0.0017253640884895881,
+              "gap_m": -8.665728125872851e-05,
+              "tilt_deg": 0.0011891148351885548,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "pick_lid",
+            "args": {
+              "lid": "lid_r",
+              "base": "base_r"
+            },
+            "pre": [
+              "hand_empty()",
+              "at_source(lid_r)"
+            ],
+            "add": [
+              "holding(lid_r)"
+            ],
+            "del": [
+              "hand_empty()",
+              "at_source(lid_r)"
+            ]
+          },
+          "code_sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "clear(base_r)",
+            "covered(lid_b,base_b)",
+            "holding(lid_r)"
+          ],
+          "after": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "hand_empty()"
+          ],
+          "trace": [
+            {
+              "method": "place_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "place_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.09143822862361513,
+              "gap_m": -0.04008845922938592,
+              "tilt_deg": 0.0007859903436561336,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.001733035030589419,
+              "gap_m": -8.689590353583299e-05,
+              "tilt_deg": 2.9955168826941312e-05,
+              "covered": true
+            },
+            "b": {
+              "xy_m": 0.0017254376558546445,
+              "gap_m": -8.665728257711836e-05,
+              "tilt_deg": 0.0011891632613383579,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "place_lid",
+            "args": {
+              "lid": "lid_r",
+              "base": "base_r"
+            },
+            "pre": [
+              "holding(lid_r)",
+              "clear(base_r)"
+            ],
+            "add": [
+              "covered(lid_r,base_r)",
+              "hand_empty()"
+            ],
+            "del": [
+              "holding(lid_r)",
+              "clear(base_r)"
+            ]
+          },
+          "code_sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "at_source(lid_g)",
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "hand_empty()"
+          ],
+          "after": [
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "holding(lid_g)"
+          ],
+          "trace": [
+            {
+              "method": "pick_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "pick_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true,
+            "closed_command_issued": true,
+            "lift_command_issued": true,
+            "gripper_width_m": 0.03186331153986882,
+            "observed_missing_commands": [
+              "lift"
+            ]
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.040992546510762805,
+              "gap_m": 0.20832819322690627,
+              "tilt_deg": 1.5822408310443423,
+              "covered": false
+            },
+            "r": {
+              "xy_m": 0.0048839596031993145,
+              "gap_m": -8.714430321360433e-05,
+              "tilt_deg": 0.001024239474699169,
+              "covered": true
+            },
+            "b": {
+              "xy_m": 0.003937753527268457,
+              "gap_m": -8.696402865598918e-05,
+              "tilt_deg": 0.001026494437341726,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "pick_lid",
+            "args": {
+              "lid": "lid_g",
+              "base": "base_g"
+            },
+            "pre": [
+              "hand_empty()",
+              "at_source(lid_g)"
+            ],
+            "add": [
+              "holding(lid_g)"
+            ],
+            "del": [
+              "hand_empty()",
+              "at_source(lid_g)"
+            ]
+          },
+          "code_sha256": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676"
+        },
+        {
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "before": [
+            "clear(base_g)",
+            "covered(lid_b,base_b)",
+            "covered(lid_r,base_r)",
+            "holding(lid_g)"
+          ],
+          "after": [
+            "covered(lid_b,base_b)",
+            "covered(lid_g,base_g)",
+            "covered(lid_r,base_r)",
+            "hand_empty()"
+          ],
+          "trace": [
+            {
+              "method": "place_lid_complete",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "exception": null,
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_order": [
+              "place_lid_complete"
+            ],
+            "missing_transition_calls": [],
+            "transition_order_ok": true
+          },
+          "geometry": {
+            "g": {
+              "xy_m": 0.0024674321358124232,
+              "gap_m": -8.676749276831375e-05,
+              "tilt_deg": 0.0015977917015827148,
+              "covered": true
+            },
+            "r": {
+              "xy_m": 0.004884179775602298,
+              "gap_m": -8.714430446565835e-05,
+              "tilt_deg": 0.0010245301542091145,
+              "covered": true
+            },
+            "b": {
+              "xy_m": 0.003937840031966945,
+              "gap_m": -8.694498964906261e-05,
+              "tilt_deg": 0.001243536483148846,
+              "covered": true
+            }
+          },
+          "model": {
+            "name": "place_lid",
+            "args": {
+              "lid": "lid_g",
+              "base": "base_g"
+            },
+            "pre": [
+              "holding(lid_g)",
+              "clear(base_g)"
+            ],
+            "add": [
+              "covered(lid_g,base_g)",
+              "hand_empty()"
+            ],
+            "del": [
+              "holding(lid_g)",
+              "clear(base_g)"
+            ]
+          },
+          "code_sha256": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+        }
+      ],
+      "initial_qpos": [
+        1.1031188361637757e-07,
+        -0.7842660270934075,
+        0.0001484701820816609,
+        -2.3610667532735423,
+        -0.0002545241454996823,
+        1.5700859411647194,
+        0.7849999961547043,
+        0.03999996717761805,
+        0.03999997274352505,
+        0.428569640885574,
+        -0.0012089234098413323,
+        0.40988305728761076,
+        0.9999999999773739,
+        -6.468984862578695e-06,
+        -1.8326887505103735e-06,
+        -2.1256152529738945e-07,
+        0.43188541630161514,
+        0.08755134333752179,
+        0.40988304914839074,
+        0.9999999999639495,
+        7.90121211355691e-06,
+        3.1099659962318886e-06,
+        2.5998503258827328e-09,
+        0.43060072781427117,
+        -0.08862846237533453,
+        0.409883796109236,
+        0.9999999999342005,
+        -9.295843501342705e-06,
+        6.7184869583112554e-06,
+        -2.2032407909342078e-07
+      ],
+      "kernel": {
+        "bt_expansion": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/__init__.py",
+          "sha256": "bab0549f7fcaa6c2bdd33b02d8c4d8233e7a5c41ffd454307651c6fd9da37fd2"
+        },
+        "bt_expansion.planning": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/planning.py",
+          "sha256": "8730a53df5c526809848da9fcedbc02ce4f17ca00322a52e133e8ec909d7f697"
+        },
+        "behavior_tree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/__init__.py",
+          "sha256": "ad77aee97bddc9c41924c5004be56843d937cccb33e88515c74ce2c87bcc8c5a"
+        },
+        "behavior_tree.BehaviorTree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/BehaviorTree.py",
+          "sha256": "512376d555f9f223027d521a3b644f6550c7128285aec61af2c1dcbd685e6038"
+        },
+        "bt_expansion.algorithm": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/algorithm.py",
+          "sha256": "ffbe33712df2d05068ccef24e7be90edb7f45e51978af4f99b18b51faa92ae50"
+        }
+      },
+      "success": true,
+      "stable": true,
+      "stable_seconds": 1.024,
+      "bt_status": "success",
+      "final_geometry": {
+        "g": {
+          "xy_m": 0.0024672654934070628,
+          "gap_m": -8.686522068646063e-05,
+          "tilt_deg": 0.0005356509448549402,
+          "covered": true
+        },
+        "r": {
+          "xy_m": 0.004884260405285049,
+          "gap_m": -8.714430492712255e-05,
+          "tilt_deg": 0.0010246365144703925,
+          "covered": true
+        },
+        "b": {
+          "xy_m": 0.003937719618927784,
+          "gap_m": -8.701722428727798e-05,
+          "tilt_deg": 0.00043227344675303273,
+          "covered": true
+        }
+      },
+      "pre_home_geometry": {
+        "g": {
+          "xy_m": 0.0024674321358124232,
+          "gap_m": -8.676749276831375e-05,
+          "tilt_deg": 0.0015977917015827148,
+          "covered": true
+        },
+        "r": {
+          "xy_m": 0.004884179775602298,
+          "gap_m": -8.714430446565835e-05,
+          "tilt_deg": 0.0010245301542091145,
+          "covered": true
+        },
+        "b": {
+          "xy_m": 0.003937840031966945,
+          "gap_m": -8.694498964906261e-05,
+          "tilt_deg": 0.001243536483148846,
+          "covered": true
+        }
+      },
+      "final_state": [
+        "covered(lid_b,base_b)",
+        "covered(lid_g,base_g)",
+        "covered(lid_r,base_r)",
+        "hand_empty()"
+      ],
+      "final_home": true,
+      "home_error_rad": 0.008702417590485028,
+      "final_arm_qpos": [
+        2.3639284895245757e-09,
+        -0.7840995776707664,
+        0.0001846150834281714,
+        -2.3622990383650477,
+        -0.0003165675645634775,
+        1.5698680510506247,
+        0.7849998674401875
+      ],
+      "assistance_events": [
+        {
+          "event": "controlled_actuator_home",
+          "reason": "before_lid_b",
+          "time": 0.16000000000000011,
+          "steps": 80,
+          "q_start": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.006473535977050165
+        },
+        {
+          "event": "controlled_actuator_home",
+          "reason": "before_lid_r",
+          "time": 14.784000000001607,
+          "steps": 80,
+          "q_start": [
+            -0.08222550860202373,
+            1.1884973829316117,
+            -0.0499397311196092,
+            -0.46265043546914014,
+            0.0466100513023896,
+            1.6653624388567576,
+            0.680859696338434
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.008741663188950227
+        },
+        {
+          "event": "controlled_actuator_home",
+          "reason": "before_lid_g",
+          "time": 29.375999999994598,
+          "steps": 80,
+          "q_start": [
+            0.15431883447352193,
+            1.1920407177501713,
+            -0.21129007637617925,
+            -0.46732092974303335,
+            0.19722029510576322,
+            1.665074861452318,
+            0.8444928009327696
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.008797844927144074
+        },
+        {
+          "event": "controlled_actuator_home",
+          "reason": "final_after_all_covers",
+          "time": 43.84000000000761,
+          "steps": 80,
+          "q_start": [
+            0.008860464317702942,
+            1.1803328440789058,
+            0.0009813990877750008,
+            -0.46709465405119344,
+            -0.0009125899964380819,
+            1.661979803182644,
+            0.7947020187044171
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "goal_preserved": true,
+          "residual_rad": 0.008702417590485028
+        }
+      ]
+    }
+  ],
+  "program_source_hashes": {
+    "pick_lid": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676",
+    "place_lid": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+  },
+  "success_count": 3
+}

@@ -1,0 +1,1014 @@
+{
+  "backend": "local_qwen_vl",
+  "perception": "oracle",
+  "control": "weld_assisted",
+  "symbolic_models": "fixed_STRIPS",
+  "auto_model_repair": false,
+  "runtime": "finite_API_interpreter_no_exec",
+  "goals": [
+    "stacked_on(green_block,yellow_block)"
+  ],
+  "actions": [
+    {
+      "name": "pick",
+      "success": true,
+      "action_model": {
+        "name": "pick",
+        "args": {
+          "obj": "green_block"
+        },
+        "pre": [
+          "on_table(green_block)",
+          "clear(green_block)",
+          "holding_nothing()"
+        ],
+        "add": [
+          "in_gripper(green_block)",
+          "lifted(green_block)"
+        ],
+        "del": [
+          "on_table(green_block)",
+          "holding_nothing()"
+        ]
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "Generate ONLY def policy(api): Python source. Use finite straight-line assignments and calls to the documented api methods. No imports, loops, other functions, object attributes, simulator access, or success flags. Return value does not determine success. Do not change the action model. Use previous execution evidence to repair CODE only."
+            },
+            {
+              "role": "user",
+              "content": "{\"action_model\": {\"name\": \"pick\", \"args\": {\"obj\": \"green_block\"}, \"pre\": [\"on_table(green_block)\", \"clear(green_block)\", \"holding_nothing()\"], \"add\": [\"in_gripper(green_block)\", \"lifted(green_block)\"], \"del\": [\"on_table(green_block)\", \"holding_nothing()\"]}, \"api_contracts\": {\"locate\": \"locate(obj_name)->tuple(x,y,z). z is object's TOP surface in world metres. Oracle perception for this diagnostic.\", \"grasp_height\": \"grasp_height(top_z)->float. Converts object TOP height to correct TCP grasp height.\", \"approach\": \"approach(xyz)->None. Moves open gripper above that object, not down to grasp height. Pass ONE tuple variable p: api.approach(p). Never split p into separate arguments.\", \"align_xy\": \"align_xy(xyz)->None. Refines alignment above object with gripper OPEN; use before descending/grasping. Pass ONE tuple variable p: api.align_xy(p). Never split p into separate arguments.\", \"descend_to\": \"descend_to(z, lock_xy)->None. Lowers OPEN gripper to grasp height keeping horizontal lock_xy (x,y). Exactly TWO arguments: float height and tuple xy; e.g. api.descend_to(z, p[:2]).\", \"grasp\": \"grasp(xy)->None. Closes gripper at its current height, following (x,y). Does NOT approach, descend or lift. Exactly ONE argument: tuple xy; e.g. api.grasp(p[:2]).\", \"record_grab_offset\": \"record_grab_offset(obj_name)->None. After closing, calibrates held object offset required for placement. Diagnostic uses GT object pose.\", \"lift\": \"lift(xy=None)->None. Raises closed gripper holding object. Use api.lift(xy=p[:2]); keep holding at the end to satisfy the action ADD effects.\"}}"
+            }
+          ],
+          "raw": "```python\napi.locate(\"green_block\")\napi.approach(api.locate(\"green_block\")[0:3])\napi.align_xy(api.locate(\"green_block\")[0:3])\napi.descend_to(api.locate(\"green_block\")[2], api.locate(\"green_block\")[0:2])\napi.grasp(api.locate(\"green_block\")[0:2])\napi.record_grab_offset(\"green_block\")\napi.lift()\n```",
+          "source": "def policy(api):\n    api.locate(\"green_block\")\n    api.approach(api.locate(\"green_block\")[0:3])\n    api.align_xy(api.locate(\"green_block\")[0:3])\n    api.descend_to(api.locate(\"green_block\")[2], api.locate(\"green_block\")[0:2])\n    api.grasp(api.locate(\"green_block\")[0:2])\n    api.record_grab_offset(\"green_block\")\n    api.lift()",
+          "sha256": "3f9d78d2a0f01f67c6f6c36cb0f91709a60331ffa59bf48c839dd8a6dafe7d8b",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "trace": [
+              {
+                "method": "locate",
+                "args": [
+                  "green_block"
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.500000000001463,
+                  0.12000000000235098,
+                  0.44987167392614275
+                ]
+              },
+              {
+                "method": "locate",
+                "args": [
+                  "green_block"
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.500000000001463,
+                  0.12000000000235098,
+                  0.44987167392614275
+                ]
+              },
+              {
+                "method": "approach",
+                "args": [
+                  [
+                    0.500000000001463,
+                    0.12000000000235098,
+                    0.44987167392614275
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "locate",
+                "args": [
+                  "green_block"
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.5000000000014878,
+                  0.12000000000239161,
+                  0.44989224457978355
+                ]
+              },
+              {
+                "method": "align_xy",
+                "args": [
+                  [
+                    0.5000000000014878,
+                    0.12000000000239161,
+                    0.44989224457978355
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "locate",
+                "args": [
+                  "green_block"
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.5000000000014878,
+                  0.12000000000239161,
+                  0.44989224457978355
+                ]
+              },
+              {
+                "method": "locate",
+                "args": [
+                  "green_block"
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.5000000000014878,
+                  0.12000000000239161,
+                  0.44989224457978355
+                ]
+              },
+              {
+                "method": "descend_to",
+                "args": [
+                  0.44989224457978355,
+                  [
+                    0.5000000000014878,
+                    0.12000000000239161
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "locate",
+                "args": [
+                  "green_block"
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.5000000000014878,
+                  0.12000000000239161,
+                  0.44989224457978355
+                ]
+              },
+              {
+                "method": "grasp",
+                "args": [
+                  [
+                    0.5000000000014878,
+                    0.12000000000239161
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "record_grab_offset",
+                "args": [
+                  "green_block"
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "lift",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "feedback": {
+              "diagnosis_status": "unresolved",
+              "observed_facts": {
+                "step": {
+                  "name": "pick",
+                  "args": {
+                    "obj": "green_block"
+                  },
+                  "pre": [
+                    "on_table(green_block)",
+                    "clear(green_block)",
+                    "holding_nothing()"
+                  ],
+                  "add": [
+                    "in_gripper(green_block)",
+                    "lifted(green_block)"
+                  ],
+                  "del": [
+                    "on_table(green_block)",
+                    "holding_nothing()"
+                  ]
+                },
+                "state_before": {
+                  "on_table(green_block)": true,
+                  "in_gripper(green_block)": false,
+                  "lifted(green_block)": false,
+                  "clear(green_block)": true,
+                  "on_table(yellow_block)": true,
+                  "in_gripper(yellow_block)": false,
+                  "lifted(yellow_block)": false,
+                  "clear(yellow_block)": true,
+                  "on_table(blue_block)": true,
+                  "in_gripper(blue_block)": false,
+                  "lifted(blue_block)": false,
+                  "clear(blue_block)": true,
+                  "stacked_on(green_block,yellow_block)": false,
+                  "stacked_on(green_block,blue_block)": false,
+                  "stacked_on(yellow_block,green_block)": false,
+                  "stacked_on(yellow_block,blue_block)": false,
+                  "stacked_on(blue_block,green_block)": false,
+                  "stacked_on(blue_block,yellow_block)": false,
+                  "holding_nothing()": true
+                },
+                "state_after": {
+                  "on_table(green_block)": false,
+                  "in_gripper(green_block)": true,
+                  "lifted(green_block)": true,
+                  "clear(green_block)": true,
+                  "on_table(yellow_block)": true,
+                  "in_gripper(yellow_block)": false,
+                  "lifted(yellow_block)": false,
+                  "clear(yellow_block)": true,
+                  "on_table(blue_block)": true,
+                  "in_gripper(blue_block)": false,
+                  "lifted(blue_block)": false,
+                  "clear(blue_block)": true,
+                  "stacked_on(green_block,yellow_block)": false,
+                  "stacked_on(green_block,blue_block)": false,
+                  "stacked_on(yellow_block,green_block)": false,
+                  "stacked_on(yellow_block,blue_block)": false,
+                  "stacked_on(blue_block,green_block)": false,
+                  "stacked_on(blue_block,yellow_block)": false,
+                  "holding_nothing()": false
+                },
+                "preconditions": {
+                  "on_table(green_block)": true,
+                  "clear(green_block)": true,
+                  "holding_nothing()": true
+                },
+                "effects": [
+                  {
+                    "predicate": "in_gripper(green_block)",
+                    "expected": true,
+                    "actual": true
+                  },
+                  {
+                    "predicate": "lifted(green_block)",
+                    "expected": true,
+                    "actual": true
+                  },
+                  {
+                    "predicate": "on_table(green_block)",
+                    "expected": false,
+                    "actual": false
+                  },
+                  {
+                    "predicate": "holding_nothing()",
+                    "expected": false,
+                    "actual": false
+                  }
+                ],
+                "exec_log": {
+                  "calls": [
+                    {
+                      "method": "locate",
+                      "args": [
+                        "green_block"
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": [
+                        0.500000000001463,
+                        0.12000000000235098,
+                        0.44987167392614275
+                      ]
+                    },
+                    {
+                      "method": "locate",
+                      "args": [
+                        "green_block"
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": [
+                        0.500000000001463,
+                        0.12000000000235098,
+                        0.44987167392614275
+                      ]
+                    },
+                    {
+                      "method": "approach",
+                      "args": [
+                        [
+                          0.500000000001463,
+                          0.12000000000235098,
+                          0.44987167392614275
+                        ]
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": null
+                    },
+                    {
+                      "method": "locate",
+                      "args": [
+                        "green_block"
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": [
+                        0.5000000000014878,
+                        0.12000000000239161,
+                        0.44989224457978355
+                      ]
+                    },
+                    {
+                      "method": "align_xy",
+                      "args": [
+                        [
+                          0.5000000000014878,
+                          0.12000000000239161,
+                          0.44989224457978355
+                        ]
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": null
+                    },
+                    {
+                      "method": "locate",
+                      "args": [
+                        "green_block"
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": [
+                        0.5000000000014878,
+                        0.12000000000239161,
+                        0.44989224457978355
+                      ]
+                    },
+                    {
+                      "method": "locate",
+                      "args": [
+                        "green_block"
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": [
+                        0.5000000000014878,
+                        0.12000000000239161,
+                        0.44989224457978355
+                      ]
+                    },
+                    {
+                      "method": "descend_to",
+                      "args": [
+                        0.44989224457978355,
+                        [
+                          0.5000000000014878,
+                          0.12000000000239161
+                        ]
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": null
+                    },
+                    {
+                      "method": "locate",
+                      "args": [
+                        "green_block"
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": [
+                        0.5000000000014878,
+                        0.12000000000239161,
+                        0.44989224457978355
+                      ]
+                    },
+                    {
+                      "method": "grasp",
+                      "args": [
+                        [
+                          0.5000000000014878,
+                          0.12000000000239161
+                        ]
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": null
+                    },
+                    {
+                      "method": "record_grab_offset",
+                      "args": [
+                        "green_block"
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": null
+                    },
+                    {
+                      "method": "lift",
+                      "args": [],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": null
+                    }
+                  ]
+                },
+                "exception": null,
+                "gt_violations": [],
+                "images": {
+                  "before": "/Users/yishuaicai/mywork/edps/outputs/cabto_reproduction_audit/generated_blocks_multiturn/pick/attempt_1/before.png",
+                  "after": "/Users/yishuaicai/mywork/edps/outputs/cabto_reproduction_audit/generated_blocks_multiturn/pick/attempt_1/after.png"
+                },
+                "images_interpreted": false,
+                "program_text": "def policy(api):\n    api.locate(\"green_block\")\n    api.approach(api.locate(\"green_block\")[0:3])\n    api.align_xy(api.locate(\"green_block\")[0:3])\n    api.descend_to(api.locate(\"green_block\")[2], api.locate(\"green_block\")[0:2])\n    api.grasp(api.locate(\"green_block\")[0:2])\n    api.record_grab_offset(\"green_block\")\n    api.lift()",
+                "program_sha256": "3f9d78d2a0f01f67c6f6c36cb0f91709a60331ffa59bf48c839dd8a6dafe7d8b",
+                "pointer_provenance": {
+                  "source": "oracle",
+                  "weld_assisted": true
+                }
+              },
+              "hypotheses": [
+                {
+                  "id": "policy_implementation",
+                  "status": "unresolved",
+                  "description": "实现、参数或原语串接可能有误；尚未定位。"
+                },
+                {
+                  "id": "perception_or_localization",
+                  "status": "unresolved",
+                  "description": "需核对定位来源、坐标转换及 oracle 回退，不能单凭失败排除或确认。"
+                },
+                {
+                  "id": "execution_or_control",
+                  "status": "unresolved",
+                  "description": "控制、接触或执行状态可能影响效应；不等同于原语表达能力不足。"
+                },
+                {
+                  "id": "state_or_preconditions",
+                  "status": "unresolved",
+                  "description": "核对已有前提的实际真值；混合成败不能证明缺少前提。"
+                },
+                {
+                  "id": "symbolic_model",
+                  "status": "unresolved",
+                  "description": "符号效应或前提模型可能不符，需独立证据后才提出修订。"
+                }
+              ],
+              "next_tests": [
+                {
+                  "target": "policy",
+                  "test": "对照实际源码、签名和 exec_log，定位最后确认完成的调用。"
+                },
+                {
+                  "target": "perception",
+                  "test": "对照 before/after 图像、定位坐标及来源，检查目标与坐标系。"
+                },
+                {
+                  "target": "runtime",
+                  "test": "在相同状态和参数下复核执行日志，区分定位、实现与控制失败。"
+                },
+                {
+                  "target": "model_review",
+                  "test": "保持其他因素不变，检验候选前提或效应；禁止按全败/混合成败直接归因。"
+                }
+              ],
+              "routes": [
+                {
+                  "target": "planner",
+                  "reason": "依据已观测状态和目标重新规划，不把假设写成事实。"
+                },
+                {
+                  "target": "policy",
+                  "reason": "审查实际执行源码与调用参数；当前仅输出提示。"
+                },
+                {
+                  "target": "perception",
+                  "reason": "核对定位与回退来源，保留其他病因。"
+                },
+                {
+                  "target": "model_review",
+                  "reason": "补足区分性证据前不改动作模型。"
+                }
+              ],
+              "candidate_model_patch": null,
+              "policy_feedback": "This candidate was generated by the backend and interpreted as finite API calls. Repair its code using the recorded exception, call trace and unmet effects. Keep h unchanged. Do not infer an impossible action from this failed attempt.",
+              "consumer": "PolicySampler next backend.chat if rejected and budget remains"
+            },
+            "execution_mode": "weld_assisted",
+            "whole_task_goal_ok": false
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "source_type": "cached_model_program",
+      "reused_from": "/Users/yishuaicai/mywork/edps/outputs/cabto_reproduction_audit/generated_blocks_multiturn/result.json",
+      "revalidation": "replayed physically before every place candidate"
+    },
+    {
+      "name": "place_on",
+      "api_docs": {
+        "move_above": "api.move_above(xyz: tuple[float,float,float]) -> tuple[float,float] : move held object above xyz. Save return value tcp_xy. Takes ONE tuple, not xyz[0].",
+        "refine_above": "api.refine_above(xy: tuple[float,float]) -> tuple[float,float] : optional alignment, returning TCP xy. Takes ONE 2D tuple, not a scalar.",
+        "descend_place": "api.descend_place(dst_top_z: float, tcp_xy: tuple[float,float]) -> float : lower held object. BOTH arguments required. tcp_xy is the RETURN VALUE from api.move_above or api.refine_above. It is not the target raw xy.",
+        "place_release": "api.place_release() -> None : opens gripper at current pose; does not move object. No arguments.",
+        "retreat": "api.retreat() -> None : move empty gripper away after release. No arguments.",
+        "settle": "api.settle() -> None : wait with gripper open. No arguments.",
+        "target_pose": "api.target_pose() -> tuple[float,float,float] : read-only TOP pose of the destination support. No arguments. Returns (x,y,z); indexing [2] is top_z and [:2] is xy."
+      },
+      "success": true,
+      "action_model": {
+        "name": "place_on",
+        "args": {
+          "obj": "green_block",
+          "dst": "yellow_block"
+        },
+        "pre": [
+          "in_gripper(green_block)",
+          "clear(yellow_block)"
+        ],
+        "add": [
+          "stacked_on(green_block,yellow_block)",
+          "holding_nothing()"
+        ],
+        "del": [
+          "in_gripper(green_block)",
+          "clear(yellow_block)"
+        ],
+        "description": "Place the already-held object onto the support designated by the action's destination argument. Finish with the object supported and the gripper empty.",
+        "api_binding": {
+          "target_pose": "dst"
+        }
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nPlace the already-held object onto the support designated by the action's destination argument. Finish with the object supported and the gripper empty.\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.move_above(xyz: tuple[float,float,float]) -> tuple[float,float] : move held object above xyz. Save return value tcp_xy. Takes ONE tuple, not xyz[0].\napi.refine_above(xy: tuple[float,float]) -> tuple[float,float] : optional alignment, returning TCP xy. Takes ONE 2D tuple, not a scalar.\napi.descend_place(dst_top_z: float, tcp_xy: tuple[float,float]) -> float : lower held object. BOTH arguments required. tcp_xy is the RETURN VALUE from api.move_above or api.refine_above. It is not the target raw xy.\napi.place_release() -> None : opens gripper at current pose; does not move object. No arguments.\napi.retreat() -> None : move empty gripper away after release. No arguments.\napi.settle() -> None : wait with gripper open. No arguments.\napi.target_pose() -> tuple[float,float,float] : read-only TOP pose of the destination support. No arguments. Returns (x,y,z); indexing [2] is top_z and [:2] is xy.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    pose = api.target_pose()\n    top_z = pose[2]\n    xyz = pose[:2]\n    tcp_xy = api.move_above(xyz)\n    if api.refine_above(tcp_xy) is not None:\n        tcp_xy = api.refine_above(tcp_xy)\n    api.descend_place(top_z, tcp_xy)\n    api.place_release()\n    api.retreat()\n    api.settle()\n```",
+          "source": "def policy(api):\n    pose = api.target_pose()\n    top_z = pose[2]\n    xyz = pose[:2]\n    tcp_xy = api.move_above(xyz)\n    if api.refine_above(tcp_xy) is not None:\n        tcp_xy = api.refine_above(tcp_xy)\n    api.descend_place(top_z, tcp_xy)\n    api.place_release()\n    api.retreat()\n    api.settle()",
+          "sha256": "329e9ad8afc14fa76e08d7794e9c96a224634a46eccd4219bb2742e3abc5b42d",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "trace": [
+              {
+                "method": "target_pose",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.5000000000052824,
+                  -0.12000000000063038,
+                  0.44989224457978355
+                ]
+              },
+              {
+                "method": "move_above",
+                "args": [
+                  [
+                    0.5000000000052824,
+                    -0.12000000000063038
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.5049659385534156,
+                  -0.11974480751073899
+                ]
+              },
+              {
+                "method": "refine_above",
+                "args": [
+                  [
+                    0.5049659385534156,
+                    -0.11974480751073899
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.5099318771015489,
+                  -0.1194896150208476
+                ]
+              },
+              {
+                "method": "refine_above",
+                "args": [
+                  [
+                    0.5049659385534156,
+                    -0.11974480751073899
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.5099318771015489,
+                  -0.1194896150208476
+                ]
+              },
+              {
+                "method": "descend_place",
+                "args": [
+                  0.44989224457978355,
+                  [
+                    0.5099318771015489,
+                    -0.1194896150208476
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": 0.48265711445420945
+              },
+              {
+                "method": "place_release",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "retreat",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "settle",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "feedback": {
+              "diagnosis_status": "unresolved",
+              "observed_facts": {
+                "step": {
+                  "name": "place_on",
+                  "args": {
+                    "obj": "green_block",
+                    "dst": "yellow_block"
+                  },
+                  "pre": [
+                    "in_gripper(green_block)",
+                    "clear(yellow_block)"
+                  ],
+                  "add": [
+                    "stacked_on(green_block,yellow_block)",
+                    "holding_nothing()"
+                  ],
+                  "del": [
+                    "in_gripper(green_block)",
+                    "clear(yellow_block)"
+                  ],
+                  "description": "Place the already-held object onto the support designated by the action's destination argument. Finish with the object supported and the gripper empty.",
+                  "api_binding": {
+                    "target_pose": "dst"
+                  }
+                },
+                "state_before": {
+                  "on_table(green_block)": false,
+                  "in_gripper(green_block)": true,
+                  "lifted(green_block)": true,
+                  "clear(green_block)": true,
+                  "on_table(yellow_block)": true,
+                  "in_gripper(yellow_block)": false,
+                  "lifted(yellow_block)": false,
+                  "clear(yellow_block)": true,
+                  "on_table(blue_block)": true,
+                  "in_gripper(blue_block)": false,
+                  "lifted(blue_block)": false,
+                  "clear(blue_block)": true,
+                  "stacked_on(green_block,yellow_block)": false,
+                  "stacked_on(green_block,blue_block)": false,
+                  "stacked_on(yellow_block,green_block)": false,
+                  "stacked_on(yellow_block,blue_block)": false,
+                  "stacked_on(blue_block,green_block)": false,
+                  "stacked_on(blue_block,yellow_block)": false,
+                  "holding_nothing()": false
+                },
+                "state_after": {
+                  "on_table(green_block)": false,
+                  "in_gripper(green_block)": false,
+                  "lifted(green_block)": true,
+                  "clear(green_block)": true,
+                  "on_table(yellow_block)": true,
+                  "in_gripper(yellow_block)": false,
+                  "lifted(yellow_block)": false,
+                  "clear(yellow_block)": false,
+                  "on_table(blue_block)": true,
+                  "in_gripper(blue_block)": false,
+                  "lifted(blue_block)": false,
+                  "clear(blue_block)": true,
+                  "stacked_on(green_block,yellow_block)": true,
+                  "stacked_on(green_block,blue_block)": false,
+                  "stacked_on(yellow_block,green_block)": false,
+                  "stacked_on(yellow_block,blue_block)": false,
+                  "stacked_on(blue_block,green_block)": false,
+                  "stacked_on(blue_block,yellow_block)": false,
+                  "holding_nothing()": true
+                },
+                "preconditions": {
+                  "in_gripper(green_block)": true,
+                  "clear(yellow_block)": true
+                },
+                "effects": [
+                  {
+                    "predicate": "stacked_on(green_block,yellow_block)",
+                    "expected": true,
+                    "actual": true
+                  },
+                  {
+                    "predicate": "holding_nothing()",
+                    "expected": true,
+                    "actual": true
+                  },
+                  {
+                    "predicate": "in_gripper(green_block)",
+                    "expected": false,
+                    "actual": false
+                  },
+                  {
+                    "predicate": "clear(yellow_block)",
+                    "expected": false,
+                    "actual": false
+                  }
+                ],
+                "exec_log": {
+                  "calls": [
+                    {
+                      "method": "target_pose",
+                      "args": [],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": [
+                        0.5000000000052824,
+                        -0.12000000000063038,
+                        0.44989224457978355
+                      ]
+                    },
+                    {
+                      "method": "move_above",
+                      "args": [
+                        [
+                          0.5000000000052824,
+                          -0.12000000000063038
+                        ]
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": [
+                        0.5049659385534156,
+                        -0.11974480751073899
+                      ]
+                    },
+                    {
+                      "method": "refine_above",
+                      "args": [
+                        [
+                          0.5049659385534156,
+                          -0.11974480751073899
+                        ]
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": [
+                        0.5099318771015489,
+                        -0.1194896150208476
+                      ]
+                    },
+                    {
+                      "method": "refine_above",
+                      "args": [
+                        [
+                          0.5049659385534156,
+                          -0.11974480751073899
+                        ]
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": [
+                        0.5099318771015489,
+                        -0.1194896150208476
+                      ]
+                    },
+                    {
+                      "method": "descend_place",
+                      "args": [
+                        0.44989224457978355,
+                        [
+                          0.5099318771015489,
+                          -0.1194896150208476
+                        ]
+                      ],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": 0.48265711445420945
+                    },
+                    {
+                      "method": "place_release",
+                      "args": [],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": null
+                    },
+                    {
+                      "method": "retreat",
+                      "args": [],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": null
+                    },
+                    {
+                      "method": "settle",
+                      "args": [],
+                      "kwargs": {},
+                      "status": "returned",
+                      "result": null
+                    }
+                  ]
+                },
+                "exception": null,
+                "gt_violations": [],
+                "images": {
+                  "before": "/Users/yishuaicai/mywork/edps/outputs/cabto_reproduction_audit/blocks_place_finite/place_on/attempt_1/before.png",
+                  "after": "/Users/yishuaicai/mywork/edps/outputs/cabto_reproduction_audit/blocks_place_finite/place_on/attempt_1/after.png"
+                },
+                "images_interpreted": false,
+                "program_text": "def policy(api):\n    pose = api.target_pose()\n    top_z = pose[2]\n    xyz = pose[:2]\n    tcp_xy = api.move_above(xyz)\n    if api.refine_above(tcp_xy) is not None:\n        tcp_xy = api.refine_above(tcp_xy)\n    api.descend_place(top_z, tcp_xy)\n    api.place_release()\n    api.retreat()\n    api.settle()",
+                "program_sha256": "329e9ad8afc14fa76e08d7794e9c96a224634a46eccd4219bb2742e3abc5b42d",
+                "pointer_provenance": {
+                  "source": "oracle",
+                  "weld_assisted": true
+                }
+              },
+              "hypotheses": [
+                {
+                  "id": "policy_implementation",
+                  "status": "unresolved",
+                  "description": "实现、参数或原语串接可能有误；尚未定位。"
+                },
+                {
+                  "id": "perception_or_localization",
+                  "status": "unresolved",
+                  "description": "需核对定位来源、坐标转换及 oracle 回退，不能单凭失败排除或确认。"
+                },
+                {
+                  "id": "execution_or_control",
+                  "status": "unresolved",
+                  "description": "控制、接触或执行状态可能影响效应；不等同于原语表达能力不足。"
+                },
+                {
+                  "id": "state_or_preconditions",
+                  "status": "unresolved",
+                  "description": "核对已有前提的实际真值；混合成败不能证明缺少前提。"
+                },
+                {
+                  "id": "symbolic_model",
+                  "status": "unresolved",
+                  "description": "符号效应或前提模型可能不符，需独立证据后才提出修订。"
+                }
+              ],
+              "next_tests": [
+                {
+                  "target": "policy",
+                  "test": "对照实际源码、签名和 exec_log，定位最后确认完成的调用。"
+                },
+                {
+                  "target": "perception",
+                  "test": "对照 before/after 图像、定位坐标及来源，检查目标与坐标系。"
+                },
+                {
+                  "target": "runtime",
+                  "test": "在相同状态和参数下复核执行日志，区分定位、实现与控制失败。"
+                },
+                {
+                  "target": "model_review",
+                  "test": "保持其他因素不变，检验候选前提或效应；禁止按全败/混合成败直接归因。"
+                }
+              ],
+              "routes": [
+                {
+                  "target": "planner",
+                  "reason": "依据已观测状态和目标重新规划，不把假设写成事实。"
+                },
+                {
+                  "target": "policy",
+                  "reason": "审查实际执行源码与调用参数；当前仅输出提示。"
+                },
+                {
+                  "target": "perception",
+                  "reason": "核对定位与回退来源，保留其他病因。"
+                },
+                {
+                  "target": "model_review",
+                  "reason": "补足区分性证据前不改动作模型。"
+                }
+              ],
+              "candidate_model_patch": null,
+              "policy_feedback": "This candidate was generated by the backend and interpreted as finite API calls. Repair its code using the recorded exception, call trace and unmet effects. Keep h unchanged. Do not infer an impossible action from this failed attempt.",
+              "consumer": "PolicySampler next backend.chat if rejected and budget remains"
+            },
+            "diagnostics": {
+              "located_objects": [
+                "yellow_block"
+              ],
+              "expected_destination": "yellow_block",
+              "payload": "green_block",
+              "destination_was_localized": true,
+              "payload_position": [
+                0.5046885421838299,
+                -0.12029301665192475,
+                0.4745813836968218
+              ],
+              "destination_position": [
+                0.5003143360557811,
+                -0.12008308393704867,
+                0.4247929643118481
+              ]
+            },
+            "execution_mode": "weld_assisted",
+            "whole_task_goal_ok": true
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence."
+    }
+  ],
+  "success": true,
+  "elapsed_seconds": 12.615897458046675,
+  "final_state": {
+    "on_table(green_block)": false,
+    "in_gripper(green_block)": false,
+    "lifted(green_block)": true,
+    "clear(green_block)": true,
+    "on_table(yellow_block)": true,
+    "in_gripper(yellow_block)": false,
+    "lifted(yellow_block)": false,
+    "clear(yellow_block)": false,
+    "on_table(blue_block)": true,
+    "in_gripper(blue_block)": false,
+    "lifted(blue_block)": false,
+    "clear(blue_block)": true,
+    "stacked_on(green_block,yellow_block)": true,
+    "stacked_on(green_block,blue_block)": false,
+    "stacked_on(yellow_block,green_block)": false,
+    "stacked_on(yellow_block,blue_block)": false,
+    "stacked_on(blue_block,green_block)": false,
+    "stacked_on(blue_block,yellow_block)": false,
+    "holding_nothing()": true
+  }
+}

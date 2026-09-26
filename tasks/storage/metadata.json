@@ -1,0 +1,11 @@
+{
+  "task": "storage",
+  "latest_direct": "packing_dual_lift_shelf_storage_v3",
+  "direct_entry": "../../run_task.py storage --output <dir>",
+  "direct_video": "direct/rollout.mp4",
+  "generated_programs": "generated_bt/generated_programs.json",
+  "generated_bt": "generated_bt/tree.json, tree.dot, tree.svg",
+  "generated_replay_video": "generated_bt/rollout.mp4",
+  "oracle": true,
+  "assistance": "item grasp welds and geometry-gated dual tray welds; no object snap or arm rehome"
+}

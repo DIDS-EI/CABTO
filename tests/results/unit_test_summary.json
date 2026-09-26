@@ -1,0 +1,18 @@
+{
+  "all_passed": true,
+  "total_tests": 164,
+  "suites": {
+    "single_arm_cover_blocks": 29,
+    "handleless_handover": 18,
+    "smooth_held_basin_pour": 53,
+    "dual_lift_shelf_scene": 39,
+    "dual_lift_shelf_codegen": 25
+  },
+  "logs": [
+    "test_single_arm_rebuilt.log",
+    "test_handleless_tea_handover.log",
+    "test_smooth_held_basin.log",
+    "test_dual_lift_shelf.log",
+    "test_dual_lift_codegen.log"
+  ]
+}

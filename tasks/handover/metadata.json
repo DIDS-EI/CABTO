@@ -1,0 +1,12 @@
+{
+  "task": "handover",
+  "latest_direct": "handleless_tea_box_v3_three_boxes_clean",
+  "direct_entry": "../../run_task.py handover --output <dir>",
+  "direct_video": "direct/rollout.mp4",
+  "formal_bt": "formal_bt/tree.json, tree.dot, tree.svg",
+  "generated_program_source": "generated_bt/source_generated_programs.json",
+  "generated_replay": "generated_bt/replay/result.json and rollout.mp4",
+  "compatibility_note": "The atomic wrappers were model-generated earlier against the same API contract. No physical equivalence was assumed: they were replayed and all effects/final physics were revalidated on handleless v3.",
+  "oracle": true,
+  "assistance": "direct box-face contacts gate an explicit grasp weld; no hidden handles or object snap"
+}

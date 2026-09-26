@@ -1,0 +1,86 @@
+[
+  {
+    "obj": "dice_cube",
+    "backend": "oracle",
+    "triangulated_xyz": [
+      0.5719,
+      -0.0737,
+      0.4225
+    ],
+    "target_px": {
+      "overview": [
+        238.3,
+        266.8
+      ],
+      "front": [
+        203.7,
+        263.1
+      ]
+    },
+    "rollout_success": true,
+    "n_frames": 93
+  },
+  {
+    "obj": "wood_block",
+    "backend": "oracle",
+    "triangulated_xyz": [
+      0.5719,
+      -0.0737,
+      0.425
+    ],
+    "target_px": {
+      "overview": [
+        238.3,
+        265.9
+      ],
+      "front": [
+        203.7,
+        261.6
+      ]
+    },
+    "rollout_success": true,
+    "n_frames": 93
+  },
+  {
+    "obj": "soda_can",
+    "backend": "oracle",
+    "triangulated_xyz": [
+      0.5719,
+      -0.0737,
+      0.427
+    ],
+    "target_px": {
+      "overview": [
+        238.3,
+        265.2
+      ],
+      "front": [
+        203.6,
+        260.5
+      ]
+    },
+    "rollout_success": true,
+    "n_frames": 92
+  },
+  {
+    "obj": "tea_tin",
+    "backend": "oracle",
+    "triangulated_xyz": [
+      0.5719,
+      -0.0737,
+      0.43
+    ],
+    "target_px": {
+      "overview": [
+        238.3,
+        264.1
+      ],
+      "front": [
+        203.5,
+        258.7
+      ]
+    },
+    "rollout_success": true,
+    "n_frames": 92
+  }
+]

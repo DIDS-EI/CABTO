@@ -1,0 +1,9 @@
+mujoco==3.10.0
+numpy==2.4.6
+scipy==1.17.1
+Pillow==12.2.0
+imageio==2.37.3
+imageio-ffmpeg==0.6.0
+opencv-python==4.13.0.92
+# Optional, only for rerunning local Qwen visual grounding on Apple Silicon:
+# mlx-vlm==0.6.3

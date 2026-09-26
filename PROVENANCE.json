@@ -1,0 +1,25 @@
+{
+  "created_from": [
+    "/Users/yishuaicai/mywork/edps_cabto",
+    "/Users/yishuaicai/mywork/CABTO/exp4_bt_tasks",
+    "/Users/yishuaicai/mywork/CABTO/exp2_low_level_codegen/franka_grasp_dp",
+    "/Users/yishuaicai/mywork/BTExpansion-demo/src"
+  ],
+  "source_directories_modified": false,
+  "curation_policy": "five active task configurations only; older configurations retained only under project/test_fixtures when required by regression tests",
+  "active_tasks": {
+    "cover": "cover_kitchen_sort_v2",
+    "blocks": "blocks_rebuilt_v1",
+    "pour": "held_basin_pour_smooth_v2",
+    "handover": "handover_tea_box_v3",
+    "storage": "packing_dual_lift_shelf_storage_v3"
+  },
+  "vlm_models": {
+    "historical": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "new_0_8b_replay": "mlx-community/Qwen3.5-0.8B-4bit"
+  },
+  "requested_qwen_0_8b_evidence_found": true,
+  "qwen_0_8b_provenance": "newly executed inside edps_cabto_exp on 5 objects x 4 seeds; 2/20 success",
+  "model_weights_included": false,
+  "historical_result_paths_preserved": true
+}

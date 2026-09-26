@@ -1,0 +1,334 @@
+{
+  "task": "stack the green block on the yellow block",
+  "objects": [
+    "green_block",
+    "yellow_block",
+    "blue_block"
+  ],
+  "backend": "oracle",
+  "backend_scope": "perception",
+  "planner_backend": "local",
+  "oracle_refine": true,
+  "goal_predicates": [
+    "stacked_on(green_block,yellow_block)"
+  ],
+  "execution_mode": "assisted",
+  "assisted": true,
+  "assistance": [
+    "BlocksEnv weld grasp assistance"
+  ],
+  "success_semantics": "assisted 模式下最终目标真值满足，非严格物理成功",
+  "policy_feedback_consumed": false,
+  "policy_repair_closed_loop": false,
+  "max_rounds": 3,
+  "rounds": [
+    {
+      "round": 0,
+      "plan_source": "llm",
+      "plan": [
+        {
+          "name": "pick",
+          "args": {
+            "obj": "green_block"
+          },
+          "pre": [
+            "on_table(green_block)",
+            "clear(green_block)",
+            "holding_nothing()"
+          ],
+          "add": [
+            "in_gripper(green_block)",
+            "lifted(green_block)"
+          ],
+          "del": [
+            "on_table(green_block)",
+            "holding_nothing()"
+          ]
+        },
+        {
+          "name": "place_on",
+          "args": {
+            "obj": "green_block",
+            "dst": "yellow_block"
+          },
+          "pre": [
+            "in_gripper(green_block)",
+            "clear(yellow_block)"
+          ],
+          "add": [
+            "stacked_on(green_block,yellow_block)",
+            "holding_nothing()"
+          ],
+          "del": [
+            "in_gripper(green_block)",
+            "clear(yellow_block)"
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "idx": 0,
+          "name": "pick",
+          "args": {
+            "obj": "green_block"
+          },
+          "program_text": "def execute_step(env, runner, pointer, step, oracle_refine=False):\n    \"\"\"按 step[\"name\"] 分派到 gen_ 函数，传 step[\"args\"]。返回执行 log。\"\"\"\n    name = step[\"name\"]\n    args = step.get(\"args\", {})\n    if name == \"pick\":\n        return gen_pick(runner, pointer, args[\"obj\"])\n    if name == \"place_on\":\n        return gen_place_on(runner, pointer, args[\"obj\"], args[\"dst\"],\n                            oracle_refine=oracle_refine)\n    return {\"skill\": name, \"error\": \"unknown skill\", \"steps\": []}\n\n\ndef gen_pick(runner, pointer, obj):\n    log = {\"skill\": \"pick\", \"obj\": obj, \"steps\": []}\n    # 1) 定位（VLM 打点→3D 或 oracle 真值）\n    p = pointer.locate_3d(obj_phrase(obj), obj_name=obj)\n    log[\"located_3d\"] = [float(x) for x in p]\n    top_z = float(p[2])\n    grasp_z = grasp_z_for_top(top_z)\n    xy = p[:2]\n\n    # 2) approach → align → descend → grasp → lift\n    runner.approach(p);                         log[\"steps\"].append(\"approach\")\n    runner.align_xy(p);                         log[\"steps\"].append(\"align_xy\")\n    runner.descend_to(grasp_z, lock_xy=xy);     log[\"steps\"].append(f\"descend_to z={grasp_z:.3f}\")\n    runner.grasp(xy);                           log[\"steps\"].append(\"grasp\")\n    runner.record_grab_offset(obj)\n    log[\"grab_dz\"] = runner.grab_dz\n    log[\"grab_dxy\"] = [float(v) for v in runner.grab_dxy]\n    runner.lift(xy=xy);                         log[\"steps\"].append(\"lift\")\n\n    holding = runner.env.is_holding(obj)\n    log[\"holding_after\"] = bool(holding)\n    return log\n",
+          "program": {
+            "source_type": "handwritten_template",
+            "functions": [
+              {
+                "module": "codegen",
+                "function": "execute_step",
+                "file": "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/codegen.py",
+                "line": 69,
+                "sha256": "f57f6b5383a52b33c7ea32a0978fce28cfce6ed5db76356b08e28422b60fa1de"
+              },
+              {
+                "module": "codegen",
+                "function": "gen_pick",
+                "file": "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/codegen.py",
+                "line": 26,
+                "sha256": "869d09acc1b22fccb7d38bd16db187fe49a96cd3682072f1c81d949e8161a2eb"
+              }
+            ],
+            "sha256": "c31b272332285cbd9214129ac2a1bc786bb006e4ab12c1634f852983ec59e349"
+          },
+          "exec_log": {
+            "skill": "pick",
+            "obj": "green_block",
+            "steps": [
+              "approach",
+              "align_xy",
+              "descend_to z=0.435",
+              "grasp",
+              "lift"
+            ],
+            "located_3d": [
+              0.500000000001463,
+              0.12000000000235098,
+              0.44987167392614275
+            ],
+            "grab_dz": 0.007269853540922244,
+            "grab_dxy": [
+              -0.0002552566893619934,
+              2.8384923851779154e-05
+            ],
+            "holding_after": true
+          },
+          "exception": null,
+          "step_passed": true,
+          "state_before": {
+            "on_table(green_block)": true,
+            "in_gripper(green_block)": false,
+            "lifted(green_block)": false,
+            "clear(green_block)": true,
+            "on_table(yellow_block)": true,
+            "in_gripper(yellow_block)": false,
+            "lifted(yellow_block)": false,
+            "clear(yellow_block)": true,
+            "on_table(blue_block)": true,
+            "in_gripper(blue_block)": false,
+            "lifted(blue_block)": false,
+            "clear(blue_block)": true,
+            "stacked_on(green_block,yellow_block)": false,
+            "stacked_on(green_block,blue_block)": false,
+            "stacked_on(yellow_block,green_block)": false,
+            "stacked_on(yellow_block,blue_block)": false,
+            "stacked_on(blue_block,green_block)": false,
+            "stacked_on(blue_block,yellow_block)": false,
+            "holding_nothing()": true
+          },
+          "state_after": {
+            "on_table(green_block)": false,
+            "in_gripper(green_block)": true,
+            "lifted(green_block)": true,
+            "clear(green_block)": true,
+            "on_table(yellow_block)": true,
+            "in_gripper(yellow_block)": false,
+            "lifted(yellow_block)": false,
+            "clear(yellow_block)": true,
+            "on_table(blue_block)": true,
+            "in_gripper(blue_block)": false,
+            "lifted(blue_block)": false,
+            "clear(blue_block)": true,
+            "stacked_on(green_block,yellow_block)": false,
+            "stacked_on(green_block,blue_block)": false,
+            "stacked_on(yellow_block,green_block)": false,
+            "stacked_on(yellow_block,blue_block)": false,
+            "stacked_on(blue_block,green_block)": false,
+            "stacked_on(blue_block,yellow_block)": false,
+            "holding_nothing()": false
+          },
+          "pointer_provenance": {
+            "backend": "oracle",
+            "calls": [
+              {
+                "args": [
+                  "the green block"
+                ],
+                "kwargs": {
+                  "obj_name": "green_block"
+                },
+                "backend": "oracle",
+                "source": "oracle",
+                "returned": true,
+                "located_3d": [
+                  0.500000000001463,
+                  0.12000000000235098,
+                  0.44987167392614275
+                ]
+              }
+            ],
+            "oracle_refine_enabled": false
+          },
+          "gt_ok": true,
+          "gt_violations": [],
+          "vlm_ok": null,
+          "vlm_violations": [],
+          "vlm_raw": "",
+          "agree": null,
+          "before_img": "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/stage3_out/step0_before.png",
+          "after_img": "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/stage3_out/step0_after.png"
+        },
+        {
+          "idx": 1,
+          "name": "place_on",
+          "args": {
+            "obj": "green_block",
+            "dst": "yellow_block"
+          },
+          "program_text": "def execute_step(env, runner, pointer, step, oracle_refine=False):\n    \"\"\"按 step[\"name\"] 分派到 gen_ 函数，传 step[\"args\"]。返回执行 log。\"\"\"\n    name = step[\"name\"]\n    args = step.get(\"args\", {})\n    if name == \"pick\":\n        return gen_pick(runner, pointer, args[\"obj\"])\n    if name == \"place_on\":\n        return gen_place_on(runner, pointer, args[\"obj\"], args[\"dst\"],\n                            oracle_refine=oracle_refine)\n    return {\"skill\": name, \"error\": \"unknown skill\", \"steps\": []}\n\n\ndef gen_place_on(runner, pointer, obj, dst, oracle_refine=False):\n    log = {\"skill\": \"place_on\", \"obj\": obj, \"dst\": dst, \"steps\": []}\n    # 1) 定位 dst 顶面\n    p = pointer.locate_3d(obj_phrase(dst), obj_name=dst)\n    log[\"located_3d\"] = [float(x) for x in p]\n    dst_top_z = float(p[2])\n    dst_xy = p[:2]\n\n    # 2) move_above（补偿抓偏）→ 可选真值精修 → descend_place → release → retreat → settle\n    tcp_xy = runner.move_above(p);              log[\"steps\"].append(\"move_above\")\n    refine_obj = obj if oracle_refine else None\n    tcp_xy = runner.refine_above(dst_xy, obj_name=refine_obj); log[\"steps\"].append(\"refine_above\")\n    runner.descend_place(dst_top_z, tcp_xy);    log[\"steps\"].append(\"descend_place\")\n    runner.place_release();                     log[\"steps\"].append(\"place_release\")\n    runner.retreat();                           log[\"steps\"].append(\"retreat\")\n    runner.settle();                            log[\"steps\"].append(\"settle\")\n    return log\n",
+          "program": {
+            "source_type": "handwritten_template",
+            "functions": [
+              {
+                "module": "codegen",
+                "function": "execute_step",
+                "file": "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/codegen.py",
+                "line": 69,
+                "sha256": "f57f6b5383a52b33c7ea32a0978fce28cfce6ed5db76356b08e28422b60fa1de"
+              },
+              {
+                "module": "codegen",
+                "function": "gen_place_on",
+                "file": "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/codegen.py",
+                "line": 50,
+                "sha256": "8a736e46d6bf51265f94d6749b114a608f9a66e2533491366346f79fa05d2a1d"
+              }
+            ],
+            "sha256": "a5df72fef1d5d30525ff6279ed2863b4583f78185d0a80bb1f6abbaf83c2ddda"
+          },
+          "exec_log": {
+            "skill": "place_on",
+            "obj": "green_block",
+            "dst": "yellow_block",
+            "steps": [
+              "move_above",
+              "refine_above",
+              "descend_place",
+              "place_release",
+              "retreat",
+              "settle"
+            ],
+            "located_3d": [
+              0.5000000000052824,
+              -0.12000000000063038,
+              0.44989224457978355
+            ]
+          },
+          "exception": null,
+          "step_passed": true,
+          "state_before": {
+            "on_table(green_block)": false,
+            "in_gripper(green_block)": true,
+            "lifted(green_block)": true,
+            "clear(green_block)": true,
+            "on_table(yellow_block)": true,
+            "in_gripper(yellow_block)": false,
+            "lifted(yellow_block)": false,
+            "clear(yellow_block)": true,
+            "on_table(blue_block)": true,
+            "in_gripper(blue_block)": false,
+            "lifted(blue_block)": false,
+            "clear(blue_block)": true,
+            "stacked_on(green_block,yellow_block)": false,
+            "stacked_on(green_block,blue_block)": false,
+            "stacked_on(yellow_block,green_block)": false,
+            "stacked_on(yellow_block,blue_block)": false,
+            "stacked_on(blue_block,green_block)": false,
+            "stacked_on(blue_block,yellow_block)": false,
+            "holding_nothing()": false
+          },
+          "state_after": {
+            "on_table(green_block)": false,
+            "in_gripper(green_block)": false,
+            "lifted(green_block)": true,
+            "clear(green_block)": true,
+            "on_table(yellow_block)": true,
+            "in_gripper(yellow_block)": false,
+            "lifted(yellow_block)": false,
+            "clear(yellow_block)": false,
+            "on_table(blue_block)": true,
+            "in_gripper(blue_block)": false,
+            "lifted(blue_block)": false,
+            "clear(blue_block)": true,
+            "stacked_on(green_block,yellow_block)": true,
+            "stacked_on(green_block,blue_block)": false,
+            "stacked_on(yellow_block,green_block)": false,
+            "stacked_on(yellow_block,blue_block)": false,
+            "stacked_on(blue_block,green_block)": false,
+            "stacked_on(blue_block,yellow_block)": false,
+            "holding_nothing()": true
+          },
+          "pointer_provenance": {
+            "backend": "oracle",
+            "calls": [
+              {
+                "args": [
+                  "the yellow block"
+                ],
+                "kwargs": {
+                  "obj_name": "yellow_block"
+                },
+                "backend": "oracle",
+                "source": "oracle",
+                "returned": true,
+                "located_3d": [
+                  0.5000000000052824,
+                  -0.12000000000063038,
+                  0.44989224457978355
+                ]
+              }
+            ],
+            "oracle_refine_enabled": true
+          },
+          "gt_ok": true,
+          "gt_violations": [],
+          "vlm_ok": null,
+          "vlm_violations": [],
+          "vlm_raw": "",
+          "agree": null,
+          "before_img": "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/stage3_out/step1_before.png",
+          "after_img": "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/stage3_out/step1_after.png"
+        }
+      ],
+      "steps_passed": 2,
+      "all_steps_passed": true,
+      "goal_ok": true
+    }
+  ],
+  "success": true,
+  "steps_passed": 2,
+  "goal_ok": true,
+  "rounds_used": 1,
+  "final_stacked_on_green_yellow": true,
+  "final_true_predicates": [
+    "clear(blue_block)",
+    "clear(green_block)",
+    "holding_nothing()",
+    "lifted(green_block)",
+    "on_table(blue_block)",
+    "on_table(yellow_block)",
+    "stacked_on(green_block,yellow_block)"
+  ]
+}

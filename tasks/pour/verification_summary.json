@@ -1,0 +1,88 @@
+{
+  "completed": true,
+  "success_count": 1,
+  "episodes": 1,
+  "deterministic_frozen_layout": true,
+  "actions": 10,
+  "all_step_effects_ok": true,
+  "stable": true,
+  "collision_free": true,
+  "forbidden_contact_groups": 0,
+  "forbidden_penetration_tolerance_mm": 0.2,
+  "old_max_forbidden_penetration_mm": 6.129038685953603,
+  "source_return": {
+    "returned": true,
+    "xy_error_m": 0.002350584573908653,
+    "bottom_gap_m": 0.003985823453970916,
+    "rotation_error_deg": 2.605305626153819,
+    "released": true,
+    "origin": [
+      0.18079110955200645,
+      0.10221345736706662,
+      0.5239608802406874
+    ]
+  },
+  "basin_return": {
+    "returned": true,
+    "xy_error_m": 0.004845622899469937,
+    "bottom_gap_m": -4.200211313420965e-06,
+    "rotation_error_deg": 7.949775454645316,
+    "released": true,
+    "origin": [
+      0.5964211097961588,
+      -0.27326430566270404,
+      0.5199946935398979
+    ]
+  },
+  "source_and_basin_released": true,
+  "both_home": true,
+  "controlled_home_events": 2,
+  "sphere_retained_through_return": true,
+  "sphere_radial_clearance_mm": 112.86456328697139,
+  "source_actual_tip_normal_z": -0.2576673530439464,
+  "bt_nodes": 1853,
+  "bt_action_nodes": 519,
+  "program_hashes_match_generation": true,
+  "raw_model_reply_maps_to_executed_source": true,
+  "config_unchanged": true,
+  "implementation_unchanged_during_run": true,
+  "object_snap": false,
+  "qpos_write": false,
+  "instant_rehome": false,
+  "assistance": "oracle + grasp-weld for source cup and basin; sphere never welded or repositioned",
+  "tests": {
+    "smooth": 53,
+    "held_basin": 45,
+    "scene_config": 8,
+    "curriculum_bridge": 36,
+    "formal_bt": 32,
+    "policy_codegen": 24,
+    "total": 198
+  },
+  "layout_changes": {
+    "left_base_xy": [
+      0.18,
+      0.6
+    ],
+    "right_base_xy": [
+      0.56,
+      -0.6
+    ],
+    "basin_radius": 0.15,
+    "basin_handle_offset": 0.27,
+    "receive_center_xy": [
+      0.42,
+      -0.02
+    ],
+    "source_transport_z": 0.76,
+    "source_drop_center_xy": [
+      0.1,
+      0.1
+    ],
+    "basin_safe_lane_center_xy": [
+      0.5,
+      -0.34
+    ]
+  },
+  "scope": "single frozen deterministic layout; sphere proxy, not liquid; weld-assisted grasps"
+}

@@ -1,0 +1,124 @@
+{
+  "model": {
+    "name": "pour_into_held_basin",
+    "args": {
+      "arm": "0",
+      "obj": "canL",
+      "dest": "pour_into_held_basin"
+    },
+    "program_kind": "coordinated_pour",
+    "pre": [
+      "holding(0,canL)",
+      "holding(1,basin)",
+      "content_in_source()",
+      "basin_ready()",
+      "collision_free()"
+    ],
+    "add": [
+      "sphere_in_basin()",
+      "caught_by_held_basin()",
+      "payload_retained()"
+    ],
+    "del": [
+      "content_in_source()",
+      "source_upright()"
+    ],
+    "description": "Required order: move the held source cup above the catch zone first; then re-align the loaded receiving basin immediately before physically tipping the source; finally settle. The receiving arm must keep holding the basin throughout."
+  },
+  "action_id": "pour_into_held_basin(arm=0,dest=pour_into_held_basin,obj=canL)",
+  "before": [
+    "basin_ready()",
+    "collision_free()",
+    "content_in_source()",
+    "holding(0,canL)",
+    "holding(1,basin)",
+    "source_upright()"
+  ],
+  "after": [
+    "basin_ready()",
+    "caught_by_held_basin()",
+    "collision_free()",
+    "holding(0,canL)",
+    "holding(1,basin)",
+    "payload_retained()",
+    "sphere_in_basin()"
+  ],
+  "valid_trial": true,
+  "code_executed": true,
+  "effect_ok": true,
+  "goal_ok": true,
+  "exception": null,
+  "trace": [
+    {
+      "method": "source_pose",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": [
+        0.41,
+        0.009999999999999998,
+        0.76
+      ]
+    },
+    {
+      "method": "move_source",
+      "args": [
+        [
+          0.41,
+          0.009999999999999998,
+          0.76
+        ]
+      ],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    },
+    {
+      "method": "receiver_pose",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": [
+        0.69,
+        -0.02,
+        0.59
+      ]
+    },
+    {
+      "method": "align_receiver",
+      "args": [
+        [
+          0.69,
+          -0.02,
+          0.59
+        ]
+      ],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    },
+    {
+      "method": "tip_source",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    },
+    {
+      "method": "settle",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    }
+  ],
+  "diagnostics": {
+    "missing_pre": [],
+    "missing_add": [],
+    "remaining_del": [],
+    "missing_preserved_pre": []
+  },
+  "code_sha256": "e06cfe1b437bd130d41d13669a3e54a978443d7739fc3a99fd39f0cea789d090",
+  "failure_attribution": null,
+  "candidate_model_patch": null
+}

@@ -1,0 +1,206 @@
+{
+  "task": "cover",
+  "scene": null,
+  "seed": 0,
+  "program_source": "verbatim_previously_model_generated_programs",
+  "program_archive": "../tasks/cover/generated_bt/generated_programs.json",
+  "program_sha256": {
+    "pick": "0c76c87055a5772796fdc44fc44cda02a3b3cb1e12569ecf3ed17a1febdfd676",
+    "place": "d5ec05fb57cbcdb535b0a2143376103182d04866328308d3fb704f65721a618b"
+  },
+  "binding": "trusted_task_local_atomic_physical_adapter",
+  "formal_bt": true,
+  "oracle": true,
+  "success": true,
+  "steps": [
+    {
+      "step": 0,
+      "action": "pick(object=shrimp,support=bowl)",
+      "before": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "at_source(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "holding(shrimp)"
+      ],
+      "effect_ok": true,
+      "source": "def policy(api):\n    pose = api.pick_lid_complete()\n    return pose"
+    },
+    {
+      "step": 1,
+      "action": "place(object=shrimp,support=bowl)",
+      "before": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "holding(shrimp)"
+      ],
+      "after": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "effect_ok": true,
+      "source": "def policy(api):\n    pose = api.place_lid_complete()"
+    },
+    {
+      "step": 2,
+      "action": "pick(object=apple,support=board)",
+      "before": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(potato)",
+        "at_target(shrimp)",
+        "holding(apple)"
+      ],
+      "effect_ok": true,
+      "source": "def policy(api):\n    pose = api.pick_lid_complete()\n    return pose"
+    },
+    {
+      "step": 3,
+      "action": "place(object=apple,support=board)",
+      "before": [
+        "at_source(potato)",
+        "at_target(shrimp)",
+        "holding(apple)"
+      ],
+      "after": [
+        "at_source(potato)",
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "effect_ok": true,
+      "source": "def policy(api):\n    pose = api.place_lid_complete()"
+    },
+    {
+      "step": 4,
+      "action": "pick(object=potato,support=pan)",
+      "before": [
+        "at_source(potato)",
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "holding(potato)"
+      ],
+      "effect_ok": true,
+      "source": "def policy(api):\n    pose = api.pick_lid_complete()\n    return pose"
+    },
+    {
+      "step": 5,
+      "action": "place(object=potato,support=pan)",
+      "before": [
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "holding(potato)"
+      ],
+      "after": [
+        "at_target(apple)",
+        "at_target(potato)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "effect_ok": true,
+      "source": "def policy(api):\n    pose = api.place_lid_complete()"
+    },
+    {
+      "step": 6,
+      "action": "home()",
+      "before": [
+        "at_target(apple)",
+        "at_target(potato)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_target(apple)",
+        "at_target(potato)",
+        "at_target(shrimp)",
+        "empty()",
+        "home_completed()"
+      ],
+      "effect_ok": true,
+      "source": "api.home()"
+    }
+  ],
+  "objects": {
+    "shrimp": {
+      "ok": true,
+      "xy_error_m": 0.0027777468924388305,
+      "gap_m": -0.00899987626220844,
+      "tilt_deg": 2.8271705710312443,
+      "support_contact": true,
+      "support_upright": true,
+      "base_displacement_m": 0.0,
+      "origin": [
+        0.3094595874002527,
+        0.157275329006928,
+        0.4070001237377916
+      ]
+    },
+    "apple": {
+      "ok": true,
+      "xy_error_m": 8.913775587910286e-05,
+      "gap_m": -0.0020156652186477664,
+      "tilt_deg": 0.002013991770721512,
+      "support_contact": true,
+      "support_upright": true,
+      "base_displacement_m": 0.0,
+      "origin": [
+        0.4899111406808981,
+        0.1599929600474499,
+        0.44498433478135224
+      ]
+    },
+    "potato": {
+      "ok": true,
+      "xy_error_m": 3.522783777887181e-05,
+      "gap_m": -0.005016737563358853,
+      "tilt_deg": 0.0019582528386371144,
+      "support_contact": true,
+      "support_upright": true,
+      "base_displacement_m": 0.0,
+      "origin": [
+        0.6699657251527311,
+        0.1599918614866673,
+        0.4249832624366412
+      ]
+    }
+  },
+  "released": true,
+  "hand_clearance_m": {
+    "shrimp": 0.5053713605568582,
+    "apple": 0.5046417464939644,
+    "potato": 0.6091271837681496
+  },
+  "final_home": true,
+  "home_error_rad": 3.521668676490739e-09,
+  "completed_targets_preserved": true,
+  "forbidden_contacts": [],
+  "max_grasp_relative_slip_m": 0.010385881977055221,
+  "max_bilateral_contact_gap_s": 0.0,
+  "strict_weld_violation": false,
+  "grasp_verified": true,
+  "motion_verified": true,
+  "bt_status": "success",
+  "final_state": [
+    "at_target(apple)",
+    "at_target(potato)",
+    "at_target(shrimp)",
+    "empty()",
+    "home_completed()"
+  ],
+  "config_sha256": "87831738dd2d6544b3a82e860800830135b30fc8091aa1e677f8789b77cceb4c"
+}

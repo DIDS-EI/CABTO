@@ -1,0 +1,139 @@
+{
+  "model": {
+    "name": "pick_source_cup",
+    "args": {
+      "arm": "0",
+      "obj": "canL",
+      "dest": "pick_source_cup"
+    },
+    "program_kind": "pick",
+    "pre": [
+      "empty(0)",
+      "at_source(canL)",
+      "content_in_source()",
+      "collision_free()"
+    ],
+    "add": [
+      "holding(0,canL)"
+    ],
+    "del": [
+      "empty(0)",
+      "at_source(canL)",
+      "parked(0)",
+      "home(0)",
+      "source_returned()",
+      "hand_raised(0)"
+    ],
+    "description": "Pick the handled source cup containing the sphere and lift it. Use the documented pick APIs."
+  },
+  "action_id": "pick_source_cup(arm=0,dest=pick_source_cup,obj=canL)",
+  "before": [
+    "at_source(basin)",
+    "at_source(canL)",
+    "basin_returned()",
+    "collision_free()",
+    "content_in_source()",
+    "empty(0)",
+    "empty(1)",
+    "hand_raised(0)",
+    "hand_raised(1)",
+    "home(0)",
+    "home(1)",
+    "parked(0)",
+    "parked(1)",
+    "source_upright()"
+  ],
+  "after": [
+    "at_source(basin)",
+    "basin_returned()",
+    "collision_free()",
+    "content_in_source()",
+    "empty(1)",
+    "hand_raised(1)",
+    "holding(0,canL)",
+    "home(1)",
+    "parked(1)",
+    "source_upright()"
+  ],
+  "valid_trial": true,
+  "code_executed": true,
+  "effect_ok": true,
+  "goal_ok": true,
+  "exception": null,
+  "trace": [
+    {
+      "method": "target_pose",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": [
+        0.18011613729009388,
+        0.270000938867763,
+        0.5349404048584233
+      ]
+    },
+    {
+      "method": "align_xy",
+      "args": [
+        [
+          0.18011613729009388,
+          0.270000938867763,
+          0.5349404048584233
+        ]
+      ],
+      "kwargs": {},
+      "status": "returned",
+      "result": 0.005318471778863491
+    },
+    {
+      "method": "descend_to",
+      "args": [
+        0.5349404048584233,
+        [
+          0.18011613729009388,
+          0.270000938867763
+        ]
+      ],
+      "kwargs": {},
+      "status": "returned",
+      "result": 0.006666343655870602
+    },
+    {
+      "method": "grasp",
+      "args": [
+        [
+          0.18011613729009388,
+          0.270000938867763,
+          0.5349404048584233
+        ]
+      ],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    },
+    {
+      "method": "record_grab_offset",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    },
+    {
+      "method": "lift",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    }
+  ],
+  "diagnostics": {
+    "missing_pre": [],
+    "missing_add": [],
+    "remaining_del": [],
+    "missing_preserved_pre": [],
+    "unissued_commands": []
+  },
+  "code_sha256": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+  "failure_attribution": null,
+  "candidate_model_patch": null
+}

@@ -1,0 +1,192 @@
+{
+  "ok": true,
+  "tasks": [
+    "cover",
+    "blocks",
+    "pour",
+    "handover",
+    "storage"
+  ],
+  "active_scenes": [
+    "blocks_rebuilt_v1.json",
+    "cover_kitchen_sort_v2.json",
+    "handover_tea_box_v3.json",
+    "held_basin_pour_smooth_v2.json",
+    "packing_dual_lift_shelf_storage_v3.json"
+  ],
+  "missing": [],
+  "bad_results": [],
+  "checked_files": 34,
+  "files": [
+    {
+      "path": "tasks/cover/direct/rollout.mp4",
+      "bytes": 13890453,
+      "sha256": "1050c95de89f296650fb3289ae39d1098bb4a686e1e85427bf70a6cb0994a758"
+    },
+    {
+      "path": "tasks/cover/direct/result.json",
+      "bytes": 22188,
+      "sha256": "949f124e6d587ed71b1760313680339fc21b4bb00295be15de95e6f537f1f6fa"
+    },
+    {
+      "path": "tasks/cover/generated_bt/generated_programs.json",
+      "bytes": 75251,
+      "sha256": "d102baf6374c49f618ba4f91a91ed3d5151fa1437fa0710419aad3c71f0eabcc"
+    },
+    {
+      "path": "tasks/cover/generated_bt/latest_scene_replay/result.json",
+      "bytes": 5304,
+      "sha256": "00587decc88639f36581ec28ddf55a4f2d6a329070311e2f6d25a30bc81bf23e"
+    },
+    {
+      "path": "tasks/cover/generated_bt/latest_scene_replay/rollout.mp4",
+      "bytes": 13890453,
+      "sha256": "1050c95de89f296650fb3289ae39d1098bb4a686e1e85427bf70a6cb0994a758"
+    },
+    {
+      "path": "tasks/cover/generated_bt/latest_scene_replay/tree.svg",
+      "bytes": 358634,
+      "sha256": "e107350c1f022d0b6eeeebb8d51f6cae0dcbde5f3d0ef5b9f79ac4d314d52a2a"
+    },
+    {
+      "path": "tasks/cover/report.html",
+      "bytes": 1358,
+      "sha256": "22335c4721ed89d04d46a1cdd8a018629316a03b9385b380b951757027dc5a09"
+    },
+    {
+      "path": "tasks/blocks/direct/rollout.mp4",
+      "bytes": 5880489,
+      "sha256": "a833ca1acec99de9785a645c9e99ee925286d8f397a8d2c33af622572b1f412c"
+    },
+    {
+      "path": "tasks/blocks/direct/result.json",
+      "bytes": 17756,
+      "sha256": "835f8fb86dbf939e759f9a442cf51908b0a9f4729444b8b242d9ed3b1a6eb70a"
+    },
+    {
+      "path": "tasks/blocks/generated_bt/generated_programs.json",
+      "bytes": 43197,
+      "sha256": "cac843ae8db0f350c8ce2370f681cea5f46ebf85404b0d03a55e5fc7588eb5cb"
+    },
+    {
+      "path": "tasks/blocks/generated_bt/latest_scene_replay/result.json",
+      "bytes": 4825,
+      "sha256": "5639ab580105afcf119e02df486493ff4998ca52d007f18968c4ec01262a5da0"
+    },
+    {
+      "path": "tasks/blocks/generated_bt/latest_scene_replay/rollout.mp4",
+      "bytes": 6002271,
+      "sha256": "7b7e1687674ccedf62840bc17aa8c3f3e184bbbabfdb6b4775997713473aedd4"
+    },
+    {
+      "path": "tasks/blocks/generated_bt/latest_scene_replay/tree.svg",
+      "bytes": 72477,
+      "sha256": "d3b6bd6a195160ceb0b51d3761c4e0380822c7cb5e21a8c8b124d3520786c02e"
+    },
+    {
+      "path": "tasks/blocks/report.html",
+      "bytes": 1395,
+      "sha256": "08af3b36f8973a505446c282ef4a2e1e689f85cc1e521974daeb811e04f3bf2b"
+    },
+    {
+      "path": "tasks/pour/direct/rollout.mp4",
+      "bytes": 3698819,
+      "sha256": "0e2a5fc850b0abb3581e2bd362b8fe0bea679489aa4a2a98ed3b9c8bc68017db"
+    },
+    {
+      "path": "tasks/pour/direct/result.json",
+      "bytes": 14857,
+      "sha256": "b7f9889e91feb89da721a3913442a85fc653543b7577e4621148ec8f68c674a0"
+    },
+    {
+      "path": "tasks/pour/generated_bt/generated_programs.json",
+      "bytes": 72697,
+      "sha256": "cafc3d739d006a13e0a5d232d0896aec90314ccd3cffcc1dc9937f42958362dd"
+    },
+    {
+      "path": "tasks/pour/generated_bt/rollout.mp4",
+      "bytes": 3725661,
+      "sha256": "3111e8950f3d9e1001971f84a05c30359b3ac9fbcdf92c6e9942d3b64106c555"
+    },
+    {
+      "path": "tasks/pour/generated_bt/tree.svg",
+      "bytes": 1300931,
+      "sha256": "6d1b23c00cbc0bf86957aeb516020852b64f89e89b60134f113b94c09aab602d"
+    },
+    {
+      "path": "tasks/pour/report.html",
+      "bytes": 1075,
+      "sha256": "a72dd7807e1004aa6727084ea52b62ded50d8ae49bdffc48b07028771965b4ea"
+    },
+    {
+      "path": "tasks/handover/direct/rollout.mp4",
+      "bytes": 3773890,
+      "sha256": "c7ea7303e2113693d7ac86f9bf17d93941ddcf9a7f85f0257efbb1a388f18d31"
+    },
+    {
+      "path": "tasks/handover/direct/result.json",
+      "bytes": 11467,
+      "sha256": "850c10da27b15895548b6b473f1d6ee89ef10362c96286924f03e816e7dcf1c2"
+    },
+    {
+      "path": "tasks/handover/formal_bt/tree.svg",
+      "bytes": 185306,
+      "sha256": "4674944ceb10ae302126ba84ed583467ee480e125e7b7a3688b51288adbe7c36"
+    },
+    {
+      "path": "tasks/handover/generated_bt/source_generated_programs.json",
+      "bytes": 58108,
+      "sha256": "2864979e1c8acc79a1ac18310c09c089c47db88d215bdeb76e1cfd4fc8edd71b"
+    },
+    {
+      "path": "tasks/handover/generated_bt/replay/result.json",
+      "bytes": 12660,
+      "sha256": "fbcb8e58ccaaee6170ecf5d6d72b08de472e1c4b8d2a1c3f608c305920172346"
+    },
+    {
+      "path": "tasks/handover/generated_bt/replay/rollout.mp4",
+      "bytes": 3773890,
+      "sha256": "c7ea7303e2113693d7ac86f9bf17d93941ddcf9a7f85f0257efbb1a388f18d31"
+    },
+    {
+      "path": "tasks/handover/generated_bt/replay/tree.svg",
+      "bytes": 185306,
+      "sha256": "4674944ceb10ae302126ba84ed583467ee480e125e7b7a3688b51288adbe7c36"
+    },
+    {
+      "path": "tasks/handover/report.html",
+      "bytes": 1288,
+      "sha256": "1703b4d8b949a7d4bd01a5925d28ccd28099174e2d9c6f14204518125b7df6c7"
+    },
+    {
+      "path": "tasks/storage/direct/rollout.mp4",
+      "bytes": 3883327,
+      "sha256": "682ec15ea12c2d6ad9bc8ff90ef0433952c590d63443916c25307eb9aec54f23"
+    },
+    {
+      "path": "tasks/storage/direct/result.json",
+      "bytes": 39612,
+      "sha256": "fad8ef5553220dc2f256efe1be9a12e2ef84079b33c407e5bdc81a9b3efc5a79"
+    },
+    {
+      "path": "tasks/storage/generated_bt/generated_programs.json",
+      "bytes": 219494,
+      "sha256": "4e83ff4587b9946501f2483e573b35d4397fbb8e6029e5b445cf17a2dfc03b13"
+    },
+    {
+      "path": "tasks/storage/generated_bt/rollout.mp4",
+      "bytes": 3826033,
+      "sha256": "5b6e2f793869b4fc059cbb580c2ef11ae6b29fd590f83400ddf485c7c6302e20"
+    },
+    {
+      "path": "tasks/storage/generated_bt/tree.svg",
+      "bytes": 8111255,
+      "sha256": "cad172a2519b969571f1e8d12a51a253a4d3d295968113a1573de178e075625e"
+    },
+    {
+      "path": "tasks/storage/report.html",
+      "bytes": 1073,
+      "sha256": "80f4c7f12829d99e6c39bea26e1d764a7cc54f4613de77ef0382a199152e0d6c"
+    }
+  ]
+}

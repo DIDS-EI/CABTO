@@ -1,9 +1,0 @@
-selector
-    cond On(red,green)
-    sequence
-        cond Holding(red)
-        act PutDown(red,green)
-    sequence
-        cond IsHandEmpty()
-        cond On(red,table)
-        act PickUp(red)

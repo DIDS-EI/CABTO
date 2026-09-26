@@ -1,0 +1,166 @@
+{
+  "version": "packing_dual_lift_shelf_v1",
+  "table": {
+    "center_xy": [
+      0.3,
+      0.0
+    ],
+    "top_z": 0.4,
+    "full_size_xy": [
+      0.9,
+      1.4
+    ],
+    "thickness": 0.04
+  },
+  "robots": [
+    {
+      "suffix": "_L",
+      "base_xy": [
+        0.3,
+        0.55
+      ],
+      "base_above_table": 0.0,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "suffix": "_R",
+      "base_xy": [
+        0.3,
+        -0.55
+      ],
+      "base_above_table": 0.0,
+      "yaw": 1.5707963267948966
+    }
+  ],
+  "evaluation": {
+    "position_tolerance_m": 0.02,
+    "stability_seconds": 1.024,
+    "layout_jitter_m": 0.003
+  },
+  "relay": {
+    "label": "one-object tabletop relay, not airborne handover",
+    "object_half_size": [
+      0.02,
+      0.02,
+      0.025
+    ],
+    "start_xy": [
+      0.29,
+      0.18
+    ],
+    "station_xy": [
+      0.3,
+      0.0
+    ],
+    "destination_xy": [
+      0.3,
+      -0.18
+    ],
+    "donor_park_xy": [
+      0.3,
+      0.28
+    ]
+  },
+  "pour": {
+    "label": "two independent sequential arm pours into wide fixed receivers, sphere proxy, not liquid or held-cup cooperation",
+    "can_inner_radius": 0.03,
+    "can_wall": 0.004,
+    "can_height": 0.08,
+    "handle_offset": 0.08,
+    "handle_height": 0.12,
+    "ball_radius": 0.009,
+    "cup_inner_radius": 0.12,
+    "cup_height": 0.095,
+    "can_floor": 0.006,
+    "cup_floor": 0.02,
+    "contact_timeconstant": 0.005,
+    "ball_friction": [
+      0.6,
+      0.02,
+      0.003
+    ],
+    "ball_contact_dimension": 6,
+    "sources_xy": [
+      [
+        0.17,
+        0.24
+      ],
+      [
+        0.17,
+        -0.24
+      ]
+    ],
+    "receivers_xy": [
+      [
+        0.38,
+        0.14
+      ],
+      [
+        0.38,
+        -0.14
+      ]
+    ],
+    "can_offset_xy": [
+      -0.02,
+      0.0
+    ],
+    "tilt_axis": "ny",
+    "tilt_radians": 2.0943951023931953
+  },
+  "packing": {
+    "label": "two-arm sequential packing followed by cooperative dual-side tray lift and shelf placement",
+    "item_half_size": [
+      0.018,
+      0.018,
+      0.022
+    ],
+    "sources_xy": [
+      [
+        0.27,
+        0.21
+      ],
+      [
+        0.27,
+        -0.21
+      ]
+    ],
+    "tray_xy": [
+      0.3,
+      0.0
+    ],
+    "tray_inner_half_size": [
+      0.1,
+      0.08
+    ],
+    "tray_wall": 0.006,
+    "tray_height": 0.065,
+    "slots_xy": [
+      [
+        0.0,
+        0.04
+      ],
+      [
+        0.0,
+        -0.04
+      ]
+    ],
+    "tray_free": true,
+    "tray_mass": 0.6,
+    "dual_lift_handles": true,
+    "lift_handle_y": 0.112,
+    "lift_handle_z": 0.075,
+    "tray_dual_weld": true,
+    "shelf_xy": [
+      0.58,
+      0.0
+    ],
+    "shelf_half_size_xy": [
+      0.14,
+      0.16
+    ],
+    "shelf_top_z": 0.52,
+    "carry_tray_base_z": 0.62,
+    "shelf_position_tolerance_m": 0.025,
+    "shelf_tilt_tolerance_deg": 8.0
+  }
+}

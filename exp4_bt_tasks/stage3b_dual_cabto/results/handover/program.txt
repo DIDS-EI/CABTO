@@ -1,6 +1,0 @@
-# generated dual-arm program (code-as-policy)
-def run(exe):
-    exe.execute_step({'name': 'pick_arm', 'args': {'obj': 'box0', 'arm': '_L'}})  # pick_arm(obj='box0', arm='_L')
-    exe.execute_step({'name': 'handover', 'args': {'obj': 'box0'}})  # handover(obj='box0')
-    exe.execute_step({'name': 'place_to', 'args': {'obj': 'box0', 'arm': '_R'}})  # place_to(obj='box0', arm='_R')
-    return True

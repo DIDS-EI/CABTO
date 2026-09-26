@@ -1,0 +1,237 @@
+[ok] 视频已保存 /Users/yishuaicai/mywork/edps_cabto/results/blocks/rebuilt_v1/seed0/rollout.mp4（1332 帧）
+{
+  "task": "blocks",
+  "seed": 0,
+  "controller": "rewritten_absolute_IK_quintic_actuator_trajectory",
+  "program_source": "handwritten_reference_not_LLM_generated",
+  "mode": "strict",
+  "oracle": true,
+  "object_snap": false,
+  "execution_qpos_write": false,
+  "instant_rehome": false,
+  "success": true,
+  "config_sha256": "86346369d6feb00472860bd83245528d8f542f97596e39346cbb39515be721c6",
+  "objects": {
+    "yellow": {
+      "ok": true,
+      "xy_error_m": 3.7284886292799274e-05,
+      "gap_m": -9.586609641024091e-06,
+      "tilt_deg": 4.233718803350138e-05,
+      "support_contact": true,
+      "base_displacement_m": 4.792540837815387e-06,
+      "origin": [
+        0.5699719703228954,
+        0.14997540559867545,
+        0.4659808268013709
+      ]
+    },
+    "red": {
+      "ok": true,
+      "xy_error_m": 6.866031181838563e-05,
+      "gap_m": -9.586659059659941e-06,
+      "tilt_deg": 7.803042742577915e-05,
+      "support_contact": true,
+      "base_displacement_m": 4.79255433032761e-06,
+      "origin": [
+        0.5699334704367168,
+        -0.14998297811069905,
+        0.4659808267519567
+      ]
+    }
+  },
+  "released": true,
+  "final_home": true,
+  "home_error_rad": 3.4191576110142263e-09,
+  "completed_targets_preserved": true,
+  "forbidden_contacts": [],
+  "max_grasp_relative_slip_m": 0.0033042084460818805,
+  "max_bilateral_contact_gap_s": 0.004,
+  "strict_weld_violation": false,
+  "grasp_verified": true,
+  "bt_status": "success",
+  "steps": [
+    {
+      "model": {
+        "name": "pick",
+        "args": {
+          "object": "yellow",
+          "support": "green"
+        },
+        "pre": [
+          "empty()",
+          "at_source(yellow)"
+        ],
+        "add": [
+          "holding(yellow)"
+        ],
+        "del": [
+          "empty()",
+          "at_source(yellow)"
+        ]
+      },
+      "before": [
+        "at_source(red)",
+        "at_source(yellow)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(red)",
+        "holding(yellow)"
+      ],
+      "effect_ok": true
+    },
+    {
+      "model": {
+        "name": "place",
+        "args": {
+          "object": "yellow",
+          "support": "green"
+        },
+        "pre": [
+          "holding(yellow)"
+        ],
+        "add": [
+          "at_target(yellow)",
+          "empty()"
+        ],
+        "del": [
+          "holding(yellow)"
+        ]
+      },
+      "before": [
+        "at_source(red)",
+        "holding(yellow)"
+      ],
+      "after": [
+        "at_source(red)",
+        "at_target(yellow)",
+        "empty()"
+      ],
+      "effect_ok": true
+    },
+    {
+      "model": {
+        "name": "pick",
+        "args": {
+          "object": "red",
+          "support": "blue"
+        },
+        "pre": [
+          "empty()",
+          "at_source(red)",
+          "at_target(yellow)"
+        ],
+        "add": [
+          "holding(red)"
+        ],
+        "del": [
+          "empty()",
+          "at_source(red)"
+        ]
+      },
+      "before": [
+        "at_source(red)",
+        "at_target(yellow)",
+        "empty()"
+      ],
+      "after": [
+        "at_target(yellow)",
+        "holding(red)"
+      ],
+      "effect_ok": true
+    },
+    {
+      "model": {
+        "name": "place",
+        "args": {
+          "object": "red",
+          "support": "blue"
+        },
+        "pre": [
+          "holding(red)"
+        ],
+        "add": [
+          "at_target(red)",
+          "empty()"
+        ],
+        "del": [
+          "holding(red)"
+        ]
+      },
+      "before": [
+        "at_target(yellow)",
+        "holding(red)"
+      ],
+      "after": [
+        "at_target(red)",
+        "at_target(yellow)",
+        "empty()"
+      ],
+      "effect_ok": true
+    },
+    {
+      "model": {
+        "name": "home",
+        "args": {},
+        "pre": [
+          "empty()",
+          "at_target(yellow)",
+          "at_target(red)"
+        ],
+        "add": [
+          "home_completed()"
+        ],
+        "del": []
+      },
+      "before": [
+        "at_target(red)",
+        "at_target(yellow)",
+        "empty()"
+      ],
+      "after": [
+        "at_target(red)",
+        "at_target(yellow)",
+        "empty()",
+        "home_completed()"
+      ],
+      "effect_ok": true
+    }
+  ],
+  "simulation_seconds": 44.38000000000847,
+  "wall_seconds": 18.44675374997314,
+  "max_command_speed_rad_s": 0.7204137994029371,
+  "max_actual_speed_rad_s": 0.8175160284399648,
+  "max_segment_endpoint_error_m": 0.00043266034815562257,
+  "home_event": {
+    "event": "actuated_home_complete",
+    "time": 43.54000000000725,
+    "steps": 80,
+    "q_goal": [
+      0.0,
+      -0.785,
+      0.0,
+      -2.356,
+      0.0,
+      1.571,
+      0.785
+    ],
+    "q_actual": [
+      -1.6179684171631657e-05,
+      -0.7850151288066006,
+      1.3340534792957122e-05,
+      -2.3560599434230167,
+      1.2287062036175284e-05,
+      1.5710576082165895,
+      0.7849890311629463
+    ]
+  },
+  "video_fps": 30,
+  "video_frames": 1332,
+  "mode_notes": "Strict means no grasp weld. Oracle pose and explicit robot gravity compensation remain; not a real-robot or general safety claim.",
+  "frame_timestamps": {
+    "first": 0.16000000000000011,
+    "last": 44.528000000008454,
+    "sampling": "uniform simulation time, 30fps"
+  },
+  "sources_unchanged_during_run": true
+}

@@ -1,0 +1,31 @@
+{
+  "all_success": true,
+  "tasks": {
+    "cover": {
+      "success": true,
+      "latest_scene": "cover_kitchen_sort_v2",
+      "result": "tasks/cover/generated_bt/latest_scene_replay/result.json"
+    },
+    "blocks": {
+      "success": true,
+      "latest_scene": "blocks_rebuilt_v1",
+      "result": "tasks/blocks/generated_bt/latest_scene_replay/result.json"
+    },
+    "pour": {
+      "success": true,
+      "latest_scene": "held_basin_pour_smooth_v2",
+      "result": "tasks/pour/generated_bt/result.json"
+    },
+    "handover": {
+      "success": true,
+      "latest_scene": "handover_tea_box_v3",
+      "result": "tasks/handover/generated_bt/replay/result.json"
+    },
+    "storage": {
+      "success": true,
+      "latest_scene": "packing_dual_lift_shelf_storage_v3",
+      "result": "tasks/storage/generated_bt/result.json"
+    }
+  },
+  "note": "All five generated-program/formal-BT entries were replayed inside edps_cabto_exp. Cover and Blocks now use formal BTs rebuilt on their latest active scenes; prior model-generated source text is retained verbatim and bound through disclosed task-local adapters."
+}

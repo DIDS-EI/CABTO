@@ -1,0 +1,29 @@
+{
+  "version": "cover_rebuilt_v1",
+  "task": "cover",
+  "specification": "Move a hollow inverted food cover over the apple, release it on the worktop, withdraw, then return to HOME. Paper image guides style only; this is an explicit new task, not three paired coloured lids.",
+  "robot_base": [0.0, 0.0, 0.4],
+  "table_center": [0.43, 0.0, 0.375],
+  "table_half_size": [0.40, 0.34, 0.025],
+  "table_top": 0.4,
+  "cover_source_xy": [0.32, -0.13],
+  "apple_xy": [0.60, -0.13],
+  "cover_radius": 0.082,
+  "cover_height": 0.087,
+  "handle_center_z": 0.112,
+  "apple_radius": 0.025,
+  "jitter_m": 0.002,
+  "control": {
+    "dt": 0.002,
+    "sample_steps": 10,
+    "cartesian_speed_m_s": 0.18,
+    "lower_speed_m_s": 0.08,
+    "lift_speed_m_s": 0.12,
+    "joint_speed_rad_s": 0.80,
+    "transport_z": 0.66,
+    "settle_seconds": 0.3,
+    "gravity_compensation": true,
+    "grasp_mode": "strict",
+    "stable_seconds": 1.0
+  }
+}

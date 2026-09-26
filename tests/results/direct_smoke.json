@@ -1,0 +1,11 @@
+{
+  "all_success": true,
+  "tasks": {
+    "cover": {"success": true},
+    "blocks": {"success": true},
+    "pour": {"success": true},
+    "handover": {"success": true},
+    "storage": {"success": true}
+  },
+  "note": "All five direct entries were rerun inside edps_cabto_exp. Temporary smoke directories were removed after summarization; curated result artifacts remain under tasks/*/direct."
+}

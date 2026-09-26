@@ -1,0 +1,4962 @@
+{
+  "kernel": {
+    "bt_expansion": {
+      "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/__init__.py",
+      "sha256": "bab0549f7fcaa6c2bdd33b02d8c4d8233e7a5c41ffd454307651c6fd9da37fd2"
+    },
+    "bt_expansion.planning": {
+      "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/planning.py",
+      "sha256": "8730a53df5c526809848da9fcedbc02ce4f17ca00322a52e133e8ec909d7f697"
+    },
+    "behavior_tree": {
+      "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/__init__.py",
+      "sha256": "ad77aee97bddc9c41924c5004be56843d937cccb33e88515c74ce2c87bcc8c5a"
+    },
+    "behavior_tree.BehaviorTree": {
+      "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/BehaviorTree.py",
+      "sha256": "512376d555f9f223027d521a3b644f6550c7128285aec61af2c1dcbd685e6038"
+    },
+    "bt_expansion.algorithm": {
+      "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/algorithm.py",
+      "sha256": "ffbe33712df2d05068ccef24e7be90edb7f45e51978af4f99b18b51faa92ae50"
+    }
+  },
+  "model_version": 0,
+  "start": [
+    "at_source(baton)",
+    "collision_free()",
+    "empty(0)",
+    "empty(1)"
+  ],
+  "goal": [
+    "at_destination(baton)",
+    "collision_free()",
+    "empty(0)",
+    "empty(1)",
+    "handover_verified()",
+    "home(0)",
+    "home(1)"
+  ],
+  "nodes": [
+    {
+      "id": 0,
+      "type": "cond",
+      "kind": "control"
+    },
+    {
+      "id": 1,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 2,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "home(1)"
+      ]
+    },
+    {
+      "id": 3,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 4,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 5,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "home(1)"
+      ]
+    },
+    {
+      "id": 6,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 7,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 8,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(1)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 10,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 11,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 12,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 13,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 14,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 15,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_holding(baton)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 17,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 18,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 19,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 20,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 21,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(0)",
+        "home(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 22,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 23,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 24,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(0)",
+        "home(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 25,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 26,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 27,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "dual_holding(baton)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 28,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 29,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 30,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 31,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 32,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_withdrawn()",
+        "dual_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(1)",
+        "receiver_contact_verified()",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 33,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 34,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 35,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 36,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 37,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 38,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "dual_holding(baton)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 39,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 40,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 41,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 42,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_withdrawn()",
+        "dual_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_contact_verified()",
+        "receiver_holding(baton)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 43,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 44,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 45,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 46,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 47,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 48,
+      "type": "act",
+      "kind": "action",
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      }
+    },
+    {
+      "id": 49,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 50,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 51,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(1)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 52,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 53,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(1)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 54,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 55,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 56,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 57,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 58,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 59,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 60,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "at_source(baton)",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "home(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 61,
+      "type": "act",
+      "kind": "action",
+      "action_id": "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)",
+      "model": {
+        "name": "pick_tea_box",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "Pick the baton by its donor-side box faces and lift it without moving the receiver."
+      }
+    },
+    {
+      "id": 62,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 63,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 64,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 65,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 66,
+      "type": "act",
+      "kind": "action",
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      }
+    },
+    {
+      "id": 67,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 68,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(1)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 69,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 70,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 71,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 72,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_holding(baton)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 73,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 74,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(0)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 75,
+      "type": "act",
+      "kind": "action",
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      }
+    },
+    {
+      "id": 76,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 77,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_holding(baton)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 78,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 79,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 80,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 81,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 82,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 83,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "collision_free()",
+        "empty(0)",
+        "handover_verified()",
+        "home(0)",
+        "home(1)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 84,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 85,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 86,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "home(1)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 87,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 88,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 89,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(1)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 90,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 91,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 92,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 93,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 94,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "home(0)",
+        "home(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 95,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 96,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 97,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(0)",
+        "home(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 98,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 99,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 100,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 101,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_withdrawn()",
+        "dual_holding(baton)",
+        "empty(0)",
+        "handover_verified()",
+        "home(1)",
+        "receiver_contact_verified()",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 102,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 103,
+      "type": "act",
+      "kind": "action",
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      }
+    },
+    {
+      "id": 104,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 105,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 106,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "handover_verified()",
+        "home(1)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 107,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 108,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(1)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 109,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 110,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 111,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 112,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "home(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 113,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 114,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 115,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_source(baton)",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "home(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 116,
+      "type": "act",
+      "kind": "action",
+      "action_id": "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)",
+      "model": {
+        "name": "pick_tea_box",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "Pick the baton by its donor-side box faces and lift it without moving the receiver."
+      }
+    },
+    {
+      "id": 117,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 118,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 119,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 120,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 121,
+      "type": "act",
+      "kind": "action",
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      }
+    },
+    {
+      "id": 122,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 123,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "handover_verified()",
+        "home(1)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 124,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 125,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 126,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 127,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 128,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_holding(baton)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 129,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 130,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(0)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 131,
+      "type": "act",
+      "kind": "action",
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      }
+    },
+    {
+      "id": 132,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 133,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_holding(baton)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 134,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 135,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 136,
+      "type": "act",
+      "kind": "action",
+      "action_id": "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)",
+      "model": {
+        "name": "receiver_places_baton",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_places_baton"
+        },
+        "program_kind": "receiver_place",
+        "pre": [
+          "receiver_holding(baton)",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()"
+        ],
+        "del": [
+          "receiver_holding(baton)",
+          "baton_airborne()",
+          "at_handover_pose(baton)"
+        ],
+        "description": "Carry the baton to the destination, place and release it, then withdraw."
+      }
+    },
+    {
+      "id": 137,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 138,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 139,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 140,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 141,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 142,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 143,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 144,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 145,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(0)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 146,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 147,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 148,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(0)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 149,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 150,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 151,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_withdrawn()",
+        "dual_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_contact_verified()",
+        "receiver_holding(baton)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 152,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 153,
+      "type": "act",
+      "kind": "action",
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      }
+    },
+    {
+      "id": 154,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 155,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 156,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_holding(baton)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 157,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 158,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_holding(baton)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 159,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 160,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 161,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 162,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(1)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 163,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 164,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 165,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "at_source(baton)",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 166,
+      "type": "act",
+      "kind": "action",
+      "action_id": "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)",
+      "model": {
+        "name": "pick_tea_box",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "Pick the baton by its donor-side box faces and lift it without moving the receiver."
+      }
+    },
+    {
+      "id": 167,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 168,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 169,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "dual_holding(baton)",
+        "empty(1)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 170,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 171,
+      "type": "act",
+      "kind": "action",
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      }
+    },
+    {
+      "id": 172,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 173,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_holding(baton)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 174,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 175,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 176,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 177,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 178,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "collision_free()",
+        "empty(0)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 179,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 180,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 181,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 182,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 183,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 184,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 185,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 186,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 187,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 188,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 189,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_handover_pose(baton)",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 190,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 191,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 192,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_handover_pose(baton)",
+        "collision_free()",
+        "donor_holding(baton)",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 193,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 194,
+      "type": "act",
+      "kind": "action",
+      "action_id": "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+      "model": {
+        "name": "receiver_grasps_box_face",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "Close the receiver on the opposite box-face zone while the donor still holds."
+      }
+    },
+    {
+      "id": 195,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 196,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 197,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "home(0)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 198,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 199,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 200,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "dual_holding(baton)",
+        "empty(1)",
+        "home(0)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 201,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 202,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 203,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 204,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_handover_pose(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(1)",
+        "home(0)"
+      ]
+    },
+    {
+      "id": 205,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 206,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 207,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(1)",
+        "home(0)"
+      ]
+    },
+    {
+      "id": 208,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 209,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(1)",
+        "home(0)"
+      ]
+    },
+    {
+      "id": 210,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 211,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 212,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 213,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 214,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 215,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 216,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 217,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 218,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "at_handover_pose(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 219,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 220,
+      "type": "act",
+      "kind": "action",
+      "action_id": "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+      "model": {
+        "name": "receiver_grasps_box_face",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "Close the receiver on the opposite box-face zone while the donor still holds."
+      }
+    },
+    {
+      "id": 221,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 222,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 223,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_withdrawn()",
+        "dual_holding(baton)",
+        "empty(0)",
+        "handover_verified()",
+        "receiver_contact_verified()",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 224,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 225,
+      "type": "act",
+      "kind": "action",
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      }
+    },
+    {
+      "id": 226,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 227,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 228,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "handover_verified()",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 229,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 230,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 231,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 232,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 233,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_handover_pose(baton)",
+        "collision_free()",
+        "donor_holding(baton)",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 234,
+      "type": "act",
+      "kind": "action",
+      "action_id": "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+      "model": {
+        "name": "receiver_grasps_box_face",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "Close the receiver on the opposite box-face zone while the donor still holds."
+      }
+    },
+    {
+      "id": 235,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 236,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 237,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "dual_holding(baton)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 238,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 239,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 240,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_source(baton)",
+        "collision_free()",
+        "dual_holding(baton)",
+        "empty(0)",
+        "empty(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 241,
+      "type": "act",
+      "kind": "action",
+      "action_id": "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)",
+      "model": {
+        "name": "pick_tea_box",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "Pick the baton by its donor-side box faces and lift it without moving the receiver."
+      }
+    },
+    {
+      "id": 242,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 243,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 244,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "dual_holding(baton)",
+        "empty(1)",
+        "receiver_contact_verified()"
+      ]
+    },
+    {
+      "id": 245,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 246,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 247,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 248,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_handover_pose(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(1)"
+      ]
+    },
+    {
+      "id": 249,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 250,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 251,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_handover_pose(baton)",
+        "at_source(baton)",
+        "collision_free()",
+        "empty(0)",
+        "empty(1)"
+      ]
+    },
+    {
+      "id": 252,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 253,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_source(baton)",
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(0)",
+        "empty(1)"
+      ]
+    },
+    {
+      "id": 254,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 255,
+      "type": "act",
+      "kind": "action",
+      "action_id": "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)",
+      "model": {
+        "name": "pick_tea_box",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "Pick the baton by its donor-side box faces and lift it without moving the receiver."
+      }
+    },
+    {
+      "id": 256,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 257,
+      "type": "?",
+      "kind": "control"
+    },
+    {
+      "id": 258,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(1)"
+      ]
+    },
+    {
+      "id": 259,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 260,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_source(baton)",
+        "collision_free()",
+        "empty(0)",
+        "empty(1)"
+      ]
+    },
+    {
+      "id": 261,
+      "type": "act",
+      "kind": "action",
+      "action_id": "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)",
+      "model": {
+        "name": "pick_tea_box",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "Pick the baton by its donor-side box faces and lift it without moving the receiver."
+      }
+    },
+    {
+      "id": 262,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 263,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "baton_airborne()",
+        "collision_free()",
+        "donor_holding(baton)",
+        "empty(1)"
+      ]
+    },
+    {
+      "id": 264,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 265,
+      "type": "act",
+      "kind": "action",
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      }
+    },
+    {
+      "id": 266,
+      "type": "act",
+      "kind": "action",
+      "action_id": "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+      "model": {
+        "name": "receiver_grasps_box_face",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "Close the receiver on the opposite box-face zone while the donor still holds."
+      }
+    },
+    {
+      "id": 267,
+      "type": "act",
+      "kind": "action",
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      }
+    },
+    {
+      "id": 268,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 269,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "handover_verified()",
+        "receiver_holding(baton)"
+      ]
+    },
+    {
+      "id": 270,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 271,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 272,
+      "type": "act",
+      "kind": "action",
+      "action_id": "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)",
+      "model": {
+        "name": "receiver_places_baton",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_places_baton"
+        },
+        "program_kind": "receiver_place",
+        "pre": [
+          "receiver_holding(baton)",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()"
+        ],
+        "del": [
+          "receiver_holding(baton)",
+          "baton_airborne()",
+          "at_handover_pose(baton)"
+        ],
+        "description": "Carry the baton to the destination, place and release it, then withdraw."
+      }
+    },
+    {
+      "id": 273,
+      "type": ">",
+      "kind": "control"
+    },
+    {
+      "id": 274,
+      "type": "cond",
+      "kind": "condition",
+      "symbols": [
+        "at_destination(baton)",
+        "collision_free()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "receiver_withdrawn()"
+      ]
+    },
+    {
+      "id": 275,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    },
+    {
+      "id": 276,
+      "type": "act",
+      "kind": "action",
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      }
+    }
+  ],
+  "edges": [
+    [
+      0,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      6,
+      7
+    ],
+    [
+      7,
+      8
+    ],
+    [
+      6,
+      9
+    ],
+    [
+      4,
+      10
+    ],
+    [
+      10,
+      11
+    ],
+    [
+      11,
+      12
+    ],
+    [
+      11,
+      13
+    ],
+    [
+      13,
+      14
+    ],
+    [
+      14,
+      15
+    ],
+    [
+      13,
+      16
+    ],
+    [
+      10,
+      17
+    ],
+    [
+      3,
+      18
+    ],
+    [
+      1,
+      19
+    ],
+    [
+      19,
+      20
+    ],
+    [
+      20,
+      21
+    ],
+    [
+      20,
+      22
+    ],
+    [
+      22,
+      23
+    ],
+    [
+      23,
+      24
+    ],
+    [
+      23,
+      25
+    ],
+    [
+      25,
+      26
+    ],
+    [
+      26,
+      27
+    ],
+    [
+      25,
+      28
+    ],
+    [
+      22,
+      29
+    ],
+    [
+      20,
+      30
+    ],
+    [
+      30,
+      31
+    ],
+    [
+      31,
+      32
+    ],
+    [
+      30,
+      33
+    ],
+    [
+      20,
+      34
+    ],
+    [
+      34,
+      35
+    ],
+    [
+      35,
+      36
+    ],
+    [
+      35,
+      37
+    ],
+    [
+      37,
+      38
+    ],
+    [
+      37,
+      39
+    ],
+    [
+      35,
+      40
+    ],
+    [
+      40,
+      41
+    ],
+    [
+      41,
+      42
+    ],
+    [
+      40,
+      43
+    ],
+    [
+      35,
+      44
+    ],
+    [
+      44,
+      45
+    ],
+    [
+      44,
+      46
+    ],
+    [
+      34,
+      47
+    ],
+    [
+      19,
+      48
+    ],
+    [
+      1,
+      49
+    ],
+    [
+      49,
+      50
+    ],
+    [
+      50,
+      51
+    ],
+    [
+      50,
+      52
+    ],
+    [
+      52,
+      53
+    ],
+    [
+      52,
+      54
+    ],
+    [
+      50,
+      55
+    ],
+    [
+      55,
+      56
+    ],
+    [
+      56,
+      57
+    ],
+    [
+      56,
+      58
+    ],
+    [
+      58,
+      59
+    ],
+    [
+      59,
+      60
+    ],
+    [
+      58,
+      61
+    ],
+    [
+      56,
+      62
+    ],
+    [
+      62,
+      63
+    ],
+    [
+      63,
+      64
+    ],
+    [
+      62,
+      65
+    ],
+    [
+      55,
+      66
+    ],
+    [
+      50,
+      67
+    ],
+    [
+      67,
+      68
+    ],
+    [
+      67,
+      69
+    ],
+    [
+      50,
+      70
+    ],
+    [
+      70,
+      71
+    ],
+    [
+      71,
+      72
+    ],
+    [
+      71,
+      73
+    ],
+    [
+      73,
+      74
+    ],
+    [
+      73,
+      75
+    ],
+    [
+      71,
+      76
+    ],
+    [
+      76,
+      77
+    ],
+    [
+      76,
+      78
+    ],
+    [
+      70,
+      79
+    ],
+    [
+      49,
+      80
+    ],
+    [
+      1,
+      81
+    ],
+    [
+      81,
+      82
+    ],
+    [
+      82,
+      83
+    ],
+    [
+      82,
+      84
+    ],
+    [
+      84,
+      85
+    ],
+    [
+      85,
+      86
+    ],
+    [
+      85,
+      87
+    ],
+    [
+      87,
+      88
+    ],
+    [
+      88,
+      89
+    ],
+    [
+      87,
+      90
+    ],
+    [
+      84,
+      91
+    ],
+    [
+      82,
+      92
+    ],
+    [
+      92,
+      93
+    ],
+    [
+      93,
+      94
+    ],
+    [
+      93,
+      95
+    ],
+    [
+      95,
+      96
+    ],
+    [
+      96,
+      97
+    ],
+    [
+      95,
+      98
+    ],
+    [
+      93,
+      99
+    ],
+    [
+      99,
+      100
+    ],
+    [
+      100,
+      101
+    ],
+    [
+      99,
+      102
+    ],
+    [
+      92,
+      103
+    ],
+    [
+      82,
+      104
+    ],
+    [
+      104,
+      105
+    ],
+    [
+      105,
+      106
+    ],
+    [
+      105,
+      107
+    ],
+    [
+      107,
+      108
+    ],
+    [
+      107,
+      109
+    ],
+    [
+      105,
+      110
+    ],
+    [
+      110,
+      111
+    ],
+    [
+      111,
+      112
+    ],
+    [
+      111,
+      113
+    ],
+    [
+      113,
+      114
+    ],
+    [
+      114,
+      115
+    ],
+    [
+      113,
+      116
+    ],
+    [
+      111,
+      117
+    ],
+    [
+      117,
+      118
+    ],
+    [
+      118,
+      119
+    ],
+    [
+      117,
+      120
+    ],
+    [
+      110,
+      121
+    ],
+    [
+      105,
+      122
+    ],
+    [
+      122,
+      123
+    ],
+    [
+      122,
+      124
+    ],
+    [
+      104,
+      125
+    ],
+    [
+      82,
+      126
+    ],
+    [
+      126,
+      127
+    ],
+    [
+      127,
+      128
+    ],
+    [
+      127,
+      129
+    ],
+    [
+      129,
+      130
+    ],
+    [
+      129,
+      131
+    ],
+    [
+      127,
+      132
+    ],
+    [
+      132,
+      133
+    ],
+    [
+      132,
+      134
+    ],
+    [
+      126,
+      135
+    ],
+    [
+      81,
+      136
+    ],
+    [
+      1,
+      137
+    ],
+    [
+      137,
+      138
+    ],
+    [
+      138,
+      139
+    ],
+    [
+      138,
+      140
+    ],
+    [
+      140,
+      141
+    ],
+    [
+      140,
+      142
+    ],
+    [
+      138,
+      143
+    ],
+    [
+      143,
+      144
+    ],
+    [
+      144,
+      145
+    ],
+    [
+      144,
+      146
+    ],
+    [
+      146,
+      147
+    ],
+    [
+      147,
+      148
+    ],
+    [
+      146,
+      149
+    ],
+    [
+      144,
+      150
+    ],
+    [
+      150,
+      151
+    ],
+    [
+      150,
+      152
+    ],
+    [
+      143,
+      153
+    ],
+    [
+      138,
+      154
+    ],
+    [
+      154,
+      155
+    ],
+    [
+      155,
+      156
+    ],
+    [
+      155,
+      157
+    ],
+    [
+      157,
+      158
+    ],
+    [
+      157,
+      159
+    ],
+    [
+      155,
+      160
+    ],
+    [
+      160,
+      161
+    ],
+    [
+      161,
+      162
+    ],
+    [
+      161,
+      163
+    ],
+    [
+      163,
+      164
+    ],
+    [
+      164,
+      165
+    ],
+    [
+      163,
+      166
+    ],
+    [
+      161,
+      167
+    ],
+    [
+      167,
+      168
+    ],
+    [
+      168,
+      169
+    ],
+    [
+      167,
+      170
+    ],
+    [
+      160,
+      171
+    ],
+    [
+      155,
+      172
+    ],
+    [
+      172,
+      173
+    ],
+    [
+      172,
+      174
+    ],
+    [
+      154,
+      175
+    ],
+    [
+      138,
+      176
+    ],
+    [
+      176,
+      177
+    ],
+    [
+      177,
+      178
+    ],
+    [
+      177,
+      179
+    ],
+    [
+      179,
+      180
+    ],
+    [
+      180,
+      181
+    ],
+    [
+      180,
+      182
+    ],
+    [
+      182,
+      183
+    ],
+    [
+      183,
+      184
+    ],
+    [
+      182,
+      185
+    ],
+    [
+      179,
+      186
+    ],
+    [
+      177,
+      187
+    ],
+    [
+      187,
+      188
+    ],
+    [
+      188,
+      189
+    ],
+    [
+      188,
+      190
+    ],
+    [
+      190,
+      191
+    ],
+    [
+      191,
+      192
+    ],
+    [
+      190,
+      193
+    ],
+    [
+      187,
+      194
+    ],
+    [
+      177,
+      195
+    ],
+    [
+      195,
+      196
+    ],
+    [
+      196,
+      197
+    ],
+    [
+      196,
+      198
+    ],
+    [
+      198,
+      199
+    ],
+    [
+      199,
+      200
+    ],
+    [
+      198,
+      201
+    ],
+    [
+      196,
+      202
+    ],
+    [
+      202,
+      203
+    ],
+    [
+      203,
+      204
+    ],
+    [
+      203,
+      205
+    ],
+    [
+      205,
+      206
+    ],
+    [
+      206,
+      207
+    ],
+    [
+      206,
+      208
+    ],
+    [
+      208,
+      209
+    ],
+    [
+      208,
+      210
+    ],
+    [
+      206,
+      211
+    ],
+    [
+      211,
+      212
+    ],
+    [
+      212,
+      213
+    ],
+    [
+      211,
+      214
+    ],
+    [
+      205,
+      215
+    ],
+    [
+      203,
+      216
+    ],
+    [
+      216,
+      217
+    ],
+    [
+      217,
+      218
+    ],
+    [
+      216,
+      219
+    ],
+    [
+      202,
+      220
+    ],
+    [
+      196,
+      221
+    ],
+    [
+      221,
+      222
+    ],
+    [
+      222,
+      223
+    ],
+    [
+      221,
+      224
+    ],
+    [
+      195,
+      225
+    ],
+    [
+      177,
+      226
+    ],
+    [
+      226,
+      227
+    ],
+    [
+      227,
+      228
+    ],
+    [
+      227,
+      229
+    ],
+    [
+      229,
+      230
+    ],
+    [
+      229,
+      231
+    ],
+    [
+      227,
+      232
+    ],
+    [
+      232,
+      233
+    ],
+    [
+      232,
+      234
+    ],
+    [
+      227,
+      235
+    ],
+    [
+      235,
+      236
+    ],
+    [
+      236,
+      237
+    ],
+    [
+      236,
+      238
+    ],
+    [
+      238,
+      239
+    ],
+    [
+      239,
+      240
+    ],
+    [
+      238,
+      241
+    ],
+    [
+      236,
+      242
+    ],
+    [
+      242,
+      243
+    ],
+    [
+      243,
+      244
+    ],
+    [
+      242,
+      245
+    ],
+    [
+      236,
+      246
+    ],
+    [
+      246,
+      247
+    ],
+    [
+      247,
+      248
+    ],
+    [
+      247,
+      249
+    ],
+    [
+      249,
+      250
+    ],
+    [
+      250,
+      251
+    ],
+    [
+      250,
+      252
+    ],
+    [
+      252,
+      253
+    ],
+    [
+      252,
+      254
+    ],
+    [
+      249,
+      255
+    ],
+    [
+      247,
+      256
+    ],
+    [
+      256,
+      257
+    ],
+    [
+      257,
+      258
+    ],
+    [
+      257,
+      259
+    ],
+    [
+      259,
+      260
+    ],
+    [
+      259,
+      261
+    ],
+    [
+      257,
+      262
+    ],
+    [
+      262,
+      263
+    ],
+    [
+      262,
+      264
+    ],
+    [
+      256,
+      265
+    ],
+    [
+      246,
+      266
+    ],
+    [
+      235,
+      267
+    ],
+    [
+      227,
+      268
+    ],
+    [
+      268,
+      269
+    ],
+    [
+      268,
+      270
+    ],
+    [
+      226,
+      271
+    ],
+    [
+      176,
+      272
+    ],
+    [
+      138,
+      273
+    ],
+    [
+      273,
+      274
+    ],
+    [
+      273,
+      275
+    ],
+    [
+      137,
+      276
+    ]
+  ]
+}

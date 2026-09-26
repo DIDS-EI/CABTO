@@ -1,0 +1,37 @@
+{
+  "protocol": {
+    "image_size": [512, 512],
+    "views": ["overview", "front"],
+    "objects": ["dice_cube", "wood_block", "soda_can", "tea_tin", "rubber_ball"],
+    "seeds": [0, 1, 2, 3],
+    "qwen_trials_per_model": 20
+  },
+  "oracle": {
+    "backend": "ground_truth_projection",
+    "success": 2,
+    "total": 2,
+    "pixel_error_median": 9.2,
+    "evidence": "franka_grasp_dp/exp2_codegen/results/eval_pick_oracle.json",
+    "note": "Only two raw oracle trial records are retained; the former 20/20 report claim is not used."
+  },
+  "qwen2_5_vl_3b": {
+    "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "success": 12,
+    "total": 20,
+    "pixel_error_median": 18.0,
+    "pixel_error_mean": 24.2,
+    "evidence": "franka_grasp_dp/exp2_codegen/results/eval_pick_qwen.json",
+    "provenance": "historical local run copied from the source experiment"
+  },
+  "qwen3_5_0_8b": {
+    "model": "mlx-community/Qwen3.5-0.8B-4bit",
+    "success": 2,
+    "total": 20,
+    "pixel_error_median": 158.5,
+    "pixel_error_mean": 184.5,
+    "evidence": "franka_grasp_dp/exp2_codegen/results/eval_pick_qwen3_5_0_8b.json",
+    "visualization": "qwen3_5_0_8b_report.html",
+    "provenance": "newly executed inside edps_cabto_exp"
+  },
+  "weights_included": false
+}

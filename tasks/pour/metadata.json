@@ -1,0 +1,11 @@
+{
+  "task": "pour",
+  "latest_direct": "held_basin_pour_smooth_v2",
+  "direct_entry": "../../run_task.py pour --output <dir>",
+  "direct_video": "direct/rollout.mp4",
+  "generated_programs": "generated_bt/generated_programs.json",
+  "generated_bt": "generated_bt/tree.json, tree.dot, tree.svg",
+  "generated_replay_video": "generated_bt/rollout.mp4",
+  "oracle": true,
+  "assistance": "source cup and basin grasp-weld assisted; sphere is never welded or repositioned"
+}

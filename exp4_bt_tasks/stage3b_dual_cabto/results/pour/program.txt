@@ -1,6 +1,0 @@
-# generated dual-arm program (code-as-policy)
-def run(exe):
-    exe.execute_step({'name': 'pick_can', 'args': {'obj': 'canL', 'arm': '_L'}})  # pick_can(obj='canL', arm='_L')
-    exe.execute_step({'name': 'pour_into', 'args': {'can': 'canL', 'ball': 'ballL', 'cup': 'cupR', 'arm': '_L'}})  # pour_into(can='canL', ball='ballL', cup='cupR', arm='_L')
-    exe.execute_step({'name': 'put_back_can', 'args': {'can': 'canL', 'arm': '_L'}})  # put_back_can(can='canL', arm='_L')
-    return True

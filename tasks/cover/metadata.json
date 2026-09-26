@@ -1,0 +1,14 @@
+{
+  "task": "cover",
+  "latest_direct": "cover_kitchen_sort_v2",
+  "direct_entry": "../../run_task.py cover --output <dir>",
+  "direct_video": "direct/rollout.mp4",
+  "formal_bt": "generated_bt/latest_scene_replay/tree.json and tree.dot/tree.svg",
+  "generated_program_archive": "generated_bt/generated_programs.json",
+  "generated_replay": "generated_bt/latest_scene_replay/result.json",
+  "generated_replay_video": "generated_bt/latest_scene_replay/rollout.mp4",
+  "compatibility_note": "The two previously model-generated pick/place API programs are preserved verbatim, rebound by a disclosed trusted task-local adapter, and physically replayed under a formal BT on the latest kitchen_sort_v2 scene.",
+  "oracle": true,
+  "direct_grasp_mode": "strict contact; robot gravity compensation and oracle pose remain",
+  "generated_replay_grasp_mode": "same latest-scene strict-contact runtime; generated program calls trusted atomic physical transitions"
+}

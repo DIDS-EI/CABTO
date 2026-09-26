@@ -1,0 +1,958 @@
+{
+  "task": "cover",
+  "seed": 0,
+  "controller": "rewritten_absolute_IK_quintic_actuator_trajectory",
+  "program_source": "handwritten_reference_not_LLM_generated",
+  "mode": "strict",
+  "oracle": true,
+  "object_snap": false,
+  "execution_qpos_write": false,
+  "instant_rehome": false,
+  "success": true,
+  "source_sha256": {
+    "/Users/yishuaicai/mywork/edps_cabto/run_single_arm.py": "0dbccfbd0fc610e71ddb19c43793fb266663d2012685fa5d42a502f96e8d6a1d",
+    "/Users/yishuaicai/mywork/edps_cabto/core/single_arm_rebuilt.py": "b0fa4dea63dd23ad93845cac7cbf653616a0832b482a870e6a51a499394a2d52",
+    "/Users/yishuaicai/mywork/CABTO/exp4_bt_tasks/stage2_scripted/exp4_env.py": "55547fe1a52798b1c83eec2e10d937fff8d1b3a2d156e6396c373f4354913ef3",
+    "/Users/yishuaicai/mywork/CABTO/exp4_bt_tasks/scenes/panda_body.py": "40c00712b7ea61368089074ef65608c9ae4c8956807810c350a14077e4e6d8a3",
+    "/Users/yishuaicai/mywork/CABTO/exp4_bt_tasks/stage3_cabto/formal_bt.py": "3adfb1e68ebf7a77d62028c21b4e1436b21149f4f039f9520b21d388e0c92065"
+  },
+  "config_sha256": "1b0f419a48add7ea67de8d5462f5757e5fd98b05a94a5eb1d01127385aecf50c",
+  "objects": {
+    "shrimp": {
+      "ok": true,
+      "xy_error_m": 0.0027777468924388305,
+      "gap_m": -0.00899987626220844,
+      "tilt_deg": 2.8271705710312443,
+      "support_contact": true,
+      "support_upright": true,
+      "base_displacement_m": 0.0,
+      "origin": [
+        0.3094595874002527,
+        0.157275329006928,
+        0.4070001237377916
+      ]
+    },
+    "apple": {
+      "ok": true,
+      "xy_error_m": 8.913775587910286e-05,
+      "gap_m": -0.0020156652186477664,
+      "tilt_deg": 0.002013991770721512,
+      "support_contact": true,
+      "support_upright": true,
+      "base_displacement_m": 0.0,
+      "origin": [
+        0.4899111406808981,
+        0.1599929600474499,
+        0.44498433478135224
+      ]
+    },
+    "potato": {
+      "ok": true,
+      "xy_error_m": 3.522783777887181e-05,
+      "gap_m": -0.005016737563358853,
+      "tilt_deg": 0.0019582528386371144,
+      "support_contact": true,
+      "support_upright": true,
+      "base_displacement_m": 0.0,
+      "origin": [
+        0.6699657251527311,
+        0.1599918614866673,
+        0.4249832624366412
+      ]
+    }
+  },
+  "released": true,
+  "hand_clearance_m": {
+    "shrimp": 0.5053713605568582,
+    "apple": 0.5046417464939644,
+    "potato": 0.6091271837681496
+  },
+  "final_home": true,
+  "home_error_rad": 3.521668676490739e-09,
+  "completed_targets_preserved": true,
+  "forbidden_contacts": [],
+  "max_grasp_relative_slip_m": 0.010385881977055221,
+  "max_bilateral_contact_gap_s": 0.0,
+  "strict_weld_violation": false,
+  "grasp_verified": true,
+  "motion_verified": true,
+  "bt_status": "success",
+  "steps": [
+    {
+      "model": {
+        "name": "pick",
+        "args": {
+          "object": "shrimp",
+          "support": "bowl"
+        },
+        "pre": [
+          "empty()",
+          "at_source(shrimp)"
+        ],
+        "add": [
+          "holding(shrimp)"
+        ],
+        "del": [
+          "empty()",
+          "at_source(shrimp)"
+        ]
+      },
+      "before": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "at_source(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "holding(shrimp)"
+      ],
+      "effect_ok": true
+    },
+    {
+      "model": {
+        "name": "place",
+        "args": {
+          "object": "shrimp",
+          "support": "bowl"
+        },
+        "pre": [
+          "holding(shrimp)"
+        ],
+        "add": [
+          "at_target(shrimp)",
+          "empty()"
+        ],
+        "del": [
+          "holding(shrimp)"
+        ]
+      },
+      "before": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "holding(shrimp)"
+      ],
+      "after": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "effect_ok": true
+    },
+    {
+      "model": {
+        "name": "pick",
+        "args": {
+          "object": "apple",
+          "support": "board"
+        },
+        "pre": [
+          "empty()",
+          "at_source(apple)",
+          "at_target(shrimp)"
+        ],
+        "add": [
+          "holding(apple)"
+        ],
+        "del": [
+          "empty()",
+          "at_source(apple)"
+        ]
+      },
+      "before": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(potato)",
+        "at_target(shrimp)",
+        "holding(apple)"
+      ],
+      "effect_ok": true
+    },
+    {
+      "model": {
+        "name": "place",
+        "args": {
+          "object": "apple",
+          "support": "board"
+        },
+        "pre": [
+          "holding(apple)"
+        ],
+        "add": [
+          "at_target(apple)",
+          "empty()"
+        ],
+        "del": [
+          "holding(apple)"
+        ]
+      },
+      "before": [
+        "at_source(potato)",
+        "at_target(shrimp)",
+        "holding(apple)"
+      ],
+      "after": [
+        "at_source(potato)",
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "effect_ok": true
+    },
+    {
+      "model": {
+        "name": "pick",
+        "args": {
+          "object": "potato",
+          "support": "pan"
+        },
+        "pre": [
+          "empty()",
+          "at_source(potato)",
+          "at_target(apple)"
+        ],
+        "add": [
+          "holding(potato)"
+        ],
+        "del": [
+          "empty()",
+          "at_source(potato)"
+        ]
+      },
+      "before": [
+        "at_source(potato)",
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "holding(potato)"
+      ],
+      "effect_ok": true
+    },
+    {
+      "model": {
+        "name": "place",
+        "args": {
+          "object": "potato",
+          "support": "pan"
+        },
+        "pre": [
+          "holding(potato)"
+        ],
+        "add": [
+          "at_target(potato)",
+          "empty()"
+        ],
+        "del": [
+          "holding(potato)"
+        ]
+      },
+      "before": [
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "holding(potato)"
+      ],
+      "after": [
+        "at_target(apple)",
+        "at_target(potato)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "effect_ok": true
+    },
+    {
+      "model": {
+        "name": "home",
+        "args": {},
+        "pre": [
+          "empty()",
+          "at_target(shrimp)",
+          "at_target(apple)",
+          "at_target(potato)"
+        ],
+        "add": [
+          "home_completed()"
+        ],
+        "del": []
+      },
+      "before": [
+        "at_target(apple)",
+        "at_target(potato)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_target(apple)",
+        "at_target(potato)",
+        "at_target(shrimp)",
+        "empty()",
+        "home_completed()"
+      ],
+      "effect_ok": true
+    }
+  ],
+  "events": [
+    {
+      "event": "approach_shrimp",
+      "time": 0.16000000000000011,
+      "object_positions": {
+        "shrimp": [
+          0.31005448082886233,
+          -0.19001732181460515,
+          0.39900061992798247
+        ],
+        "apple": [
+          0.4899998457619905,
+          -0.1900001162560898,
+          0.4209845037681055
+        ],
+        "potato": [
+          0.6700000050473665,
+          -0.19000000385309732,
+          0.41498083548895737
+        ]
+      }
+    },
+    {
+      "event": "descend_shrimp",
+      "time": 4.179999999999762,
+      "object_positions": {
+        "shrimp": [
+          0.3100541539291184,
+          -0.1900184197224317,
+          0.39900042632766036
+        ],
+        "apple": [
+          0.48999984860625034,
+          -0.19000011996916746,
+          0.4209845037868269
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "grasp_shrimp",
+      "time": 12.300000000000777,
+      "object_positions": {
+        "shrimp": [
+          0.31005414967804906,
+          -0.19001842433998092,
+          0.39900042632782007
+        ],
+        "apple": [
+          0.48999985399486656,
+          -0.1900001275682172,
+          0.42098450378683566
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "bilateral_grasp_contact",
+      "object": "shrimp",
+      "time": 12.660000000000897,
+      "normal_forces_N": {
+        "left_finger": 0.7094826139243682,
+        "right_finger": 0.7022586513750717
+      }
+    },
+    {
+      "event": "lift_shrimp",
+      "time": 12.76000000000093,
+      "object_positions": {
+        "shrimp": [
+          0.31006023042019676,
+          -0.18996224801225708,
+          0.3989595381303388
+        ],
+        "apple": [
+          0.4899998543001326,
+          -0.1900001279987054,
+          0.42098450378683605
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "carry_shrimp",
+      "time": 17.760000000001035,
+      "object_positions": {
+        "shrimp": [
+          0.31241558036464334,
+          -0.19004805046711434,
+          0.6481983009314909
+        ],
+        "apple": [
+          0.4899998576182434,
+          -0.19000013267792554,
+          0.4209845037868415
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "lower_shrimp",
+      "time": 22.43999999999844,
+      "object_positions": {
+        "shrimp": [
+          0.3112863792309499,
+          0.15965045332955574,
+          0.6482745606234511
+        ],
+        "apple": [
+          0.48999986072399737,
+          -0.1900001370576774,
+          0.4209845037868465
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "release_shrimp",
+      "time": 30.79999999999381,
+      "object_positions": {
+        "shrimp": [
+          0.3091694919955451,
+          0.15779213941760742,
+          0.4134951348396156
+        ],
+        "apple": [
+          0.489999866271879,
+          -0.19000014488134015,
+          0.4209845037868555
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "withdraw_shrimp",
+      "time": 31.179999999993598,
+      "object_positions": {
+        "shrimp": [
+          0.3094589467748751,
+          0.1572735622455893,
+          0.4069998927593754
+        ],
+        "apple": [
+          0.4899998665240562,
+          -0.19000014523696135,
+          0.4209845037868559
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "approach_apple",
+      "time": 35.839999999997836,
+      "object_positions": {
+        "shrimp": [
+          0.3094594824008063,
+          0.15727540863210449,
+          0.407000123752961
+        ],
+        "apple": [
+          0.4899998696165358,
+          -0.1900001495980003,
+          0.4209845037868609
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "descend_apple",
+      "time": 41.140000000004314,
+      "object_positions": {
+        "shrimp": [
+          0.30945948951045926,
+          0.15727540324043024,
+          0.4070001237519342
+        ],
+        "apple": [
+          0.48999987313373367,
+          -0.19000015455798158,
+          0.42098450378686664
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "grasp_apple",
+      "time": 48.86000000001375,
+      "object_positions": {
+        "shrimp": [
+          0.30945949986672877,
+          0.15727539538669344,
+          0.4070001237504383
+        ],
+        "apple": [
+          0.4899998782568966,
+          -0.19000016178271265,
+          0.42098450378687496
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "bilateral_grasp_contact",
+      "object": "apple",
+      "time": 49.22000000001419,
+      "normal_forces_N": {
+        "left_finger": 1.016810205351388,
+        "right_finger": 0.9784408474987826
+      }
+    },
+    {
+      "event": "lift_apple",
+      "time": 49.32000000001431,
+      "object_positions": {
+        "shrimp": [
+          0.3094595004838235,
+          0.1572753949187175,
+          0.4070001237503492
+        ],
+        "apple": [
+          0.489994575929072,
+          -0.1899807880720273,
+          0.42098466392364003
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "carry_apple",
+      "time": 54.0600000000201,
+      "object_positions": {
+        "shrimp": [
+          0.3094595068426628,
+          0.1572753900964817,
+          0.4070001237494307
+        ],
+        "apple": [
+          0.4900490948855618,
+          -0.1899727697600319,
+          0.655574879110529
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "lower_apple",
+      "time": 58.74000000002582,
+      "object_positions": {
+        "shrimp": [
+          0.309459513121149,
+          0.1572753853351889,
+          0.40700012374852373
+        ],
+        "apple": [
+          0.4898895376967056,
+          0.15978146620932393,
+          0.6535060598451652
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "release_apple",
+      "time": 65.50000000002875,
+      "object_positions": {
+        "shrimp": [
+          0.30945952219032236,
+          0.157275378457617,
+          0.40700012374721367
+        ],
+        "apple": [
+          0.48991230589467716,
+          0.15999242562918425,
+          0.4449854089751392
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "withdraw_apple",
+      "time": 65.88000000002786,
+      "object_positions": {
+        "shrimp": [
+          0.30945952270013843,
+          0.1572753780710018,
+          0.40700012374714
+        ],
+        "apple": [
+          0.48991141053132614,
+          0.1599926714030813,
+          0.4449843450015089
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "approach_potato",
+      "time": 70.16000000001789,
+      "object_positions": {
+        "shrimp": [
+          0.3094595284423173,
+          0.1572753737164617,
+          0.40700012374631045
+        ],
+        "apple": [
+          0.489911081581986,
+          0.15999301753769377,
+          0.444984336889302
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "descend_potato",
+      "time": 75.38000000000572,
+      "object_positions": {
+        "shrimp": [
+          0.30945953544578697,
+          0.15727536840545123,
+          0.4070001237452987
+        ],
+        "apple": [
+          0.48991173328529236,
+          0.1599923358288851,
+          0.44498434995429537
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "grasp_potato",
+      "time": 83.25999999998736,
+      "object_positions": {
+        "shrimp": [
+          0.3094595460183967,
+          0.15727536038785112,
+          0.4070001237437712
+        ],
+        "apple": [
+          0.4899110541643575,
+          0.15999311350245557,
+          0.4449843409129672
+        ],
+        "potato": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    {
+      "event": "bilateral_grasp_contact",
+      "object": "potato",
+      "time": 83.61999999998652,
+      "normal_forces_N": {
+        "left_finger": 0.8494928167185276,
+        "right_finger": 0.8487362829480908
+      }
+    },
+    {
+      "event": "lift_potato",
+      "time": 83.71999999998629,
+      "object_positions": {
+        "shrimp": [
+          0.30945954663559355,
+          0.15727535991981134,
+          0.40700012374368205
+        ],
+        "apple": [
+          0.4899110544965149,
+          0.15999311363616409,
+          0.4449843409128668
+        ],
+        "potato": [
+          0.6700002044446922,
+          -0.1899883891399979,
+          0.4149807804313034
+        ]
+      }
+    },
+    {
+      "event": "carry_potato",
+      "time": 88.559999999975,
+      "object_positions": {
+        "shrimp": [
+          0.3094595531296392,
+          0.1572753549951689,
+          0.40700012374274375
+        ],
+        "apple": [
+          0.48991109489727797,
+          0.1599930229047596,
+          0.44498433688645495
+        ],
+        "potato": [
+          0.6700386047961058,
+          -0.18997362910796728,
+          0.6554406295815656
+        ]
+      }
+    },
+    {
+      "event": "lower_potato",
+      "time": 93.2399999999641,
+      "object_positions": {
+        "shrimp": [
+          0.3094595594091445,
+          0.1572753502332256,
+          0.4070001237418364
+        ],
+        "apple": [
+          0.48991138624350117,
+          0.1599927711911343,
+          0.4449843549348014
+        ],
+        "potato": [
+          0.6700319846628281,
+          0.15979987083121794,
+          0.654178370308857
+        ]
+      }
+    },
+    {
+      "event": "release_potato",
+      "time": 100.55999999994704,
+      "object_positions": {
+        "shrimp": [
+          0.30945956923121265,
+          0.1572753427848879,
+          0.40700012374041716
+        ],
+        "apple": [
+          0.48991122073401727,
+          0.15999297361773962,
+          0.4449843440358007
+        ],
+        "potato": [
+          0.669981551998563,
+          0.159986919615965,
+          0.42837476191649576
+        ]
+      }
+    },
+    {
+      "event": "withdraw_potato",
+      "time": 100.93999999994615,
+      "object_positions": {
+        "shrimp": [
+          0.3094595697411131,
+          0.15727534239821997,
+          0.4070001237403435
+        ],
+        "apple": [
+          0.48991158657195816,
+          0.15999249767032173,
+          0.4449843336027733
+        ],
+        "potato": [
+          0.6699631835014525,
+          0.15998672035582417,
+          0.4249824803588945
+        ]
+      }
+    },
+    {
+      "event": "safe_return",
+      "time": 105.55999999993539,
+      "object_positions": {
+        "shrimp": [
+          0.3094595759404744,
+          0.15727533769710575,
+          0.40700012373944766
+        ],
+        "apple": [
+          0.4899110295053602,
+          0.1599931038785212,
+          0.4449843555420327
+        ],
+        "potato": [
+          0.6699626928739085,
+          0.15998758767351007,
+          0.42498275775823996
+        ]
+      }
+    },
+    {
+      "event": "controlled_home",
+      "time": 111.09999999992247,
+      "object_positions": {
+        "shrimp": [
+          0.3094595833745178,
+          0.15727533205971578,
+          0.4070001237383734
+        ],
+        "apple": [
+          0.4899111111897578,
+          0.15999302946617286,
+          0.4449843368829772
+        ],
+        "potato": [
+          0.6699643848756995,
+          0.15999107908326618,
+          0.4249806501250274
+        ]
+      }
+    },
+    {
+      "event": "final_stability",
+      "time": 113.09999999991781,
+      "object_positions": {
+        "shrimp": [
+          0.3094595860583263,
+          0.15727533002453067,
+          0.40700012373798555
+        ],
+        "apple": [
+          0.48991176051254,
+          0.15999234677076726,
+          0.4449843500210429
+        ],
+        "potato": [
+          0.6699655065428627,
+          0.1599914436941269,
+          0.42498257336017004
+        ]
+      }
+    }
+  ],
+  "simulation_seconds": 113.93999999991549,
+  "wall_seconds": 41.1442592079984,
+  "max_command_speed_rad_s": 0.8,
+  "max_actual_speed_rad_s": 0.9355249258104186,
+  "max_segment_endpoint_error_m": 0.0004331255241265903,
+  "home_event": {
+    "event": "actuated_home_complete",
+    "time": 113.09999999991781,
+    "steps": 80,
+    "q_goal": [
+      0.0,
+      -0.785,
+      0.0,
+      -2.356,
+      0.0,
+      1.571,
+      0.785
+    ],
+    "q_actual": [
+      2.137487130227774e-05,
+      -0.7850154188683973,
+      -1.814768486786166e-05,
+      -2.3560598368800636,
+      -1.536761364160415e-05,
+      1.571057281354677,
+      0.7850146947714702
+    ]
+  },
+  "video_fps": 30,
+  "video_frames": 3419,
+  "all_contact_groups": [
+    {
+      "phase": "release_shrimp",
+      "kind": "robot_environment",
+      "bodies": [
+        "bowl",
+        "right_finger"
+      ],
+      "samples": 86,
+      "min_distance_m": -4.614905649698717e-05
+    },
+    {
+      "phase": "withdraw_shrimp",
+      "kind": "robot_environment",
+      "bodies": [
+        "bowl",
+        "right_finger"
+      ],
+      "samples": 209,
+      "min_distance_m": -1.533504787920642e-05
+    }
+  ],
+  "mode_notes": "Strict means no grasp weld. Oracle pose and explicit robot gravity compensation remain; not a real-robot or general safety claim.",
+  "frame_timestamps": {
+    "first": 0.16000000000000011,
+    "last": 114.0939999999155,
+    "sampling": "uniform simulation time, 30fps"
+  },
+  "sources_unchanged_during_run": true
+}

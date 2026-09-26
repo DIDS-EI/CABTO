@@ -1,0 +1,2058 @@
+{
+  "task": "one_arm_pours_sphere_other_arm_holds_basin",
+  "config_path": "/Users/yishuaicai/mywork/edps/scenes/held_basin_pour_v1.json",
+  "config_sha256": "3309d3fd2bea81271f23576a566ec98d7ecf613b98ca856a9bc75021992166cb",
+  "model_source": "handwritten_STRIPS",
+  "planner": "formal_BT_Expansion_unmodified",
+  "program_source": "actual_local_model_or_verified_cache",
+  "oracle": true,
+  "weld_assisted": true,
+  "object_snap": false,
+  "arm_rehome": false,
+  "samples": [
+    {
+      "success": true,
+      "action_model": {
+        "name": "present_basin",
+        "args": {
+          "arm": "1",
+          "obj": "basin",
+          "dest": "present_basin"
+        },
+        "program_kind": "present_receiver",
+        "pre": [
+          "holding(1,basin)"
+        ],
+        "add": [
+          "basin_ready()"
+        ],
+        "del": [],
+        "description": "Move the already-held basin to the catch station using target_pose, move_basin, then settle. Do not release it."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nMove the already-held basin to the catch station using target_pose, move_basin, then settle. Do not release it.\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.target_pose() -> tuple(x,y,z): current desired basin HANDLE pose at the catch station. No arguments.\napi.move_basin(p): move the already-held basin to handle pose p. One XYZ tuple argument.\napi.settle(): wait while keeping the basin held. No arguments.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    pose = api.target_pose()\n    api.move_basin(pose)\n    api.settle()\n```",
+          "source": "def policy(api):\n    pose = api.target_pose()\n    api.move_basin(pose)\n    api.settle()",
+          "sha256": "66f141e06c3c27fceec2b378729f73f2472357087ed5fb2cb4f34b7293f682c6",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "model": {
+              "name": "present_basin",
+              "args": {
+                "arm": "1",
+                "obj": "basin",
+                "dest": "present_basin"
+              },
+              "program_kind": "present_receiver",
+              "pre": [
+                "holding(1,basin)"
+              ],
+              "add": [
+                "basin_ready()"
+              ],
+              "del": [],
+              "description": "Move the already-held basin to the catch station using target_pose, move_basin, then settle. Do not release it."
+            },
+            "action_id": "present_basin(arm=1,dest=present_basin,obj=basin)",
+            "before": [
+              "at_source(canL)",
+              "content_in_source()",
+              "empty(0)",
+              "holding(1,basin)",
+              "parked(0)"
+            ],
+            "after": [
+              "at_source(canL)",
+              "basin_ready()",
+              "content_in_source()",
+              "empty(0)",
+              "holding(1,basin)",
+              "parked(0)"
+            ],
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "exception": null,
+            "trace": [
+              {
+                "method": "target_pose",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.54,
+                  -0.015,
+                  0.59
+                ]
+              },
+              {
+                "method": "move_basin",
+                "args": [
+                  [
+                    0.54,
+                    -0.015,
+                    0.59
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "settle",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "diagnostics": {
+              "missing_pre": [],
+              "missing_add": [],
+              "remaining_del": [],
+              "missing_preserved_pre": [],
+              "required_transition_calls": [
+                "move_basin"
+              ]
+            },
+            "code_sha256": "66f141e06c3c27fceec2b378729f73f2472357087ed5fb2cb4f34b7293f682c6",
+            "failure_attribution": null,
+            "candidate_model_patch": null
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "kind": "present_receiver",
+      "api_docs": {
+        "target_pose": "api.target_pose() -> tuple(x,y,z): current desired basin HANDLE pose at the catch station. No arguments.",
+        "move_basin": "api.move_basin(p): move the already-held basin to handle pose p. One XYZ tuple argument.",
+        "settle": "api.settle(): wait while keeping the basin held. No arguments."
+      }
+    },
+    {
+      "success": true,
+      "action_model": {
+        "name": "pour_into_held_basin",
+        "args": {
+          "arm": "0",
+          "obj": "canL",
+          "dest": "pour_into_held_basin"
+        },
+        "program_kind": "coordinated_pour",
+        "pre": [
+          "holding(0,canL)",
+          "holding(1,basin)",
+          "content_in_source()",
+          "basin_ready()"
+        ],
+        "add": [
+          "sphere_in_basin()",
+          "caught_by_held_basin()"
+        ],
+        "del": [
+          "content_in_source()"
+        ],
+        "description": "Required order: move the held source cup above the catch zone first; then re-align the loaded receiving basin immediately before physically tipping the source; finally settle. The receiving arm must keep holding the basin throughout."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nRequired order: move the held source cup above the catch zone first; then re-align the loaded receiving basin immediately before physically tipping the source; finally settle. The receiving arm must keep holding the basin throughout.\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.source_pose() -> tuple(x,y,z): desired source-cup handle pose above the basin. Read this first.\napi.move_source(p): move the already-held source cup to p without tilting. Call before re-aligning the basin.\napi.receiver_pose() -> tuple(x,y,z): desired basin handle pose. Read after moving the source cup.\napi.align_receiver(p): re-align the held basin immediately before tip_source. Source movement can make the loaded receiving arm sag, so this call MUST be after move_source.\napi.tip_source(): physically tilt the held source cup past horizontal; does not move the sphere directly or set success. Call immediately after align_receiver.\napi.settle(): wait while both grasps remain active. No arguments.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    source_pose = api.source_pose()\n    move_source = api.move_source(source_pose)\n    receiver_pose = api.receiver_pose()\n    align_receiver = api.align_receiver(receiver_pose)\n    tip_source = api.tip_source()\n    settle = api.settle()\n```",
+          "source": "def policy(api):\n    source_pose = api.source_pose()\n    move_source = api.move_source(source_pose)\n    receiver_pose = api.receiver_pose()\n    align_receiver = api.align_receiver(receiver_pose)\n    tip_source = api.tip_source()\n    settle = api.settle()",
+          "sha256": "e06cfe1b437bd130d41d13669a3e54a978443d7739fc3a99fd39f0cea789d090",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "model": {
+              "name": "pour_into_held_basin",
+              "args": {
+                "arm": "0",
+                "obj": "canL",
+                "dest": "pour_into_held_basin"
+              },
+              "program_kind": "coordinated_pour",
+              "pre": [
+                "holding(0,canL)",
+                "holding(1,basin)",
+                "content_in_source()",
+                "basin_ready()"
+              ],
+              "add": [
+                "sphere_in_basin()",
+                "caught_by_held_basin()"
+              ],
+              "del": [
+                "content_in_source()"
+              ],
+              "description": "Required order: move the held source cup above the catch zone first; then re-align the loaded receiving basin immediately before physically tipping the source; finally settle. The receiving arm must keep holding the basin throughout."
+            },
+            "action_id": "pour_into_held_basin(arm=0,dest=pour_into_held_basin,obj=canL)",
+            "before": [
+              "basin_ready()",
+              "content_in_source()",
+              "holding(0,canL)",
+              "holding(1,basin)"
+            ],
+            "after": [
+              "basin_ready()",
+              "caught_by_held_basin()",
+              "holding(0,canL)",
+              "holding(1,basin)",
+              "sphere_in_basin()"
+            ],
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "exception": null,
+            "trace": [
+              {
+                "method": "source_pose",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.38,
+                  -0.015,
+                  0.71
+                ]
+              },
+              {
+                "method": "move_source",
+                "args": [
+                  [
+                    0.38,
+                    -0.015,
+                    0.71
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "receiver_pose",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": [
+                  0.54,
+                  -0.015,
+                  0.59
+                ]
+              },
+              {
+                "method": "align_receiver",
+                "args": [
+                  [
+                    0.54,
+                    -0.015,
+                    0.59
+                  ]
+                ],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "tip_source",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              },
+              {
+                "method": "settle",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "diagnostics": {
+              "missing_pre": [],
+              "missing_add": [],
+              "remaining_del": [],
+              "missing_preserved_pre": [],
+              "required_transition_calls": [
+                "align_receiver",
+                "move_source",
+                "tip_source"
+              ],
+              "stable_caught_in_held_basin": true
+            },
+            "code_sha256": "e06cfe1b437bd130d41d13669a3e54a978443d7739fc3a99fd39f0cea789d090",
+            "failure_attribution": null,
+            "candidate_model_patch": null
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "kind": "coordinated_pour",
+      "api_docs": {
+        "source_pose": "api.source_pose() -> tuple(x,y,z): desired source-cup handle pose above the basin. Read this first.",
+        "move_source": "api.move_source(p): move the already-held source cup to p without tilting. Call before re-aligning the basin.",
+        "receiver_pose": "api.receiver_pose() -> tuple(x,y,z): desired basin handle pose. Read after moving the source cup.",
+        "align_receiver": "api.align_receiver(p): re-align the held basin immediately before tip_source. Source movement can make the loaded receiving arm sag, so this call MUST be after move_source.",
+        "tip_source": "api.tip_source(): physically tilt the held source cup past horizontal; does not move the sphere directly or set success. Call immediately after align_receiver.",
+        "settle": "api.settle(): wait while both grasps remain active. No arguments."
+      }
+    }
+  ],
+  "episodes": [
+    {
+      "seed": 0,
+      "steps": [
+        {
+          "model": {
+            "name": "pick_source_cup",
+            "args": {
+              "arm": "0",
+              "obj": "canL",
+              "dest": "pick_source_cup"
+            },
+            "program_kind": "pick",
+            "pre": [
+              "empty(0)",
+              "at_source(canL)",
+              "content_in_source()"
+            ],
+            "add": [
+              "holding(0,canL)"
+            ],
+            "del": [
+              "empty(0)",
+              "at_source(canL)",
+              "parked(0)"
+            ],
+            "description": "Pick the handled source cup containing the sphere and lift it. Use the documented pick APIs."
+          },
+          "action_id": "pick_source_cup(arm=0,dest=pick_source_cup,obj=canL)",
+          "before": [
+            "at_source(basin)",
+            "at_source(canL)",
+            "content_in_source()",
+            "empty(0)",
+            "empty(1)",
+            "parked(0)",
+            "parked(1)"
+          ],
+          "after": [
+            "at_source(basin)",
+            "content_in_source()",
+            "empty(1)",
+            "holding(0,canL)",
+            "parked(1)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.1701155746276545,
+                0.2400008338935535,
+                0.5349406273047271
+              ]
+            },
+            {
+              "method": "align_xy",
+              "args": [
+                [
+                  0.1701155746276545,
+                  0.2400008338935535,
+                  0.5349406273047271
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.004828502404887324
+            },
+            {
+              "method": "descend_to",
+              "args": [
+                0.5349406273047271,
+                [
+                  0.1701155746276545,
+                  0.2400008338935535
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.005535335108463195
+            },
+            {
+              "method": "grasp",
+              "args": [
+                [
+                  0.1701155746276545,
+                  0.2400008338935535,
+                  0.5349406273047271
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "record_grab_offset",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unissued_commands": [],
+            "required_transition_calls": []
+          },
+          "code_sha256": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        },
+        {
+          "model": {
+            "name": "pick_basin",
+            "args": {
+              "arm": "1",
+              "obj": "basin",
+              "dest": "pick_basin"
+            },
+            "program_kind": "pick",
+            "pre": [
+              "empty(1)",
+              "at_source(basin)"
+            ],
+            "add": [
+              "holding(1,basin)"
+            ],
+            "del": [
+              "empty(1)",
+              "at_source(basin)",
+              "parked(1)"
+            ],
+            "description": "Pick the handled basin with the receiving arm and lift it. Use the documented pick APIs."
+          },
+          "action_id": "pick_basin(arm=1,dest=pick_basin,obj=basin)",
+          "before": [
+            "at_source(basin)",
+            "content_in_source()",
+            "empty(1)",
+            "holding(0,canL)",
+            "parked(1)"
+          ],
+          "after": [
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.3800010460103379,
+                -0.2400000603199023,
+                0.5349958650137454
+              ]
+            },
+            {
+              "method": "align_xy",
+              "args": [
+                [
+                  0.3800010460103379,
+                  -0.2400000603199023,
+                  0.5349958650137454
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.004894457871588225
+            },
+            {
+              "method": "descend_to",
+              "args": [
+                0.5349958650137454,
+                [
+                  0.3800010460103379,
+                  -0.2400000603199023
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.0045748661162024595
+            },
+            {
+              "method": "grasp",
+              "args": [
+                [
+                  0.3800010460103379,
+                  -0.2400000603199023,
+                  0.5349958650137454
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "record_grab_offset",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unissued_commands": [],
+            "required_transition_calls": []
+          },
+          "code_sha256": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        },
+        {
+          "model": {
+            "name": "present_basin",
+            "args": {
+              "arm": "1",
+              "obj": "basin",
+              "dest": "present_basin"
+            },
+            "program_kind": "present_receiver",
+            "pre": [
+              "holding(1,basin)"
+            ],
+            "add": [
+              "basin_ready()"
+            ],
+            "del": [],
+            "description": "Move the already-held basin to the catch station using target_pose, move_basin, then settle. Do not release it."
+          },
+          "action_id": "present_basin(arm=1,dest=present_basin,obj=basin)",
+          "before": [
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "after": [
+            "basin_ready()",
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.54,
+                -0.015,
+                0.59
+              ]
+            },
+            {
+              "method": "move_basin",
+              "args": [
+                [
+                  0.54,
+                  -0.015,
+                  0.59
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "settle",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "move_basin"
+            ]
+          },
+          "code_sha256": "66f141e06c3c27fceec2b378729f73f2472357087ed5fb2cb4f34b7293f682c6",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        },
+        {
+          "model": {
+            "name": "pour_into_held_basin",
+            "args": {
+              "arm": "0",
+              "obj": "canL",
+              "dest": "pour_into_held_basin"
+            },
+            "program_kind": "coordinated_pour",
+            "pre": [
+              "holding(0,canL)",
+              "holding(1,basin)",
+              "content_in_source()",
+              "basin_ready()"
+            ],
+            "add": [
+              "sphere_in_basin()",
+              "caught_by_held_basin()"
+            ],
+            "del": [
+              "content_in_source()"
+            ],
+            "description": "Required order: move the held source cup above the catch zone first; then re-align the loaded receiving basin immediately before physically tipping the source; finally settle. The receiving arm must keep holding the basin throughout."
+          },
+          "action_id": "pour_into_held_basin(arm=0,dest=pour_into_held_basin,obj=canL)",
+          "before": [
+            "basin_ready()",
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "after": [
+            "basin_ready()",
+            "caught_by_held_basin()",
+            "holding(0,canL)",
+            "holding(1,basin)",
+            "sphere_in_basin()"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "source_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.38,
+                -0.015,
+                0.71
+              ]
+            },
+            {
+              "method": "move_source",
+              "args": [
+                [
+                  0.38,
+                  -0.015,
+                  0.71
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "receiver_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.54,
+                -0.015,
+                0.59
+              ]
+            },
+            {
+              "method": "align_receiver",
+              "args": [
+                [
+                  0.54,
+                  -0.015,
+                  0.59
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "tip_source",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "settle",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "align_receiver",
+              "move_source",
+              "tip_source"
+            ]
+          },
+          "code_sha256": "e06cfe1b437bd130d41d13669a3e54a978443d7739fc3a99fd39f0cea789d090",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        }
+      ],
+      "success": true,
+      "goal": [
+        "caught_by_held_basin()",
+        "holding(1,basin)",
+        "sphere_in_basin()"
+      ],
+      "initial_state": [
+        "at_source(basin)",
+        "at_source(canL)",
+        "content_in_source()",
+        "empty(0)",
+        "empty(1)",
+        "parked(0)",
+        "parked(1)"
+      ],
+      "scene_sha256": "5ac5002ed6f75f2821d1751b9bb3407761d56ff94f378d30baab135623e507ef",
+      "initial_penetrations": [],
+      "kernel": {
+        "bt_expansion": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/__init__.py",
+          "sha256": "bab0549f7fcaa6c2bdd33b02d8c4d8233e7a5c41ffd454307651c6fd9da37fd2"
+        },
+        "bt_expansion.planning": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/planning.py",
+          "sha256": "8730a53df5c526809848da9fcedbc02ce4f17ca00322a52e133e8ec909d7f697"
+        },
+        "behavior_tree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/__init__.py",
+          "sha256": "ad77aee97bddc9c41924c5004be56843d937cccb33e88515c74ce2c87bcc8c5a"
+        },
+        "behavior_tree.BehaviorTree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/BehaviorTree.py",
+          "sha256": "512376d555f9f223027d521a3b644f6550c7128285aec61af2c1dcbd685e6038"
+        },
+        "bt_expansion.algorithm": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/algorithm.py",
+          "sha256": "ffbe33712df2d05068ccef24e7be90edb7f45e51978af4f99b18b51faa92ae50"
+        }
+      },
+      "bt_status": "success",
+      "stable": true,
+      "final_state": [
+        "basin_ready()",
+        "caught_by_held_basin()",
+        "holding(0,canL)",
+        "holding(1,basin)",
+        "sphere_in_basin()"
+      ],
+      "final_sphere_position": [
+        0.3278082510668947,
+        0.003591824154331931,
+        0.4806317968544668
+      ],
+      "final_sphere_local_in_basin": [
+        -0.037270979510993923,
+        0.028206698985052757,
+        0.02899899837407857
+      ],
+      "final_basin_center": [
+        0.36512276362185625,
+        -0.025129228679168315,
+        0.4521991753614876
+      ],
+      "pour_events": [
+        {
+          "before_in_source": true,
+          "before_in_basin": false,
+          "basin_ready_before_tip": true,
+          "actual_tipped_past_horizontal": true,
+          "actual_source_normal": [
+            -0.8926235861392993,
+            -0.20905062578587724,
+            -0.39940076280141223
+          ],
+          "after_in_source": false,
+          "after_in_basin": true,
+          "basin_still_held": true
+        }
+      ],
+      "assistance_events": [
+        {
+          "arm": "_L",
+          "object": "canL",
+          "active": true,
+          "sim_time": 1.1220000000000008,
+          "object_position": [
+            0.17371608160412386,
+            0.23933998055975067,
+            0.5181118796818723
+          ],
+          "finger_mid": [
+            0.16906320926012114,
+            0.23490288973392182,
+            0.5760951071495841
+          ]
+        },
+        {
+          "arm": "_R",
+          "object": "basin",
+          "active": true,
+          "sim_time": 3.4579999999998408,
+          "object_position": [
+            0.3800418758344333,
+            -0.24002730670526184,
+            0.5199910161724668
+          ],
+          "finger_mid": [
+            0.38041654201290126,
+            -0.24174638231254186,
+            0.5760559862290704
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 1,
+      "steps": [
+        {
+          "model": {
+            "name": "pick_source_cup",
+            "args": {
+              "arm": "0",
+              "obj": "canL",
+              "dest": "pick_source_cup"
+            },
+            "program_kind": "pick",
+            "pre": [
+              "empty(0)",
+              "at_source(canL)",
+              "content_in_source()"
+            ],
+            "add": [
+              "holding(0,canL)"
+            ],
+            "del": [
+              "empty(0)",
+              "at_source(canL)",
+              "parked(0)"
+            ],
+            "description": "Pick the handled source cup containing the sphere and lift it. Use the documented pick APIs."
+          },
+          "action_id": "pick_source_cup(arm=0,dest=pick_source_cup,obj=canL)",
+          "before": [
+            "at_source(basin)",
+            "at_source(canL)",
+            "content_in_source()",
+            "empty(0)",
+            "empty(1)",
+            "parked(0)",
+            "parked(1)"
+          ],
+          "after": [
+            "at_source(basin)",
+            "content_in_source()",
+            "empty(1)",
+            "holding(0,canL)",
+            "parked(1)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.1701865262560854,
+                0.24270362653168995,
+                0.5349406188037723
+              ]
+            },
+            {
+              "method": "align_xy",
+              "args": [
+                [
+                  0.1701865262560854,
+                  0.24270362653168995,
+                  0.5349406188037723
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.00472993238358027
+            },
+            {
+              "method": "descend_to",
+              "args": [
+                0.5349406188037723,
+                [
+                  0.1701865262560854,
+                  0.24270362653168995
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.00550271557988352
+            },
+            {
+              "method": "grasp",
+              "args": [
+                [
+                  0.1701865262560854,
+                  0.24270362653168995,
+                  0.5349406188037723
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "record_grab_offset",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unissued_commands": [],
+            "required_transition_calls": []
+          },
+          "code_sha256": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        },
+        {
+          "model": {
+            "name": "pick_basin",
+            "args": {
+              "arm": "1",
+              "obj": "basin",
+              "dest": "pick_basin"
+            },
+            "program_kind": "pick",
+            "pre": [
+              "empty(1)",
+              "at_source(basin)"
+            ],
+            "add": [
+              "holding(1,basin)"
+            ],
+            "del": [
+              "empty(1)",
+              "at_source(basin)",
+              "parked(1)"
+            ],
+            "description": "Pick the handled basin with the receiving arm and lift it. Use the documented pick APIs."
+          },
+          "action_id": "pick_basin(arm=1,dest=pick_basin,obj=basin)",
+          "before": [
+            "at_source(basin)",
+            "content_in_source()",
+            "empty(1)",
+            "holding(0,canL)",
+            "parked(1)"
+          ],
+          "after": [
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.377866011250351,
+                -0.237308172679983,
+                0.5349958505076489
+              ]
+            },
+            {
+              "method": "align_xy",
+              "args": [
+                [
+                  0.377866011250351,
+                  -0.237308172679983,
+                  0.5349958505076489
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.005191567311402778
+            },
+            {
+              "method": "descend_to",
+              "args": [
+                0.5349958505076489,
+                [
+                  0.377866011250351,
+                  -0.237308172679983
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.004831968433068641
+            },
+            {
+              "method": "grasp",
+              "args": [
+                [
+                  0.377866011250351,
+                  -0.237308172679983,
+                  0.5349958505076489
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "record_grab_offset",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unissued_commands": [],
+            "required_transition_calls": []
+          },
+          "code_sha256": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        },
+        {
+          "model": {
+            "name": "present_basin",
+            "args": {
+              "arm": "1",
+              "obj": "basin",
+              "dest": "present_basin"
+            },
+            "program_kind": "present_receiver",
+            "pre": [
+              "holding(1,basin)"
+            ],
+            "add": [
+              "basin_ready()"
+            ],
+            "del": [],
+            "description": "Move the already-held basin to the catch station using target_pose, move_basin, then settle. Do not release it."
+          },
+          "action_id": "present_basin(arm=1,dest=present_basin,obj=basin)",
+          "before": [
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "after": [
+            "basin_ready()",
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.54,
+                -0.015,
+                0.59
+              ]
+            },
+            {
+              "method": "move_basin",
+              "args": [
+                [
+                  0.54,
+                  -0.015,
+                  0.59
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "settle",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "move_basin"
+            ]
+          },
+          "code_sha256": "66f141e06c3c27fceec2b378729f73f2472357087ed5fb2cb4f34b7293f682c6",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        },
+        {
+          "model": {
+            "name": "pour_into_held_basin",
+            "args": {
+              "arm": "0",
+              "obj": "canL",
+              "dest": "pour_into_held_basin"
+            },
+            "program_kind": "coordinated_pour",
+            "pre": [
+              "holding(0,canL)",
+              "holding(1,basin)",
+              "content_in_source()",
+              "basin_ready()"
+            ],
+            "add": [
+              "sphere_in_basin()",
+              "caught_by_held_basin()"
+            ],
+            "del": [
+              "content_in_source()"
+            ],
+            "description": "Required order: move the held source cup above the catch zone first; then re-align the loaded receiving basin immediately before physically tipping the source; finally settle. The receiving arm must keep holding the basin throughout."
+          },
+          "action_id": "pour_into_held_basin(arm=0,dest=pour_into_held_basin,obj=canL)",
+          "before": [
+            "basin_ready()",
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "after": [
+            "basin_ready()",
+            "caught_by_held_basin()",
+            "holding(0,canL)",
+            "holding(1,basin)",
+            "sphere_in_basin()"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "source_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.38,
+                -0.015,
+                0.71
+              ]
+            },
+            {
+              "method": "move_source",
+              "args": [
+                [
+                  0.38,
+                  -0.015,
+                  0.71
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "receiver_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.54,
+                -0.015,
+                0.59
+              ]
+            },
+            {
+              "method": "align_receiver",
+              "args": [
+                [
+                  0.54,
+                  -0.015,
+                  0.59
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "tip_source",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "settle",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "align_receiver",
+              "move_source",
+              "tip_source"
+            ]
+          },
+          "code_sha256": "e06cfe1b437bd130d41d13669a3e54a978443d7739fc3a99fd39f0cea789d090",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        }
+      ],
+      "success": true,
+      "goal": [
+        "caught_by_held_basin()",
+        "holding(1,basin)",
+        "sphere_in_basin()"
+      ],
+      "initial_state": [
+        "at_source(basin)",
+        "at_source(canL)",
+        "content_in_source()",
+        "empty(0)",
+        "empty(1)",
+        "parked(0)",
+        "parked(1)"
+      ],
+      "scene_sha256": "27360f807db397f31454fcb18c8260e5d5ce637d6eaade3e96476349c9afa6f9",
+      "initial_penetrations": [],
+      "kernel": {
+        "bt_expansion": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/__init__.py",
+          "sha256": "bab0549f7fcaa6c2bdd33b02d8c4d8233e7a5c41ffd454307651c6fd9da37fd2"
+        },
+        "bt_expansion.planning": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/planning.py",
+          "sha256": "8730a53df5c526809848da9fcedbc02ce4f17ca00322a52e133e8ec909d7f697"
+        },
+        "behavior_tree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/__init__.py",
+          "sha256": "ad77aee97bddc9c41924c5004be56843d937cccb33e88515c74ce2c87bcc8c5a"
+        },
+        "behavior_tree.BehaviorTree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/BehaviorTree.py",
+          "sha256": "512376d555f9f223027d521a3b644f6550c7128285aec61af2c1dcbd685e6038"
+        },
+        "bt_expansion.algorithm": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/algorithm.py",
+          "sha256": "ffbe33712df2d05068ccef24e7be90edb7f45e51978af4f99b18b51faa92ae50"
+        }
+      },
+      "bt_status": "success",
+      "stable": true,
+      "final_state": [
+        "basin_ready()",
+        "caught_by_held_basin()",
+        "holding(0,canL)",
+        "holding(1,basin)",
+        "sphere_in_basin()"
+      ],
+      "final_sphere_position": [
+        0.3304239361457755,
+        0.004953984329419214,
+        0.4831043622483883
+      ],
+      "final_sphere_local_in_basin": [
+        -0.03176493185884957,
+        0.026595389819910206,
+        0.028998998365934434
+      ],
+      "final_basin_center": [
+        0.3622104780851455,
+        -0.02213850660318744,
+        0.4545933074011698
+      ],
+      "pour_events": [
+        {
+          "before_in_source": true,
+          "before_in_basin": false,
+          "basin_ready_before_tip": true,
+          "actual_tipped_past_horizontal": true,
+          "actual_source_normal": [
+            -0.8786953992034323,
+            -0.2322388878690213,
+            -0.41708451707067823
+          ],
+          "after_in_source": false,
+          "after_in_basin": true,
+          "basin_still_held": true
+        }
+      ],
+      "assistance_events": [
+        {
+          "arm": "_L",
+          "object": "canL",
+          "active": true,
+          "sim_time": 1.1220000000000008,
+          "object_position": [
+            0.17348456016554586,
+            0.2421442827747724,
+            0.5182695377210597
+          ],
+          "finger_mid": [
+            0.16918241291022462,
+            0.23759701385188087,
+            0.5761677072078094
+          ]
+        },
+        {
+          "arm": "_R",
+          "object": "basin",
+          "active": true,
+          "sim_time": 3.4579999999998408,
+          "object_position": [
+            0.3779365253463358,
+            -0.23731098770767878,
+            0.5199820386997757
+          ],
+          "finger_mid": [
+            0.37810974486917825,
+            -0.2391008464252467,
+            0.5757692120136833
+          ]
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "steps": [
+        {
+          "model": {
+            "name": "pick_source_cup",
+            "args": {
+              "arm": "0",
+              "obj": "canL",
+              "dest": "pick_source_cup"
+            },
+            "program_kind": "pick",
+            "pre": [
+              "empty(0)",
+              "at_source(canL)",
+              "content_in_source()"
+            ],
+            "add": [
+              "holding(0,canL)"
+            ],
+            "del": [
+              "empty(0)",
+              "at_source(canL)",
+              "parked(0)"
+            ],
+            "description": "Pick the handled source cup containing the sphere and lift it. Use the documented pick APIs."
+          },
+          "action_id": "pick_source_cup(arm=0,dest=pick_source_cup,obj=canL)",
+          "before": [
+            "at_source(basin)",
+            "at_source(canL)",
+            "content_in_source()",
+            "empty(0)",
+            "empty(1)",
+            "parked(0)",
+            "parked(1)"
+          ],
+          "after": [
+            "at_source(basin)",
+            "content_in_source()",
+            "empty(1)",
+            "holding(0,canL)",
+            "parked(1)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.1686851673069511,
+                0.23879177508924698,
+                0.5349406593874457
+              ]
+            },
+            {
+              "method": "align_xy",
+              "args": [
+                [
+                  0.1686851673069511,
+                  0.23879177508924698,
+                  0.5349406593874457
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.005028371209791503
+            },
+            {
+              "method": "descend_to",
+              "args": [
+                0.5349406593874457,
+                [
+                  0.1686851673069511,
+                  0.23879177508924698
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.005496553215949231
+            },
+            {
+              "method": "grasp",
+              "args": [
+                [
+                  0.1686851673069511,
+                  0.23879177508924698,
+                  0.5349406593874457
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "record_grab_offset",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unissued_commands": [],
+            "required_transition_calls": []
+          },
+          "code_sha256": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        },
+        {
+          "model": {
+            "name": "pick_basin",
+            "args": {
+              "arm": "1",
+              "obj": "basin",
+              "dest": "pick_basin"
+            },
+            "program_kind": "pick",
+            "pre": [
+              "empty(1)",
+              "at_source(basin)"
+            ],
+            "add": [
+              "holding(1,basin)"
+            ],
+            "del": [
+              "empty(1)",
+              "at_source(basin)",
+              "parked(1)"
+            ],
+            "description": "Pick the handled basin with the receiving arm and lift it. Use the documented pick APIs."
+          },
+          "action_id": "pick_basin(arm=1,dest=pick_basin,obj=basin)",
+          "before": [
+            "at_source(basin)",
+            "content_in_source()",
+            "empty(1)",
+            "holding(0,canL)",
+            "parked(1)"
+          ],
+          "after": [
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.381886409807195,
+                -0.24244857270079667,
+                0.5349958469788804
+              ]
+            },
+            {
+              "method": "align_xy",
+              "args": [
+                [
+                  0.381886409807195,
+                  -0.24244857270079667,
+                  0.5349958469788804
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.004541958992466611
+            },
+            {
+              "method": "descend_to",
+              "args": [
+                0.5349958469788804,
+                [
+                  0.381886409807195,
+                  -0.24244857270079667
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": 0.0044762958126487755
+            },
+            {
+              "method": "grasp",
+              "args": [
+                [
+                  0.381886409807195,
+                  -0.24244857270079667,
+                  0.5349958469788804
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "record_grab_offset",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unissued_commands": [],
+            "required_transition_calls": []
+          },
+          "code_sha256": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        },
+        {
+          "model": {
+            "name": "present_basin",
+            "args": {
+              "arm": "1",
+              "obj": "basin",
+              "dest": "present_basin"
+            },
+            "program_kind": "present_receiver",
+            "pre": [
+              "holding(1,basin)"
+            ],
+            "add": [
+              "basin_ready()"
+            ],
+            "del": [],
+            "description": "Move the already-held basin to the catch station using target_pose, move_basin, then settle. Do not release it."
+          },
+          "action_id": "present_basin(arm=1,dest=present_basin,obj=basin)",
+          "before": [
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "after": [
+            "basin_ready()",
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.54,
+                -0.015,
+                0.59
+              ]
+            },
+            {
+              "method": "move_basin",
+              "args": [
+                [
+                  0.54,
+                  -0.015,
+                  0.59
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "settle",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "move_basin"
+            ]
+          },
+          "code_sha256": "66f141e06c3c27fceec2b378729f73f2472357087ed5fb2cb4f34b7293f682c6",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        },
+        {
+          "model": {
+            "name": "pour_into_held_basin",
+            "args": {
+              "arm": "0",
+              "obj": "canL",
+              "dest": "pour_into_held_basin"
+            },
+            "program_kind": "coordinated_pour",
+            "pre": [
+              "holding(0,canL)",
+              "holding(1,basin)",
+              "content_in_source()",
+              "basin_ready()"
+            ],
+            "add": [
+              "sphere_in_basin()",
+              "caught_by_held_basin()"
+            ],
+            "del": [
+              "content_in_source()"
+            ],
+            "description": "Required order: move the held source cup above the catch zone first; then re-align the loaded receiving basin immediately before physically tipping the source; finally settle. The receiving arm must keep holding the basin throughout."
+          },
+          "action_id": "pour_into_held_basin(arm=0,dest=pour_into_held_basin,obj=canL)",
+          "before": [
+            "basin_ready()",
+            "content_in_source()",
+            "holding(0,canL)",
+            "holding(1,basin)"
+          ],
+          "after": [
+            "basin_ready()",
+            "caught_by_held_basin()",
+            "holding(0,canL)",
+            "holding(1,basin)",
+            "sphere_in_basin()"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "source_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.38,
+                -0.015,
+                0.71
+              ]
+            },
+            {
+              "method": "move_source",
+              "args": [
+                [
+                  0.38,
+                  -0.015,
+                  0.71
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "receiver_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.54,
+                -0.015,
+                0.59
+              ]
+            },
+            {
+              "method": "align_receiver",
+              "args": [
+                [
+                  0.54,
+                  -0.015,
+                  0.59
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "tip_source",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "settle",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "align_receiver",
+              "move_source",
+              "tip_source"
+            ]
+          },
+          "code_sha256": "e06cfe1b437bd130d41d13669a3e54a978443d7739fc3a99fd39f0cea789d090",
+          "failure_attribution": null,
+          "candidate_model_patch": null
+        }
+      ],
+      "success": true,
+      "goal": [
+        "caught_by_held_basin()",
+        "holding(1,basin)",
+        "sphere_in_basin()"
+      ],
+      "initial_state": [
+        "at_source(basin)",
+        "at_source(canL)",
+        "content_in_source()",
+        "empty(0)",
+        "empty(1)",
+        "parked(0)",
+        "parked(1)"
+      ],
+      "scene_sha256": "4dcb584cba82bea64f230ea93f4e3dd16d1440c387dde202bd73c9774c1677ac",
+      "initial_penetrations": [],
+      "kernel": {
+        "bt_expansion": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/__init__.py",
+          "sha256": "bab0549f7fcaa6c2bdd33b02d8c4d8233e7a5c41ffd454307651c6fd9da37fd2"
+        },
+        "bt_expansion.planning": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/planning.py",
+          "sha256": "8730a53df5c526809848da9fcedbc02ce4f17ca00322a52e133e8ec909d7f697"
+        },
+        "behavior_tree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/__init__.py",
+          "sha256": "ad77aee97bddc9c41924c5004be56843d937cccb33e88515c74ce2c87bcc8c5a"
+        },
+        "behavior_tree.BehaviorTree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/BehaviorTree.py",
+          "sha256": "512376d555f9f223027d521a3b644f6550c7128285aec61af2c1dcbd685e6038"
+        },
+        "bt_expansion.algorithm": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/algorithm.py",
+          "sha256": "ffbe33712df2d05068ccef24e7be90edb7f45e51978af4f99b18b51faa92ae50"
+        }
+      },
+      "bt_status": "success",
+      "stable": true,
+      "final_state": [
+        "basin_ready()",
+        "caught_by_held_basin()",
+        "holding(0,canL)",
+        "holding(1,basin)",
+        "sphere_in_basin()"
+      ],
+      "final_sphere_position": [
+        0.33974878249724233,
+        0.019342637863859775,
+        0.48869414969231567
+      ],
+      "final_sphere_local_in_basin": [
+        -0.037651754607273685,
+        0.031864081846323104,
+        0.02899900285239161
+      ],
+      "final_basin_center": [
+        0.3772201847970006,
+        -0.013000934460513399,
+        0.4599939085376448
+      ],
+      "pour_events": [
+        {
+          "before_in_source": true,
+          "before_in_basin": false,
+          "basin_ready_before_tip": true,
+          "actual_tipped_past_horizontal": true,
+          "actual_source_normal": [
+            -0.8801240191168338,
+            -0.20026770726052667,
+            -0.43043531035713517
+          ],
+          "after_in_source": false,
+          "after_in_basin": true,
+          "basin_still_held": true
+        }
+      ],
+      "assistance_events": [
+        {
+          "arm": "_L",
+          "object": "canL",
+          "active": true,
+          "sim_time": 1.1220000000000008,
+          "object_position": [
+            0.1721332687717684,
+            0.2381247551172551,
+            0.5181921891641325
+          ],
+          "finger_mid": [
+            0.16765189181258688,
+            0.23375163381982103,
+            0.5760848304065335
+          ]
+        },
+        {
+          "arm": "_R",
+          "object": "basin",
+          "active": true,
+          "sim_time": 3.4579999999998408,
+          "object_position": [
+            0.3819144783719812,
+            -0.2424641633034051,
+            0.5199915094490417
+          ],
+          "finger_mid": [
+            0.38200778340858976,
+            -0.2440751789368517,
+            0.5760889008031316
+          ]
+        }
+      ]
+    }
+  ],
+  "source_hashes_at_start": {
+    "/Users/yishuaicai/mywork/edps/probe_held_basin_codegen.py": "e53e50238c54cd282528bd120f3f3268a6f21d656ad407f6c1aae819090c5d23",
+    "/Users/yishuaicai/mywork/edps/core/held_basin_pour_bridge.py": "2b6fde9302cd09982c1c495b96031e6b14e577bd297bbc0a2a7615efc657da51",
+    "/Users/yishuaicai/mywork/edps/probe_held_basin_pour.py": "bbecaa13fdb8b2db6aad1723adaa0d8a1af9681478a9634d832151419f47ffc0",
+    "/Users/yishuaicai/mywork/edps/probe_feasible_curriculum.py": "a23be73359515c234afff8b0e5805093483afc894718900f48add627fcddf62e",
+    "/Users/yishuaicai/mywork/CABTO/exp4_bt_tasks/stage3_cabto/policy_codegen.py": "5bdd98f067ff5818a9acdf0f1dfa504b62118588ee1e2a5f6f26898cd5013763"
+  },
+  "completed": true,
+  "pick_reused_from": "/Users/yishuaicai/mywork/edps/outputs/cabto_curriculum_codegen/final_recheck/result.json",
+  "pick_hash": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+  "program_hashes": {
+    "pick": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+    "present_receiver": "66f141e06c3c27fceec2b378729f73f2472357087ed5fb2cb4f34b7293f682c6",
+    "coordinated_pour": "e06cfe1b437bd130d41d13669a3e54a978443d7739fc3a99fd39f0cea789d090"
+  },
+  "success_count": 3,
+  "config_unchanged": true,
+  "source_hashes_at_end": {
+    "/Users/yishuaicai/mywork/edps/probe_held_basin_codegen.py": "e53e50238c54cd282528bd120f3f3268a6f21d656ad407f6c1aae819090c5d23",
+    "/Users/yishuaicai/mywork/edps/core/held_basin_pour_bridge.py": "2b6fde9302cd09982c1c495b96031e6b14e577bd297bbc0a2a7615efc657da51",
+    "/Users/yishuaicai/mywork/edps/probe_held_basin_pour.py": "bbecaa13fdb8b2db6aad1723adaa0d8a1af9681478a9634d832151419f47ffc0",
+    "/Users/yishuaicai/mywork/edps/probe_feasible_curriculum.py": "a23be73359515c234afff8b0e5805093483afc894718900f48add627fcddf62e",
+    "/Users/yishuaicai/mywork/CABTO/exp4_bt_tasks/stage3_cabto/policy_codegen.py": "5bdd98f067ff5818a9acdf0f1dfa504b62118588ee1e2a5f6f26898cd5013763"
+  },
+  "implementation_unchanged_during_run": true
+}

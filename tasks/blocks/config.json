@@ -1,0 +1,26 @@
+{
+  "version": "blocks_rebuilt_v1",
+  "task": "blocks",
+  "specification": "Four free coloured cubes start separately. Stack yellow on green and red on blue, release both, withdraw, return to HOME. No prebuilt tower is counted as execution.",
+  "robot_base": [0.0, 0.0, 0.4],
+  "table_center": [0.43, 0.0, 0.375],
+  "table_half_size": [0.40, 0.34, 0.025],
+  "table_top": 0.4,
+  "cube_half_size": 0.022,
+  "blocks": {"red": [0.34, -0.15], "blue": [0.57, -0.15], "yellow": [0.34, 0.15], "green": [0.57, 0.15]},
+  "pairs": [["yellow", "green"], ["red", "blue"]],
+  "jitter_m": 0.002,
+  "control": {
+    "dt": 0.002,
+    "sample_steps": 10,
+    "cartesian_speed_m_s": 0.20,
+    "lower_speed_m_s": 0.10,
+    "lift_speed_m_s": 0.14,
+    "joint_speed_rad_s": 0.85,
+    "transport_z": 0.62,
+    "settle_seconds": 0.3,
+    "gravity_compensation": true,
+    "grasp_mode": "strict",
+    "stable_seconds": 1.0
+  }
+}

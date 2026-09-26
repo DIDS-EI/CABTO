@@ -1,0 +1,228 @@
+{
+  "version": "held_basin_pour_smooth_v2",
+  "table": {
+    "center_xy": [
+      0.3,
+      0.0
+    ],
+    "top_z": 0.4,
+    "full_size_xy": [
+      0.9,
+      1.4
+    ],
+    "thickness": 0.04
+  },
+  "robots": [
+    {
+      "suffix": "_L",
+      "base_xy": [
+        0.18,
+        0.6
+      ],
+      "base_above_table": 0.0,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "suffix": "_R",
+      "base_xy": [
+        0.56,
+        -0.6
+      ],
+      "base_above_table": 0.0,
+      "yaw": 1.5707963267948966
+    }
+  ],
+  "evaluation": {
+    "position_tolerance_m": 0.02,
+    "stability_seconds": 1.024,
+    "layout_jitter_m": 0.0
+  },
+  "relay": {
+    "label": "one-object tabletop relay, not airborne handover",
+    "object_half_size": [
+      0.02,
+      0.02,
+      0.025
+    ],
+    "start_xy": [
+      0.29,
+      0.18
+    ],
+    "station_xy": [
+      0.3,
+      0.0
+    ],
+    "destination_xy": [
+      0.3,
+      -0.18
+    ],
+    "donor_park_xy": [
+      0.3,
+      0.28
+    ]
+  },
+  "pour": {
+    "label": "left arm pours one sphere from a handled cup while right arm lifts a handled basin to catch it; sphere proxy, not liquid",
+    "can_inner_radius": 0.03,
+    "can_wall": 0.004,
+    "can_height": 0.08,
+    "handle_offset": 0.08,
+    "handle_height": 0.12,
+    "ball_radius": 0.009,
+    "cup_inner_radius": 0.12,
+    "cup_height": 0.095,
+    "can_floor": 0.006,
+    "cup_floor": 0.02,
+    "contact_timeconstant": 0.005,
+    "ball_friction": [
+      0.6,
+      0.02,
+      0.003
+    ],
+    "ball_contact_dimension": 6,
+    "sources_xy": [
+      [
+        0.17,
+        0.24
+      ],
+      [
+        0.17,
+        -0.24
+      ]
+    ],
+    "receivers_xy": [
+      [
+        0.38,
+        0.14
+      ],
+      [
+        0.38,
+        -0.14
+      ]
+    ],
+    "can_offset_xy": [
+      -0.02,
+      0.0
+    ],
+    "tilt_axis": "ny",
+    "tilt_radians": 2.0943951023931953,
+    "held_basin": {
+      "source_arm": 0,
+      "receiver_arm": 1,
+      "source_xy": [
+        0.18,
+        0.27
+      ],
+      "basin_start_center_xy": [
+        0.33,
+        -0.27
+      ],
+      "basin_inner_radius": 0.15,
+      "basin_wall": 0.005,
+      "basin_height": 0.1,
+      "basin_floor": 0.02,
+      "basin_handle_offset": 0.27,
+      "basin_handle_height": 0.12,
+      "receive_center_xy": [
+        0.42,
+        -0.02
+      ],
+      "receive_bottom_z": 0.47,
+      "source_handle_offset_xy": [
+        -0.01,
+        0.03
+      ],
+      "source_transport_z": 0.76,
+      "source_drop_center_xy": [
+        0.10,
+        0.10
+      ],
+      "source_dock_inner_half_size": [
+        0.065,
+        0.065
+      ],
+      "source_dock_wall": 0.004,
+      "source_dock_height": 0.018,
+      "receiver_transport_z": 0.59,
+      "source_return_xy": [
+        0.18,
+        0.27
+      ],
+      "basin_return_center_xy": [
+        0.33,
+        -0.27
+      ],
+      "source_return_preoffset_xy": [
+        0.03,
+        0.0
+      ],
+      "basin_return_preoffset_xy": [
+        0.0,
+        0.04
+      ],
+      "source_safe_lane_xy": [
+        0.24,
+        0.2
+      ],
+      "basin_safe_lane_center_xy": [
+        0.50,
+        -0.34
+      ],
+      "home_cartesian": [
+        [
+          0.22,
+          0.34,
+          0.76
+        ],
+        [
+          0.56,
+          -0.34,
+          0.76
+        ]
+      ],
+      "controlled_home_steps": 80,
+      "collision_free_required": true,
+      "forbidden_penetration_tolerance_m": 0.0002,
+      "return_rotation_tolerance_deg": 12.0,
+      "transport_upright_tolerance_deg": 20.0
+    }
+  },
+  "packing": {
+    "label": "two-arm sequential packing in a fixed open tray, no box lifting or shelf transport",
+    "item_half_size": [
+      0.018,
+      0.018,
+      0.022
+    ],
+    "sources_xy": [
+      [
+        0.27,
+        0.21
+      ],
+      [
+        0.27,
+        -0.21
+      ]
+    ],
+    "tray_xy": [
+      0.3,
+      0.0
+    ],
+    "tray_inner_half_size": [
+      0.1,
+      0.08
+    ],
+    "tray_wall": 0.006,
+    "tray_height": 0.065,
+    "slots_xy": [
+      [
+        0.0,
+        0.04
+      ],
+      [
+        0.0,
+        -0.04
+      ]
+    ]
+  }
+}

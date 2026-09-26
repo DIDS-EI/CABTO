@@ -1,0 +1,83 @@
+{
+  "model": {
+    "name": "present_basin",
+    "args": {
+      "arm": "1",
+      "obj": "basin",
+      "dest": "present_basin"
+    },
+    "program_kind": "present_receiver",
+    "pre": [
+      "holding(1,basin)",
+      "collision_free()"
+    ],
+    "add": [
+      "basin_ready()"
+    ],
+    "del": [],
+    "description": "Move the already-held basin to the catch station using target_pose, move_basin, then settle. Do not release it."
+  },
+  "action_id": "present_basin(arm=1,dest=present_basin,obj=basin)",
+  "before": [
+    "collision_free()",
+    "content_in_source()",
+    "holding(0,canL)",
+    "holding(1,basin)",
+    "source_upright()"
+  ],
+  "after": [
+    "basin_ready()",
+    "collision_free()",
+    "content_in_source()",
+    "holding(0,canL)",
+    "holding(1,basin)",
+    "source_upright()"
+  ],
+  "valid_trial": true,
+  "code_executed": true,
+  "effect_ok": true,
+  "goal_ok": true,
+  "exception": null,
+  "trace": [
+    {
+      "method": "target_pose",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": [
+        0.69,
+        -0.02,
+        0.59
+      ]
+    },
+    {
+      "method": "move_basin",
+      "args": [
+        [
+          0.69,
+          -0.02,
+          0.59
+        ]
+      ],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    },
+    {
+      "method": "settle",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    }
+  ],
+  "diagnostics": {
+    "missing_pre": [],
+    "missing_add": [],
+    "remaining_del": [],
+    "missing_preserved_pre": []
+  },
+  "code_sha256": "66f141e06c3c27fceec2b378729f73f2472357087ed5fb2cb4f34b7293f682c6",
+  "failure_attribution": null,
+  "candidate_model_patch": null
+}

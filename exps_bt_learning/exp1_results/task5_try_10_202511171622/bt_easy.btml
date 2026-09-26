@@ -1,7 +1,0 @@
-selector
-    cond IsHalfFull(right_cup)
-    sequence
-        cond IsEmpty(right_cup)
-        cond CupNeedGraspAndSupport()
-        cond IsFull(right_milk)
-        act Pour(right_milk,right_cup)

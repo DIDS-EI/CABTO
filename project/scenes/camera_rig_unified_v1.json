@@ -1,0 +1,18 @@
+{
+  "version": "panda_wrist_global_v1",
+  "width": 720,
+  "height": 720,
+  "wrist": {
+    "position_hand_m": [0.080, 0.0, 0.020],
+    "look_at_hand_m": [0.0, 0.0, 0.300],
+    "fovy_deg": 70.0
+  },
+  "global": {
+    "offset_table_xy_m": [0.080, 0.0],
+    "height_above_table_m": 1.20,
+    "fovy_deg": 60.0
+  },
+  "optical_frame": "MuJoCo/OpenGL: forward -Z, image right +X, image up +Y",
+  "mount_scope": "ideal optical sensor on hand body, no camera housing mass/collision modeled",
+  "control_use": "diagnostic_only_until_localization_and_motion_validation"
+}

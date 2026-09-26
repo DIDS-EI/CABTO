@@ -1,126 +1,22 @@
-# C++
-**/cmake-build*/
-**/build*/
-**/*.so
-**/*.log*
-
-# Omniverse
-**/*.dmp
-**/.thumbs
-
-# No USD files allowed in the repo
-**/*.usda
-**/*.usdc
-**/*.usdz
+# Scratch / regenerable experiment outputs (not part of the minimal reproduction package)
+/outputs/
 
 # Python
-.DS_Store
-**/*.egg-info/
-**/__pycache__/
-**/.pytest_cache/
-**/*.pyc
-**/*.pb
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
 
-# Docker/Singularity
-**/*.sif
-docker/cluster/exports/
-docker/.container.cfg
-
-# IDE
-**/.idea/
-**/.vscode/
-# Don't ignore the top-level .vscode directory as it is
-# used to configure VS Code settings
-!.vscode_templete
-
-# Outputs
-**/output/*
-**/outputs/*
-**/videos/*
-**/wandb/*
-**/.neptune/*
-docker/artifacts/
-*.tmp
-
-# Doc Outputs
-**/docs/_build/*
-**/generated/*
-
-# Isaac-Sim packman
-_isaac_sim*
-_repo
-_build
-.lastformat
-
-# RL-Games
-**/runs/*
-**/logs/*
-**/recordings/*
-
-# not ignore psi assets
-!**/assets_usd/**/*.usd
-!**/assets_usd/**/*.png
-*.pkl
-
-wandb
-
-**/global_config.ini
-
-local
-!/local/templetes
-sim_extension/dexrl.sim_extension/dexrl/sim_extension
-sim_extension/dexrl.sim_extension/dexrl/sim
-
-# 上传 demo_data.pkl
-!algos/demo_data.pkl
-!/external/Robotic_Arm/libs/linux_arm/libapi_c.so
-!/external/Robotic_Arm/libs/linux_x86/libapi_c.so
-/dexrl/real/lib/libRM_Base.so
-/dexrl/real/lib/libRM_Base.so.1
-/dexrl/real/lib/libRM_Base.so.1.0
-
-*.pth
-*.pt
-
-*jpg
-*png
-
-# 忽略输出与历史归档目录
-/output/
-/outputs/
-/之前的/
-
-# ============================================================
-# exp2 低层代码生成实验：复现必需文件例外（恢复被全局通配误伤的部分）
-# 这些文件是本仓库自包含复现链路的一部分，不依赖 /之前的/ 里的 btgym/dexrl。
-# ------------------------------------------------------------
-# 1) DP 模型权重：论文报告结果，供免训练直接复现（亦可由 train.py 重新生成）
-!exp2_low_level_codegen/franka_grasp_dp/diffusion_policy_train/checkpoints/dp_best.pt
-!exp2_low_level_codegen/franka_grasp_dp/diffusion_policy_train/checkpoints/dp_latest.pt
-# 2) 机械臂网格资产（被 *.pt 无关，但确保 obj/stl 不受其它规则影响）
-!exp2_low_level_codegen/assets/**
-!exp2_low_level_codegen/franka_grasp_dp/scene/**
-# 注意：exp2_codegen/renders/ 下的 *.png 仍保持忽略（为可重新生成的渲染产物）
-
-# ============================================================
-# 大文件 / 可重新生成产物：不纳入版本控制（本地保留，仅不跟踪）
-# ------------------------------------------------------------
-# 3D / USD 资产库（体积大，可离线分发）
-/assets/
-**/assets/objects/
-# 仿真渲染中间帧
-**/renders/
-**/before.png
-**/after.png
-# 虚拟环境 / 依赖缓存
-**/venv/
-**/.venv/
+# Virtual environments
+.venv/
+venv/
 env/
-# 系统与编辑器缓存
+
+# OS / editor
 .DS_Store
-**/*.mp4.tmp
+.idea/
+.vscode/
 
-# ------------------------------------------------------------
-# 例外：stage3b 双臂实验的成功回放视频体积小，保留用于结果展示
-!exp4_bt_tasks/stage3b_dual_cabto/results/**/*.mp4
-
+# Build caches
+**/cmake-build*/
+**/build*/

@@ -1,0 +1,472 @@
+{
+  "summary": {
+    "backend": "qwen",
+    "n_succ": 2,
+    "n_total": 20,
+    "success_rate": 0.1,
+    "model_path": "mlx-community/Qwen3.5-0.8B-4bit",
+    "px_err_median": 158.5,
+    "px_err_mean": 184.5
+  },
+  "results": [
+    {
+      "obj": "dice_cube",
+      "seed": 0,
+      "success": false,
+      "px_err": {
+        "overview": 359.4,
+        "front": 182.6
+      },
+      "target_px": {
+        "overview": [
+          511.0,
+          501.0
+        ],
+        "front": [
+          351.0,
+          371.0
+        ]
+      },
+      "triangulated": [
+        1.2841476337732642,
+        -0.07587713261162568,
+        0.5805827456993575
+      ],
+      "cross_view_disagreement": 0.48603581334852425,
+      "error": null
+    },
+    {
+      "obj": "dice_cube",
+      "seed": 1,
+      "success": false,
+      "px_err": {
+        "overview": 10.1,
+        "front": 104.1
+      },
+      "target_px": {
+        "overview": [
+          293.888,
+          230.912
+        ],
+        "front": [
+          297.472,
+          169.472
+        ]
+      },
+      "triangulated": [
+        0.632994397736919,
+        0.04405069388971564,
+        0.5534303806280696
+      ],
+      "cross_view_disagreement": 0.41380135934333157,
+      "error": null
+    },
+    {
+      "obj": "dice_cube",
+      "seed": 2,
+      "success": false,
+      "px_err": {
+        "overview": 295.7,
+        "front": 138.7
+      },
+      "target_px": {
+        "overview": [
+          391.0,
+          503.0
+        ],
+        "front": [
+          332.0,
+          311.0
+        ]
+      },
+      "triangulated": [
+        1.1106211800339798,
+        -0.09466764482711787,
+        0.47062003623225873
+      ],
+      "cross_view_disagreement": 0.4418783211493296,
+      "error": null
+    },
+    {
+      "obj": "dice_cube",
+      "seed": 3,
+      "success": false,
+      "px_err": {
+        "overview": 335.9,
+        "front": 154.6
+      },
+      "target_px": {
+        "overview": [
+          432.0,
+          511.0
+        ],
+        "front": [
+          332.0,
+          312.0
+        ]
+      },
+      "triangulated": [
+        1.2047197883397636,
+        -0.10975969584331256,
+        0.5430086615541736
+      ],
+      "cross_view_disagreement": 0.4994155168311775,
+      "error": null
+    },
+    {
+      "obj": "wood_block",
+      "seed": 0,
+      "success": false,
+      "px_err": {},
+      "target_px": {},
+      "triangulated": null,
+      "cross_view_disagreement": null,
+      "error": "VLM 在 overview 未返回有效点"
+    },
+    {
+      "obj": "wood_block",
+      "seed": 1,
+      "success": true,
+      "px_err": {
+        "overview": 14.5
+      },
+      "target_px": {
+        "overview": [
+          293.888,
+          228.864
+        ]
+      },
+      "triangulated": null,
+      "cross_view_disagreement": null,
+      "error": null
+    },
+    {
+      "obj": "wood_block",
+      "seed": 2,
+      "success": false,
+      "px_err": {
+        "overview": 297.8,
+        "front": 140.0
+      },
+      "target_px": {
+        "overview": [
+          432.0,
+          472.0
+        ],
+        "front": [
+          332.0,
+          312.0
+        ]
+      },
+      "triangulated": [
+        1.1528957744595352,
+        -0.06947465412704279,
+        0.5226319353121116
+      ],
+      "cross_view_disagreement": 0.4191721760662161,
+      "error": null
+    },
+    {
+      "obj": "wood_block",
+      "seed": 3,
+      "success": false,
+      "px_err": {
+        "overview": 267.6,
+        "front": 131.6
+      },
+      "target_px": {
+        "overview": [
+          383.0,
+          462.0
+        ],
+        "front": [
+          331.0,
+          212.0
+        ]
+      },
+      "triangulated": [
+        1.1480793016009598,
+        -0.11952794717757095,
+        0.5905674816314971
+      ],
+      "cross_view_disagreement": 0.5907554075253781,
+      "error": null
+    },
+    {
+      "obj": "soda_can",
+      "seed": 0,
+      "success": false,
+      "px_err": {
+        "overview": 287.3,
+        "front": 21.8
+      },
+      "target_px": {
+        "overview": [
+          392.0,
+          508.0
+        ],
+        "front": [
+          185.344,
+          272.384
+        ]
+      },
+      "triangulated": [
+        1.142851775415005,
+        -0.17281068981031503,
+        0.5262257017312701
+      ],
+      "cross_view_disagreement": 0.5302024399925191,
+      "error": null
+    },
+    {
+      "obj": "soda_can",
+      "seed": 1,
+      "success": false,
+      "px_err": {
+        "overview": 28.9
+      },
+      "target_px": {
+        "overview": [
+          272.384,
+          226.304
+        ]
+      },
+      "triangulated": null,
+      "cross_view_disagreement": null,
+      "error": null
+    },
+    {
+      "obj": "soda_can",
+      "seed": 2,
+      "success": false,
+      "px_err": {
+        "overview": 264.3,
+        "front": 220.1
+      },
+      "target_px": {
+        "overview": [
+          371.0,
+          477.0
+        ],
+        "front": [
+          333.0,
+          422.0
+        ]
+      },
+      "triangulated": [
+        0.8651761901082501,
+        0.046956860903263446,
+        0.1432667648787025
+      ],
+      "cross_view_disagreement": 0.16793318917166983,
+      "error": null
+    },
+    {
+      "obj": "soda_can",
+      "seed": 3,
+      "success": false,
+      "px_err": {
+        "overview": 269.4,
+        "front": 155.5
+      },
+      "target_px": {
+        "overview": [
+          372.0,
+          472.0
+        ],
+        "front": [
+          332.0,
+          311.0
+        ]
+      },
+      "triangulated": [
+        1.0104250178984664,
+        -0.05294468778202264,
+        0.40844741077061497
+      ],
+      "cross_view_disagreement": 0.3408751097843831,
+      "error": null
+    },
+    {
+      "obj": "tea_tin",
+      "seed": 0,
+      "success": false,
+      "px_err": {
+        "overview": 290.3,
+        "front": 139.7
+      },
+      "target_px": {
+        "overview": [
+          391.0,
+          511.0
+        ],
+        "front": [
+          333.0,
+          311.0
+        ]
+      },
+      "triangulated": [
+        1.1246898497371638,
+        -0.10396240593813766,
+        0.4781253572438625
+      ],
+      "cross_view_disagreement": 0.46113277565782457,
+      "error": null
+    },
+    {
+      "obj": "tea_tin",
+      "seed": 1,
+      "success": false,
+      "px_err": {
+        "overview": 28.5
+      },
+      "target_px": {
+        "overview": [
+          272.384,
+          226.304
+        ]
+      },
+      "triangulated": null,
+      "cross_view_disagreement": null,
+      "error": null
+    },
+    {
+      "obj": "tea_tin",
+      "seed": 2,
+      "success": false,
+      "px_err": {
+        "overview": 276.6
+      },
+      "target_px": {
+        "overview": [
+          391.0,
+          477.0
+        ]
+      },
+      "triangulated": null,
+      "cross_view_disagreement": null,
+      "error": null
+    },
+    {
+      "obj": "tea_tin",
+      "seed": 3,
+      "success": false,
+      "px_err": {
+        "overview": 248.5
+      },
+      "target_px": {
+        "overview": [
+          331.0,
+          472.0
+        ]
+      },
+      "triangulated": null,
+      "cross_view_disagreement": null,
+      "error": null
+    },
+    {
+      "obj": "rubber_ball",
+      "seed": 0,
+      "success": false,
+      "px_err": {
+        "overview": 360.0,
+        "front": 34.4
+      },
+      "target_px": {
+        "overview": [
+          511.0,
+          501.0
+        ],
+        "front": [
+          180.736,
+          287.232
+        ]
+      },
+      "triangulated": [
+        1.3119707544628625,
+        -0.1396915613739309,
+        0.644758491054362
+      ],
+      "cross_view_disagreement": 0.7135975164431966,
+      "error": null
+    },
+    {
+      "obj": "rubber_ball",
+      "seed": 1,
+      "success": true,
+      "px_err": {
+        "overview": 14.8,
+        "front": 130.4
+      },
+      "target_px": {
+        "overview": [
+          287.744,
+          230.912
+        ],
+        "front": [
+          364.544,
+          128.512
+        ]
+      },
+      "triangulated": [
+        0.5252264959580787,
+        0.1269136993473587,
+        0.5270753846344302
+      ],
+      "cross_view_disagreement": 1.3866970583605651,
+      "error": null
+    },
+    {
+      "obj": "rubber_ball",
+      "seed": 2,
+      "success": false,
+      "px_err": {
+        "overview": 286.3,
+        "front": 158.5
+      },
+      "target_px": {
+        "overview": [
+          372.0,
+          503.0
+        ],
+        "front": [
+          371.0,
+          237.0
+        ]
+      },
+      "triangulated": [
+        1.2010322562731104,
+        -0.15413885945808548,
+        0.6000319299866794
+      ],
+      "cross_view_disagreement": 0.6286623566031091,
+      "error": null
+    },
+    {
+      "obj": "rubber_ball",
+      "seed": 3,
+      "success": false,
+      "px_err": {
+        "overview": 307.9,
+        "front": 132.5
+      },
+      "target_px": {
+        "overview": [
+          432.0,
+          472.0
+        ],
+        "front": [
+          333.0,
+          227.0
+        ]
+      },
+      "triangulated": [
+        1.2365231535344021,
+        -0.12216767067471661,
+        0.6344361022610105
+      ],
+      "cross_view_disagreement": 0.6362123821320472,
+      "error": null
+    }
+  ]
+}

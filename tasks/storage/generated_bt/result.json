@@ -1,0 +1,1856 @@
+{
+  "seed": 0,
+  "steps": [
+    {
+      "model": {
+        "name": "pick_source",
+        "args": {
+          "arm": "1",
+          "obj": "item1",
+          "dest": "source"
+        },
+        "program_kind": "pick",
+        "pre": [
+          "empty(1)",
+          "at_source(item1)"
+        ],
+        "add": [
+          "holding(1,item1)"
+        ],
+        "del": [
+          "empty(1)",
+          "at_source(item1)",
+          "parked(1)"
+        ],
+        "description": "Pick up the bound object. Initially the hand is empty. Finish holding the object in the air; measure its grasp offset. Reading a point and approaching it alone do NOT close fingers or lift."
+      },
+      "action_id": "pick_source(arm=1,dest=source,obj=item1)",
+      "before": [
+        "at_source(item0)",
+        "at_source(item1)",
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "parked(0)",
+        "parked(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_at_table()"
+      ],
+      "after": [
+        "at_source(item0)",
+        "empty(0)",
+        "hands_safe_for_lateral(0)",
+        "holding(1,item1)",
+        "parked(0)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_at_table()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.3350000000046121,
+            -0.22499999999768497,
+            0.43687167392614273
+          ]
+        },
+        {
+          "method": "align_xy",
+          "args": [
+            [
+              0.3350000000046121,
+              -0.22499999999768497,
+              0.43687167392614273
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.006396533377971608
+        },
+        {
+          "method": "descend_to",
+          "args": [
+            0.43687167392614273,
+            [
+              0.3350000000046121,
+              -0.22499999999768497
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.006189114462237482
+        },
+        {
+          "method": "grasp",
+          "args": [
+            [
+              0.3350000000046121,
+              -0.22499999999768497,
+              0.43687167392614273
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "record_grab_offset",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "lift",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unissued_commands": []
+      },
+      "code_sha256": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "place_tray",
+        "args": {
+          "arm": "1",
+          "obj": "item1",
+          "dest": "tray"
+        },
+        "program_kind": "place",
+        "pre": [
+          "holding(1,item1)",
+          "slot_free(1)"
+        ],
+        "add": [
+          "empty(1)",
+          "packed(1)"
+        ],
+        "del": [
+          "holding(1,item1)",
+          "slot_free(1)"
+        ],
+        "description": "Place the object ALREADY HELD in the bound arm onto the bound destination surface. Finish with object resting there, gripper OPEN and hand retracted vertically. Do not grasp another object."
+      },
+      "action_id": "place_tray(arm=1,dest=tray,obj=item1)",
+      "before": [
+        "at_source(item0)",
+        "empty(0)",
+        "hands_safe_for_lateral(0)",
+        "holding(1,item1)",
+        "parked(0)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_at_table()"
+      ],
+      "after": [
+        "at_source(item0)",
+        "empty(0)",
+        "empty(1)",
+        "hands_safe_for_lateral(0)",
+        "packed(1)",
+        "parked(0)",
+        "slot_free(0)",
+        "tray_at_table()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.2987296342549792,
+            -0.035000000000000024,
+            0.40800000000000003
+          ]
+        },
+        {
+          "method": "move_above",
+          "args": [
+            [
+              0.2987296342549792,
+              -0.035000000000000024,
+              0.40800000000000003
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.006673957053874475
+        },
+        {
+          "method": "align_target",
+          "args": [
+            [
+              0.2987296342549792,
+              -0.035000000000000024,
+              0.40800000000000003
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.2974440865256748,
+            -0.037447906905131126
+          ]
+        },
+        {
+          "method": "lower",
+          "args": [
+            [
+              0.2987296342549792,
+              -0.035000000000000024,
+              0.40800000000000003
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.441646036689046
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "place_release",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": []
+      },
+      "code_sha256": "f6ecf4e96ef8e6323f94898cc65b17db063f506accb607e72caf6d14a200c7b5",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "park",
+        "args": {
+          "arm": "1",
+          "obj": "none",
+          "dest": "park"
+        },
+        "program_kind": "park",
+        "pre": [
+          "empty(1)",
+          "tray_at_table()"
+        ],
+        "add": [
+          "parked(1)"
+        ],
+        "del": [],
+        "description": "The arm is EMPTY. Move it to the bound parking pose to clear the shared workspace."
+      },
+      "action_id": "park(arm=1,dest=park,obj=none)",
+      "before": [
+        "at_source(item0)",
+        "empty(0)",
+        "empty(1)",
+        "hands_safe_for_lateral(0)",
+        "packed(1)",
+        "parked(0)",
+        "slot_free(0)",
+        "tray_at_table()"
+      ],
+      "after": [
+        "at_source(item0)",
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "packed(1)",
+        "parked(0)",
+        "parked(1)",
+        "slot_free(0)",
+        "tray_at_table()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.3,
+            -0.28,
+            0.72
+          ]
+        },
+        {
+          "method": "move_to",
+          "args": [
+            [
+              0.3,
+              -0.28,
+              0.72
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.001214882080693943
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": []
+      },
+      "code_sha256": "bdf9f73fc8c320925e91eb5e65ba832a3bd3e445341ae630f837b6ab793374a7",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "pick_source",
+        "args": {
+          "arm": "0",
+          "obj": "item0",
+          "dest": "source"
+        },
+        "program_kind": "pick",
+        "pre": [
+          "empty(0)",
+          "at_source(item0)"
+        ],
+        "add": [
+          "holding(0,item0)"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(item0)",
+          "parked(0)"
+        ],
+        "description": "Pick up the bound object. Initially the hand is empty. Finish holding the object in the air; measure its grasp offset. Reading a point and approaching it alone do NOT close fingers or lift."
+      },
+      "action_id": "pick_source(arm=0,dest=source,obj=item0)",
+      "before": [
+        "at_source(item0)",
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "packed(1)",
+        "parked(0)",
+        "parked(1)",
+        "slot_free(0)",
+        "tray_at_table()"
+      ],
+      "after": [
+        "empty(1)",
+        "hands_safe_for_lateral(1)",
+        "holding(0,item0)",
+        "packed(1)",
+        "parked(1)",
+        "slot_free(0)",
+        "tray_at_table()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.23500000000449248,
+            0.20499999999907503,
+            0.43689224457978354
+          ]
+        },
+        {
+          "method": "align_xy",
+          "args": [
+            [
+              0.23500000000449248,
+              0.20499999999907503,
+              0.43689224457978354
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.006403645555228926
+        },
+        {
+          "method": "descend_to",
+          "args": [
+            0.43689224457978354,
+            [
+              0.23500000000449248,
+              0.20499999999907503
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.00658761113974872
+        },
+        {
+          "method": "grasp",
+          "args": [
+            [
+              0.23500000000449248,
+              0.20499999999907503,
+              0.43689224457978354
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "record_grab_offset",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "lift",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unissued_commands": []
+      },
+      "code_sha256": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "place_tray",
+        "args": {
+          "arm": "0",
+          "obj": "item0",
+          "dest": "tray"
+        },
+        "program_kind": "place",
+        "pre": [
+          "holding(0,item0)",
+          "slot_free(0)"
+        ],
+        "add": [
+          "empty(0)",
+          "packed(0)"
+        ],
+        "del": [
+          "holding(0,item0)",
+          "slot_free(0)"
+        ],
+        "description": "Place the object ALREADY HELD in the bound arm onto the bound destination surface. Finish with object resting there, gripper OPEN and hand retracted vertically. Do not grasp another object."
+      },
+      "action_id": "place_tray(arm=0,dest=tray,obj=item0)",
+      "before": [
+        "empty(1)",
+        "hands_safe_for_lateral(1)",
+        "holding(0,item0)",
+        "packed(1)",
+        "parked(1)",
+        "slot_free(0)",
+        "tray_at_table()"
+      ],
+      "after": [
+        "empty(0)",
+        "empty(1)",
+        "hands_safe_for_lateral(1)",
+        "packed(0)",
+        "packed(1)",
+        "parked(1)",
+        "tray_at_table()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.2722656166704403,
+            0.03572464381136096,
+            0.40800000000000003
+          ]
+        },
+        {
+          "method": "move_above",
+          "args": [
+            [
+              0.2722656166704403,
+              0.03572464381136096,
+              0.40800000000000003
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.004993137784479611
+        },
+        {
+          "method": "align_target",
+          "args": [
+            [
+              0.2722656166704403,
+              0.03572464381136096,
+              0.40800000000000003
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.26940546310008434,
+            0.03826450624681078
+          ]
+        },
+        {
+          "method": "lower",
+          "args": [
+            [
+              0.2722656166704403,
+              0.03572464381136096,
+              0.40800000000000003
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.4419297422255861
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "place_release",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": []
+      },
+      "code_sha256": "f6ecf4e96ef8e6323f94898cc65b17db063f506accb607e72caf6d14a200c7b5",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "park",
+        "args": {
+          "arm": "0",
+          "obj": "none",
+          "dest": "park"
+        },
+        "program_kind": "park",
+        "pre": [
+          "empty(0)",
+          "tray_at_table()"
+        ],
+        "add": [
+          "parked(0)"
+        ],
+        "del": [],
+        "description": "The arm is EMPTY. Move it to the bound parking pose to clear the shared workspace."
+      },
+      "action_id": "park(arm=0,dest=park,obj=none)",
+      "before": [
+        "empty(0)",
+        "empty(1)",
+        "hands_safe_for_lateral(1)",
+        "packed(0)",
+        "packed(1)",
+        "parked(1)",
+        "tray_at_table()"
+      ],
+      "after": [
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "packed(0)",
+        "packed(1)",
+        "parked(0)",
+        "parked(1)",
+        "tray_at_table()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.3,
+            0.28,
+            0.72
+          ]
+        },
+        {
+          "method": "move_to",
+          "args": [
+            [
+              0.3,
+              0.28,
+              0.72
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.0017940286365708612
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": []
+      },
+      "code_sha256": "bdf9f73fc8c320925e91eb5e65ba832a3bd3e445341ae630f837b6ab793374a7",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "dual_grasp_tray",
+        "args": {
+          "arm": "both",
+          "obj": "tray",
+          "dest": "dual_grasp_tray"
+        },
+        "program_kind": "dual_grasp",
+        "pre": [
+          "packed(0)",
+          "packed(1)",
+          "empty(0)",
+          "empty(1)",
+          "parked(0)",
+          "parked(1)",
+          "tray_at_table()"
+        ],
+        "add": [
+          "dual_holding_tray()"
+        ],
+        "del": [
+          "empty(0)",
+          "empty(1)",
+          "parked(0)",
+          "parked(1)",
+          "hands_raised()",
+          "hands_safe_for_lateral(0)",
+          "hands_safe_for_lateral(1)"
+        ],
+        "description": "Both arms are empty and parked after two items were packed. Required order: handles = target_handles(); move_both_above(handles); move_both_to(handles); close_both(); attach_both(); settle(). Assign only to one local name, never unpack a tuple. Finish jointly holding the tray on the table."
+      },
+      "action_id": "dual_grasp_tray(arm=both,dest=dual_grasp_tray,obj=tray)",
+      "before": [
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "packed(0)",
+        "packed(1)",
+        "parked(0)",
+        "parked(1)",
+        "tray_at_table()"
+      ],
+      "after": [
+        "dual_holding_tray()",
+        "packed(0)",
+        "packed(1)",
+        "tray_at_table()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_handles",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            [
+              0.28414454556563934,
+              0.1117345273801865,
+              0.47691267016418704
+            ],
+            [
+              0.284504139867064,
+              -0.1162651890488886,
+              0.4769131170773219
+            ]
+          ]
+        },
+        {
+          "method": "move_both_above",
+          "args": [
+            [
+              [
+                0.28414454556563934,
+                0.1117345273801865,
+                0.47691267016418704
+              ],
+              [
+                0.284504139867064,
+                -0.1162651890488886,
+                0.4769131170773219
+              ]
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.007388338981861379,
+            0.006857170128914247
+          ]
+        },
+        {
+          "method": "move_both_to",
+          "args": [
+            [
+              [
+                0.28414454556563934,
+                0.1117345273801865,
+                0.47691267016418704
+              ],
+              [
+                0.284504139867064,
+                -0.1162651890488886,
+                0.4769131170773219
+              ]
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.004367691208645012,
+            0.004431458759520853
+          ]
+        },
+        {
+          "method": "close_both",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "attach_both",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "required_transition_call": "attach_both",
+        "required_transition_observed": true
+      },
+      "code_sha256": "a9d28ccdfe950a722e97d28c5dacda0c23104fcf6fc8f9758b4687a53f5d7fb4",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "dual_lift_tray",
+        "args": {
+          "arm": "both",
+          "obj": "tray",
+          "dest": "dual_lift_tray"
+        },
+        "program_kind": "cooperative_move",
+        "pre": [
+          "packed(0)",
+          "packed(1)",
+          "dual_holding_tray()",
+          "tray_at_table()"
+        ],
+        "add": [
+          "tray_lifted()"
+        ],
+        "del": [
+          "tray_at_table()"
+        ],
+        "description": "Both arms already jointly hold the tray. Read this action's tray-base waypoint, synchronously move the tray to it, and settle. Do not release either gripper."
+      },
+      "action_id": "dual_lift_tray(arm=both,dest=dual_lift_tray,obj=tray)",
+      "before": [
+        "dual_holding_tray()",
+        "packed(0)",
+        "packed(1)",
+        "tray_at_table()"
+      ],
+      "after": [
+        "dual_holding_tray()",
+        "holding(0,tray)",
+        "holding(1,tray)",
+        "packed(0)",
+        "packed(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_lifted()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_tray_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.2853664994311949,
+            1.40276194094745e-18,
+            0.62
+          ]
+        },
+        {
+          "method": "move_tray_to",
+          "args": [
+            [
+              0.2853664994311949,
+              1.40276194094745e-18,
+              0.62
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "required_transition_call": "move_tray_to",
+        "required_transition_observed": true
+      },
+      "code_sha256": "82c2ef8a40ad6752e66ff9e6d0d94097f24b7677ed588ad536a0a24d121fad94",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "dual_translate_tray",
+        "args": {
+          "arm": "both",
+          "obj": "tray",
+          "dest": "dual_translate_tray"
+        },
+        "program_kind": "cooperative_move",
+        "pre": [
+          "packed(0)",
+          "packed(1)",
+          "dual_holding_tray()",
+          "tray_lifted()"
+        ],
+        "add": [
+          "tray_above_shelf()"
+        ],
+        "del": [
+          "tray_lifted()"
+        ],
+        "description": "Both arms already jointly hold the tray. Read this action's tray-base waypoint, synchronously move the tray to it, and settle. Do not release either gripper."
+      },
+      "action_id": "dual_translate_tray(arm=both,dest=dual_translate_tray,obj=tray)",
+      "before": [
+        "dual_holding_tray()",
+        "holding(0,tray)",
+        "holding(1,tray)",
+        "packed(0)",
+        "packed(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_lifted()"
+      ],
+      "after": [
+        "dual_holding_tray()",
+        "holding(0,tray)",
+        "holding(1,tray)",
+        "packed(0)",
+        "packed(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_above_shelf()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_tray_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.58,
+            0.0,
+            0.62
+          ]
+        },
+        {
+          "method": "move_tray_to",
+          "args": [
+            [
+              0.58,
+              0.0,
+              0.62
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "required_transition_call": "move_tray_to",
+        "required_transition_observed": true
+      },
+      "code_sha256": "82c2ef8a40ad6752e66ff9e6d0d94097f24b7677ed588ad536a0a24d121fad94",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "dual_lower_tray",
+        "args": {
+          "arm": "both",
+          "obj": "tray",
+          "dest": "dual_lower_tray"
+        },
+        "program_kind": "cooperative_move",
+        "pre": [
+          "packed(0)",
+          "packed(1)",
+          "dual_holding_tray()",
+          "tray_above_shelf()"
+        ],
+        "add": [
+          "tray_on_shelf_held()"
+        ],
+        "del": [
+          "tray_above_shelf()"
+        ],
+        "description": "Both arms already jointly hold the tray. Read this action's tray-base waypoint, synchronously move the tray to it, and settle. Do not release either gripper."
+      },
+      "action_id": "dual_lower_tray(arm=both,dest=dual_lower_tray,obj=tray)",
+      "before": [
+        "dual_holding_tray()",
+        "holding(0,tray)",
+        "holding(1,tray)",
+        "packed(0)",
+        "packed(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_above_shelf()"
+      ],
+      "after": [
+        "dual_holding_tray()",
+        "holding(0,tray)",
+        "holding(1,tray)",
+        "packed(0)",
+        "packed(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_on_shelf_held()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_tray_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.58,
+            0.0,
+            0.52
+          ]
+        },
+        {
+          "method": "move_tray_to",
+          "args": [
+            [
+              0.58,
+              0.0,
+              0.52
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "required_transition_call": "move_tray_to",
+        "required_transition_observed": true
+      },
+      "code_sha256": "82c2ef8a40ad6752e66ff9e6d0d94097f24b7677ed588ad536a0a24d121fad94",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "dual_release_tray",
+        "args": {
+          "arm": "both",
+          "obj": "tray",
+          "dest": "dual_release_tray"
+        },
+        "program_kind": "dual_release",
+        "pre": [
+          "packed(0)",
+          "packed(1)",
+          "dual_holding_tray()",
+          "tray_on_shelf_held()"
+        ],
+        "add": [
+          "empty(0)",
+          "empty(1)",
+          "tray_on_shelf()",
+          "hands_near_shelf()"
+        ],
+        "del": [
+          "dual_holding_tray()",
+          "tray_on_shelf_held()"
+        ],
+        "description": "The jointly held tray is supported by the shelf. Open both grippers, detach both declared welds, and settle. Do not move laterally."
+      },
+      "action_id": "dual_release_tray(arm=both,dest=dual_release_tray,obj=tray)",
+      "before": [
+        "dual_holding_tray()",
+        "holding(0,tray)",
+        "holding(1,tray)",
+        "packed(0)",
+        "packed(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_on_shelf_held()"
+      ],
+      "after": [
+        "empty(0)",
+        "empty(1)",
+        "hands_near_shelf()",
+        "packed(0)",
+        "packed(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_on_shelf()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "open_both",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "detach_both",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "required_transition_call": "detach_both",
+        "required_transition_observed": true
+      },
+      "code_sha256": "56505c199aa5e63db0e7d0c1cb6f0cd7dbdd6a897563dbec744c5e504b9ef5bc",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "dual_withdraw_hands",
+        "args": {
+          "arm": "both",
+          "obj": "tray",
+          "dest": "dual_withdraw_hands"
+        },
+        "program_kind": "dual_withdraw",
+        "pre": [
+          "packed(0)",
+          "packed(1)",
+          "empty(0)",
+          "empty(1)",
+          "tray_on_shelf()",
+          "hands_near_shelf()"
+        ],
+        "add": [
+          "hands_raised()",
+          "hands_safe_for_lateral(0)",
+          "hands_safe_for_lateral(1)"
+        ],
+        "del": [
+          "hands_near_shelf()"
+        ],
+        "description": "The tray is released on the shelf and both open hands are still near its handles. Raise both hands vertically and settle; do not perform lateral parking."
+      },
+      "action_id": "dual_withdraw_hands(arm=both,dest=dual_withdraw_hands,obj=tray)",
+      "before": [
+        "empty(0)",
+        "empty(1)",
+        "hands_near_shelf()",
+        "packed(0)",
+        "packed(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_on_shelf()"
+      ],
+      "after": [
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "packed(0)",
+        "packed(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_on_shelf()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "raise_both",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.00803105929576063,
+            0.007846761855855425
+          ]
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "required_transition_call": "raise_both",
+        "required_transition_observed": true
+      },
+      "code_sha256": "6bc09a48e80dbea4ac6b1e4bdfda5bb4129e3070d7840fd57b88f9d396210caa",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "park_after_shelf",
+        "args": {
+          "arm": "1",
+          "obj": "none",
+          "dest": "park"
+        },
+        "program_kind": "park",
+        "pre": [
+          "empty(1)",
+          "hands_safe_for_lateral(1)",
+          "tray_on_shelf()"
+        ],
+        "add": [
+          "parked(1)"
+        ],
+        "del": [],
+        "description": "After the tray is released on the shelf and this open hand was raised vertically, move the empty arm to its safe parking pose."
+      },
+      "action_id": "park_after_shelf(arm=1,dest=park,obj=none)",
+      "before": [
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "packed(0)",
+        "packed(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_on_shelf()"
+      ],
+      "after": [
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "packed(0)",
+        "packed(1)",
+        "parked(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_on_shelf()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.3,
+            -0.28,
+            0.72
+          ]
+        },
+        {
+          "method": "move_to",
+          "args": [
+            [
+              0.3,
+              -0.28,
+              0.72
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.00608219943035472
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": []
+      },
+      "code_sha256": "bdf9f73fc8c320925e91eb5e65ba832a3bd3e445341ae630f837b6ab793374a7",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    },
+    {
+      "model": {
+        "name": "park_after_shelf",
+        "args": {
+          "arm": "0",
+          "obj": "none",
+          "dest": "park"
+        },
+        "program_kind": "park",
+        "pre": [
+          "empty(0)",
+          "hands_safe_for_lateral(0)",
+          "tray_on_shelf()"
+        ],
+        "add": [
+          "parked(0)"
+        ],
+        "del": [],
+        "description": "After the tray is released on the shelf and this open hand was raised vertically, move the empty arm to its safe parking pose."
+      },
+      "action_id": "park_after_shelf(arm=0,dest=park,obj=none)",
+      "before": [
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "packed(0)",
+        "packed(1)",
+        "parked(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_on_shelf()"
+      ],
+      "after": [
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "packed(0)",
+        "packed(1)",
+        "parked(0)",
+        "parked(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_on_shelf()"
+      ],
+      "valid_trial": true,
+      "code_executed": true,
+      "effect_ok": true,
+      "goal_ok": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "target_pose",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.3,
+            0.28,
+            0.72
+          ]
+        },
+        {
+          "method": "move_to",
+          "args": [
+            [
+              0.3,
+              0.28,
+              0.72
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": 0.006352559514749475
+        },
+        {
+          "method": "settle",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "diagnostics": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": []
+      },
+      "code_sha256": "bdf9f73fc8c320925e91eb5e65ba832a3bd3e445341ae630f837b6ab793374a7",
+      "failure_attribution": null,
+      "candidate_model_patch": null
+    }
+  ],
+  "success": true,
+  "goal": [
+    "packed(0)",
+    "packed(1)",
+    "parked(0)",
+    "parked(1)",
+    "tray_on_shelf()"
+  ],
+  "initial_state": [
+    "at_source(item0)",
+    "at_source(item1)",
+    "empty(0)",
+    "empty(1)",
+    "hands_raised()",
+    "hands_safe_for_lateral(0)",
+    "hands_safe_for_lateral(1)",
+    "parked(0)",
+    "parked(1)",
+    "slot_free(0)",
+    "slot_free(1)",
+    "tray_at_table()"
+  ],
+  "scene_sha256": "3c8a663d09be662eac328099c3bf6e529f8c7823270063f3d947abb6feee00e9",
+  "initial_penetrations": [],
+  "kernel": {
+    "bt_expansion": {
+      "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/__init__.py",
+      "sha256": "bab0549f7fcaa6c2bdd33b02d8c4d8233e7a5c41ffd454307651c6fd9da37fd2"
+    },
+    "bt_expansion.planning": {
+      "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/planning.py",
+      "sha256": "8730a53df5c526809848da9fcedbc02ce4f17ca00322a52e133e8ec909d7f697"
+    },
+    "behavior_tree": {
+      "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/__init__.py",
+      "sha256": "ad77aee97bddc9c41924c5004be56843d937cccb33e88515c74ce2c87bcc8c5a"
+    },
+    "behavior_tree.BehaviorTree": {
+      "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/BehaviorTree.py",
+      "sha256": "512376d555f9f223027d521a3b644f6550c7128285aec61af2c1dcbd685e6038"
+    },
+    "bt_expansion.algorithm": {
+      "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/algorithm.py",
+      "sha256": "ffbe33712df2d05068ccef24e7be90edb7f45e51978af4f99b18b51faa92ae50"
+    }
+  },
+  "bt_status": "success",
+  "stable": true,
+  "final_state": [
+    "empty(0)",
+    "empty(1)",
+    "hands_raised()",
+    "hands_safe_for_lateral(0)",
+    "hands_safe_for_lateral(1)",
+    "packed(0)",
+    "packed(1)",
+    "parked(0)",
+    "parked(1)",
+    "slot_free(0)",
+    "slot_free(1)",
+    "tray_on_shelf()"
+  ],
+  "final_tray_position": [
+    0.5787356109839887,
+    4.823179225579564e-06,
+    0.5199128936196049
+  ],
+  "final_tray_quaternion_wxyz": [
+    0.9999995562858498,
+    -9.757237810992945e-07,
+    2.2815583050919186e-07,
+    0.0009420334917218457
+  ],
+  "final_containment": {
+    "item0": {
+      "inside": true,
+      "bounds_in_container": [
+        [
+          -0.0360620866074632,
+          0.01922177633687884,
+          0.0076437517647211205
+        ],
+        [
+          0.01146610888996529,
+          0.06674997302634808,
+          0.05164375359924743
+        ]
+      ]
+    },
+    "item1": {
+      "inside": true,
+      "bounds_in_container": [
+        [
+          -0.011157458207857587,
+          -0.06402574709000203,
+          0.007643751852303798
+        ],
+        [
+          0.038424080529712155,
+          -0.014444207160391605,
+          0.05164375351166707
+        ]
+      ]
+    }
+  },
+  "shelf_contact": true,
+  "assistance_events": [
+    {
+      "arm": "_R",
+      "object": "item1",
+      "active": true,
+      "sim_time": 1.0580000000000007,
+      "object_position": [
+        0.33500000000471664,
+        -0.22499999999763257,
+        0.4218922445797835
+      ],
+      "finger_mid": [
+        0.33364994471262266,
+        -0.2273358988181361,
+        0.47524181823628503
+      ]
+    },
+    {
+      "arm": "_R",
+      "object": "item0",
+      "active": false,
+      "sim_time": 5.983999999999563,
+      "object_position": [
+        0.23500000000449248,
+        0.20499999999907503,
+        0.4218922445797835
+      ],
+      "finger_mid": [
+        0.2974248575806831,
+        -0.041654421850675714,
+        0.48133907417182953
+      ]
+    },
+    {
+      "arm": "_R",
+      "object": "item1",
+      "active": false,
+      "sim_time": 5.983999999999563,
+      "object_position": [
+        0.2987897131828944,
+        -0.03940573928304694,
+        0.428091737513105
+      ],
+      "finger_mid": [
+        0.2974248575806831,
+        -0.041654421850675714,
+        0.48133907417182953
+      ]
+    },
+    {
+      "arm": "_R",
+      "object": "tray",
+      "active": false,
+      "sim_time": 5.983999999999563,
+      "object_position": [
+        0.28469048489185905,
+        1.1079894476400788e-05,
+        0.39988425373419134
+      ],
+      "finger_mid": [
+        0.2974248575806831,
+        -0.041654421850675714,
+        0.48133907417182953
+      ]
+    },
+    {
+      "event": "physical_prepark_vertical_clearance",
+      "arm": 1,
+      "sim_time": 7.711999999999373,
+      "target": [
+        0.29743667410999763,
+        -0.042496951162276336,
+        0.74
+      ]
+    },
+    {
+      "arm": "_L",
+      "object": "item0",
+      "active": true,
+      "sim_time": 10.370000000000132,
+      "object_position": [
+        0.23500000000449248,
+        0.20499999999907503,
+        0.4218922445797835
+      ],
+      "finger_mid": [
+        0.23212780578268571,
+        0.20693881133505354,
+        0.4751567666071551
+      ]
+    },
+    {
+      "arm": "_L",
+      "object": "item0",
+      "active": false,
+      "sim_time": 15.200000000001745,
+      "object_position": [
+        0.27247522836326055,
+        0.04062775934494664,
+        0.42837373031775894
+      ],
+      "finger_mid": [
+        0.26964133211318464,
+        0.04248077730970734,
+        0.48155939844596485
+      ]
+    },
+    {
+      "arm": "_L",
+      "object": "item1",
+      "active": false,
+      "sim_time": 15.200000000001745,
+      "object_position": [
+        0.29834031952884404,
+        -0.041410454471223095,
+        0.4295361876225496
+      ],
+      "finger_mid": [
+        0.26964133211318464,
+        0.04248077730970734,
+        0.48155939844596485
+      ]
+    },
+    {
+      "arm": "_L",
+      "object": "tray",
+      "active": false,
+      "sim_time": 15.200000000001745,
+      "object_position": [
+        0.2843242873138643,
+        -0.002265486834180204,
+        0.39988604129535316
+      ],
+      "finger_mid": [
+        0.26964133211318464,
+        0.04248077730970734,
+        0.48155939844596485
+      ]
+    },
+    {
+      "event": "physical_prepark_vertical_clearance",
+      "arm": 0,
+      "sim_time": 16.928000000001497,
+      "target": [
+        0.26965846659779535,
+        0.043277910178270936,
+        0.74
+      ]
+    },
+    {
+      "arm": "_L",
+      "object": "tray",
+      "active": true,
+      "sim_time": 21.279999999999085,
+      "object_position": [
+        0.28437283271428226,
+        -0.0022653897231369796,
+        0.3998713082920665
+      ],
+      "finger_mid": [
+        0.2841822671789377,
+        0.11512401354806798,
+        0.5180653810812605
+      ]
+    },
+    {
+      "event": "generated_api_dual_tray_grasp_weld",
+      "arm": 0,
+      "sim_time": 21.279999999999085,
+      "finger_error_m": 0.04129207739054298
+    },
+    {
+      "arm": "_R",
+      "object": "tray",
+      "active": true,
+      "sim_time": 21.279999999999085,
+      "object_position": [
+        0.28437283271428226,
+        -0.0022653897231369796,
+        0.3998713082920665
+      ],
+      "finger_mid": [
+        0.28458112749269926,
+        -0.11963098465915234,
+        0.5182053360308176
+      ]
+    },
+    {
+      "event": "generated_api_dual_tray_grasp_weld",
+      "arm": 1,
+      "sim_time": 21.279999999999085,
+      "finger_error_m": 0.04142923911065713
+    },
+    {
+      "arm": "_L",
+      "object": "tray",
+      "active": false,
+      "sim_time": 27.679999999995538,
+      "object_position": [
+        0.5787267791772761,
+        4.70168176918175e-06,
+        0.5192689449297373
+      ],
+      "finger_mid": [
+        0.5788328457818843,
+        0.11805955988407232,
+        0.6367856626301669
+      ]
+    },
+    {
+      "event": "generated_api_dual_tray_weld_release",
+      "arm": 0,
+      "sim_time": 27.679999999995538
+    },
+    {
+      "arm": "_R",
+      "object": "tray",
+      "active": false,
+      "sim_time": 27.679999999995538,
+      "object_position": [
+        0.5787267791772761,
+        4.70168176918175e-06,
+        0.5192689449297373
+      ],
+      "finger_mid": [
+        0.5792686023690696,
+        -0.11798618227497709,
+        0.6369657121601451
+      ]
+    },
+    {
+      "event": "generated_api_dual_tray_weld_release",
+      "arm": 1,
+      "sim_time": 27.679999999995538
+    },
+    {
+      "event": "physical_prepark_vertical_clearance",
+      "arm": 1,
+      "sim_time": 30.207999999994136,
+      "target": [
+        0.577614457330468,
+        -0.12334915180228827,
+        0.74
+      ]
+    },
+    {
+      "event": "physical_prepark_vertical_clearance",
+      "arm": 0,
+      "sim_time": 31.96799999999316,
+      "target": [
+        0.5770507363263698,
+        0.12333389777739362,
+        0.74
+      ]
+    }
+  ]
+}

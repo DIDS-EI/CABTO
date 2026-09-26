@@ -1,0 +1,45 @@
+test_dual_move_accepts_both_residuals_below_30mm_and_restores_bias (__main__.DualMoveResidualTests.test_dual_move_accepts_both_residuals_below_30mm_and_restores_bias) ... ok
+test_dual_move_rejects_left_residual_over_30mm (__main__.DualMoveResidualTests.test_dual_move_rejects_left_residual_over_30mm) ... ok
+test_dual_move_rejects_right_residual_over_30mm (__main__.DualMoveResidualTests.test_dual_move_rejects_right_residual_over_30mm) ... ok
+test_goal_fails_when_item0_rotated_corner_leaves_tray (__main__.GoalContainmentTests.test_goal_fails_when_item0_rotated_corner_leaves_tray) ... ok
+test_goal_fails_when_item1_rotated_corner_leaves_tray (__main__.GoalContainmentTests.test_goal_fails_when_item1_rotated_corner_leaves_tray) ... ok
+test_goal_requires_each_item_released (__main__.GoalContainmentTests.test_goal_requires_each_item_released) ... ok
+test_footprint_accepts_all_four_corners_on_shelf (__main__.HandleAndFootprintTests.test_footprint_accepts_all_four_corners_on_shelf) ... ok
+test_footprint_rejects_when_only_center_is_on_shelf (__main__.HandleAndFootprintTests.test_footprint_rejects_when_only_center_is_on_shelf) ... ok
+test_handle_world_rotates_left_handle_with_positive_yaw (__main__.HandleAndFootprintTests.test_handle_world_rotates_left_handle_with_positive_yaw) ... ok
+test_handle_world_rotates_right_handle_with_positive_yaw (__main__.HandleAndFootprintTests.test_handle_world_rotates_right_handle_with_positive_yaw) ... ok
+test_new_scene_initializes_headless_without_qpos_execution_edits (__main__.RealMujocoInitializationTests.test_new_scene_initializes_headless_without_qpos_execution_edits)
+仅检查 render=False 初态；不写 qpos，不把初态当作任务执行证据。 ... ok
+test_box_panels_are_thicker_than_v2 (__main__.SceneConstructionTests.test_box_panels_are_thicker_than_v2) ... ok
+test_building_new_scene_does_not_modify_its_config_file (__main__.SceneConstructionTests.test_building_new_scene_does_not_modify_its_config_file) ... ok
+test_cardboard_box_has_physical_connected_flaps_tape_and_label (__main__.SceneConstructionTests.test_cardboard_box_has_physical_connected_flaps_tape_and_label) ... ok
+test_flaps_are_smaller_and_overlap_wall_hinges (__main__.SceneConstructionTests.test_flaps_are_smaller_and_overlap_wall_hinges) ... ok
+test_initial_bricks_are_intentionally_asymmetric (__main__.SceneConstructionTests.test_initial_bricks_are_intentionally_asymmetric) ... ok
+test_left_handle_and_joint_are_physically_contiguous (__main__.SceneConstructionTests.test_left_handle_and_joint_are_physically_contiguous) ... ok
+test_new_scene_has_free_tray (__main__.SceneConstructionTests.test_new_scene_has_free_tray) ... ok
+test_new_scene_has_two_arm_specific_inactive_tray_welds (__main__.SceneConstructionTests.test_new_scene_has_two_arm_specific_inactive_tray_welds) ... ok
+test_old_free_tray_xml_matches_existing_reference_hash (__main__.SceneConstructionTests.test_old_free_tray_xml_matches_existing_reference_hash) ... ok
+test_old_frozen_xml_matches_existing_reference_hash (__main__.SceneConstructionTests.test_old_frozen_xml_matches_existing_reference_hash) ... ok
+test_old_scenes_have_no_new_handle_shelf_or_tray_weld_elements (__main__.SceneConstructionTests.test_old_scenes_have_no_new_handle_shelf_or_tray_weld_elements) ... ok
+test_right_handle_and_joint_are_physically_contiguous (__main__.SceneConstructionTests.test_right_handle_and_joint_are_physically_contiguous) ... ok
+test_shelf_is_fixed_and_top_matches_config (__main__.SceneConstructionTests.test_shelf_is_fixed_and_top_matches_config) ... ok
+test_shelf_is_wood_metal_open_frame (__main__.SceneConstructionTests.test_shelf_is_wood_metal_open_frame) ... ok
+test_storage_style_has_green_toy_brick_details (__main__.SceneConstructionTests.test_storage_style_has_green_toy_brick_details) ... ok
+test_total_tray_geom_mass_matches_config (__main__.SceneConstructionTests.test_total_tray_geom_mass_matches_config) ... ok
+test_v3_physical_box_is_not_mislabeled_visual_only (__main__.SceneConstructionTests.test_v3_physical_box_is_not_mislabeled_visual_only) ... ok
+test_support_contact_requires_tray_shelf_pair_and_small_distance (__main__.ShelfPredicateTests.test_support_contact_requires_tray_shelf_pair_and_small_distance) ... ok
+test_tray_on_shelf_accepts_complete_goal_state (__main__.ShelfPredicateTests.test_tray_on_shelf_accepts_complete_goal_state) ... ok
+test_tray_on_shelf_checks_full_rotation_including_yaw (__main__.ShelfPredicateTests.test_tray_on_shelf_checks_full_rotation_including_yaw) ... ok
+test_tray_on_shelf_requires_left_hand_open (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_left_hand_open) ... ok
+test_tray_on_shelf_requires_left_weld_inactive (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_left_weld_inactive) ... ok
+test_tray_on_shelf_requires_right_hand_open (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_right_hand_open) ... ok
+test_tray_on_shelf_requires_right_weld_inactive (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_right_weld_inactive) ... ok
+test_tray_on_shelf_requires_support_contact (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_support_contact) ... ok
+test_tray_on_shelf_requires_xy (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_xy) ... ok
+test_tray_on_shelf_requires_z (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_z) ... ok
+test_tray_weld_active_reads_each_arm_specific_equality (__main__.ShelfPredicateTests.test_tray_weld_active_reads_each_arm_specific_equality) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.549s
+
+OK

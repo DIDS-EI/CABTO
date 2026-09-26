@@ -1,0 +1,129 @@
+{
+  "model": {
+    "name": "pick_basin",
+    "args": {
+      "arm": "1",
+      "obj": "basin",
+      "dest": "pick_basin"
+    },
+    "program_kind": "pick",
+    "pre": [
+      "empty(1)",
+      "at_source(basin)",
+      "collision_free()"
+    ],
+    "add": [
+      "holding(1,basin)"
+    ],
+    "del": [
+      "empty(1)",
+      "at_source(basin)",
+      "parked(1)",
+      "home(1)",
+      "basin_returned()",
+      "hand_raised(1)"
+    ],
+    "description": "Pick the handled basin with the receiving arm and lift it. Use the documented pick APIs."
+  },
+  "action_id": "pick_basin(arm=1,dest=pick_basin,obj=basin)",
+  "before": [
+    "at_source(basin)",
+    "basin_returned()",
+    "collision_free()",
+    "content_in_source()",
+    "empty(1)",
+    "hand_raised(1)",
+    "holding(0,canL)",
+    "home(1)",
+    "parked(1)",
+    "source_upright()"
+  ],
+  "after": [
+    "collision_free()",
+    "content_in_source()",
+    "holding(0,canL)",
+    "holding(1,basin)",
+    "source_upright()"
+  ],
+  "valid_trial": true,
+  "code_executed": true,
+  "effect_ok": true,
+  "goal_ok": true,
+  "exception": null,
+  "trace": [
+    {
+      "method": "target_pose",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": [
+        0.6000012248480447,
+        -0.2699999868242315,
+        0.5349945146533622
+      ]
+    },
+    {
+      "method": "align_xy",
+      "args": [
+        [
+          0.6000012248480447,
+          -0.2699999868242315,
+          0.5349945146533622
+        ]
+      ],
+      "kwargs": {},
+      "status": "returned",
+      "result": 0.004190607303977448
+    },
+    {
+      "method": "descend_to",
+      "args": [
+        0.5349945146533622,
+        [
+          0.6000012248480447,
+          -0.2699999868242315
+        ]
+      ],
+      "kwargs": {},
+      "status": "returned",
+      "result": 0.005606763161081928
+    },
+    {
+      "method": "grasp",
+      "args": [
+        [
+          0.6000012248480447,
+          -0.2699999868242315,
+          0.5349945146533622
+        ]
+      ],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    },
+    {
+      "method": "record_grab_offset",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    },
+    {
+      "method": "lift",
+      "args": [],
+      "kwargs": {},
+      "status": "returned",
+      "result": null
+    }
+  ],
+  "diagnostics": {
+    "missing_pre": [],
+    "missing_add": [],
+    "remaining_del": [],
+    "missing_preserved_pre": [],
+    "unissued_commands": []
+  },
+  "code_sha256": "92ba95dfaf5925451bfcc1c7d88d0f5859a6304fc73a0058c743081ebf8668aa",
+  "failure_attribution": null,
+  "candidate_model_patch": null
+}

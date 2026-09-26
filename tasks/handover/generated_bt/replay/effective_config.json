@@ -1,0 +1,137 @@
+{
+  "version": "handover_tea_box_v3",
+  "task_label": "Handle-free tea carton: direct box-face airborne handover; contact-gated weld assisted",
+  "table": {
+    "center_xy": [
+      0.35,
+      0.0
+    ],
+    "top_z": 0.4,
+    "full_size_xy": [
+      1.0,
+      1.4
+    ],
+    "thickness": 0.04
+  },
+  "robots": [
+    {
+      "suffix": "_L",
+      "base_xy": [
+        0.16,
+        0.6
+      ],
+      "base_above_table": 0.0,
+      "yaw": -1.5707963267948966
+    },
+    {
+      "suffix": "_R",
+      "base_xy": [
+        0.54,
+        -0.6
+      ],
+      "base_above_table": 0.0,
+      "yaw": 1.5707963267948966
+    }
+  ],
+  "handover": {
+    "object_name": "baton",
+    "grasp_geometry": "box_faces",
+    "object_half_size": [
+      0.024,
+      0.11,
+      0.08
+    ],
+    "object_mass": 0.15,
+    "grasp_local_points": [
+      [
+        0.0,
+        0.075,
+        0.059
+      ],
+      [
+        0.0,
+        -0.075,
+        0.059
+      ]
+    ],
+    "contact_zone_half_y": 0.04,
+    "robot_gravity_compensation": true,
+    "start_center_xy": [
+      0.28,
+      0.22
+    ],
+    "meet_center_xyz": [
+      0.35,
+      0.0,
+      0.64
+    ],
+    "destination_center_xy": [
+      0.46,
+      -0.18
+    ],
+    "placement_preoffset_xy": [
+      0.0,
+      0.0
+    ],
+    "donor_safe_xyz": [
+      0.22,
+      0.34,
+      0.78
+    ],
+    "receiver_safe_xyz": [
+      0.56,
+      -0.34,
+      0.78
+    ],
+    "finger_mid_above_handle_m": 0.0446,
+    "approach_clearance": 0.12,
+    "attachment_distance_m": 0.065,
+    "required_contact_samples": 1,
+    "controlled_home_steps": 80,
+    "position_tolerance_m": 0.025,
+    "rotation_tolerance_deg": 12.0,
+    "forbidden_penetration_tolerance_m": 0.0002,
+    "allowed_handle_penetration_m": 0.0015,
+    "stability_seconds": 1.024
+  },
+  "evaluation": {
+    "layout_jitter_m": 0.002,
+    "mode": "direct_box_face_contact_gated_weld",
+    "object_snap": false,
+    "qpos_write_during_execution": false,
+    "instant_rehome": false
+  },
+  "visual_style": {
+    "profile": "green_tea_handover",
+    "camera_overview": [
+      2.65,
+      0.0,
+      1.65
+    ],
+    "camera_front": [
+      1.4,
+      0.0,
+      1.0
+    ],
+    "camera_target": [
+      0.35,
+      0.0,
+      0.58
+    ],
+    "display_layout": {
+      "centers_xy": [],
+      "yaw_deg": 0.0
+    },
+    "box_display_centers_xy": [
+      [
+        -0.06,
+        -0.22
+      ],
+      [
+        0.75,
+        0.22
+      ]
+    ],
+    "texture_file": "assets/tea_carton/green_tea_front.png"
+  }
+}

@@ -1,0 +1,1576 @@
+{
+  "task": "smooth_airborne_handover",
+  "config_path": "/Users/yishuaicai/mywork/edps/scenes/handover_smooth_v1.json",
+  "config_sha256": "5e2d53a5969a2cf8a34c6a32294bc69b4c8cc30eefc6cac2023ae2d560a80ca8",
+  "planner": "formal_BT_Expansion_unmodified",
+  "model_source": "handwritten_STRIPS",
+  "program_source": "actual_local_model_or_verified_cache",
+  "mode": "contact_gated_grasp_weld_assisted",
+  "object_snap": false,
+  "object_qpos_write_during_execution": false,
+  "instant_rehome": false,
+  "collision_audited": true,
+  "samples": [
+    {
+      "success": true,
+      "action_model": {
+        "name": "pick_baton_by_donor",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "Pick the baton by its donor-side handle and lift it without moving the receiver."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nPick the baton by its donor-side handle and lift it without moving the receiver.\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.pick_donor(): zero arguments, returns None. Required exact policy body: api.pick_donor(). Call once; never assign its return or call it again.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    pose = api.pick_donor()\n    return pose\n```",
+          "source": "def policy(api):\n    pose = api.pick_donor()\n    return pose",
+          "sha256": "319927da70a4871a48ab9274b0e8e918ae59b666e2ce29c4351b56ce1cb76c00",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "model": {
+              "name": "pick_baton_by_donor",
+              "args": {
+                "arm": "0",
+                "obj": "baton",
+                "dest": "pick_baton_by_donor"
+              },
+              "program_kind": "donor_pick",
+              "pre": [
+                "empty(0)",
+                "empty(1)",
+                "at_source(baton)",
+                "collision_free()"
+              ],
+              "add": [
+                "donor_holding(baton)",
+                "baton_airborne()"
+              ],
+              "del": [
+                "empty(0)",
+                "at_source(baton)",
+                "home(0)"
+              ],
+              "description": "Pick the baton by its donor-side handle and lift it without moving the receiver."
+            },
+            "action_id": "pick_baton_by_donor(arm=0,dest=pick_baton_by_donor,obj=baton)",
+            "before": [
+              "at_source(baton)",
+              "collision_free()",
+              "empty(0)",
+              "empty(1)"
+            ],
+            "after": [
+              "baton_airborne()",
+              "collision_free()",
+              "donor_holding(baton)",
+              "empty(1)"
+            ],
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "exception": null,
+            "trace": [
+              {
+                "method": "pick_donor",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "diagnostics": {
+              "missing_pre": [],
+              "missing_add": [],
+              "remaining_del": [],
+              "missing_preserved_pre": [],
+              "required_transition_calls": [
+                "pick_donor"
+              ],
+              "missing_transition_calls": [],
+              "nonexact_call_counts": {},
+              "collision_free": true,
+              "collision_groups": []
+            },
+            "code_sha256": "319927da70a4871a48ab9274b0e8e918ae59b666e2ce29c4351b56ce1cb76c00"
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "kind": "donor_pick",
+      "api_docs": {
+        "pick_donor": "api.pick_donor(): zero arguments, returns None. Required exact policy body: api.pick_donor(). Call once; never assign its return or call it again."
+      }
+    },
+    {
+      "success": true,
+      "action_model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nThe only allowed implementation is one call to api.move_to_handover_pose().\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.move_to_handover_pose(): zero arguments. It moves the donor-held baton to the configured airborne handover pose and holds there. Call this one method exactly once.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    pose = api.move_to_handover_pose()\n    return pose\n```",
+          "source": "def policy(api):\n    pose = api.move_to_handover_pose()\n    return pose",
+          "sha256": "26c49299ed3de22303382ef5079b788258dce1d74bd6641eca7efe614ae5069b",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "model": {
+              "name": "present_baton_in_air",
+              "args": {
+                "arm": "0",
+                "obj": "baton",
+                "dest": "present_baton_in_air"
+              },
+              "program_kind": "present",
+              "pre": [
+                "donor_holding(baton)",
+                "empty(1)",
+                "baton_airborne()",
+                "collision_free()"
+              ],
+              "add": [
+                "at_handover_pose(baton)"
+              ],
+              "del": [],
+              "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+            },
+            "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+            "before": [
+              "baton_airborne()",
+              "collision_free()",
+              "donor_holding(baton)",
+              "empty(1)"
+            ],
+            "after": [
+              "at_handover_pose(baton)",
+              "baton_airborne()",
+              "collision_free()",
+              "donor_holding(baton)",
+              "empty(1)"
+            ],
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "exception": null,
+            "trace": [
+              {
+                "method": "move_to_handover_pose",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "diagnostics": {
+              "missing_pre": [],
+              "missing_add": [],
+              "remaining_del": [],
+              "missing_preserved_pre": [],
+              "required_transition_calls": [
+                "move_to_handover_pose"
+              ],
+              "missing_transition_calls": [],
+              "nonexact_call_counts": {},
+              "collision_free": true,
+              "collision_groups": []
+            },
+            "code_sha256": "26c49299ed3de22303382ef5079b788258dce1d74bd6641eca7efe614ae5069b"
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "kind": "present",
+      "api_docs": {
+        "move_to_handover_pose": "api.move_to_handover_pose(): zero arguments. It moves the donor-held baton to the configured airborne handover pose and holds there. Call this one method exactly once."
+      }
+    },
+    {
+      "success": true,
+      "action_model": {
+        "name": "receiver_grasps_opposite_handle",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "Close the receiver on the opposite physical handle while the donor still holds."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nClose the receiver on the opposite physical handle while the donor still holds.\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.grasp_opposite_handle(): zero arguments. It performs the complete receiver-side approach, physical handle contact check, gripper close, and checked assisted attachment while the donor still holds. Call this method exactly once.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    pose = api.grasp_opposite_handle()\n    return pose\n```",
+          "source": "def policy(api):\n    pose = api.grasp_opposite_handle()\n    return pose",
+          "sha256": "a3a4a443928eb6d35c46c63b8e9239b4c6d0470daa43aff670dada276a679ea2",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "model": {
+              "name": "receiver_grasps_opposite_handle",
+              "args": {
+                "arm": "1",
+                "obj": "baton",
+                "dest": "receiver_grasps_opposite_handle"
+              },
+              "program_kind": "receive",
+              "pre": [
+                "donor_holding(baton)",
+                "empty(1)",
+                "at_handover_pose(baton)",
+                "collision_free()"
+              ],
+              "add": [
+                "dual_holding(baton)",
+                "receiver_contact_verified()"
+              ],
+              "del": [
+                "empty(1)",
+                "home(1)"
+              ],
+              "description": "Close the receiver on the opposite physical handle while the donor still holds."
+            },
+            "action_id": "receiver_grasps_opposite_handle(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+            "before": [
+              "at_handover_pose(baton)",
+              "baton_airborne()",
+              "collision_free()",
+              "donor_holding(baton)",
+              "empty(1)"
+            ],
+            "after": [
+              "at_handover_pose(baton)",
+              "baton_airborne()",
+              "collision_free()",
+              "donor_holding(baton)",
+              "dual_holding(baton)",
+              "receiver_contact_verified()",
+              "receiver_holding(baton)"
+            ],
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "exception": null,
+            "trace": [
+              {
+                "method": "grasp_opposite_handle",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "diagnostics": {
+              "missing_pre": [],
+              "missing_add": [],
+              "remaining_del": [],
+              "missing_preserved_pre": [],
+              "required_transition_calls": [
+                "grasp_opposite_handle"
+              ],
+              "missing_transition_calls": [],
+              "nonexact_call_counts": {},
+              "collision_free": true,
+              "collision_groups": []
+            },
+            "code_sha256": "a3a4a443928eb6d35c46c63b8e9239b4c6d0470daa43aff670dada276a679ea2"
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "kind": "receive",
+      "api_docs": {
+        "grasp_opposite_handle": "api.grasp_opposite_handle(): zero arguments. It performs the complete receiver-side approach, physical handle contact check, gripper close, and checked assisted attachment while the donor still holds. Call this method exactly once."
+      }
+    },
+    {
+      "success": true,
+      "action_model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nThe only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor.\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.finalize_transfer(): zero arguments. It checks measured receiver hold, releases the donor, and withdraws the empty donor hand. Call this one method exactly once; do not add conditions, loops, observations, variables, or other calls.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    pose = api.finalize_transfer()\n    return pose\n```",
+          "source": "def policy(api):\n    pose = api.finalize_transfer()\n    return pose",
+          "sha256": "483c5908c392c2e68c5893408859c9ad28136771975126e405d8128c66553a15",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "model": {
+              "name": "donor_releases_after_receiver",
+              "args": {
+                "arm": "0",
+                "obj": "baton",
+                "dest": "donor_releases_after_receiver"
+              },
+              "program_kind": "donor_release",
+              "pre": [
+                "dual_holding(baton)",
+                "receiver_contact_verified()",
+                "baton_airborne()",
+                "collision_free()"
+              ],
+              "add": [
+                "receiver_holding(baton)",
+                "empty(0)",
+                "donor_withdrawn()",
+                "handover_verified()"
+              ],
+              "del": [
+                "dual_holding(baton)",
+                "donor_holding(baton)"
+              ],
+              "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+            },
+            "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+            "before": [
+              "at_handover_pose(baton)",
+              "baton_airborne()",
+              "collision_free()",
+              "donor_holding(baton)",
+              "dual_holding(baton)",
+              "receiver_contact_verified()",
+              "receiver_holding(baton)"
+            ],
+            "after": [
+              "baton_airborne()",
+              "collision_free()",
+              "donor_withdrawn()",
+              "empty(0)",
+              "handover_verified()",
+              "receiver_contact_verified()",
+              "receiver_holding(baton)"
+            ],
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "exception": null,
+            "trace": [
+              {
+                "method": "finalize_transfer",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "diagnostics": {
+              "missing_pre": [],
+              "missing_add": [],
+              "remaining_del": [],
+              "missing_preserved_pre": [],
+              "required_transition_calls": [
+                "finalize_transfer"
+              ],
+              "missing_transition_calls": [],
+              "nonexact_call_counts": {},
+              "collision_free": true,
+              "collision_groups": []
+            },
+            "code_sha256": "483c5908c392c2e68c5893408859c9ad28136771975126e405d8128c66553a15"
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "kind": "donor_release",
+      "api_docs": {
+        "finalize_transfer": "api.finalize_transfer(): zero arguments. It checks measured receiver hold, releases the donor, and withdraws the empty donor hand. Call this one method exactly once; do not add conditions, loops, observations, variables, or other calls."
+      }
+    },
+    {
+      "success": true,
+      "action_model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "The only allowed implementation is one call to api.return_arm_home()."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nThe only allowed implementation is one call to api.return_arm_home().\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.return_arm_home(): zero arguments. It moves the already-empty bound arm through its outer staging pose and performs the actuator interpolation to HOME. Call this one method exactly once.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    pose = api.return_arm_home()\n    return pose\n```",
+          "source": "def policy(api):\n    pose = api.return_arm_home()\n    return pose",
+          "sha256": "a214a5bc1839cb7a0ed02e8df42f96892a22abfdac4e6fedd95469d28c3d15ff",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "model": {
+              "name": "home_donor_arm",
+              "args": {
+                "arm": "0",
+                "obj": "baton",
+                "dest": "home_donor_arm"
+              },
+              "program_kind": "controlled_home",
+              "pre": [
+                "receiver_holding(baton)",
+                "empty(0)",
+                "donor_withdrawn()",
+                "handover_verified()",
+                "collision_free()"
+              ],
+              "add": [
+                "home(0)"
+              ],
+              "del": [],
+              "description": "The only allowed implementation is one call to api.return_arm_home()."
+            },
+            "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+            "before": [
+              "baton_airborne()",
+              "collision_free()",
+              "donor_withdrawn()",
+              "empty(0)",
+              "handover_verified()",
+              "receiver_contact_verified()",
+              "receiver_holding(baton)"
+            ],
+            "after": [
+              "baton_airborne()",
+              "collision_free()",
+              "donor_withdrawn()",
+              "empty(0)",
+              "handover_verified()",
+              "home(0)",
+              "receiver_contact_verified()",
+              "receiver_holding(baton)"
+            ],
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "exception": null,
+            "trace": [
+              {
+                "method": "return_arm_home",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "diagnostics": {
+              "missing_pre": [],
+              "missing_add": [],
+              "remaining_del": [],
+              "missing_preserved_pre": [],
+              "required_transition_calls": [
+                "return_arm_home"
+              ],
+              "missing_transition_calls": [],
+              "nonexact_call_counts": {},
+              "collision_free": true,
+              "collision_groups": []
+            },
+            "code_sha256": "a214a5bc1839cb7a0ed02e8df42f96892a22abfdac4e6fedd95469d28c3d15ff"
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "kind": "controlled_home",
+      "api_docs": {
+        "return_arm_home": "api.return_arm_home(): zero arguments. It moves the already-empty bound arm through its outer staging pose and performs the actuator interpolation to HOME. Call this one method exactly once."
+      }
+    },
+    {
+      "success": true,
+      "action_model": {
+        "name": "receiver_places_baton",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_places_baton"
+        },
+        "program_kind": "receiver_place",
+        "pre": [
+          "receiver_holding(baton)",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()"
+        ],
+        "del": [
+          "receiver_holding(baton)",
+          "baton_airborne()",
+          "at_handover_pose(baton)"
+        ],
+        "description": "Carry the baton to the destination, place and release it, then withdraw."
+      },
+      "attempts": [
+        {
+          "attempt": 1,
+          "backend": "local_qwen_vl",
+          "source_type": "backend_generated",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a Python robotics programmer. Write def policy(api): with local variables and the exact API signatures below. No imports or loops. A coordinate is ONE tuple argument, not multiple scalar arguments. Assign function return values before using them. Do not fabricate API methods. Do not change the STRIPS contract."
+            },
+            {
+              "role": "user",
+              "content": "Implement this ONE action:\nCarry the baton to the destination, place and release it, then withdraw.\nAPI reference (all coordinates are Python tuples, never dictionaries):\napi.place_baton(): zero arguments, returns None. Required exact policy body: api.place_baton(). Call once; never assign its return or call it again.\nOutput a single Python function. Use named local variables for pose and return values. Only use documented argument names; positional arguments are also allowed. The payload being held must not be used as its own placement destination."
+            }
+          ],
+          "temperature": 0.0,
+          "raw": "```python\ndef policy(api):\n    pose = (0, 0)  # Replace with the actual pose you want to carry the baton to\n    api.place_baton()\n    return pose\n```",
+          "source": "def policy(api):\n    pose = (0, 0)  # Replace with the actual pose you want to carry the baton to\n    api.place_baton()\n    return pose",
+          "sha256": "e8cbc2358b19bf6be8d2b2771e636ef3643fc7a94cd8ab7a2e72b3b19313f126",
+          "normalization": "remove optional code fence; wrap top-level statements in policy(api); no action edits",
+          "evaluation": {
+            "model": {
+              "name": "receiver_places_baton",
+              "args": {
+                "arm": "1",
+                "obj": "baton",
+                "dest": "receiver_places_baton"
+              },
+              "program_kind": "receiver_place",
+              "pre": [
+                "receiver_holding(baton)",
+                "home(0)",
+                "handover_verified()",
+                "collision_free()"
+              ],
+              "add": [
+                "at_destination(baton)",
+                "empty(1)",
+                "receiver_withdrawn()"
+              ],
+              "del": [
+                "receiver_holding(baton)",
+                "baton_airborne()",
+                "at_handover_pose(baton)"
+              ],
+              "description": "Carry the baton to the destination, place and release it, then withdraw."
+            },
+            "action_id": "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)",
+            "before": [
+              "baton_airborne()",
+              "collision_free()",
+              "donor_withdrawn()",
+              "empty(0)",
+              "handover_verified()",
+              "home(0)",
+              "receiver_contact_verified()",
+              "receiver_holding(baton)"
+            ],
+            "after": [
+              "at_destination(baton)",
+              "collision_free()",
+              "donor_withdrawn()",
+              "empty(0)",
+              "empty(1)",
+              "handover_verified()",
+              "home(0)",
+              "receiver_contact_verified()",
+              "receiver_withdrawn()"
+            ],
+            "valid_trial": true,
+            "code_executed": true,
+            "effect_ok": true,
+            "goal_ok": true,
+            "exception": null,
+            "trace": [
+              {
+                "method": "place_baton",
+                "args": [],
+                "kwargs": {},
+                "status": "returned",
+                "result": null
+              }
+            ],
+            "diagnostics": {
+              "missing_pre": [],
+              "missing_add": [],
+              "remaining_del": [],
+              "missing_preserved_pre": [],
+              "required_transition_calls": [
+                "place_baton"
+              ],
+              "missing_transition_calls": [],
+              "nonexact_call_counts": {},
+              "collision_free": true,
+              "collision_groups": []
+            },
+            "code_sha256": "e8cbc2358b19bf6be8d2b2771e636ef3643fc7a94cd8ab7a2e72b3b19313f126"
+          },
+          "accepted": true
+        }
+      ],
+      "action_model_modified": false,
+      "integration": "standalone_sampler",
+      "initial_source": null,
+      "initial_evidence": null,
+      "note": "Backend identity must be reported; fixture backends are not real model evidence.",
+      "kind": "receiver_place",
+      "api_docs": {
+        "place_baton": "api.place_baton(): zero arguments, returns None. Required exact policy body: api.place_baton(). Call once; never assign its return or call it again."
+      }
+    }
+  ],
+  "episodes": [
+    {
+      "seed": 0,
+      "steps": [
+        {
+          "model": {
+            "name": "pick_baton_by_donor",
+            "args": {
+              "arm": "0",
+              "obj": "baton",
+              "dest": "pick_baton_by_donor"
+            },
+            "program_kind": "donor_pick",
+            "pre": [
+              "empty(0)",
+              "empty(1)",
+              "at_source(baton)",
+              "collision_free()"
+            ],
+            "add": [
+              "donor_holding(baton)",
+              "baton_airborne()"
+            ],
+            "del": [
+              "empty(0)",
+              "at_source(baton)",
+              "home(0)"
+            ],
+            "description": "Pick the baton by its donor-side handle and lift it without moving the receiver."
+          },
+          "action_id": "pick_baton_by_donor(arm=0,dest=pick_baton_by_donor,obj=baton)",
+          "before": [
+            "at_source(baton)",
+            "collision_free()",
+            "empty(0)",
+            "empty(1)"
+          ],
+          "after": [
+            "baton_airborne()",
+            "collision_free()",
+            "donor_holding(baton)",
+            "empty(1)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "pick_donor",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "pick_donor"
+            ],
+            "missing_transition_calls": [],
+            "nonexact_call_counts": {},
+            "collision_free": true,
+            "collision_groups": []
+          },
+          "code_sha256": "319927da70a4871a48ab9274b0e8e918ae59b666e2ce29c4351b56ce1cb76c00"
+        },
+        {
+          "model": {
+            "name": "present_baton_in_air",
+            "args": {
+              "arm": "0",
+              "obj": "baton",
+              "dest": "present_baton_in_air"
+            },
+            "program_kind": "present",
+            "pre": [
+              "donor_holding(baton)",
+              "empty(1)",
+              "baton_airborne()",
+              "collision_free()"
+            ],
+            "add": [
+              "at_handover_pose(baton)"
+            ],
+            "del": [],
+            "description": "The only allowed implementation is one call to api.move_to_handover_pose()."
+          },
+          "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+          "before": [
+            "baton_airborne()",
+            "collision_free()",
+            "donor_holding(baton)",
+            "empty(1)"
+          ],
+          "after": [
+            "at_handover_pose(baton)",
+            "baton_airborne()",
+            "collision_free()",
+            "donor_holding(baton)",
+            "empty(1)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "move_to_handover_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "move_to_handover_pose"
+            ],
+            "missing_transition_calls": [],
+            "nonexact_call_counts": {},
+            "collision_free": true,
+            "collision_groups": []
+          },
+          "code_sha256": "26c49299ed3de22303382ef5079b788258dce1d74bd6641eca7efe614ae5069b"
+        },
+        {
+          "model": {
+            "name": "receiver_grasps_opposite_handle",
+            "args": {
+              "arm": "1",
+              "obj": "baton",
+              "dest": "receiver_grasps_opposite_handle"
+            },
+            "program_kind": "receive",
+            "pre": [
+              "donor_holding(baton)",
+              "empty(1)",
+              "at_handover_pose(baton)",
+              "collision_free()"
+            ],
+            "add": [
+              "dual_holding(baton)",
+              "receiver_contact_verified()"
+            ],
+            "del": [
+              "empty(1)",
+              "home(1)"
+            ],
+            "description": "Close the receiver on the opposite physical handle while the donor still holds."
+          },
+          "action_id": "receiver_grasps_opposite_handle(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+          "before": [
+            "at_handover_pose(baton)",
+            "baton_airborne()",
+            "collision_free()",
+            "donor_holding(baton)",
+            "empty(1)"
+          ],
+          "after": [
+            "at_handover_pose(baton)",
+            "baton_airborne()",
+            "collision_free()",
+            "donor_holding(baton)",
+            "dual_holding(baton)",
+            "receiver_contact_verified()",
+            "receiver_holding(baton)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "grasp_opposite_handle",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "grasp_opposite_handle"
+            ],
+            "missing_transition_calls": [],
+            "nonexact_call_counts": {},
+            "collision_free": true,
+            "collision_groups": []
+          },
+          "code_sha256": "a3a4a443928eb6d35c46c63b8e9239b4c6d0470daa43aff670dada276a679ea2"
+        },
+        {
+          "model": {
+            "name": "donor_releases_after_receiver",
+            "args": {
+              "arm": "0",
+              "obj": "baton",
+              "dest": "donor_releases_after_receiver"
+            },
+            "program_kind": "donor_release",
+            "pre": [
+              "dual_holding(baton)",
+              "receiver_contact_verified()",
+              "baton_airborne()",
+              "collision_free()"
+            ],
+            "add": [
+              "receiver_holding(baton)",
+              "empty(0)",
+              "donor_withdrawn()",
+              "handover_verified()"
+            ],
+            "del": [
+              "dual_holding(baton)",
+              "donor_holding(baton)"
+            ],
+            "description": "The only allowed implementation is one call to api.finalize_transfer(); it already verifies receiver hold before releasing and withdrawing the donor."
+          },
+          "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+          "before": [
+            "at_handover_pose(baton)",
+            "baton_airborne()",
+            "collision_free()",
+            "donor_holding(baton)",
+            "dual_holding(baton)",
+            "receiver_contact_verified()",
+            "receiver_holding(baton)"
+          ],
+          "after": [
+            "baton_airborne()",
+            "collision_free()",
+            "donor_withdrawn()",
+            "empty(0)",
+            "handover_verified()",
+            "receiver_contact_verified()",
+            "receiver_holding(baton)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "finalize_transfer",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "finalize_transfer"
+            ],
+            "missing_transition_calls": [],
+            "nonexact_call_counts": {},
+            "collision_free": true,
+            "collision_groups": []
+          },
+          "code_sha256": "483c5908c392c2e68c5893408859c9ad28136771975126e405d8128c66553a15"
+        },
+        {
+          "model": {
+            "name": "home_donor_arm",
+            "args": {
+              "arm": "0",
+              "obj": "baton",
+              "dest": "home_donor_arm"
+            },
+            "program_kind": "controlled_home",
+            "pre": [
+              "receiver_holding(baton)",
+              "empty(0)",
+              "donor_withdrawn()",
+              "handover_verified()",
+              "collision_free()"
+            ],
+            "add": [
+              "home(0)"
+            ],
+            "del": [],
+            "description": "The only allowed implementation is one call to api.return_arm_home()."
+          },
+          "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+          "before": [
+            "baton_airborne()",
+            "collision_free()",
+            "donor_withdrawn()",
+            "empty(0)",
+            "handover_verified()",
+            "receiver_contact_verified()",
+            "receiver_holding(baton)"
+          ],
+          "after": [
+            "baton_airborne()",
+            "collision_free()",
+            "donor_withdrawn()",
+            "empty(0)",
+            "handover_verified()",
+            "home(0)",
+            "receiver_contact_verified()",
+            "receiver_holding(baton)"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "return_arm_home",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "return_arm_home"
+            ],
+            "missing_transition_calls": [],
+            "nonexact_call_counts": {},
+            "collision_free": true,
+            "collision_groups": []
+          },
+          "code_sha256": "a214a5bc1839cb7a0ed02e8df42f96892a22abfdac4e6fedd95469d28c3d15ff"
+        },
+        {
+          "model": {
+            "name": "receiver_places_baton",
+            "args": {
+              "arm": "1",
+              "obj": "baton",
+              "dest": "receiver_places_baton"
+            },
+            "program_kind": "receiver_place",
+            "pre": [
+              "receiver_holding(baton)",
+              "home(0)",
+              "handover_verified()",
+              "collision_free()"
+            ],
+            "add": [
+              "at_destination(baton)",
+              "empty(1)",
+              "receiver_withdrawn()"
+            ],
+            "del": [
+              "receiver_holding(baton)",
+              "baton_airborne()",
+              "at_handover_pose(baton)"
+            ],
+            "description": "Carry the baton to the destination, place and release it, then withdraw."
+          },
+          "action_id": "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)",
+          "before": [
+            "baton_airborne()",
+            "collision_free()",
+            "donor_withdrawn()",
+            "empty(0)",
+            "handover_verified()",
+            "home(0)",
+            "receiver_contact_verified()",
+            "receiver_holding(baton)"
+          ],
+          "after": [
+            "at_destination(baton)",
+            "collision_free()",
+            "donor_withdrawn()",
+            "empty(0)",
+            "empty(1)",
+            "handover_verified()",
+            "home(0)",
+            "receiver_contact_verified()",
+            "receiver_withdrawn()"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "place_baton",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "place_baton"
+            ],
+            "missing_transition_calls": [],
+            "nonexact_call_counts": {},
+            "collision_free": true,
+            "collision_groups": []
+          },
+          "code_sha256": "e8cbc2358b19bf6be8d2b2771e636ef3643fc7a94cd8ab7a2e72b3b19313f126"
+        },
+        {
+          "model": {
+            "name": "home_receiver_arm",
+            "args": {
+              "arm": "1",
+              "obj": "baton",
+              "dest": "home_receiver_arm"
+            },
+            "program_kind": "controlled_home",
+            "pre": [
+              "at_destination(baton)",
+              "empty(1)",
+              "receiver_withdrawn()",
+              "home(0)",
+              "handover_verified()",
+              "collision_free()"
+            ],
+            "add": [
+              "home(1)"
+            ],
+            "del": [],
+            "description": "The only allowed implementation is one call to api.return_arm_home()."
+          },
+          "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+          "before": [
+            "at_destination(baton)",
+            "collision_free()",
+            "donor_withdrawn()",
+            "empty(0)",
+            "empty(1)",
+            "handover_verified()",
+            "home(0)",
+            "receiver_contact_verified()",
+            "receiver_withdrawn()"
+          ],
+          "after": [
+            "at_destination(baton)",
+            "collision_free()",
+            "donor_withdrawn()",
+            "empty(0)",
+            "empty(1)",
+            "handover_verified()",
+            "home(0)",
+            "home(1)",
+            "receiver_contact_verified()",
+            "receiver_withdrawn()"
+          ],
+          "valid_trial": true,
+          "code_executed": true,
+          "effect_ok": true,
+          "goal_ok": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "return_arm_home",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "diagnostics": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "required_transition_calls": [
+              "return_arm_home"
+            ],
+            "missing_transition_calls": [],
+            "nonexact_call_counts": {},
+            "collision_free": true,
+            "collision_groups": []
+          },
+          "code_sha256": "a214a5bc1839cb7a0ed02e8df42f96892a22abfdac4e6fedd95469d28c3d15ff"
+        }
+      ],
+      "success": true,
+      "goal": [
+        "at_destination(baton)",
+        "collision_free()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "home(1)"
+      ],
+      "initial_state": [
+        "at_source(baton)",
+        "collision_free()",
+        "empty(0)",
+        "empty(1)"
+      ],
+      "kernel": {
+        "bt_expansion": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/__init__.py",
+          "sha256": "bab0549f7fcaa6c2bdd33b02d8c4d8233e7a5c41ffd454307651c6fd9da37fd2"
+        },
+        "bt_expansion.planning": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/planning.py",
+          "sha256": "8730a53df5c526809848da9fcedbc02ce4f17ca00322a52e133e8ec909d7f697"
+        },
+        "behavior_tree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/__init__.py",
+          "sha256": "ad77aee97bddc9c41924c5004be56843d937cccb33e88515c74ce2c87bcc8c5a"
+        },
+        "behavior_tree.BehaviorTree": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/behavior_tree/BehaviorTree.py",
+          "sha256": "512376d555f9f223027d521a3b644f6550c7128285aec61af2c1dcbd685e6038"
+        },
+        "bt_expansion.algorithm": {
+          "path": "/Users/yishuaicai/mywork/BTExpansion-demo/src/bt_expansion/algorithm.py",
+          "sha256": "ffbe33712df2d05068ccef24e7be90edb7f45e51978af4f99b18b51faa92ae50"
+        }
+      },
+      "bt_status": "success",
+      "stable": true,
+      "final_state": [
+        "at_destination(baton)",
+        "collision_free()",
+        "donor_withdrawn()",
+        "empty(0)",
+        "empty(1)",
+        "handover_verified()",
+        "home(0)",
+        "home(1)",
+        "receiver_contact_verified()",
+        "receiver_withdrawn()"
+      ],
+      "placement": {
+        "placed": true,
+        "xy_error_m": 0.0030274597462205716,
+        "bottom_gap_m": -0.0001077554202164599,
+        "rotation_error_deg": 0.17524849059481765,
+        "released": true,
+        "origin": [
+          0.46034272893786915,
+          -0.1830079975714972,
+          0.4178922445797835
+        ]
+      },
+      "handover_verified": true,
+      "collision_free": true,
+      "collision_groups": [],
+      "allowed_handle_contact_samples": 286760,
+      "events": [
+        {
+          "event": "grasp_weld",
+          "arm": 0,
+          "active": true,
+          "object": "baton",
+          "time": 7.615999999999383,
+          "object_position": [
+            0.28000651150536104,
+            0.21999818601457383,
+            0.4178924702453882
+          ],
+          "finger_mid": [
+            0.2803295246667586,
+            0.3535225375864599,
+            0.5206981384975589
+          ]
+        },
+        {
+          "event": "contact_gated_attach",
+          "arm": 0,
+          "time": 7.615999999999383,
+          "finger_handle_distance_m": 0.048550876307708705,
+          "contact_samples": 1576,
+          "mode": "assisted_grasp_weld"
+        },
+        {
+          "event": "grasp_weld",
+          "arm": 1,
+          "active": true,
+          "object": "baton",
+          "time": 30.319999999994074,
+          "object_position": [
+            0.3500549573590017,
+            0.0026551120713758257,
+            0.6153063104203444
+          ],
+          "finger_mid": [
+            0.35060918289641974,
+            -0.1180816966015455,
+            0.7048209016392354
+          ]
+        },
+        {
+          "event": "contact_gated_attach",
+          "arm": 1,
+          "time": 30.319999999994074,
+          "finger_handle_distance_m": 0.041480136039449986,
+          "contact_samples": 2198,
+          "mode": "assisted_grasp_weld"
+        },
+        {
+          "event": "dual_hold_verified",
+          "time": 30.511999999993968,
+          "object_z": 0.6153059394748814
+        },
+        {
+          "event": "grasp_weld",
+          "arm": 0,
+          "active": false,
+          "object": "baton",
+          "time": 30.70399999999386,
+          "object_position": [
+            0.35004609486775445,
+            0.002654053279605978,
+            0.6153075059377521
+          ],
+          "finger_mid": [
+            0.35017485161820705,
+            0.13553007636864267,
+            0.7189562042109487
+          ]
+        },
+        {
+          "event": "donor_release_after_receiver",
+          "time": 30.70399999999386,
+          "receiver_active": true,
+          "object_z": 0.6153075059377521
+        },
+        {
+          "event": "donor_withdrawn",
+          "time": 31.631999999993347
+        },
+        {
+          "event": "controlled_actuator_home",
+          "arm": 0,
+          "time": 31.631999999993347,
+          "q_start": [
+            2.154117011884543,
+            1.5680893417477573,
+            -2.2850941578535573,
+            -2.757534689645945,
+            0.8928695624679517,
+            1.325342864322802,
+            0.09405069770235491
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "steps": 80
+        },
+        {
+          "event": "pre_release_pose",
+          "time": 37.327999999999655,
+          "object_position": [
+            0.4609921335403841,
+            -0.18307624904974834,
+            0.4238032710291935
+          ]
+        },
+        {
+          "event": "grasp_weld",
+          "arm": 1,
+          "active": false,
+          "object": "baton",
+          "time": 37.39199999999973,
+          "object_position": [
+            0.4608093088777634,
+            -0.18314464214450274,
+            0.42167879479387993
+          ],
+          "finger_mid": [
+            0.4614746358530992,
+            -0.30419151260297383,
+            0.5108148955847701
+          ]
+        },
+        {
+          "event": "post_release_pose",
+          "time": 37.680000000000085,
+          "object_position": [
+            0.46034273616652416,
+            -0.18300797918018433,
+            0.4178918491211208
+          ]
+        },
+        {
+          "event": "receiver_withdrawn",
+          "time": 45.32800000000943
+        },
+        {
+          "event": "controlled_actuator_home",
+          "arm": 1,
+          "time": 45.584000000009745,
+          "q_start": [
+            -0.02596164063357882,
+            -0.9635307922385822,
+            -0.04616702771379858,
+            -2.874718409926663,
+            -0.04022310601231972,
+            1.9113585406954647,
+            0.746533745274369
+          ],
+          "q_goal": [
+            0.0,
+            -0.785,
+            0.0,
+            -2.356,
+            0.0,
+            1.571,
+            0.785
+          ],
+          "steps": 80
+        }
+      ],
+      "final_position": [
+        0.46034272893786915,
+        -0.1830079975714972,
+        0.4178922445797835
+      ]
+    }
+  ],
+  "source_hashes_at_start": {
+    "/Users/yishuaicai/mywork/edps/probe_smooth_handover_codegen.py": "96208b0aef68903fd16edece3d7cc4acc92f86f13dffcb3645c2d3c7319a7d0f",
+    "/Users/yishuaicai/mywork/edps/core/smooth_handover_bridge.py": "72398c49a3dd8256a2bd11d2ad65cfaafefaacf45e90436e2feef84f87fbae3d",
+    "/Users/yishuaicai/mywork/edps/probe_smooth_handover_reference.py": "ecca6d2401e69fd5cdd765e6b4e61595343d3b9e3bbd739c82e84de1aea7ebf5",
+    "/Users/yishuaicai/mywork/edps/scenes/handover_smooth_v1.json": "5e2d53a5969a2cf8a34c6a32294bc69b4c8cc30eefc6cac2023ae2d560a80ca8",
+    "/Users/yishuaicai/mywork/CABTO/exp4_bt_tasks/stage3_cabto/formal_bt.py": "3adfb1e68ebf7a77d62028c21b4e1436b21149f4f039f9520b21d388e0c92065",
+    "/Users/yishuaicai/mywork/CABTO/exp4_bt_tasks/stage3_cabto/policy_codegen.py": "5bdd98f067ff5818a9acdf0f1dfa504b62118588ee1e2a5f6f26898cd5013763"
+  },
+  "completed": true,
+  "program_hashes": {
+    "donor_pick": "319927da70a4871a48ab9274b0e8e918ae59b666e2ce29c4351b56ce1cb76c00",
+    "present": "26c49299ed3de22303382ef5079b788258dce1d74bd6641eca7efe614ae5069b",
+    "receive": "a3a4a443928eb6d35c46c63b8e9239b4c6d0470daa43aff670dada276a679ea2",
+    "donor_release": "483c5908c392c2e68c5893408859c9ad28136771975126e405d8128c66553a15",
+    "controlled_home": "a214a5bc1839cb7a0ed02e8df42f96892a22abfdac4e6fedd95469d28c3d15ff",
+    "receiver_place": "e8cbc2358b19bf6be8d2b2771e636ef3643fc7a94cd8ab7a2e72b3b19313f126"
+  },
+  "success_count": 1,
+  "config_unchanged": true,
+  "source_hashes_at_end": {
+    "/Users/yishuaicai/mywork/edps/probe_smooth_handover_codegen.py": "96208b0aef68903fd16edece3d7cc4acc92f86f13dffcb3645c2d3c7319a7d0f",
+    "/Users/yishuaicai/mywork/edps/core/smooth_handover_bridge.py": "72398c49a3dd8256a2bd11d2ad65cfaafefaacf45e90436e2feef84f87fbae3d",
+    "/Users/yishuaicai/mywork/edps/probe_smooth_handover_reference.py": "ecca6d2401e69fd5cdd765e6b4e61595343d3b9e3bbd739c82e84de1aea7ebf5",
+    "/Users/yishuaicai/mywork/edps/scenes/handover_smooth_v1.json": "5e2d53a5969a2cf8a34c6a32294bc69b4c8cc30eefc6cac2023ae2d560a80ca8",
+    "/Users/yishuaicai/mywork/CABTO/exp4_bt_tasks/stage3_cabto/formal_bt.py": "3adfb1e68ebf7a77d62028c21b4e1436b21149f4f039f9520b21d388e0c92065",
+    "/Users/yishuaicai/mywork/CABTO/exp4_bt_tasks/stage3_cabto/policy_codegen.py": "5bdd98f067ff5818a9acdf0f1dfa504b62118588ee1e2a5f6f26898cd5013763"
+  },
+  "implementation_unchanged_during_run": true
+}
