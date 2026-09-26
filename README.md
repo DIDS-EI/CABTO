@@ -109,6 +109,11 @@ CABTO/
 │   ├── pddl_adapter/             #   PDDL ↔ BT adapter
 │   └── utils/
 │
+├── reports/                      # ── polished experiment report pages (uploaded to GitHub)
+│   ├── remaining_cabto/          #   5-scene CABTO unified report + camera pointing (main entry)
+│   ├── cover_cabto_fix/          #   Cover generation & visual placement fix report
+│   └── cover_cabto_method/       #   early Cover method experiment (historical)
+│
 ├── tasks/                        # ── per-task evidence (cover / blocks / pour / handover / storage)
 │   ├── <task>/direct/            #   direct execution: rollout.mp4, result.json, scene, phases
 │   ├── <task>/generated_bt/      #   generated programs, formal BT (JSON/DOT/SVG), replay
@@ -120,6 +125,14 @@ CABTO/
 │
 ├── tests/results/                #   164 unit-test logs + 5-task generated-BT smoke summary
 │
+├── outputs/                      # ── FULL raw experiment outputs (LOCAL ONLY, git-ignored)
+│   ├── remaining_cabto/          #   complete 5-task CABTO migration runs (model proposals / sampling / refinement)
+│   ├── cover_cabto_fix/          #   Cover fix full runs
+│   ├── cover_cabto_method/       #   Cover method full runs
+│   ├── unified_cameras/          #   unified camera-rig snapshots
+│   └── chinese_paper/            #   Chinese paper source (ctexart)
+│
+├── index.html                    #  browsable dashboard (portal to reports/ + tasks/ + paper_reproduction/)
 ├── run_task.py                   #  direct execution entry for the 5 tasks
 ├── run_generated_bt.py           #  replay generated programs + formal BT
 ├── run_tests.py                  #  unit-test runner
@@ -127,6 +140,23 @@ CABTO/
 ├── requirements.txt              #  Python dependencies
 └── package_manifest.json · PROVENANCE.json   #  manifest (SHA256) & provenance
 ```
+
+### Experiment outputs: `reports/` vs `outputs/`
+
+- **`reports/`** (uploaded to GitHub): polished, self-contained report pages extracted from `outputs/` —
+  only the report HTML and the assets they directly reference (mp4 / png / svg / json). These power the
+  online [`index.html`](index.html) portal.
+- **`outputs/`** (local only, git-ignored): the complete raw experiment outputs (~1.3 GB) with every model
+  proposal, policy-sampling attempt, effect refinement, and per-run collision audit. Kept locally for full
+  reproducibility, not committed (contains files >100 MB and large intermediate artifacts).
+
+| Output directory | What it records |
+|------------------|-----------------|
+| `outputs/remaining_cabto/` | Complete 5-task CABTO migration runs — per-task `proposal/` → `sampling/` → `refinement/` → `final_seed0/1/`, plus `summary.json` and `reproduce.txt` |
+| `outputs/cover_cabto_fix/` | Cover generation & visual-placement fix runs |
+| `outputs/cover_cabto_method/` | Early Cover method experiment (historical) |
+| `outputs/unified_cameras/` | Unified camera-rig snapshots |
+| `outputs/chinese_paper/` | Chinese paper source (ctexart + xelatex + biber) |
 
 ---
 

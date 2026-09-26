@@ -109,6 +109,11 @@ CABTO/
 │   ├── pddl_adapter/             #   PDDL ↔ BT 适配器
 │   └── utils/
 │
+├── reports/                      # ── 精简报告页（已上传 GitHub）
+│   ├── remaining_cabto/          #   五场景 CABTO 统一报告 + 相机打点（主入口）
+│   ├── cover_cabto_fix/          #   Cover 生成与视觉放置修复报告
+│   └── cover_cabto_method/       #   早期 Cover 方法实验（历史）
+│
 ├── tasks/                        # ── 各任务证据（cover / blocks / pour / handover / storage）
 │   ├── <task>/direct/            #   直接执行：rollout.mp4、result.json、场景、阶段图
 │   ├── <task>/generated_bt/      #   生成程序、正式 BT（JSON/DOT/SVG）、重放
@@ -120,6 +125,14 @@ CABTO/
 │
 ├── tests/results/                #   164 项单元测试日志 + 五任务生成 BT 烟测摘要
 │
+├── outputs/                      # ── 完整原始实验产出（仅本地，已被 git 忽略）
+│   ├── remaining_cabto/          #   五任务 CABTO 迁移实验完整运行（模型提案 / 采样 / 修订）
+│   ├── cover_cabto_fix/          #   Cover 修复完整运行
+│   ├── cover_cabto_method/       #   Cover 方法完整运行
+│   ├── unified_cameras/          #   统一相机快照
+│   └── chinese_paper/            #   中文论文源（ctexart）
+│
+├── index.html                    #  可视化门面（聚合 reports/ + tasks/ + paper_reproduction/）
 ├── run_task.py                   #  五任务直接执行入口
 ├── run_generated_bt.py           #  重放生成程序 + 正式 BT
 ├── run_tests.py                  #  单元测试运行器
@@ -127,6 +140,19 @@ CABTO/
 ├── requirements.txt              #  Python 依赖
 └── package_manifest.json · PROVENANCE.json   #  清单（SHA256）与溯源
 ```
+
+### 实验产出：`reports/` 与 `outputs/`
+
+- **`reports/`**（已上传 GitHub）：从 `outputs/` 中抽取的精简、自包含报告页——只保留报告 HTML 及其直接引用的资源（mp4 / png / svg / json），用于支撑线上的 [`index.html`](index.html) 门面。
+- **`outputs/`**（仅本地，已被 git 忽略）：完整原始实验产出（约 1.3 GB），包含每次模型提案、策略采样尝试、效果修订以及每次运行的碰撞审计。为完整复现而保留在本地，不纳入版本控制（含超过 100 MB 的文件和大量中间产物）。
+
+| 产出目录 | 记录内容 |
+|------------------|-----------------|
+| `outputs/remaining_cabto/` | 五任务 CABTO 迁移实验完整运行——各任务的 `proposal/` → `sampling/` → `refinement/` → `final_seed0/1/`，以及 `summary.json` 和 `reproduce.txt` |
+| `outputs/cover_cabto_fix/` | Cover 生成与视觉放置修复运行 |
+| `outputs/cover_cabto_method/` | 早期 Cover 方法实验（历史） |
+| `outputs/unified_cameras/` | 统一相机快照 |
+| `outputs/chinese_paper/` | 中文论文源（ctexart + xelatex + biber） |
 
 ---
 
