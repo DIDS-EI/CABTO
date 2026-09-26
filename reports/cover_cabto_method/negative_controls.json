@@ -1,0 +1,303 @@
+{
+  "all_rejected": true,
+  "cases": [
+    {
+      "case": "return_true_without_motion",
+      "provenance": "controlled_negative_not_LM_sample",
+      "rejected": true,
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "holding(shrimp)"
+          ],
+          "remaining_del": [
+            "at_source(shrimp)",
+            "empty()"
+          ],
+          "missing_preserved_pre": [],
+          "unexpected_added": [
+            "at_source(shrimp)",
+            "empty()"
+          ],
+          "unexpected_removed": [
+            "holding(shrimp)"
+          ]
+        },
+        "before": [
+          "at_source(apple)",
+          "at_source(potato)",
+          "at_source(shrimp)",
+          "empty()"
+        ],
+        "after": [
+          "at_source(apple)",
+          "at_source(potato)",
+          "at_source(shrimp)",
+          "empty()"
+        ],
+        "model": {
+          "name": "pick",
+          "args": {
+            "object": "shrimp",
+            "support": "bowl"
+          },
+          "pre": [
+            "empty()",
+            "at_source(shrimp)"
+          ],
+          "add": [
+            "holding(shrimp)"
+          ],
+          "del": [
+            "empty()",
+            "at_source(shrimp)",
+            "home_completed()"
+          ]
+        },
+        "code_executed": true,
+        "exception": null,
+        "trace": [],
+        "forbidden_contacts": [],
+        "code_sha256": "05bf61261056630cf566b3cfd2b356571a3db8d1405946486ebd81027a5207f2"
+      }
+    },
+    {
+      "case": "remove_lift_from_code",
+      "provenance": "controlled_negative_not_LM_sample",
+      "rejected": true,
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "holding(shrimp)"
+          ],
+          "remaining_del": [
+            "at_source(shrimp)"
+          ],
+          "missing_preserved_pre": [],
+          "unexpected_added": [
+            "at_source(shrimp)"
+          ],
+          "unexpected_removed": [
+            "holding(shrimp)"
+          ]
+        },
+        "before": [
+          "at_source(apple)",
+          "at_source(potato)",
+          "at_source(shrimp)",
+          "empty()"
+        ],
+        "after": [
+          "at_source(apple)",
+          "at_source(potato)",
+          "at_source(shrimp)"
+        ],
+        "model": {
+          "name": "pick",
+          "args": {
+            "object": "shrimp",
+            "support": "bowl"
+          },
+          "pre": [
+            "empty()",
+            "at_source(shrimp)"
+          ],
+          "add": [
+            "holding(shrimp)"
+          ],
+          "del": [
+            "empty()",
+            "at_source(shrimp)",
+            "home_completed()"
+          ]
+        },
+        "code_executed": true,
+        "exception": null,
+        "trace": [
+          {
+            "method": "open_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": null
+          },
+          {
+            "method": "grasp_point",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.31005413681640004,
+              -0.19001848191801193,
+              0.4100006199279825
+            ]
+          },
+          {
+            "method": "approach",
+            "args": [
+              [
+                0.31005413681640004,
+                -0.19001848191801193,
+                0.4100006199279825
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": null
+          },
+          {
+            "method": "descend",
+            "args": [
+              [
+                0.31005413681640004,
+                -0.19001848191801193,
+                0.4100006199279825
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": null
+          },
+          {
+            "method": "close_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": null
+          }
+        ],
+        "forbidden_contacts": [],
+        "code_sha256": "cd9c66d2945981dd169fc6c55e15b9ffe019cc34efd03e5d8fe6cc851eef3c75"
+      }
+    },
+    {
+      "case": "omit_source_delete_in_model",
+      "provenance": "controlled_negative_not_LM_sample",
+      "rejected": true,
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": true,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [],
+          "remaining_del": [],
+          "missing_preserved_pre": [
+            "at_source(shrimp)"
+          ],
+          "unexpected_added": [],
+          "unexpected_removed": [
+            "at_source(shrimp)"
+          ]
+        },
+        "before": [
+          "at_source(apple)",
+          "at_source(potato)",
+          "at_source(shrimp)",
+          "empty()"
+        ],
+        "after": [
+          "at_source(apple)",
+          "at_source(potato)",
+          "holding(shrimp)"
+        ],
+        "model": {
+          "name": "pick",
+          "args": {
+            "object": "shrimp",
+            "support": "bowl"
+          },
+          "pre": [
+            "empty()",
+            "at_source(shrimp)"
+          ],
+          "add": [
+            "holding(shrimp)"
+          ],
+          "del": [
+            "empty()",
+            "home_completed()"
+          ]
+        },
+        "code_executed": true,
+        "exception": null,
+        "trace": [
+          {
+            "method": "open_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": null
+          },
+          {
+            "method": "grasp_point",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.31005413681640004,
+              -0.19001848191801193,
+              0.4100006199279825
+            ]
+          },
+          {
+            "method": "approach",
+            "args": [
+              [
+                0.31005413681640004,
+                -0.19001848191801193,
+                0.4100006199279825
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": null
+          },
+          {
+            "method": "descend",
+            "args": [
+              [
+                0.31005413681640004,
+                -0.19001848191801193,
+                0.4100006199279825
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": null
+          },
+          {
+            "method": "close_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": null
+          },
+          {
+            "method": "lift",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": null
+          }
+        ],
+        "forbidden_contacts": [],
+        "code_sha256": "c519cd749debe353036eb5b5736af788aac3a6f3e5ee4347c12c26ec9547472b"
+      }
+    }
+  ]
+}

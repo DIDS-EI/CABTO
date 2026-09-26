@@ -1,0 +1,55 @@
+五场景统一相机安装与诊断
+======================
+最终统一配置：project/scenes/camera_rig_unified_v3.json
+实现：project/core/unified_camera_rig.py
+执行入口：project/run_unified_camera_rig.py
+
+相机角色
+- 单臂：rig_wrist_single + rig_global。
+- 双臂：rig_wrist_left + rig_wrist_right + rig_global。
+- overview/front旧相机保留；overview为视频与同帧对照，不裁剪冒充腕部图像。
+- 腕相机相对hand局部坐标：[0,-0.10,0.025] m，固定朝向局部[0,0,0.16] m，FOV75°。
+- 全局：桌面中心沿世界X偏移0.08m，桌面上方1.20m，FOV60°，正俯视。
+- 所有图像720×720。camera固定挂在hand/hand_L/hand_R节点，实际外参随关节运动，不依赖物体坐标自动跟踪。
+- 这是理想光学传感器；未增加相机外壳/支架质量、碰撞体、电缆，不是现实安装可行性认证。
+
+复跑（新输出路径，不覆盖本次证据）
+PY="/Users/yishuaicai/.workbuddy/binaries/python/envs/cabto/bin/python"
+ROOT="/Users/yishuaicai/mywork/edps_cabto_exp"
+"$PY" -B "$ROOT/project/run_unified_camera_rig.py" --tasks storage pour handover cover blocks --output "$ROOT/outputs/unified_cameras/new_run"
+
+本入口在场景构造时仅注入camera节点，恢复构造器后调用原已接受程序。构造适配上下文不支持同时多线程创建场景，应串行构造。
+新视角的图片没有输入原控制：五场景本次均用Oracle定位以单独验证相机安装不改变物理结果；单臂strict、双臂weld辅助不变。与之前视觉任务成绩分开。
+
+每个任务输出
+- scene_reference.xml：未加相机的原场景。
+- scene_with_cameras.xml：可直接加载、包含真实腕部和全局相机。
+- rig.json：固定安装参数、相机父body、原物理数组比较与XML哈希。
+- frames/*/capture.json：同一仿真时刻的多相机内参、世界外参、测得相对父体外参、图像hash。
+- evaluation_only_targets/visibility：独立诊断用真值与射线，不是感知输入。射线命中本体不等于精确接触点可见。
+- result.json：原程序执行效果、最终状态与来源hash。
+
+本次最终结果位置
+outputs/unified_cameras/selected_v3/{storage,pour,handover,cover,blocks}
+5个任务均完成原程序；77组同步关键帧，282张原始图像。
+v1/v2安装试验保留在final、mount_v2；v3先导对照保留在mount_v3。不要把不同安装的图混成同一次相机配置。
+
+Qwen诊断对照
+"$PY" -B "$ROOT/project/probe_unified_camera_points.py" --runs "$ROOT/outputs/unified_cameras/selected_v3" --output "$ROOT/outputs/unified_cameras/new_pointing"
+- 28次同帧同提示诊断，四视角分别推理，原始模型回复全部保存。
+- 橙色模型点，青色仅评估参考，不用GT改预测。
+- 条件平面XY误差使用评估真值z，不能当作可部署三维定位精度。
+- 18次返回点、10次拒答只是格式/输出数量，不是定位成功率；仍有同色物体误认和遮挡。
+- 未将新点驱动机器人；当前一律“诊断点”，不是“可执行抓取点”。
+
+测试与报告
+"$PY" -B "$ROOT/project/test_unified_camera_rig.py"
+"$PY" -B "$ROOT/project/build_unified_camera_report.py"
+"$PY" -B "$ROOT/project/build_remaining_report.py"
+"$PY" -B "$ROOT/project/verify_unified_camera_rig.py"
+报告更新到原 outputs/remaining_cabto/index.html。每个场景可切换初始、接近后、搬运上方等阶段，比较同一时刻全局/左右腕/旧overview。
+
+仍需推进
+Storage：先由全局确定物体身份/箱体姿态，再用活动腕部近景细化。箱内槽位无视觉标记，需要箱体姿态与已声明局部偏移，不能任意打箱内点充当槽位。
+Pour：腕部抓柄阶段较清楚；对齐倾倒时源臂仍可能挡盆，需验证观测时机或合法主动观测姿态。
+Handover：侧置腕相机改善可见侧面，但双指接触区与高度需要专门标定，当前未完成视觉接持。

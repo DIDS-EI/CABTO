@@ -1,0 +1,61 @@
+{
+  "origin": "new_posthoc_keyframe_Qwen_diagnostic",
+  "used_in_control": false,
+  "source_image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/pour/final_seed0/POUR/step03/before.png",
+  "source_image_sha256": "c8c366e8f305bac672297f29abb3412e4542eb031b391a393cc5d08ae186c891",
+  "source_episode_result": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/pour/final_seed0/POUR/result.json",
+  "source_episode_sha256": "b6c7c2f6827deb3c6532c5c02d9b4c25414ec63cd0581c7f59390bc035c42a73",
+  "source_step": 3,
+  "action_model": {
+    "name": "pour_into_held_basin",
+    "args": {
+      "arm": "0",
+      "obj": "canL",
+      "dest": "pour_into_held_basin"
+    },
+    "program_kind": "coordinated_pour",
+    "pre": [
+      "holding(0,canL)",
+      "holding(1,basin)",
+      "content_in_source()",
+      "basin_ready()",
+      "collision_free()"
+    ],
+    "add": [
+      "sphere_in_basin()",
+      "caught_by_held_basin()",
+      "payload_retained()"
+    ],
+    "del": [
+      "content_in_source()",
+      "source_upright()"
+    ],
+    "description": "小球由实际倾斜越过水平的源杯转移到仍被另一臂抓持的接收盆；两侧抓持保持，小球留在盆内。"
+  },
+  "original_execution_perception": "oracle_geometry",
+  "camera": "overview",
+  "coordinate_contract": "absolute_pixels",
+  "scope": "semantic region point on a recorded RGB frame, NOT calibrated robot grasp or placement command; no motion or GT evaluation",
+  "call": {
+    "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "text": "Point to the visible interior center of the white receiving basin. Output the pixel coordinate.",
+    "image_files": [
+      "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/pour/final_seed0/POUR/step03/before.png"
+    ],
+    "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the visible interior center of the white receiving basin. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+    "temperature": 0.0,
+    "max_tokens": 220,
+    "raw": "```json\n[\n\t{\"point_2d\": [308, 338], \"label\": \"visible interior center of the white receiving basin\"}\n]\n```",
+    "wall_seconds": 0.7084034170256928
+  },
+  "parse_status": "valid_2d_point",
+  "point": [
+    308.0,
+    338.0
+  ],
+  "field": "point_2d",
+  "image_size": [
+    560,
+    560
+  ]
+}

@@ -1,0 +1,491 @@
+{
+  "task": "storage",
+  "models": [
+    {
+      "name": "pick_source",
+      "args": {
+        "arm": "0",
+        "obj": "item0",
+        "dest": "source"
+      },
+      "program_kind": "pick",
+      "pre": [
+        "empty(0)",
+        "at_source(item0)"
+      ],
+      "add": [
+        "holding(0,item0)"
+      ],
+      "del": [
+        "at_source(item0)",
+        "empty(0)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "parked(0)"
+      ],
+      "description": "绑定物品被指定机械臂抓持并抬离桌面，抓持偏移可用于放置跟踪。"
+    },
+    {
+      "name": "place_tray",
+      "args": {
+        "arm": "0",
+        "obj": "item0",
+        "dest": "tray"
+      },
+      "program_kind": "place",
+      "pre": [
+        "holding(0,item0)",
+        "slot_free(0)"
+      ],
+      "add": [
+        "empty(0)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "packed(0)"
+      ],
+      "del": [
+        "holding(0,item0)",
+        "slot_free(0)"
+      ],
+      "description": "绑定物品已在自由托盘对应槽位内稳定支撑且解除抓持，指定手爪张开并竖直撤离放置面。"
+    },
+    {
+      "name": "park",
+      "args": {
+        "arm": "0",
+        "obj": "none",
+        "dest": "park"
+      },
+      "program_kind": "park",
+      "pre": [
+        "empty(0)",
+        "tray_at_table()"
+      ],
+      "add": [
+        "parked(0)"
+      ],
+      "del": [],
+      "description": "指定机械臂空手张开，已脱离物体周围的竖直障碍区并停泊在共享工作区外。"
+    },
+    {
+      "name": "pick_source",
+      "args": {
+        "arm": "1",
+        "obj": "item1",
+        "dest": "source"
+      },
+      "program_kind": "pick",
+      "pre": [
+        "empty(1)",
+        "at_source(item1)"
+      ],
+      "add": [
+        "holding(1,item1)"
+      ],
+      "del": [
+        "at_source(item1)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(1)",
+        "parked(1)"
+      ],
+      "description": "绑定物品被指定机械臂抓持并抬离桌面，抓持偏移可用于放置跟踪。"
+    },
+    {
+      "name": "place_tray",
+      "args": {
+        "arm": "1",
+        "obj": "item1",
+        "dest": "tray"
+      },
+      "program_kind": "place",
+      "pre": [
+        "holding(1,item1)",
+        "slot_free(1)"
+      ],
+      "add": [
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(1)",
+        "packed(1)"
+      ],
+      "del": [
+        "holding(1,item1)",
+        "slot_free(1)"
+      ],
+      "description": "绑定物品已在自由托盘对应槽位内稳定支撑且解除抓持，指定手爪张开并竖直撤离放置面。"
+    },
+    {
+      "name": "park",
+      "args": {
+        "arm": "1",
+        "obj": "none",
+        "dest": "park"
+      },
+      "program_kind": "park",
+      "pre": [
+        "empty(1)",
+        "tray_at_table()"
+      ],
+      "add": [
+        "parked(1)"
+      ],
+      "del": [],
+      "description": "指定机械臂空手张开，已脱离物体周围的竖直障碍区并停泊在共享工作区外。"
+    },
+    {
+      "name": "park_after_shelf",
+      "args": {
+        "arm": "0",
+        "obj": "none",
+        "dest": "park"
+      },
+      "program_kind": "park",
+      "pre": [
+        "empty(0)",
+        "hands_safe_for_lateral(0)",
+        "tray_on_shelf()"
+      ],
+      "add": [
+        "parked(0)"
+      ],
+      "del": [],
+      "description": "指定机械臂空手张开，已脱离物体周围的竖直障碍区并停泊在共享工作区外。"
+    },
+    {
+      "name": "park_after_shelf",
+      "args": {
+        "arm": "1",
+        "obj": "none",
+        "dest": "park"
+      },
+      "program_kind": "park",
+      "pre": [
+        "empty(1)",
+        "hands_safe_for_lateral(1)",
+        "tray_on_shelf()"
+      ],
+      "add": [
+        "parked(1)"
+      ],
+      "del": [],
+      "description": "指定机械臂空手张开，已脱离物体周围的竖直障碍区并停泊在共享工作区外。"
+    },
+    {
+      "name": "dual_grasp_tray",
+      "args": {
+        "arm": "both",
+        "obj": "tray",
+        "dest": "dual_grasp_tray"
+      },
+      "program_kind": "dual_grasp",
+      "pre": [
+        "packed(0)",
+        "packed(1)",
+        "empty(0)",
+        "empty(1)",
+        "parked(0)",
+        "parked(1)",
+        "tray_at_table()"
+      ],
+      "add": [
+        "dual_holding_tray()"
+      ],
+      "del": [
+        "empty(0)",
+        "empty(1)",
+        "parked(0)",
+        "parked(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)"
+      ],
+      "description": "两个物品仍在桌上托盘内，两臂在把手处闭合并通过已声明的双 weld 辅助共同抓持托盘。"
+    },
+    {
+      "name": "dual_lift_tray",
+      "args": {
+        "arm": "both",
+        "obj": "tray",
+        "dest": "dual_lift_tray"
+      },
+      "program_kind": "cooperative_move",
+      "pre": [
+        "packed(0)",
+        "packed(1)",
+        "dual_holding_tray()",
+        "tray_at_table()"
+      ],
+      "add": [
+        "holding(0,tray)",
+        "holding(1,tray)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_lifted()"
+      ],
+      "del": [
+        "tray_at_table()"
+      ],
+      "description": "两臂保持共同抓持，托盘在原桌面水平位置达到标定运输高度，两个物品仍在托盘内。"
+    },
+    {
+      "name": "dual_translate_tray",
+      "args": {
+        "arm": "both",
+        "obj": "tray",
+        "dest": "dual_translate_tray"
+      },
+      "program_kind": "cooperative_move",
+      "pre": [
+        "packed(0)",
+        "packed(1)",
+        "dual_holding_tray()",
+        "tray_lifted()"
+      ],
+      "add": [
+        "tray_above_shelf()"
+      ],
+      "del": [
+        "tray_lifted()"
+      ],
+      "description": "两臂保持共同抓持，托盘在运输高度位于货架上方，两个物品仍在托盘内。"
+    },
+    {
+      "name": "dual_lower_tray",
+      "args": {
+        "arm": "both",
+        "obj": "tray",
+        "dest": "dual_lower_tray"
+      },
+      "program_kind": "cooperative_move",
+      "pre": [
+        "packed(0)",
+        "packed(1)",
+        "dual_holding_tray()",
+        "tray_above_shelf()"
+      ],
+      "add": [
+        "tray_on_shelf_held()"
+      ],
+      "del": [
+        "tray_above_shelf()"
+      ],
+      "description": "两臂保持共同抓持，托盘位于货架目标位置并获得货架支撑，两个物品仍在托盘内。"
+    },
+    {
+      "name": "dual_release_tray",
+      "args": {
+        "arm": "both",
+        "obj": "tray",
+        "dest": "dual_release_tray"
+      },
+      "program_kind": "dual_release",
+      "pre": [
+        "packed(0)",
+        "packed(1)",
+        "dual_holding_tray()",
+        "tray_on_shelf_held()"
+      ],
+      "add": [
+        "empty(0)",
+        "empty(1)",
+        "hands_near_shelf()",
+        "tray_on_shelf()"
+      ],
+      "del": [
+        "dual_holding_tray()",
+        "holding(0,tray)",
+        "holding(1,tray)",
+        "tray_on_shelf_held()"
+      ],
+      "description": "托盘由货架支撑、双侧抓持 weld 均已解除且两只手爪张开，物品仍在托盘内。"
+    },
+    {
+      "name": "dual_withdraw_hands",
+      "args": {
+        "arm": "both",
+        "obj": "tray",
+        "dest": "dual_withdraw_hands"
+      },
+      "program_kind": "dual_withdraw",
+      "pre": [
+        "packed(0)",
+        "packed(1)",
+        "empty(0)",
+        "empty(1)",
+        "tray_on_shelf()",
+        "hands_near_shelf()"
+      ],
+      "add": [
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)"
+      ],
+      "del": [
+        "hands_near_shelf()"
+      ],
+      "description": "托盘已释放在货架上且物品仍被容纳，两只张开的手均高于把手并满足横向运动的净空条件。"
+    }
+  ],
+  "P": [
+    {
+      "id": "STORAGE",
+      "initial": [
+        "at_source(item0)",
+        "at_source(item1)",
+        "empty(0)",
+        "empty(1)",
+        "hands_raised()",
+        "hands_safe_for_lateral(0)",
+        "hands_safe_for_lateral(1)",
+        "parked(0)",
+        "parked(1)",
+        "slot_free(0)",
+        "slot_free(1)",
+        "tray_at_table()"
+      ],
+      "goal": [
+        "packed(0)",
+        "packed(1)",
+        "parked(0)",
+        "parked(1)",
+        "tray_on_shelf()"
+      ]
+    }
+  ],
+  "initial": [
+    "at_source(item0)",
+    "at_source(item1)",
+    "empty(0)",
+    "empty(1)",
+    "hands_raised()",
+    "hands_safe_for_lateral(0)",
+    "hands_safe_for_lateral(1)",
+    "parked(0)",
+    "parked(1)",
+    "slot_free(0)",
+    "slot_free(1)",
+    "tray_at_table()"
+  ],
+  "goal": [
+    "packed(0)",
+    "packed(1)",
+    "parked(0)",
+    "parked(1)",
+    "tray_on_shelf()"
+  ],
+  "check": {
+    "complete_for_declared_P": true,
+    "tasks": [
+      {
+        "task": "STORAGE",
+        "reached_goal": true,
+        "reason": "符号目标达成",
+        "steps": 14,
+        "action_ids": [
+          "pick_source(arm=1,dest=source,obj=item1)",
+          "place_tray(arm=1,dest=tray,obj=item1)",
+          "park(arm=1,dest=park,obj=none)",
+          "pick_source(arm=0,dest=source,obj=item0)",
+          "place_tray(arm=0,dest=tray,obj=item0)",
+          "park(arm=0,dest=park,obj=none)",
+          "dual_grasp_tray(arm=both,dest=dual_grasp_tray,obj=tray)",
+          "dual_lift_tray(arm=both,dest=dual_lift_tray,obj=tray)",
+          "dual_translate_tray(arm=both,dest=dual_translate_tray,obj=tray)",
+          "dual_lower_tray(arm=both,dest=dual_lower_tray,obj=tray)",
+          "dual_release_tray(arm=both,dest=dual_release_tray,obj=tray)",
+          "dual_withdraw_hands(arm=both,dest=dual_withdraw_hands,obj=tray)",
+          "park_after_shelf(arm=1,dest=park,obj=none)",
+          "park_after_shelf(arm=0,dest=park,obj=none)"
+        ],
+        "final_state": [
+          "empty(0)",
+          "empty(1)",
+          "hands_raised()",
+          "hands_safe_for_lateral(0)",
+          "hands_safe_for_lateral(1)",
+          "packed(0)",
+          "packed(1)",
+          "parked(0)",
+          "parked(1)",
+          "slot_free(0)",
+          "slot_free(1)",
+          "tray_on_shelf()"
+        ],
+        "scope": "symbolic_only"
+      }
+    ],
+    "scope": "finite_P_symbolic_only"
+  },
+  "provenance": {
+    "model": "mlx-community/Qwen3.5-9B-4bit",
+    "mode": "reference_initialized_LM_effect_refinement_from_real_execution",
+    "original_models": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/reference/models.json",
+    "original_sha256": "00f255d86f5b9a8ea24a652b447190d458e962f3c8729f93ed4ac1be1693452d",
+    "counterexample_policy_file": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/sampling_v2/policies.json",
+    "scope": "finite empirical effect refinement, preconditions remain engineering reference"
+  },
+  "config_sha256": "2fca2b8679797f94f1f0841a29a94032efb9e37340656c9f18841e5b73b6098a",
+  "assist": "declared_grasp_weld_assisted",
+  "perception_scope": "blocks_vision_stage_available; dual_policy_sampling_uses_oracle_geometry",
+  "source_hashes": {
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/held_basin_pour_bridge.py": "2b6fde9302cd09982c1c495b96031e6b14e577bd297bbc0a2a7615efc657da51",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/remaining_dual_api.py": "393c014e9be73c98d38f8eec484d8e130419e25a472401a8a84c3608fa32791d",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/handleless_tea_handover.py": "a73365fac620f113a83664acd0d46a7e6ece837e3b189011f6f14aa40a521b9c",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/remaining_handover_api.py": "ac5e6a11a5535bcf91e0bacc58191025466615b753f1482486e98c2028319ec8",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/cover_cabto_grounding.py": "40b47b1e194bb183ed684c9c8700e6697339009d135cbe8048845242fb4c3b01",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/curriculum_bridge.py": "b48fda0a3bc2e15788f1eedfe920c533d5c8e3a833fade47782d69b44fecbe7b",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/remaining_blocks_api.py": "7e7f1316b84e2dfe66e597b7d06146b5f2371d91984709490aee94b012f2788a",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/cover_visual_localizer.py": "7d6cfa01c3d7d0617ab3edb4f7789ecb100f4d9b2fe6ec30b2d196f8c4e407dc",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/single_arm_rebuilt.py": "b0fa4dea63dd23ad93845cac7cbf653616a0832b482a870e6a51a499394a2d52",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/smooth_handover_bridge.py": "2d97523dfc8c2ad3cc993f297e46c31534b92645eac996cfad4c945762edef08",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/cover_generation_fix.py": "cb4d65c52a4f58be1e276d705757e49d546bbbc09ea89241cc8ef20601cf7de8",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/cover_cabto_api.py": "f63f62dd3c3a06b5344853009e36ea49b6e9555efbb04bdb7e152e6d46a22915",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/smooth_held_basin_bridge.py": "fcad66ef6a8923b2ce5feb4d116a891463f7482f5e8f96ba305cc35f29f4d356",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/dual_lift_shelf_bridge.py": "79acdef610d566db52627800e15d82da2aa3b950d58130837a24721032955540",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/run_remaining_cabto.py": "9f479487c3ff123f1b16435815c4df3218b781da0a7bbe35c4c40d13c61b958c",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_cover_reference.py": "d939486f90218f69606560fe0f09a566048710f024aa44cb263e0673bfab4880",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_cover_cabto_negatives.py": "1bf4ce26265506cca37bdd41556125aee44fab038c96294ae7322daa49689e2e",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_held_basin_collision.py": "408d33ca7495f4d67166eb72c359055cb784a9920b0a3c1f10917e0745b6d1bb",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_free_tray_packing.py": "fc2c5bd65ae66854779b8f0d99310a4dd7ddd79940bd62c39f82611d99d63dbf",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_blocks_generated_policy.py": "672cffb822fe604224743f47fc5df124b2dce71ce74b8a76b21e27d74df93dc6",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_held_basin_pour.py": "bbecaa13fdb8b2db6aad1723adaa0d8a1af9681478a9634d832151419f47ffc0",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_curriculum_generated_bt.py": "6ee02a41f233942167760ffa446c525a4887fbd91e3311a2bbb82c98294e3e24",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_cover_generated_bt.py": "a45e256792f89b23bbda1558adb3fec00b8012e3205fcc4cb711f6f0eeb7fade",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_held_basin_codegen.py": "e53e50238c54cd282528bd120f3f3268a6f21d656ad407f6c1aae819090c5d23",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_dual_lift_codegen.py": "9a0276df8d0f6789e77a9c3ac6c3cce86649b8d75156cdada3ade4e52c360416",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_dual_no_snap.py": "f3e873de1e32ebcb739a2094c12473372d7a91003ed799794690f57fba4cff59",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_smooth_held_basin_reference.py": "314abd987ca6f04dad9afa2e4e20170782608c4e66345be68f4e07c70eaef149",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_handleless_generated_bt.py": "463d48fd0feddca7767bc5b3766312e34a63d2e7da4c1421b9e20dbabf8bdb13",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_feasible_curriculum.py": "08314ef8bf47b5fdb7dff5f7f2d4edeeb7a38a93f3cec2e0334476a0db7eef9d",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_blocks_formal_loop.py": "3c34381fffbdc2ae9d2e319a65ada911a1a8325c1ab65589987fd6692ad60806",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_five_scene_preflight.py": "2f6a156443bb414a56532578dcb289aa5281035aa45f5d95f7ff865d4db41e77",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_latest_single_arm_generated_bt.py": "56c37a957b1227a17a60b943274e3df6407e244da2fbcdeac5ec57b9be328830",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_smooth_held_basin_codegen.py": "7701f1193d76602e569ddd3284cc34dbe04ebaf60564aea48ff603bc1def3d7b",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_dual_lift_shelf.py": "80a2edee08d94631d563475d0d105f869793cf7d459dbe17805959627852ccc6",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_stack.py": "969f21b35b07f5f13b2bfdefc4c96b75d87a0f3444b3dbccb86256cb40e8144a",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_dual_common.py": "3ba2f119177c24d1063f9d460efc95870bd04d9179dd7e6a4b9d5f9989b870f6",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/exp4_env.py": "55547fe1a52798b1c83eec2e10d937fff8d1b3a2d156e6396c373f4354913ef3",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/arm_skills.py": "013700555834f26e9a8bee0cf56a8b1acd014659d5656bd93d0a087c4d1e6217",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_storage.py": "bbb9c02742d3b9d7f5e1c2613e98d718a23350ff60c1ae2f1302e97207395c40",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_handover.py": "c5642ff33c9146257027db03135c0f56528d5092aaea95947d6f52f005c2622c",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_cover.py": "4ad8286e2256bbba2cc0c46c6e29008d464713a3dcc1753fa112605332246d09",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_cover2.py": "97a2ad27a33888c27099207480cd752f38d268785df739db2366b2428c1f9747",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_pour.py": "5a74af61f481e7ff4929e490c0c8b611acc34a223cdb8466ae264562c9cc230e",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/planner.py": "cda82c3cea21555ead44ed81eab5422c464413064f7e9a4a259574e8099b631a",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/blocks_scene.py": "a38167851174c30c0bc806fa6852e52bda2456e0d5945816aaa42f4f3b42ede8",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/formal_bt.py": "3adfb1e68ebf7a77d62028c21b4e1436b21149f4f039f9520b21d388e0c92065",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/primitives.py": "b2755e0c65d8255d8f20650f0ef516bd33ae9a20ad491703eed8b7d8840fac9a",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/effect_checker.py": "9ca4505a13efb7d502263fce63339ad5eb55dbdc139ac8b589120d091ca42b4b",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/feedback.py": "4a73e1c873c58e1bb16c989ab53334a2d7d5e49e8472b8c1614b1a1410e7ad18",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/policy_codegen.py": "5bdd98f067ff5818a9acdf0f1dfa504b62118588ee1e2a5f6f26898cd5013763",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/blocks_env.py": "d6d9289160c5e0b6f6d9732387237488425083289a953aa7fd7127a34be1de74",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/test_loop_oracle.py": "999f5764bc08e9aa4f8666a55a1b1fc45b7950267bdd452e848195249ed42891",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/world_state.py": "0ecb47d1a170e38388bd670a50e5d2c69ab48559dbfec19a63094d16a319ea4c",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/cover_bridge.py": "d1653466cdcd1977707f5a1776597a80fed13c272f8800b89df5b6f98b36771b",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/loop.py": "9870533af30376210aab29de6d41efb13a8d86fd7a0e333af2f07eb03484315b",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/llm_backend.py": "74725cd67640166c1451ac9622381d4d920565a34df861797bd6557b694af3c4",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/vlm_pointer3d.py": "7d7bf7cbe3d7ed8a802d01a022c431f2f4e77845860711906129caaf8fdb69e3",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/codegen.py": "b81a2701a79ab9f7a6491e164b5c913f7e6497a38a71432b3349f36cdce2f715"
+  }
+}

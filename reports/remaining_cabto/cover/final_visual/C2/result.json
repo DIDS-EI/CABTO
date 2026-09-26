@@ -1,0 +1,867 @@
+{
+  "task": {
+    "id": "C2",
+    "initial": [
+      "at_source(apple)",
+      "at_source(potato)",
+      "at_source(shrimp)",
+      "empty()"
+    ],
+    "goal": [
+      "at_target(apple)",
+      "at_target(shrimp)",
+      "empty()",
+      "home_completed()"
+    ]
+  },
+  "seed": 0,
+  "perception": "qwen_rgb",
+  "config_sha256": "87831738dd2d6544b3a82e860800830135b30fc8091aa1e677f8789b77cceb4c",
+  "steps": [
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "before": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "at_source(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(potato)",
+        "at_source(shrimp)",
+        "holding(apple)"
+      ],
+      "model": {
+        "name": "pick",
+        "args": {
+          "object": "apple",
+          "support": "board"
+        },
+        "pre": [
+          "empty()",
+          "at_source(apple)"
+        ],
+        "add": [
+          "holding(apple)"
+        ],
+        "del": [
+          "empty()",
+          "at_source(apple)",
+          "home_completed()"
+        ]
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "grasp_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.48941423888424657,
+            -0.1891855618932961,
+            0.4229845037681055
+          ]
+        },
+        {
+          "method": "approach",
+          "args": [
+            [
+              0.48941423888424657,
+              -0.1891855618932961,
+              0.4229845037681055
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "descend",
+          "args": [
+            [
+              0.48941423888424657,
+              -0.1891855618932961,
+              0.4229845037681055
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "close_gripper",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "lift",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "forbidden_contacts": [],
+      "code_sha256": "7ab1050f759e338e964f00731fbed8769bd7483aea99b613f9c8fb6d408b1bf6"
+    },
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "before": [
+        "at_source(potato)",
+        "at_source(shrimp)",
+        "holding(apple)"
+      ],
+      "after": [
+        "at_source(potato)",
+        "at_source(shrimp)",
+        "at_target(apple)",
+        "empty()"
+      ],
+      "model": {
+        "name": "place",
+        "args": {
+          "object": "apple",
+          "support": "board"
+        },
+        "pre": [
+          "holding(apple)"
+        ],
+        "add": [
+          "at_target(apple)",
+          "empty()"
+        ],
+        "del": [
+          "holding(apple)",
+          "home_completed()"
+        ]
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "destination_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.48972694899761854,
+            0.15976070710699758,
+            0.447
+          ]
+        },
+        {
+          "method": "carry",
+          "args": [
+            [
+              0.48972694899761854,
+              0.15976070710699758,
+              0.447
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "destination_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.48972694899761854,
+            0.15976070710699758,
+            0.447
+          ]
+        },
+        {
+          "method": "lower",
+          "args": [
+            [
+              0.48972694899761854,
+              0.15976070710699758,
+              0.447
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "open_gripper",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "withdraw",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "forbidden_contacts": [],
+      "code_sha256": "7bd21b38784bb86e0c933dc0c29a50adafc03453e3f3011c698b85fba1cc2fd5"
+    },
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "before": [
+        "at_source(potato)",
+        "at_source(shrimp)",
+        "at_target(apple)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(potato)",
+        "at_target(apple)",
+        "holding(shrimp)"
+      ],
+      "model": {
+        "name": "pick",
+        "args": {
+          "object": "shrimp",
+          "support": "bowl"
+        },
+        "pre": [
+          "empty()",
+          "at_source(shrimp)"
+        ],
+        "add": [
+          "holding(shrimp)"
+        ],
+        "del": [
+          "empty()",
+          "at_source(shrimp)",
+          "home_completed()"
+        ]
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "grasp_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.30884225106326024,
+            -0.18937603182449567,
+            0.4100006199279825
+          ]
+        },
+        {
+          "method": "approach",
+          "args": [
+            [
+              0.30884225106326024,
+              -0.18937603182449567,
+              0.4100006199279825
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "descend",
+          "args": [
+            [
+              0.30884225106326024,
+              -0.18937603182449567,
+              0.4100006199279825
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "close_gripper",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "lift",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "forbidden_contacts": [],
+      "code_sha256": "3adc93a99d786d25338e4ab0a783d33cf28dbae61693c30173c78164ab32f6d4"
+    },
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "before": [
+        "at_source(potato)",
+        "at_target(apple)",
+        "holding(shrimp)"
+      ],
+      "after": [
+        "at_source(potato)",
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "model": {
+        "name": "place",
+        "args": {
+          "object": "shrimp",
+          "support": "bowl"
+        },
+        "pre": [
+          "holding(shrimp)"
+        ],
+        "add": [
+          "at_target(shrimp)",
+          "empty()"
+        ],
+        "del": [
+          "holding(shrimp)",
+          "home_completed()"
+        ]
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "destination_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.30943169387437963,
+            0.16051574759716847,
+            0.41600000000000004
+          ]
+        },
+        {
+          "method": "carry",
+          "args": [
+            [
+              0.30943169387437963,
+              0.16051574759716847,
+              0.41600000000000004
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "destination_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.30943169387437963,
+            0.16051574759716847,
+            0.41600000000000004
+          ]
+        },
+        {
+          "method": "lower",
+          "args": [
+            [
+              0.30943169387437963,
+              0.16051574759716847,
+              0.41600000000000004
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "open_gripper",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "withdraw",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "forbidden_contacts": [],
+      "code_sha256": "7bd21b38784bb86e0c933dc0c29a50adafc03453e3f3011c698b85fba1cc2fd5"
+    },
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "before": [
+        "at_source(potato)",
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(potato)",
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "empty()",
+        "home_completed()"
+      ],
+      "model": {
+        "name": "home",
+        "pre": [
+          "empty()"
+        ],
+        "add": [
+          "home_completed()"
+        ],
+        "del": [],
+        "args": {}
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "return_home",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "forbidden_contacts": [],
+      "code_sha256": "ab0ee04ddd7a2da959babc4fd9bb5c71364129d4f33dad0d97e70fcd345c474f"
+    }
+  ],
+  "success": true,
+  "observation_change": {
+    "before": {
+      "position": [
+        1.3,
+        -0.9,
+        1.16
+      ],
+      "quat": [
+        0.7997614584973072,
+        0.4774304817102364,
+        0.18654055578397769,
+        0.31248098451585227
+      ],
+      "fovy": 43.0
+    },
+    "after": {
+      "name": "front",
+      "position": [
+        0.47,
+        0.0,
+        1.5
+      ],
+      "quat": [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fovy": 45.0
+    },
+    "change": "observation-only camera extrinsics; no physical scene/control change"
+  },
+  "goal_reached": true,
+  "mechanical_ok": true,
+  "metrics": {
+    "objects": {
+      "shrimp": {
+        "ok": true,
+        "xy_error_m": 0.003497796965966,
+        "gap_m": -0.00899988867510465,
+        "tilt_deg": 2.826344790773287,
+        "support_contact": true,
+        "support_upright": true,
+        "base_displacement_m": 0.0,
+        "origin": [
+          0.3095142354661903,
+          0.1565360980913407,
+          0.4070001113248954
+        ]
+      },
+      "apple": {
+        "ok": true,
+        "xy_error_m": 0.0004422907413834224,
+        "gap_m": -0.002015362729801795,
+        "tilt_deg": 0.0019194335488198191,
+        "support_contact": true,
+        "support_upright": true,
+        "base_displacement_m": 0.0,
+        "origin": [
+          0.4896332654522587,
+          0.1597527615090515,
+          0.4449846372701982
+        ]
+      },
+      "potato": {
+        "ok": false,
+        "xy_error_m": 0.3500000038531523,
+        "gap_m": -0.015019163841071326,
+        "tilt_deg": 2.4847600183148248e-05,
+        "support_contact": false,
+        "support_upright": true,
+        "base_displacement_m": 0.0,
+        "origin": [
+          0.6700000050474401,
+          -0.19000000385315224,
+          0.4149808361589287
+        ]
+      }
+    },
+    "released": true,
+    "hand_clearance_m": {
+      "shrimp": 0.5051420736233735,
+      "apple": 0.504464723647146,
+      "potato": 0.6252291052652837
+    },
+    "final_home": true,
+    "home_error_rad": 3.3740342117067707e-09,
+    "completed_targets_preserved": true,
+    "forbidden_contacts": [],
+    "max_grasp_relative_slip_m": 0.010589425080254511,
+    "max_bilateral_contact_gap_s": 0.0,
+    "strict_weld_violation": false,
+    "grasp_verified": true,
+    "motion_verified": true,
+    "success": false
+  },
+  "observed_state": [
+    "at_source(potato)",
+    "at_target(apple)",
+    "at_target(shrimp)",
+    "empty()",
+    "home_completed()"
+  ],
+  "bt_status": "success",
+  "simulation_seconds": 76.32000000000353,
+  "weld_active": [],
+  "perception_records": [
+    {
+      "object": "bowl",
+      "point_kind": "support_floor_center",
+      "height_prior": 0.40800000000000003,
+      "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+      "source": "Qwen semantic point + RGB refinement + calibrated plane",
+      "fallback": false,
+      "image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C2/perception/000_bowl.png",
+      "call": {
+        "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+        "text": "Point to the center of the white bowl interior. Output the pixel coordinate.",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C2/perception/000_bowl.png"
+        ],
+        "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the center of the white bowl interior. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+        "temperature": 0.0,
+        "max_tokens": 200,
+        "raw": "```json\n[\n\t{\"point_2d\": [238, 238], \"label\": \"center of the white bowl interior\"}\n]\n```",
+        "wall_seconds": 1.6290702921105549
+      },
+      "field": "point_2d",
+      "coordinate_contract": "absolute_pixel",
+      "refinement": {
+        "method": "white_component_outer_ellipse_center",
+        "roi": [
+          154,
+          154,
+          323,
+          323
+        ],
+        "component_area": 10236,
+        "coarse_uv": [
+          238.0,
+          238.0
+        ],
+        "refined_uv": [
+          226.58448791503906,
+          226.62815856933594
+        ],
+        "semantic_prior": "bowl"
+      },
+      "observed_feature_plane_z": 0.454,
+      "feature_height_source": "frozen manual rim geometry: bowl .029+.025, pan .021+.018; no xy prior",
+      "xyz": [
+        0.30943169387437963,
+        0.16051574759716847,
+        0.40800000000000003
+      ],
+      "uv": [
+        226.58448791503906,
+        226.62815856933594
+      ]
+    },
+    {
+      "object": "board",
+      "point_kind": "support_floor_center",
+      "height_prior": 0.42400000000000004,
+      "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+      "source": "Qwen semantic point + RGB refinement + calibrated plane",
+      "fallback": false,
+      "image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C2/perception/001_board.png",
+      "call": {
+        "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+        "text": "Point to the center of the wooden chopping board. Output the pixel coordinate.",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C2/perception/001_board.png"
+        ],
+        "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the center of the wooden chopping board. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+        "temperature": 0.0,
+        "max_tokens": 200,
+        "raw": "```json\n[\n\t{\"point_2d\": [378, 238], \"label\": \"center of the wooden chopping board\"}\n]\n```",
+        "wall_seconds": 1.5427057079505175
+      },
+      "field": "point_2d",
+      "coordinate_contract": "absolute_pixel",
+      "refinement": {
+        "method": "component_centroid",
+        "roi": [
+          294,
+          154,
+          463,
+          323
+        ],
+        "component_area": 12780,
+        "coarse_uv": [
+          378.0,
+          238.0
+        ],
+        "refined_uv": [
+          375.9340375586854,
+          230.95657276995306
+        ],
+        "semantic_prior": "board"
+      },
+      "observed_feature_plane_z": 0.42400000000000004,
+      "feature_height_source": "frozen manual rim geometry: bowl .029+.025, pan .021+.018; no xy prior",
+      "xyz": [
+        0.48972694899761854,
+        0.15976070710699758,
+        0.42400000000000004
+      ],
+      "uv": [
+        375.9340375586854,
+        230.95657276995306
+      ]
+    },
+    {
+      "object": "apple",
+      "point_kind": "grasp_center",
+      "height_prior": 0.4229845037681055,
+      "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+      "source": "Qwen semantic point + RGB refinement + calibrated plane",
+      "fallback": false,
+      "image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C2/perception/002_apple.png",
+      "call": {
+        "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+        "text": "Point to the red apple. Output the pixel coordinate.",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C2/perception/002_apple.png"
+        ],
+        "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the red apple. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+        "temperature": 0.0,
+        "max_tokens": 200,
+        "raw": "```json\n[\n\t{\"point_2d\": [382, 518], \"label\": \"red apple\"}\n]\n```",
+        "wall_seconds": 1.5075639170827344
+      },
+      "field": "point_2d",
+      "coordinate_contract": "absolute_pixel",
+      "refinement": {
+        "method": "maximum_inscribed_disc",
+        "roi": [
+          346,
+          482,
+          419,
+          555
+        ],
+        "component_area": 1262,
+        "coarse_uv": [
+          382.0,
+          518.0
+        ],
+        "refined_uv": [
+          375.6666666666667,
+          512.6666666666666
+        ],
+        "semantic_prior": "apple"
+      },
+      "observed_feature_plane_z": 0.4229845037681055,
+      "feature_height_source": "frozen manual rim geometry: bowl .029+.025, pan .021+.018; no xy prior",
+      "xyz": [
+        0.48941423888424657,
+        -0.1891855618932961,
+        0.4229845037681055
+      ],
+      "uv": [
+        375.6666666666667,
+        512.6666666666666
+      ]
+    },
+    {
+      "object": "board",
+      "cached": true,
+      "xyz": [
+        0.48972694899761854,
+        0.15976070710699758,
+        0.42400000000000004
+      ],
+      "origin": "initial RGB/Qwen static support",
+      "fallback": false
+    },
+    {
+      "object": "board",
+      "cached": true,
+      "xyz": [
+        0.48972694899761854,
+        0.15976070710699758,
+        0.42400000000000004
+      ],
+      "origin": "initial RGB/Qwen static support",
+      "fallback": false
+    },
+    {
+      "object": "shrimp",
+      "point_kind": "grasp_center",
+      "height_prior": 0.4100006199279825,
+      "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+      "source": "Qwen semantic point + RGB refinement + calibrated plane",
+      "fallback": false,
+      "image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C2/perception/005_shrimp.png",
+      "call": {
+        "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+        "text": "Point to the orange shrimp. Output the pixel coordinate.",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C2/perception/005_shrimp.png"
+        ],
+        "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the orange shrimp. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+        "temperature": 0.0,
+        "max_tokens": 200,
+        "raw": "```json\n[\n\t{\"point_2d\": [222, 511], \"label\": \"orange shrimp\"}\n]\n```",
+        "wall_seconds": 1.3120676670223475
+      },
+      "field": "point_2d",
+      "coordinate_contract": "absolute_pixel",
+      "refinement": {
+        "method": "maximum_inscribed_disc",
+        "roi": [
+          186,
+          475,
+          259,
+          548
+        ],
+        "component_area": 878,
+        "coarse_uv": [
+          222.0,
+          511.0
+        ],
+        "refined_uv": [
+          231.5,
+          511.0
+        ],
+        "semantic_prior": "shrimp"
+      },
+      "observed_feature_plane_z": 0.4100006199279825,
+      "feature_height_source": "frozen manual rim geometry: bowl .029+.025, pan .021+.018; no xy prior",
+      "xyz": [
+        0.30884225106326024,
+        -0.18937603182449567,
+        0.4100006199279825
+      ],
+      "uv": [
+        231.5,
+        511.0
+      ]
+    },
+    {
+      "object": "bowl",
+      "cached": true,
+      "xyz": [
+        0.30943169387437963,
+        0.16051574759716847,
+        0.40800000000000003
+      ],
+      "origin": "initial RGB/Qwen static support",
+      "fallback": false
+    },
+    {
+      "object": "bowl",
+      "cached": true,
+      "xyz": [
+        0.30943169387437963,
+        0.16051574759716847,
+        0.40800000000000003
+      ],
+      "origin": "initial RGB/Qwen static support",
+      "fallback": false
+    }
+  ]
+}

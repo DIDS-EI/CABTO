@@ -1,0 +1,168 @@
+{
+  "passed": true,
+  "validation_scope": "presentation_integrity_not_new_physical_trials",
+  "scene_order": [
+    "cover",
+    "blocks",
+    "pour",
+    "handover",
+    "storage"
+  ],
+  "image_groups": {
+    "cover": 6,
+    "blocks": 4,
+    "pour": 3,
+    "handover": 3,
+    "storage": 4
+  },
+  "closed_loop_images": 10,
+  "supplementary_diagnostic_images": 10,
+  "original_executions": 17,
+  "original_transitions": 113,
+  "preserved_original_sources": true,
+  "cover_copy_hashes_match": true,
+  "local_links_checked": 342,
+  "broken_links": [],
+  "image_evidence": [
+    {
+      "task": "cover",
+      "title": "碗内放置点",
+      "used_in_control": true,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "cover",
+      "title": "砧板放置点",
+      "used_in_control": true,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "cover",
+      "title": "锅内放置点",
+      "used_in_control": true,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "cover",
+      "title": "土豆抓取点",
+      "used_in_control": true,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "cover",
+      "title": "苹果抓取点",
+      "used_in_control": true,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "cover",
+      "title": "小虾抓取点",
+      "used_in_control": true,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "blocks",
+      "title": "绿色支撑积木",
+      "used_in_control": true,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "blocks",
+      "title": "蓝色支撑积木",
+      "used_in_control": true,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "blocks",
+      "title": "红色待叠积木",
+      "used_in_control": true,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "blocks",
+      "title": "黄色待叠积木",
+      "used_in_control": true,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "pour",
+      "title": "源杯区域 · 抓杯前",
+      "used_in_control": false,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "pour",
+      "title": "接收盆把手 · 抓盆前",
+      "used_in_control": false,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "pour",
+      "title": "盆内区域 · 倾倒前",
+      "used_in_control": false,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "handover",
+      "title": "活动茶盒 · 交出臂抓取前",
+      "used_in_control": false,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "handover",
+      "title": "空中茶盒 · 接收前",
+      "used_in_control": false,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "handover",
+      "title": "接收臂持盒 · 放置前",
+      "used_in_control": false,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "storage",
+      "title": "绿色积木 · 装箱前",
+      "used_in_control": false,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "storage",
+      "title": "另一件积木 · 抓取前",
+      "used_in_control": false,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "storage",
+      "title": "纸箱内部 · 放入前",
+      "used_in_control": false,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    },
+    {
+      "task": "storage",
+      "title": "货架承载面 · 搬箱前",
+      "used_in_control": false,
+      "raw_reply_matches_point": true,
+      "image_sha256_valid": true
+    }
+  ]
+}

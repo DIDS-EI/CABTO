@@ -1,0 +1,144 @@
+.............................
+----------------------------------------------------------------------
+Ran 29 tests in 0.321s
+
+OK
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 0.276s
+
+OK
+test_audit_classifies_container_container_contact (__main__.AuditTests.test_audit_classifies_container_container_contact) ... ok
+test_audit_classifies_inter_arm_contact (__main__.AuditTests.test_audit_classifies_inter_arm_contact) ... ok
+test_audit_classifies_left_arm_basin_contact (__main__.AuditTests.test_audit_classifies_left_arm_basin_contact) ... ok
+test_audit_classifies_right_arm_source_contact (__main__.AuditTests.test_audit_classifies_right_arm_source_contact) ... ok
+test_audit_ignores_left_arm_own_source_contact (__main__.AuditTests.test_audit_ignores_left_arm_own_source_contact) ... ok
+test_audit_ignores_normal_sphere_basin_contact (__main__.AuditTests.test_audit_ignores_normal_sphere_basin_contact) ... ok
+test_audit_ignores_right_arm_own_basin_contact (__main__.AuditTests.test_audit_ignores_right_arm_own_basin_contact) ... ok
+test_negative_penetration_history_keeps_collision_free_false (__main__.AuditTests.test_negative_penetration_history_keeps_collision_free_false) ... ok
+test_controlled_home_interpolation_reaches_home_endpoint (__main__.ControlledHomeTests.test_controlled_home_interpolation_reaches_home_endpoint) ... ok
+test_controlled_home_rejects_unreleased_task_object (__main__.ControlledHomeTests.test_controlled_home_rejects_unreleased_task_object) ... ok
+test_controlled_home_uses_step_joint_without_writing_qpos (__main__.ControlledHomeTests.test_controlled_home_uses_step_joint_without_writing_qpos) ... ok
+test_stable_goal_accepts_only_complete_goal_with_sphere_still_in_basin (__main__.FinalGoalTests.test_stable_goal_accepts_only_complete_goal_with_sphere_still_in_basin) ... ok
+test_stable_goal_rejects_each_missing_final_requirement (__main__.FinalGoalTests.test_stable_goal_rejects_each_missing_final_requirement) ... ok
+test_all_ten_models_validate (__main__.FormalModelTests.test_all_ten_models_validate) ... ok
+test_basin_return_depends_on_source_home (__main__.FormalModelTests.test_basin_return_depends_on_source_home) ... ok
+test_collision_free_is_a_precondition_of_every_action (__main__.FormalModelTests.test_collision_free_is_a_precondition_of_every_action) ... ok
+test_final_goal_has_all_and_only_required_predicates (__main__.FormalModelTests.test_final_goal_has_all_and_only_required_predicates) ... ok
+test_formal_bt_dry_run_reaches_complete_goal_in_exactly_ten_steps (__main__.FormalModelTests.test_formal_bt_dry_run_reaches_complete_goal_in_exactly_ten_steps) ... ok
+test_pick_basin_deletes_initial_returned_home_and_raised (__main__.FormalModelTests.test_pick_basin_deletes_initial_returned_home_and_raised) ... ok
+test_pick_source_deletes_initial_returned_home_and_raised (__main__.FormalModelTests.test_pick_source_deletes_initial_returned_home_and_raised) ... ok
+test_pour_deletes_source_upright (__main__.FormalModelTests.test_pour_deletes_source_upright) ... ok
+test_receiver_home_depends_on_basin_return_and_source_home (__main__.FormalModelTests.test_receiver_home_depends_on_basin_return_and_source_home) ... ok
+test_source_home_depends_on_source_return (__main__.FormalModelTests.test_source_home_depends_on_source_return) ... ok
+test_source_return_depends_on_restored_upright (__main__.FormalModelTests.test_source_return_depends_on_restored_upright) ... ok
+test_ten_models_have_unique_grounded_ids (__main__.FormalModelTests.test_ten_models_have_unique_grounded_ids) ... ok
+test_dirty_home_requires_controlled_home_event (__main__.HomeTests.test_dirty_home_requires_controlled_home_event) ... ok
+test_home_only_requires_this_arm_object_released (__main__.HomeTests.test_home_only_requires_this_arm_object_released) ... ok
+test_home_rejects_this_arm_object_still_held (__main__.HomeTests.test_home_rejects_this_arm_object_still_held) ... ok
+test_home_requires_actual_qpos_near_home (__main__.HomeTests.test_home_requires_actual_qpos_near_home) ... ok
+test_home_requires_open_gripper (__main__.HomeTests.test_home_requires_open_gripper) ... ok
+test_atomic_return_rejects_unreleased_grasp_before_retreat (__main__.RestrictedReturnApiTests.test_atomic_return_rejects_unreleased_grasp_before_retreat) ... ok
+test_basin_return_object_consumes_preoffset (__main__.RestrictedReturnApiTests.test_basin_return_object_consumes_preoffset) ... ok
+test_inherited_target_api_rejects_forged_present_target (__main__.RestrictedReturnApiTests.test_inherited_target_api_rejects_forged_present_target) ... ok
+test_reference_return_program_calls_atomic_return (__main__.RestrictedReturnApiTests.test_reference_return_program_calls_atomic_return) ... ok
+test_return_api_exposes_only_atomic_return_object (__main__.RestrictedReturnApiTests.test_return_api_exposes_only_atomic_return_object) ... ok
+test_source_return_object_consumes_preoffset (__main__.RestrictedReturnApiTests.test_source_return_object_consumes_preoffset) ... ok
+test_return_geometry_accepts_xy_bottom_full_rotation_and_release (__main__.ReturnGeometryTests.test_return_geometry_accepts_xy_bottom_full_rotation_and_release) ... ok
+test_return_geometry_rejects_bad_bottom_height (__main__.ReturnGeometryTests.test_return_geometry_rejects_bad_bottom_height) ... ok
+test_return_geometry_rejects_bad_xy (__main__.ReturnGeometryTests.test_return_geometry_rejects_bad_xy) ... ok
+test_return_geometry_rejects_full_yaw_rotation_error (__main__.ReturnGeometryTests.test_return_geometry_rejects_full_yaw_rotation_error) ... ok
+test_return_geometry_rejects_unreleased_object (__main__.ReturnGeometryTests.test_return_geometry_rejects_unreleased_object) ... ok
+test_basin_handle_bridge_consumes_radius_and_offset (__main__.V2SceneTests.test_basin_handle_bridge_consumes_radius_and_offset) ... ok
+test_basin_handle_offset_is_consumed_by_body_origin (__main__.V2SceneTests.test_basin_handle_offset_is_consumed_by_body_origin) ... ok
+test_basin_radius_is_consumed_by_bottom_geometry (__main__.V2SceneTests.test_basin_radius_is_consumed_by_bottom_geometry) ... ok
+test_building_v2_does_not_change_v1_file (__main__.V2SceneTests.test_building_v2_does_not_change_v1_file) ... ok
+test_left_base_consumes_distinct_v2_xy (__main__.V2SceneTests.test_left_base_consumes_distinct_v2_xy) ... ok
+test_real_v2_scene_compiles_headless_without_stepping (__main__.V2SceneTests.test_real_v2_scene_compiles_headless_without_stepping) ... ok
+test_right_base_consumes_distinct_v2_xy (__main__.V2SceneTests.test_right_base_consumes_distinct_v2_xy) ... ok
+test_source_cup_wall_consumes_configured_height (__main__.V2SceneTests.test_source_cup_wall_consumes_configured_height) ... ok
+test_source_transport_height_is_v2_value (__main__.V2SceneTests.test_source_transport_height_is_v2_value) ... ok
+test_v1_legacy_values_remain_intact (__main__.V2SceneTests.test_v1_legacy_values_remain_intact) ... ok
+test_v2_bases_are_offset_in_both_x_and_y (__main__.V2SceneTests.test_v2_bases_are_offset_in_both_x_and_y) ... ok
+test_v2_version_and_free_objects (__main__.V2SceneTests.test_v2_version_and_free_objects) ... ok
+
+----------------------------------------------------------------------
+Ran 53 tests in 0.430s
+
+OK
+test_dual_move_accepts_both_residuals_below_30mm_and_restores_bias (__main__.DualMoveResidualTests.test_dual_move_accepts_both_residuals_below_30mm_and_restores_bias) ... ok
+test_dual_move_rejects_left_residual_over_30mm (__main__.DualMoveResidualTests.test_dual_move_rejects_left_residual_over_30mm) ... ok
+test_dual_move_rejects_right_residual_over_30mm (__main__.DualMoveResidualTests.test_dual_move_rejects_right_residual_over_30mm) ... ok
+test_goal_fails_when_item0_rotated_corner_leaves_tray (__main__.GoalContainmentTests.test_goal_fails_when_item0_rotated_corner_leaves_tray) ... ok
+test_goal_fails_when_item1_rotated_corner_leaves_tray (__main__.GoalContainmentTests.test_goal_fails_when_item1_rotated_corner_leaves_tray) ... ok
+test_goal_requires_each_item_released (__main__.GoalContainmentTests.test_goal_requires_each_item_released) ... ok
+test_footprint_accepts_all_four_corners_on_shelf (__main__.HandleAndFootprintTests.test_footprint_accepts_all_four_corners_on_shelf) ... ok
+test_footprint_rejects_when_only_center_is_on_shelf (__main__.HandleAndFootprintTests.test_footprint_rejects_when_only_center_is_on_shelf) ... ok
+test_handle_world_rotates_left_handle_with_positive_yaw (__main__.HandleAndFootprintTests.test_handle_world_rotates_left_handle_with_positive_yaw) ... ok
+test_handle_world_rotates_right_handle_with_positive_yaw (__main__.HandleAndFootprintTests.test_handle_world_rotates_right_handle_with_positive_yaw) ... ok
+test_new_scene_initializes_headless_without_qpos_execution_edits (__main__.RealMujocoInitializationTests.test_new_scene_initializes_headless_without_qpos_execution_edits)
+仅检查 render=False 初态；不写 qpos，不把初态当作任务执行证据。 ... ok
+test_box_panels_are_thicker_than_v2 (__main__.SceneConstructionTests.test_box_panels_are_thicker_than_v2) ... ok
+test_building_new_scene_does_not_modify_its_config_file (__main__.SceneConstructionTests.test_building_new_scene_does_not_modify_its_config_file) ... ok
+test_cardboard_box_has_physical_connected_flaps_tape_and_label (__main__.SceneConstructionTests.test_cardboard_box_has_physical_connected_flaps_tape_and_label) ... ok
+test_flaps_are_smaller_and_overlap_wall_hinges (__main__.SceneConstructionTests.test_flaps_are_smaller_and_overlap_wall_hinges) ... ok
+test_initial_bricks_are_intentionally_asymmetric (__main__.SceneConstructionTests.test_initial_bricks_are_intentionally_asymmetric) ... ok
+test_left_handle_and_joint_are_physically_contiguous (__main__.SceneConstructionTests.test_left_handle_and_joint_are_physically_contiguous) ... ok
+test_new_scene_has_free_tray (__main__.SceneConstructionTests.test_new_scene_has_free_tray) ... ok
+test_new_scene_has_two_arm_specific_inactive_tray_welds (__main__.SceneConstructionTests.test_new_scene_has_two_arm_specific_inactive_tray_welds) ... ok
+test_old_free_tray_xml_matches_existing_reference_hash (__main__.SceneConstructionTests.test_old_free_tray_xml_matches_existing_reference_hash) ... ok
+test_old_frozen_xml_matches_existing_reference_hash (__main__.SceneConstructionTests.test_old_frozen_xml_matches_existing_reference_hash) ... ok
+test_old_scenes_have_no_new_handle_shelf_or_tray_weld_elements (__main__.SceneConstructionTests.test_old_scenes_have_no_new_handle_shelf_or_tray_weld_elements) ... ok
+test_right_handle_and_joint_are_physically_contiguous (__main__.SceneConstructionTests.test_right_handle_and_joint_are_physically_contiguous) ... ok
+test_shelf_is_fixed_and_top_matches_config (__main__.SceneConstructionTests.test_shelf_is_fixed_and_top_matches_config) ... ok
+test_shelf_is_wood_metal_open_frame (__main__.SceneConstructionTests.test_shelf_is_wood_metal_open_frame) ... ok
+test_storage_style_has_green_toy_brick_details (__main__.SceneConstructionTests.test_storage_style_has_green_toy_brick_details) ... ok
+test_total_tray_geom_mass_matches_config (__main__.SceneConstructionTests.test_total_tray_geom_mass_matches_config) ... ok
+test_v3_physical_box_is_not_mislabeled_visual_only (__main__.SceneConstructionTests.test_v3_physical_box_is_not_mislabeled_visual_only) ... ok
+test_support_contact_requires_tray_shelf_pair_and_small_distance (__main__.ShelfPredicateTests.test_support_contact_requires_tray_shelf_pair_and_small_distance) ... ok
+test_tray_on_shelf_accepts_complete_goal_state (__main__.ShelfPredicateTests.test_tray_on_shelf_accepts_complete_goal_state) ... ok
+test_tray_on_shelf_checks_full_rotation_including_yaw (__main__.ShelfPredicateTests.test_tray_on_shelf_checks_full_rotation_including_yaw) ... ok
+test_tray_on_shelf_requires_left_hand_open (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_left_hand_open) ... ok
+test_tray_on_shelf_requires_left_weld_inactive (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_left_weld_inactive) ... ok
+test_tray_on_shelf_requires_right_hand_open (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_right_hand_open) ... ok
+test_tray_on_shelf_requires_right_weld_inactive (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_right_weld_inactive) ... ok
+test_tray_on_shelf_requires_support_contact (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_support_contact) ... ok
+test_tray_on_shelf_requires_xy (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_xy) ... ok
+test_tray_on_shelf_requires_z (__main__.ShelfPredicateTests.test_tray_on_shelf_requires_z) ... ok
+test_tray_weld_active_reads_each_arm_specific_equality (__main__.ShelfPredicateTests.test_tray_weld_active_reads_each_arm_specific_equality) ... ok
+
+----------------------------------------------------------------------
+Ran 39 tests in 0.424s
+
+OK
+test_missing_required_transition_call_rejects_custom_program (__main__.ExecuteTransitionEvidenceTests.test_missing_required_transition_call_rejects_custom_program) ... ok
+test_observed_required_transition_call_preserves_base_success (__main__.ExecuteTransitionEvidenceTests.test_observed_required_transition_call_preserves_base_success) ... ok
+test_all_fourteen_action_models_validate (__main__.FormalModelTests.test_all_fourteen_action_models_validate) ... ok
+test_dual_grasp_preserves_table_fact_and_deletes_clearance_facts (__main__.FormalModelTests.test_dual_grasp_preserves_table_fact_and_deletes_clearance_facts) ... ok
+test_formal_bt_symbolic_dry_run_reaches_goal_in_fourteen_actions (__main__.FormalModelTests.test_formal_bt_symbolic_dry_run_reaches_goal_in_fourteen_actions) ... ok
+test_lift_model_starts_the_cooperative_move_chain (__main__.FormalModelTests.test_lift_model_starts_the_cooperative_move_chain) ... ok
+test_lower_model_consumes_above_and_adds_supported_held (__main__.FormalModelTests.test_lower_model_consumes_above_and_adds_supported_held) ... ok
+test_release_requires_packed_dual_held_supported_tray (__main__.FormalModelTests.test_release_requires_packed_dual_held_supported_tray) ... ok
+test_table_park_and_shelf_park_have_distinct_physical_contexts (__main__.FormalModelTests.test_table_park_and_shelf_park_have_distinct_physical_contexts) ... ok
+test_translate_model_consumes_lifted_and_adds_above (__main__.FormalModelTests.test_translate_model_consumes_lifted_and_adds_above) ... ok
+test_withdraw_adds_raised_and_safe_clearance (__main__.FormalModelTests.test_withdraw_adds_raised_and_safe_clearance) ... ok
+test_attach_accepts_only_closed_geometrically_aligned_pair (__main__.RestrictedApiTests.test_attach_accepts_only_closed_geometrically_aligned_pair) ... ok
+test_attach_rejects_bad_geometry_before_welding (__main__.RestrictedApiTests.test_attach_rejects_bad_geometry_before_welding) ... ok
+test_attach_rejects_unclosed_hand_before_welding (__main__.RestrictedApiTests.test_attach_rejects_unclosed_hand_before_welding) ... ok
+test_cooperative_move_api_rejects_forged_bound_target_pose (__main__.RestrictedApiTests.test_cooperative_move_api_rejects_forged_bound_target_pose) ... ok
+test_dual_grasp_api_rejects_forged_handle_tuple (__main__.RestrictedApiTests.test_dual_grasp_api_rejects_forged_handle_tuple) ... ok
+test_final_tray_on_shelf_comes_from_strict_scout_predicate (__main__.RuntimeStateTests.test_final_tray_on_shelf_comes_from_strict_scout_predicate) ... ok
+test_final_tray_on_shelf_is_not_inferred_when_strict_scout_rejects (__main__.RuntimeStateTests.test_final_tray_on_shelf_is_not_inferred_when_strict_scout_rejects) ... ok
+test_lift_above_and_supported_held_predicates_are_phase_partitioned (__main__.RuntimeStateTests.test_lift_above_and_supported_held_predicates_are_phase_partitioned) ... ok
+test_one_active_weld_is_not_dual_holding (__main__.RuntimeStateTests.test_one_active_weld_is_not_dual_holding) ... ok
+test_open_gripper_prevents_dual_holding_even_with_two_welds (__main__.RuntimeStateTests.test_open_gripper_prevents_dual_holding_even_with_two_welds) ... ok
+test_supported_held_requires_contact_and_full_footprint (__main__.RuntimeStateTests.test_supported_held_requires_contact_and_full_footprint) ... ok
+test_table_location_is_preserved_while_dually_held_before_lift (__main__.RuntimeStateTests.test_table_location_is_preserved_while_dually_held_before_lift) ... ok
+test_two_active_welds_and_two_closed_grippers_are_dual_holding (__main__.RuntimeStateTests.test_two_active_welds_and_two_closed_grippers_are_dual_holding) ... ok
+test_vertical_withdraw_clears_near_predicate_and_adds_raised (__main__.RuntimeStateTests.test_vertical_withdraw_clears_near_predicate_and_adds_raised) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 15.786s
+
+OK
+ALL 164 TESTS PASSED

@@ -1,0 +1,116 @@
+{
+  "profile": {
+    "version": "panda_wrist_global_v3",
+    "width": 720,
+    "height": 720,
+    "wrist": {
+      "position_hand_m": [
+        0.0,
+        -0.1,
+        0.025
+      ],
+      "look_at_hand_m": [
+        0.0,
+        0.0,
+        0.16
+      ],
+      "fovy_deg": 75.0
+    },
+    "global": {
+      "offset_table_xy_m": [
+        0.08,
+        0.0
+      ],
+      "height_above_table_m": 1.2,
+      "fovy_deg": 60.0
+    },
+    "optical_frame": "MuJoCo/OpenGL: forward -Z, image right +X, image up +Y",
+    "mount_scope": "ideal optical sensor on hand body, no camera housing mass/collision modeled",
+    "control_use": "diagnostic_only_until_localization_and_motion_validation"
+  },
+  "cameras": [
+    "rig_wrist_single",
+    "rig_global"
+  ],
+  "wrist_mounts": [
+    {
+      "name": "rig_wrist_single",
+      "parent_body": "hand",
+      "T_hand_camera": {
+        "position": [
+          0.0,
+          -0.1,
+          0.025
+        ],
+        "rotation": [
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.8035571933447456,
+            -0.5952275506257375
+          ],
+          [
+            -0.0,
+            -0.5952275506257375,
+            -0.8035571933447456
+          ]
+        ]
+      },
+      "fovy_deg": 75.0
+    }
+  ],
+  "global_position_world": [
+    0.51,
+    0.0,
+    1.6
+  ],
+  "table_center_xy": [
+    0.43,
+    0.0
+  ],
+  "table_top_z": 0.4,
+  "old_cameras_preserved": [
+    "overview",
+    "front"
+  ],
+  "physics_validation": {
+    "matched": true,
+    "arrays": [
+      "body_pos",
+      "body_quat",
+      "body_mass",
+      "body_inertia",
+      "body_gravcomp",
+      "body_parentid",
+      "jnt_pos",
+      "jnt_axis",
+      "jnt_range",
+      "qpos0",
+      "geom_size",
+      "geom_pos",
+      "geom_quat",
+      "geom_friction",
+      "geom_contype",
+      "geom_conaffinity",
+      "geom_solref",
+      "geom_solimp",
+      "geom_bodyid",
+      "actuator_ctrlrange",
+      "actuator_gainprm",
+      "actuator_biasprm",
+      "dof_damping",
+      "dof_frictionloss",
+      "eq_data",
+      "eq_active0"
+    ],
+    "old_ncam": 2,
+    "new_ncam": 4,
+    "only_sensor_configuration_changed": true
+  },
+  "source_xml_sha256": "0a445f991082690dc595c63d66052cbfed8c44ea36b6c776279e3267cdcf9f37",
+  "rig_xml_sha256": "0938a81056c0d12b729299e9fa8c0d1194a6179da3b0e27ea79e8056e902072d"
+}

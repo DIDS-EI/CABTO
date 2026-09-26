@@ -1,0 +1,60 @@
+{
+  "origin": "existing_closed_loop_call",
+  "used_in_control": true,
+  "source_json": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/perception.json",
+  "source_sha256": "914bb24e0ea7887e59c08cc899887cf6782234fcc964d1449fde11b4858ccfa5",
+  "record_index": 1,
+  "record": {
+    "object": "board",
+    "point_kind": "support_floor_center",
+    "height_prior": 0.42400000000000004,
+    "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "source": "Qwen semantic point + RGB refinement + calibrated plane",
+    "fallback": false,
+    "image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/001_board.png",
+    "call": {
+      "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+      "text": "Point to the center of the wooden chopping board. Output the pixel coordinate.",
+      "image_files": [
+        "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/001_board.png"
+      ],
+      "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the center of the wooden chopping board. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+      "temperature": 0.0,
+      "max_tokens": 200,
+      "raw": "```json\n[\n\t{\"point_2d\": [378, 238], \"label\": \"center of the wooden chopping board\"}\n]\n```",
+      "wall_seconds": 2.270519374986179
+    },
+    "field": "point_2d",
+    "coordinate_contract": "absolute_pixel",
+    "refinement": {
+      "method": "component_centroid",
+      "roi": [
+        294,
+        154,
+        463,
+        323
+      ],
+      "component_area": 12780,
+      "coarse_uv": [
+        378.0,
+        238.0
+      ],
+      "refined_uv": [
+        375.9340375586854,
+        230.95657276995306
+      ],
+      "semantic_prior": "board"
+    },
+    "observed_feature_plane_z": 0.42400000000000004,
+    "feature_height_source": "frozen manual rim geometry: bowl .029+.025, pan .021+.018; no xy prior",
+    "xyz": [
+      0.48972694899761854,
+      0.15976070710699758,
+      0.42400000000000004
+    ],
+    "uv": [
+      375.9340375586854,
+      230.95657276995306
+    ]
+  }
+}

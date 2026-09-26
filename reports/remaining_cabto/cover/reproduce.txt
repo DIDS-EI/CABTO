@@ -1,0 +1,58 @@
+Cover 生成能力与视觉放置修复
+============================
+本次不是修改成功门限或替换成会话手写程序。
+最终动作模型与代码均溯源到真实本地 mlx-community/Qwen3.5-9B-4bit 调用。
+视觉定位使用 Qwen2.5-VL-3B-Instruct-4bit 语义粗点 + 俯视RGB几何细化 + 显式高度先验。
+模型权重仅在Hugging Face缓存，未复制到实验目录。
+
+本机环境与路径
+PY="/Users/yishuaicai/.workbuddy/binaries/python/envs/cabto/bin/python"
+ROOT="/Users/yishuaicai/mywork/edps_cabto_exp"
+BASE="$ROOT/outputs/cover_cabto_fix"
+ENTRY="$ROOT/project/run_cover_cabto_method.py"
+MODELS="$BASE/proposal_final_v2/models.json"
+POLICIES="$BASE/sampling_9b_complete/policies.json"
+OUT="$ROOT/outputs/my_cover_fixed_run"
+必须选择新的输出目录，已有证据不会自动覆盖。
+实际依赖版本见 environment.json；视觉新增依赖 opencv-python==4.13.0.92。
+
+A. 重验本次真实生成的动作库与策略（不重新调用9B生成；3B负责实时定位）
+"$PY" -B "$ENTRY" replay --models "$MODELS" --policies "$POLICIES" --model "mlx-community/Qwen2.5-VL-3B-Instruct-4bit" --perception qwen_rgb --output "$OUT/baseline"
+"$PY" -B "$ENTRY" replay --models "$MODELS" --policies "$POLICIES" --model "mlx-community/Qwen2.5-VL-3B-Instruct-4bit" --perception qwen_rgb --seed 1 --task C3 --output "$OUT/holdout1"
+"$PY" -B "$ENTRY" replay --models "$MODELS" --policies "$POLICIES" --model "mlx-community/Qwen2.5-VL-3B-Instruct-4bit" --perception qwen_rgb --seed 2 --task C3 --output "$OUT/holdout2"
+
+B. 重新生成（随机过程，不承诺每次同样次数通过）
+高层完整推理入口：
+"$PY" -B "$ROOT/project/propose_cover_reasoned.py" --output "$OUT/reasoning"
+该入口的推理可能耗尽预算，失败结果依然保留。选择对应实际输出继续由模型收束，不能手工复制/修补效果：
+"$PY" -B "$ROOT/project/finalize_cover_proposal.py" --reasoning "$OUT/reasoning/attempt2.json" --output "$OUT/finalized"
+本次成功来源为 proposal_9b_reasoned/attempt2.json → proposal_final_v2/attempt1.json。
+若新一轮没有attempt2、格式不同或未通过完整性，必须按实际失败记录处理，不能把本次成功文件当作新模型生成。
+
+在通过完整性的新模型库上采样策略：
+"$PY" -B "$ENTRY" sample --models "$OUT/finalized/models.json" --model "mlx-community/Qwen3.5-9B-4bit" --generation-profile focused --attempts 3 --output "$OUT/sampling"
+只从真实本地模型已通过的代码续跑，并对相同schema的新绑定做物理再验证：
+"$PY" -B "$ENTRY" sample --models "$OUT/finalized/models.json" --model "mlx-community/Qwen3.5-9B-4bit" --generation-profile focused --resume-policies "$OUT/sampling/policies.json" --reuse-accepted-schema --attempts 3 --output "$OUT/sampling_resume"
+本次对应 sampling_9b_focused → sampling_9b_complete；土豆Pick/Place复用了之前由9B生成并通过的源码原文，明确不是两次新生成。
+
+C. 测试与报告
+"$PY" -B "$ROOT/project/test_cover_visual_localizer.py"
+"$PY" -B "$ROOT/project/test_cover_generation_fix.py"
+"$PY" -B "$ROOT/project/test_cover_cabto_method.py"
+"$PY" -B "$ROOT/run_tests.py"
+"$PY" -B "$ROOT/project/build_cover_fix_report.py"
+测试分别25+8+44+164项。报告构建只读取本轮保存的结果，不会新跑仿真。
+
+D. 主要文件
+project/core/cover_visual_localizer.py：相机标定、Qwen粗点、RGB细化、沿/底高度区分与静态支撑缓存。
+project/core/cover_generation_fix.py：明确记录解码参数的StableModel/ThinkingModel；用于对照试验，不隐藏修改输出。
+project/run_cover_cabto_method.py：聚焦单动作提示、失败反馈、源码复用审计、运动目标数据来源门、正式BT实际执行。
+project/propose_cover_reasoned.py + finalize_cover_proposal.py：推理与最终JSON收束；不手工改模型内容。
+
+E. 边界
+1. CP、动作签名、接口、提示和语义规则由工程指定；没有宣称从零发现全部技能。
+2. 是多轮工程修复后的一个有限任务集实验；不是原论文等预算ASR/CSR表格或完全无人干预的试验。
+3. 相机改为新增俯视观测协议，但任务物理配置不变。最终scene.xml保存真实相机参数；旧结果保留原视角。
+4. RGB颜色/形状、相机内外参、碗沿/锅沿高度为显式先验。支撑xy由视觉估计，不从真实object pose读取或纠正。
+5. 初始抓取z、载物跟踪和独立评价仍含仿真真值；不能称完全纯视觉控制或未知物体泛化。
+6. 留出seed1/2只有±2mm物体初态扰动。释放、位置、姿态、碰撞、双指接触等旧验收门限未放宽。

@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "proposal_model": "mlx-community/Qwen3.5-9B-4bit",
+  "code_model": "mlx-community/Qwen3.5-9B-4bit",
+  "generation_channel": "local_live_model",
+  "visual_model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+  "visual_method": "Qwen semantic point + overhead RGB geometry + known feature height plane",
+  "complete_for_P": true,
+  "reachable_states": 28,
+  "grounded_actions": 7,
+  "validated_generated_policies": 7,
+  "sampling_attempts": 14,
+  "unchanged_schema_reuse_validations": 2,
+  "visual_tasks_success": 3,
+  "visual_tasks_total": 3,
+  "holdout_success": 2,
+  "holdout_total": 2,
+  "max_placed_xy_error_mm": 3.6970762640940333,
+  "all_no_forbidden_contacts": true,
+  "all_no_weld": true,
+  "all_frame_transitions_match": true,
+  "source_consistency": true,
+  "test_counts": {
+    "visual": 25,
+    "generation_provenance": 8,
+    "method": 44,
+    "legacy": 164
+  },
+  "frozen_config_sha256": "87831738dd2d6544b3a82e860800830135b30fc8091aa1e677f8789b77cceb4c",
+  "boundaries": [
+    "human-given CP, operator signatures, API docs and semantic feedback",
+    "manual orchestration and prompt iterations; not unattended end-to-end discovery",
+    "model outputs, not session-written policies, in final runs",
+    "overhead observation camera changed, physical scene unchanged",
+    "RGB color/shape and feature-height priors",
+    "oracle initial grasp z and oracle payload tracking/evaluation remain",
+    "small fixed scene, holdouts only +/-2mm",
+    "no pure-VLM-only or paper-table replication claim"
+  ]
+}

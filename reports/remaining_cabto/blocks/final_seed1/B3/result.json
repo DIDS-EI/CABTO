@@ -1,0 +1,524 @@
+{
+  "task": {
+    "id": "B3",
+    "initial": [
+      "at_source(red)",
+      "at_source(yellow)",
+      "empty()"
+    ],
+    "goal": [
+      "at_target(red)",
+      "at_target(yellow)",
+      "empty()",
+      "home_completed()"
+    ]
+  },
+  "seed": 1,
+  "steps": [
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "grasp_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.34181470956427285,
+            -0.1451956607305156,
+            0.42600000000000005
+          ]
+        },
+        {
+          "method": "approach",
+          "args": [
+            [
+              0.34181470956427285,
+              -0.1451956607305156,
+              0.42600000000000005
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "descend",
+          "args": [
+            [
+              0.34181470956427285,
+              -0.1451956607305156,
+              0.42600000000000005
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "close_gripper",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "lift",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "before": [
+        "at_source(red)",
+        "at_source(yellow)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(yellow)",
+        "holding(red)"
+      ],
+      "model": {
+        "name": "pick",
+        "args": {
+          "object": "red",
+          "support": "blue"
+        },
+        "program_kind": "pick",
+        "pre": [
+          "empty()",
+          "at_source(red)"
+        ],
+        "add": [
+          "holding(red)"
+        ],
+        "del": [
+          "empty()",
+          "at_source(red)",
+          "home_completed()"
+        ],
+        "description": "Grasp the bound cube from table and leave it held in air"
+      },
+      "safety_ok": true,
+      "contract_effect_ok": true,
+      "missing_required_calls": [],
+      "code_sha256": "3adc93a99d786d25338e4ab0a783d33cf28dbae61693c30173c78164ab32f6d4",
+      "consistency_scope": "full_CP"
+    },
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "destination_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.5665946027454057,
+            -0.1451956607305156,
+            0.46900000000000003
+          ]
+        },
+        {
+          "method": "carry",
+          "args": [
+            [
+              0.5665946027454057,
+              -0.1451956607305156,
+              0.46900000000000003
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "destination_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.5665946027454057,
+            -0.1451956607305156,
+            0.46900000000000003
+          ]
+        },
+        {
+          "method": "lower",
+          "args": [
+            [
+              0.5665946027454057,
+              -0.1451956607305156,
+              0.46900000000000003
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "open_gripper",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "withdraw",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "before": [
+        "at_source(yellow)",
+        "holding(red)"
+      ],
+      "after": [
+        "at_source(yellow)",
+        "at_target(red)",
+        "empty()"
+      ],
+      "model": {
+        "name": "place",
+        "args": {
+          "object": "red",
+          "support": "blue"
+        },
+        "program_kind": "place",
+        "pre": [
+          "holding(red)"
+        ],
+        "add": [
+          "at_target(red)",
+          "empty()"
+        ],
+        "del": [
+          "holding(red)",
+          "home_completed()"
+        ],
+        "description": "Stack held cube on bound support cube, release and withdraw. Do not return home."
+      },
+      "safety_ok": true,
+      "contract_effect_ok": true,
+      "missing_required_calls": [],
+      "code_sha256": "7bd21b38784bb86e0c933dc0c29a50adafc03453e3f3011c698b85fba1cc2fd5",
+      "consistency_scope": "full_CP"
+    },
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "grasp_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.34059968311464506,
+            0.14823322685458498,
+            0.42600000000000005
+          ]
+        },
+        {
+          "method": "approach",
+          "args": [
+            [
+              0.34059968311464506,
+              0.14823322685458498,
+              0.42600000000000005
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "descend",
+          "args": [
+            [
+              0.34059968311464506,
+              0.14823322685458498,
+              0.42600000000000005
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "close_gripper",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "lift",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "before": [
+        "at_source(yellow)",
+        "at_target(red)",
+        "empty()"
+      ],
+      "after": [
+        "at_target(red)",
+        "holding(yellow)"
+      ],
+      "model": {
+        "name": "pick",
+        "args": {
+          "object": "yellow",
+          "support": "green"
+        },
+        "program_kind": "pick",
+        "pre": [
+          "empty()",
+          "at_source(yellow)"
+        ],
+        "add": [
+          "holding(yellow)"
+        ],
+        "del": [
+          "empty()",
+          "at_source(yellow)",
+          "home_completed()"
+        ],
+        "description": "Grasp the bound cube from table and leave it held in air"
+      },
+      "safety_ok": true,
+      "contract_effect_ok": true,
+      "missing_required_calls": [],
+      "code_sha256": "3adc93a99d786d25338e4ab0a783d33cf28dbae61693c30173c78164ab32f6d4",
+      "consistency_scope": "full_CP"
+    },
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "destination_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.5696321688694751,
+            0.1476257136297711,
+            0.46900000000000003
+          ]
+        },
+        {
+          "method": "carry",
+          "args": [
+            [
+              0.5696321688694751,
+              0.1476257136297711,
+              0.46900000000000003
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "destination_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.5696321688694751,
+            0.1476257136297711,
+            0.46900000000000003
+          ]
+        },
+        {
+          "method": "lower",
+          "args": [
+            [
+              0.5696321688694751,
+              0.1476257136297711,
+              0.46900000000000003
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "open_gripper",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "withdraw",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "before": [
+        "at_target(red)",
+        "holding(yellow)"
+      ],
+      "after": [
+        "at_target(red)",
+        "at_target(yellow)",
+        "empty()"
+      ],
+      "model": {
+        "name": "place",
+        "args": {
+          "object": "yellow",
+          "support": "green"
+        },
+        "program_kind": "place",
+        "pre": [
+          "holding(yellow)"
+        ],
+        "add": [
+          "at_target(yellow)",
+          "empty()"
+        ],
+        "del": [
+          "holding(yellow)",
+          "home_completed()"
+        ],
+        "description": "Stack held cube on bound support cube, release and withdraw. Do not return home."
+      },
+      "safety_ok": true,
+      "contract_effect_ok": true,
+      "missing_required_calls": [],
+      "code_sha256": "7bd21b38784bb86e0c933dc0c29a50adafc03453e3f3011c698b85fba1cc2fd5",
+      "consistency_scope": "full_CP"
+    },
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "return_home",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "before": [
+        "at_target(red)",
+        "at_target(yellow)",
+        "empty()"
+      ],
+      "after": [
+        "at_target(red)",
+        "at_target(yellow)",
+        "empty()",
+        "home_completed()"
+      ],
+      "model": {
+        "name": "home",
+        "pre": [
+          "empty()"
+        ],
+        "add": [
+          "home_completed()"
+        ],
+        "del": [],
+        "args": {},
+        "program_kind": "home",
+        "description": "Return empty arm home without moving cubes"
+      },
+      "safety_ok": true,
+      "contract_effect_ok": true,
+      "missing_required_calls": [],
+      "code_sha256": "ab0ee04ddd7a2da959babc4fd9bb5c71364129d4f33dad0d97e70fcd345c474f",
+      "consistency_scope": "full_CP"
+    }
+  ],
+  "success": true,
+  "final_state": [
+    "at_target(red)",
+    "at_target(yellow)",
+    "empty()",
+    "home_completed()"
+  ],
+  "full_frame_all_match": true,
+  "assist": "strict_no_weld",
+  "perception": "Qwen_RGB"
+}

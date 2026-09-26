@@ -1,0 +1,60 @@
+{
+  "origin": "existing_closed_loop_call",
+  "used_in_control": true,
+  "source_json": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/perception.json",
+  "source_sha256": "914bb24e0ea7887e59c08cc899887cf6782234fcc964d1449fde11b4858ccfa5",
+  "record_index": 3,
+  "record": {
+    "object": "potato",
+    "point_kind": "grasp_center",
+    "height_prior": 0.41798083548895737,
+    "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "source": "Qwen semantic point + RGB refinement + calibrated plane",
+    "fallback": false,
+    "image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/003_potato.png",
+    "call": {
+      "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+      "text": "Point to the small yellow cuboid with an oval top, not the orange shrimp. Output the pixel coordinate.",
+      "image_files": [
+        "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/003_potato.png"
+      ],
+      "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the small yellow cuboid with an oval top, not the orange shrimp. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+      "temperature": 0.0,
+      "max_tokens": 200,
+      "raw": "```json\n[\n\t{\"point_2d\": [522, 501], \"label\": \"small yellow cuboid with an oval top, not the orange shrimp\"}\n]\n```",
+      "wall_seconds": 2.110334958997555
+    },
+    "field": "point_2d",
+    "coordinate_contract": "absolute_pixel",
+    "refinement": {
+      "method": "maximum_inscribed_disc",
+      "roi": [
+        486,
+        465,
+        559,
+        538
+      ],
+      "component_area": 1183,
+      "coarse_uv": [
+        522.0,
+        501.0
+      ],
+      "refined_uv": [
+        521.0,
+        512.0
+      ],
+      "semantic_prior": "potato"
+    },
+    "observed_feature_plane_z": 0.41798083548895737,
+    "feature_height_source": "frozen manual rim geometry: bowl .029+.025, pan .021+.018; no xy prior",
+    "xyz": [
+      0.6704391917855019,
+      -0.18923451646830003,
+      0.41798083548895737
+    ],
+    "uv": [
+      521.0,
+      512.0
+    ]
+  }
+}

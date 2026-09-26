@@ -1,0 +1,25 @@
+{
+  "origin": "current_conversation_assistant",
+  "generation_channel": "interactive_LM_output_saved_verbatim_as_candidate_artifact_not_local_Qwen_output",
+  "separate_backend_API_call": false,
+  "context_sources": ["CABTO.pdf pages3-5 read in this conversation", "task_sets.json", "project/core/cover_cabto_api.py API_DOCS", "tasks/cover/direct/before.png viewed in this conversation", "local model proposal failures recorded in proposal, proposal_3b, proposal_structured, proposal_indexed"],
+  "scope": "model-in-the-loop pilot, not autonomous local-Qwen grounding or paper-table replication",
+  "models": [
+    {"name":"pick","args":{"object":"shrimp","support":"bowl"},"pre":["empty()","at_source(shrimp)"],"add":["holding(shrimp)"],"del":["empty()","at_source(shrimp)","home_completed()"]},
+    {"name":"place","args":{"object":"shrimp","support":"bowl"},"pre":["holding(shrimp)"],"add":["at_target(shrimp)","empty()"],"del":["holding(shrimp)"]},
+    {"name":"pick","args":{"object":"apple","support":"board"},"pre":["empty()","at_source(apple)"],"add":["holding(apple)"],"del":["empty()","at_source(apple)","home_completed()"]},
+    {"name":"place","args":{"object":"apple","support":"board"},"pre":["holding(apple)"],"add":["at_target(apple)","empty()"],"del":["holding(apple)"]},
+    {"name":"pick","args":{"object":"potato","support":"pan"},"pre":["empty()","at_source(potato)"],"add":["holding(potato)"],"del":["empty()","at_source(potato)","home_completed()"]},
+    {"name":"place","args":{"object":"potato","support":"pan"},"pre":["holding(potato)"],"add":["at_target(potato)","empty()"],"del":["holding(potato)"]},
+    {"name":"home","args":{},"pre":["empty()"],"add":["home_completed()"],"del":[]}
+  ],
+  "programs": {
+    "pick_shrimp": "def policy(api):\n    api.open_gripper()\n    grasp = api.grasp_point()\n    api.approach(grasp)\n    api.descend(grasp)\n    api.close_gripper()\n    api.lift()\n",
+    "place_shrimp": "def policy(api):\n    bowl_destination = api.destination_point()\n    api.carry(bowl_destination)\n    api.lower(bowl_destination)\n    api.open_gripper()\n    api.withdraw()\n",
+    "pick_apple": "def policy(api):\n    api.open_gripper()\n    apple_grasp = api.grasp_point()\n    api.approach(apple_grasp)\n    api.descend(apple_grasp)\n    api.close_gripper()\n    api.lift()\n",
+    "place_apple": "def policy(api):\n    board_destination = api.destination_point()\n    api.carry(board_destination)\n    api.lower(board_destination)\n    api.open_gripper()\n    api.withdraw()\n",
+    "pick_potato": "def policy(api):\n    api.open_gripper()\n    potato_grasp = api.grasp_point()\n    api.approach(potato_grasp)\n    api.descend(potato_grasp)\n    api.close_gripper()\n    api.lift()\n",
+    "place_potato": "def policy(api):\n    pan_destination = api.destination_point()\n    api.carry(pan_destination)\n    api.lower(pan_destination)\n    api.open_gripper()\n    api.withdraw()\n",
+    "home": "def policy(api):\n    api.return_home()\n"
+  }
+}

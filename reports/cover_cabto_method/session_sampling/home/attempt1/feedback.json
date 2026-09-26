@@ -1,0 +1,103 @@
+{
+  "action": "home()",
+  "attempt": 1,
+  "model": {
+    "name": "home",
+    "args": {},
+    "pre": [
+      "empty()"
+    ],
+    "add": [
+      "home_completed()"
+    ],
+    "del": []
+  },
+  "prefix": [],
+  "candidate_origin": {
+    "channel": "interactive_LM_output_saved_verbatim_as_candidate_artifact_not_local_Qwen_output",
+    "artifact": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/session_candidates.json",
+    "sha256": "2c92c2756311dcea6d9385584864a1a5609efdc1d21d26a8e57a2bef4aa6b15d",
+    "new_model_call_in_this_process": false
+  },
+  "validation_context": {
+    "instruction": "Generate ONLY a Python def policy(api) implementing this ONE grounded STRIPS action, using real fine-grained API calls. No imports, loops, other functions, simulator objects or success flags. No hardcoded xyz. The return value is not the success criterion. All motion must be explicitly called. Do not change the model.",
+    "action_model": {
+      "name": "home",
+      "args": {},
+      "pre": [
+        "empty()"
+      ],
+      "add": [
+        "home_completed()"
+      ],
+      "del": []
+    },
+    "observed_before": [
+      "at_source(apple)",
+      "at_source(potato)",
+      "at_source(shrimp)",
+      "empty()"
+    ],
+    "APIs": {
+      "return_home": "api.return_home() -> None. Interpolate the EMPTY OPEN arm through a safe waypoint to its HOME joint posture and settle; refuses holding. Does not grasp/place objects."
+    },
+    "scene": "On a longer kitchen worktop, the upright bowl, chopping board, and pan form the back row. Shrimp, apple, and potato form the front row. Place shrimp into the bowl, apple onto the chopping board, and potato into the pan; release every object, withdraw, and return the arm to HOME.",
+    "object_roles": {},
+    "previous_failed_programs_and_execution_feedback": []
+  },
+  "source": "def policy(api):\n    api.return_home()\n",
+  "evaluation": {
+    "valid_trial": true,
+    "paper_line20": true,
+    "strict_CP_transition_match": true,
+    "goal_ok": true,
+    "effect_ok": true,
+    "violations": {
+      "missing_pre": [],
+      "missing_add": [],
+      "remaining_del": [],
+      "missing_preserved_pre": [],
+      "unexpected_added": [],
+      "unexpected_removed": []
+    },
+    "before": [
+      "at_source(apple)",
+      "at_source(potato)",
+      "at_source(shrimp)",
+      "empty()"
+    ],
+    "after": [
+      "at_source(apple)",
+      "at_source(potato)",
+      "at_source(shrimp)",
+      "empty()",
+      "home_completed()"
+    ],
+    "model": {
+      "name": "home",
+      "args": {},
+      "pre": [
+        "empty()"
+      ],
+      "add": [
+        "home_completed()"
+      ],
+      "del": []
+    },
+    "code_executed": true,
+    "exception": null,
+    "trace": [
+      {
+        "method": "return_home",
+        "args": [],
+        "kwargs": {},
+        "status": "returned",
+        "result": null
+      }
+    ],
+    "forbidden_contacts": [],
+    "code_sha256": "8e40bf532aef1b31de26f5e126fd04daf6d7a0c8b2694883f83e472f03b26151"
+  },
+  "accepted": true,
+  "simulation_seconds": 4.439999999999733
+}

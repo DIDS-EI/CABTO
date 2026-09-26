@@ -1,0 +1,3674 @@
+{
+  "task": "handover",
+  "model_id": "mlx-community/Qwen3.5-9B-4bit",
+  "accepted": {
+    "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)": {
+      "source": "def policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()\n    api.lift()",
+      "sha256": "8a119dcdf229d4922e7818c54d783081d2cf14f593a6332685d259851494d58b",
+      "model": {
+        "name": "pick_tea_box",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "交出臂持有茶盒且茶盒位于空中，接收臂为空，源位置不再占用，运动无禁止碰撞。"
+      },
+      "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_00/attempt3"
+    },
+    "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)": {
+      "source": "def policy(api):\n    target = api.target_pose()\n    if target is not None:\n        api.move_held(target)\n        api.settle()",
+      "sha256": "406788927d178f094be6511e3229d2e816954e5305822cce56c98d65ca7893c5",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "交出臂持有的茶盒位于配置的空中交接位，接收臂为空，运动无禁止碰撞。"
+      },
+      "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_01/attempt1"
+    },
+    "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)": {
+      "source": "def policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()",
+      "sha256": "e7ffe5ed058625222f461a4df65f5c2df11eeb63d1b522d473cfba7a0e4219db",
+      "model": {
+        "name": "receiver_grasps_box_face",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+      },
+      "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_02/attempt1"
+    },
+    "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)": {
+      "source": "def policy(api):\n    api.open_gripper()\n    api.detach()\n    api.withdraw()",
+      "sha256": "4739c1eccec41d660fcf01e92fc4acb830f1b3b14edd4d2ababacff6af6160f8",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "茶盒由接收臂持有，交出臂为空且位于安全撤离位；真实事件证明接收验证先于空中释放，运动无禁止碰撞。"
+      },
+      "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_03/attempt3"
+    },
+    "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)": {
+      "source": "def policy(api):\n    api.return_arm_home()",
+      "sha256": "792a285385ef05011ed0df6e5124e88fbdaba56434cd440832fbe9e03b9beb56",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。"
+      },
+      "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_04/attempt2"
+    },
+    "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)": {
+      "source": "def policy(api):\n    pose = api.target_pose()\n    api.carry(pose)\n    api.lower(pose)\n    api.open_gripper()\n    api.detach()\n    api.retreat_vertical()\n    api.withdraw_safe()",
+      "sha256": "6506eedae920680e10e87154ba2f3558f63f277b82dc437ffade566b654ef3ad",
+      "model": {
+        "name": "receiver_places_baton",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_places_baton"
+        },
+        "program_kind": "receiver_place",
+        "pre": [
+          "receiver_holding(baton)",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()"
+        ],
+        "del": [
+          "receiver_holding(baton)",
+          "baton_airborne()",
+          "at_handover_pose(baton)"
+        ],
+        "description": "茶盒位于目的地并由桌面真实支撑，接收臂为空且位于安全撤离位，交出臂保持 HOME，运动无禁止碰撞。"
+      },
+      "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_05/attempt4"
+    },
+    "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)": {
+      "source": "def policy(api):\n    api.return_arm_home()",
+      "sha256": "792a285385ef05011ed0df6e5124e88fbdaba56434cd440832fbe9e03b9beb56",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。"
+      },
+      "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_06/attempt1"
+    }
+  },
+  "attempts": [
+    {
+      "action_id": "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)",
+      "model": {
+        "name": "pick_tea_box",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "交出臂持有茶盒且茶盒位于空中，接收臂为空，源位置不再占用，运动无禁止碰撞。"
+      },
+      "attempt": 1,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Pick up the box with donor arm, finish attached and lifted in the air; receiver remains empty.\nAvailable APIs:\napproach(xyz): move OPEN hand above grasp.\nattach_contact_gated(): validate actual bilateral contact and activate declared weld; requires closed hand.\nclose_gripper(): close CURRENT hand; requires descent; does not activate weld.\ndescend(xyz): move OPEN hand down to grasp, requires approach.\ngrasp_pose() -> xyz: read bound donor grasp point.\nlift(): lift ATTACHED object, requires attach_contact_gated.\nLast actual failed candidate and validator feedback: []",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_00/attempt1/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Pick up the box with donor arm, finish attached and lifted in the air; receiver remains empty.\nAvailable APIs:\napproach(xyz): move OPEN hand above grasp.\nattach_contact_gated(): validate actual bilateral contact and activate declared weld; requires closed hand.\nclose_gripper(): close CURRENT hand; requires descent; does not activate weld.\ndescend(xyz): move OPEN hand down to grasp, requires approach.\ngrasp_pose() -> xyz: read bound donor grasp point.\nlift(): lift ATTACHED object, requires attach_contact_gated.\nLast actual failed candidate and validator feedback: []<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.0,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    donor_arm = api.get_arm(\"donor\")\n    receiver_arm = api.get_arm(\"receiver\")\n    grasp_pose = donor_arm.grasp_pose()\n    donor_arm.approach(grasp_pose)\n    donor_arm.descend(grasp_pose)\n    donor_arm.close_gripper()\n    donor_arm.attach_contact_gated()\n    donor_arm.lift()\n    return api.status()\n```",
+        "wall_seconds": 2.809927458059974
+      },
+      "source": "def policy(api):\n    donor_arm = api.get_arm(\"donor\")\n    receiver_arm = api.get_arm(\"receiver\")\n    grasp_pose = donor_arm.grasp_pose()\n    donor_arm.approach(grasp_pose)\n    donor_arm.descend(grasp_pose)\n    donor_arm.close_gripper()\n    donor_arm.attach_contact_gated()\n    donor_arm.lift()\n    return api.status()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "baton_airborne()",
+            "donor_holding(baton)"
+          ],
+          "remaining_del": [
+            "at_source(baton)",
+            "empty(0)"
+          ],
+          "missing_preserved_pre": [],
+          "unexpected_added": [
+            "at_source(baton)",
+            "empty(0)"
+          ],
+          "unexpected_removed": [
+            "baton_airborne()",
+            "donor_holding(baton)"
+          ]
+        },
+        "code_executed": false,
+        "exception": "PolicyRejected: unsupported API attribute api.get_arm; allowed methods: ['approach', 'attach_contact_gated', 'close_gripper', 'descend', 'grasp_pose', 'lift']",
+        "trace": [],
+        "before": [
+          "at_source(baton)",
+          "collision_free()",
+          "empty(0)",
+          "empty(1)"
+        ],
+        "after": [
+          "at_source(baton)",
+          "collision_free()",
+          "empty(0)",
+          "empty(1)"
+        ],
+        "model": {
+          "name": "pick_tea_box",
+          "args": {
+            "arm": "0",
+            "obj": "baton",
+            "dest": "pick_baton_by_donor"
+          },
+          "program_kind": "donor_pick",
+          "pre": [
+            "empty(0)",
+            "empty(1)",
+            "at_source(baton)",
+            "collision_free()"
+          ],
+          "add": [
+            "donor_holding(baton)",
+            "baton_airborne()"
+          ],
+          "del": [
+            "empty(0)",
+            "at_source(baton)",
+            "home(0)"
+          ],
+          "description": "交出臂持有茶盒且茶盒位于空中，接收臂为空，源位置不再占用，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "563157696c073f3d30da40177abf2a24ecb4d5f867124843f16c9886ba036269",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported"
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)",
+      "model": {
+        "name": "pick_tea_box",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "交出臂持有茶盒且茶盒位于空中，接收臂为空，源位置不再占用，运动无禁止碰撞。"
+      },
+      "attempt": 2,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Pick up the box with donor arm, finish attached and lifted in the air; receiver remains empty.\nAvailable APIs:\napproach(xyz): move OPEN hand above grasp.\nattach_contact_gated(): validate actual bilateral contact and activate declared weld; requires closed hand.\nclose_gripper(): close CURRENT hand; requires descent; does not activate weld.\ndescend(xyz): move OPEN hand down to grasp, requires approach.\ngrasp_pose() -> xyz: read bound donor grasp point.\nlift(): lift ATTACHED object, requires attach_contact_gated.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    donor_arm = api.get_arm(\\\"donor\\\")\\n    receiver_arm = api.get_arm(\\\"receiver\\\")\\n    grasp_pose = donor_arm.grasp_pose()\\n    donor_arm.approach(grasp_pose)\\n    donor_arm.descend(grasp_pose)\\n    donor_arm.close_gripper()\\n    donor_arm.attach_contact_gated()\\n    donor_arm.lift()\\n    return api.status()\", \"error\": \"PolicyRejected: unsupported API attribute api.get_arm; allowed methods: ['approach', 'attach_contact_gated', 'close_gripper', 'descend', 'grasp_pose', 'lift']\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"baton_airborne()\", \"donor_holding(baton)\"], \"remaining_del\": [\"at_source(baton)\", \"empty(0)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"at_source(baton)\", \"empty(0)\"], \"unexpected_removed\": [\"baton_airborne()\", \"donor_holding(baton)\"]}}]",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_00/attempt2/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Pick up the box with donor arm, finish attached and lifted in the air; receiver remains empty.\nAvailable APIs:\napproach(xyz): move OPEN hand above grasp.\nattach_contact_gated(): validate actual bilateral contact and activate declared weld; requires closed hand.\nclose_gripper(): close CURRENT hand; requires descent; does not activate weld.\ndescend(xyz): move OPEN hand down to grasp, requires approach.\ngrasp_pose() -> xyz: read bound donor grasp point.\nlift(): lift ATTACHED object, requires attach_contact_gated.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    donor_arm = api.get_arm(\\\"donor\\\")\\n    receiver_arm = api.get_arm(\\\"receiver\\\")\\n    grasp_pose = donor_arm.grasp_pose()\\n    donor_arm.approach(grasp_pose)\\n    donor_arm.descend(grasp_pose)\\n    donor_arm.close_gripper()\\n    donor_arm.attach_contact_gated()\\n    donor_arm.lift()\\n    return api.status()\", \"error\": \"PolicyRejected: unsupported API attribute api.get_arm; allowed methods: ['approach', 'attach_contact_gated', 'close_gripper', 'descend', 'grasp_pose', 'lift']\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"baton_airborne()\", \"donor_holding(baton)\"], \"remaining_del\": [\"at_source(baton)\", \"empty(0)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"at_source(baton)\", \"empty(0)\"], \"unexpected_removed\": [\"baton_airborne()\", \"donor_holding(baton)\"]}}]<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.15,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()\n    api.lift()\n    return api.status()\n```",
+        "wall_seconds": 2.166089457925409
+      },
+      "source": "def policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()\n    api.lift()\n    return api.status()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "baton_airborne()",
+            "donor_holding(baton)"
+          ],
+          "remaining_del": [
+            "at_source(baton)",
+            "empty(0)"
+          ],
+          "missing_preserved_pre": [],
+          "unexpected_added": [
+            "at_source(baton)",
+            "empty(0)"
+          ],
+          "unexpected_removed": [
+            "baton_airborne()",
+            "donor_holding(baton)"
+          ]
+        },
+        "code_executed": false,
+        "exception": "PolicyRejected: unsupported API attribute api.status; allowed methods: ['approach', 'attach_contact_gated', 'close_gripper', 'descend', 'grasp_pose', 'lift']",
+        "trace": [],
+        "before": [
+          "at_source(baton)",
+          "collision_free()",
+          "empty(0)",
+          "empty(1)"
+        ],
+        "after": [
+          "at_source(baton)",
+          "collision_free()",
+          "empty(0)",
+          "empty(1)"
+        ],
+        "model": {
+          "name": "pick_tea_box",
+          "args": {
+            "arm": "0",
+            "obj": "baton",
+            "dest": "pick_baton_by_donor"
+          },
+          "program_kind": "donor_pick",
+          "pre": [
+            "empty(0)",
+            "empty(1)",
+            "at_source(baton)",
+            "collision_free()"
+          ],
+          "add": [
+            "donor_holding(baton)",
+            "baton_airborne()"
+          ],
+          "del": [
+            "empty(0)",
+            "at_source(baton)",
+            "home(0)"
+          ],
+          "description": "交出臂持有茶盒且茶盒位于空中，接收臂为空，源位置不再占用，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "08e45b1de0756e12ae12155c2a461641c5bd37f79fe0bf075ff766c9f536fd2e",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported"
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)",
+      "model": {
+        "name": "pick_tea_box",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "pick_baton_by_donor"
+        },
+        "program_kind": "donor_pick",
+        "pre": [
+          "empty(0)",
+          "empty(1)",
+          "at_source(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "donor_holding(baton)",
+          "baton_airborne()"
+        ],
+        "del": [
+          "empty(0)",
+          "at_source(baton)",
+          "home(0)"
+        ],
+        "description": "交出臂持有茶盒且茶盒位于空中，接收臂为空，源位置不再占用，运动无禁止碰撞。"
+      },
+      "attempt": 3,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Pick up the box with donor arm, finish attached and lifted in the air; receiver remains empty.\nAvailable APIs:\napproach(xyz): move OPEN hand above grasp.\nattach_contact_gated(): validate actual bilateral contact and activate declared weld; requires closed hand.\nclose_gripper(): close CURRENT hand; requires descent; does not activate weld.\ndescend(xyz): move OPEN hand down to grasp, requires approach.\ngrasp_pose() -> xyz: read bound donor grasp point.\nlift(): lift ATTACHED object, requires attach_contact_gated.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    grasp_pose = api.grasp_pose()\\n    api.approach(grasp_pose)\\n    api.descend(grasp_pose)\\n    api.close_gripper()\\n    api.attach_contact_gated()\\n    api.lift()\\n    return api.status()\", \"error\": \"PolicyRejected: unsupported API attribute api.status; allowed methods: ['approach', 'attach_contact_gated', 'close_gripper', 'descend', 'grasp_pose', 'lift']\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"baton_airborne()\", \"donor_holding(baton)\"], \"remaining_del\": [\"at_source(baton)\", \"empty(0)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"at_source(baton)\", \"empty(0)\"], \"unexpected_removed\": [\"baton_airborne()\", \"donor_holding(baton)\"]}}]",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_00/attempt3/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Pick up the box with donor arm, finish attached and lifted in the air; receiver remains empty.\nAvailable APIs:\napproach(xyz): move OPEN hand above grasp.\nattach_contact_gated(): validate actual bilateral contact and activate declared weld; requires closed hand.\nclose_gripper(): close CURRENT hand; requires descent; does not activate weld.\ndescend(xyz): move OPEN hand down to grasp, requires approach.\ngrasp_pose() -> xyz: read bound donor grasp point.\nlift(): lift ATTACHED object, requires attach_contact_gated.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    grasp_pose = api.grasp_pose()\\n    api.approach(grasp_pose)\\n    api.descend(grasp_pose)\\n    api.close_gripper()\\n    api.attach_contact_gated()\\n    api.lift()\\n    return api.status()\", \"error\": \"PolicyRejected: unsupported API attribute api.status; allowed methods: ['approach', 'attach_contact_gated', 'close_gripper', 'descend', 'grasp_pose', 'lift']\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"baton_airborne()\", \"donor_holding(baton)\"], \"remaining_del\": [\"at_source(baton)\", \"empty(0)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"at_source(baton)\", \"empty(0)\"], \"unexpected_removed\": [\"baton_airborne()\", \"donor_holding(baton)\"]}}]<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.3,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()\n    api.lift()\n```",
+        "wall_seconds": 2.0607258330564946
+      },
+      "source": "def policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()\n    api.lift()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": true,
+        "strict_CP_transition_match": true,
+        "goal_ok": true,
+        "effect_ok": true,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [],
+          "unexpected_removed": []
+        },
+        "code_executed": true,
+        "exception": null,
+        "trace": [
+          {
+            "method": "grasp_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.28000000000060565,
+              0.2949999999999967,
+              0.538998922847159
+            ]
+          },
+          {
+            "method": "approach",
+            "args": [
+              [
+                0.28000000000060565,
+                0.2949999999999967,
+                0.538998922847159
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 4.439999999999733,
+              "object_position": [
+                0.28000000000060554,
+                0.2199999999999968,
+                0.4799989228619999
+              ],
+              "tcp_position": [
+                0.2798582482869074,
+                0.2950383940540013,
+                0.6592722782667881
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "descend",
+            "args": [
+              [
+                0.28000000000060565,
+                0.2949999999999967,
+                0.538998922847159
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 6.5599999999995,
+              "object_position": [
+                0.28000000000060554,
+                0.2199999999999968,
+                0.4799989228619999
+              ],
+              "tcp_position": [
+                0.2799724737473286,
+                0.2950720591597143,
+                0.5394799053091264
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "close_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 7.039999999999447,
+              "object_position": [
+                0.27999087844620457,
+                0.21999163838631683,
+                0.479998746544134
+              ],
+              "tcp_position": [
+                0.2799864477174227,
+                0.2950565645025319,
+                0.5394445200687847
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld",
+              "contact_since": 6.5599999999995
+            }
+          },
+          {
+            "method": "attach_contact_gated",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 7.2319999999994256,
+              "object_position": [
+                0.27998948330694967,
+                0.21999050885374694,
+                0.4799987964247194
+              ],
+              "tcp_position": [
+                0.27998521851207325,
+                0.295055253445986,
+                0.539443967577483
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "lift",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 9.351999999999792,
+              "object_position": [
+                0.27995402861079427,
+                0.22006269572495282,
+                0.5996614269561936
+              ],
+              "tcp_position": [
+                0.2799606269758668,
+                0.29511773704407024,
+                0.6591470060027587
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          }
+        ],
+        "before": [
+          "at_source(baton)",
+          "collision_free()",
+          "empty(0)",
+          "empty(1)"
+        ],
+        "after": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "model": {
+          "name": "pick_tea_box",
+          "args": {
+            "arm": "0",
+            "obj": "baton",
+            "dest": "pick_baton_by_donor"
+          },
+          "program_kind": "donor_pick",
+          "pre": [
+            "empty(0)",
+            "empty(1)",
+            "at_source(baton)",
+            "collision_free()"
+          ],
+          "add": [
+            "donor_holding(baton)",
+            "baton_airborne()"
+          ],
+          "del": [
+            "empty(0)",
+            "at_source(baton)",
+            "home(0)"
+          ],
+          "description": "交出臂持有茶盒且茶盒位于空中，接收臂为空，源位置不再占用，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": true,
+        "missing_required_calls": [],
+        "code_sha256": "8a119dcdf229d4922e7818c54d783081d2cf14f593a6332685d259851494d58b",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported"
+      },
+      "accepted": true
+    },
+    {
+      "action_id": "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+      "model": {
+        "name": "present_baton_in_air",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "present_baton_in_air"
+        },
+        "program_kind": "present",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_handover_pose(baton)"
+        ],
+        "del": [],
+        "description": "交出臂持有的茶盒位于配置的空中交接位，接收臂为空，运动无禁止碰撞。"
+      },
+      "attempt": 1,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor holds box. Transport to meeting pose and hold, do not release.\nAvailable APIs:\nmove_held(xyz): move held object.\nsettle(): hold still.\ntarget_pose() -> xyz: meeting object origin.\nLast actual failed candidate and validator feedback: []",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_01/attempt1/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor holds box. Transport to meeting pose and hold, do not release.\nAvailable APIs:\nmove_held(xyz): move held object.\nsettle(): hold still.\ntarget_pose() -> xyz: meeting object origin.\nLast actual failed candidate and validator feedback: []<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.0,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    target = api.target_pose()\n    if target is not None:\n        api.move_held(target)\n        api.settle()\n```",
+        "wall_seconds": 1.5242632910376415
+      },
+      "source": "def policy(api):\n    target = api.target_pose()\n    if target is not None:\n        api.move_held(target)\n        api.settle()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": true,
+        "strict_CP_transition_match": true,
+        "goal_ok": true,
+        "effect_ok": true,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [],
+          "unexpected_removed": []
+        },
+        "code_executed": true,
+        "exception": null,
+        "trace": [
+          {
+            "method": "target_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.35,
+              0.0,
+              0.64
+            ]
+          },
+          {
+            "method": "move_held",
+            "args": [
+              [
+                0.35,
+                0.0,
+                0.64
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 13.272000000001102,
+              "object_position": [
+                0.3498408199229681,
+                0.0004897430262307338,
+                0.6397026392504075
+              ],
+              "tcp_position": [
+                0.34984551292188637,
+                0.07551761554417234,
+                0.6992001644643975
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "settle",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 13.560000000001198,
+              "object_position": [
+                0.34984539132293935,
+                0.0004761425721439129,
+                0.6397047300894886
+              ],
+              "tcp_position": [
+                0.3498502022456514,
+                0.075504944301095,
+                0.6992030747212602
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          }
+        ],
+        "before": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "after": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "model": {
+          "name": "present_baton_in_air",
+          "args": {
+            "arm": "0",
+            "obj": "baton",
+            "dest": "present_baton_in_air"
+          },
+          "program_kind": "present",
+          "pre": [
+            "donor_holding(baton)",
+            "empty(1)",
+            "baton_airborne()",
+            "collision_free()"
+          ],
+          "add": [
+            "at_handover_pose(baton)"
+          ],
+          "del": [],
+          "description": "交出臂持有的茶盒位于配置的空中交接位，接收臂为空，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": true,
+        "missing_required_calls": [],
+        "code_sha256": "406788927d178f094be6511e3229d2e816954e5305822cce56c98d65ca7893c5",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported"
+      },
+      "accepted": true
+    },
+    {
+      "action_id": "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+      "model": {
+        "name": "receiver_grasps_box_face",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+      },
+      "attempt": 1,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor already holds the box at meeting pose. Receiver must grasp its own box-face zone and establish dual holding. Do not release donor.\nAvailable APIs:\napproach(xyz): move OPEN receiver above point.\nattach_contact_gated(): verify contact and activate receiver weld, creating dual holding.\nclose_gripper(): close after descent; does not attach.\ndescend(xyz): lower OPEN receiver to same point.\ngrasp_pose() -> xyz: read receiver grasp point.\nLast actual failed candidate and validator feedback: []",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_02/attempt1/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor already holds the box at meeting pose. Receiver must grasp its own box-face zone and establish dual holding. Do not release donor.\nAvailable APIs:\napproach(xyz): move OPEN receiver above point.\nattach_contact_gated(): verify contact and activate receiver weld, creating dual holding.\nclose_gripper(): close after descent; does not attach.\ndescend(xyz): lower OPEN receiver to same point.\ngrasp_pose() -> xyz: read receiver grasp point.\nLast actual failed candidate and validator feedback: []<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.0,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    grasp_point = api.grasp_pose()\n    api.descend(grasp_point)\n    api.attach_contact_gated()\n```",
+        "wall_seconds": 1.5270330000203103
+      },
+      "source": "def policy(api):\n    grasp_point = api.grasp_pose()\n    api.descend(grasp_point)\n    api.attach_contact_gated()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ],
+          "remaining_del": [
+            "empty(1)"
+          ],
+          "missing_preserved_pre": [],
+          "unexpected_added": [
+            "empty(1)"
+          ],
+          "unexpected_removed": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ]
+        },
+        "code_executed": true,
+        "exception": "RuntimeError: 当前 API 缺少已完成的 approach 控制证据",
+        "trace": [
+          {
+            "method": "grasp_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.34985084432825986,
+              -0.07450101350691023,
+              0.6987337571572111
+            ]
+          },
+          {
+            "method": "descend",
+            "args": [
+              [
+                0.34985084432825986,
+                -0.07450101350691023,
+                0.6987337571572111
+              ]
+            ],
+            "kwargs": {},
+            "status": "failed",
+            "error": "RuntimeError: 当前 API 缺少已完成的 approach 控制证据"
+          }
+        ],
+        "before": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "after": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "model": {
+          "name": "receiver_grasps_box_face",
+          "args": {
+            "arm": "1",
+            "obj": "baton",
+            "dest": "receiver_grasps_opposite_handle"
+          },
+          "program_kind": "receive",
+          "pre": [
+            "donor_holding(baton)",
+            "empty(1)",
+            "at_handover_pose(baton)",
+            "collision_free()"
+          ],
+          "add": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ],
+          "del": [
+            "empty(1)",
+            "home(1)"
+          ],
+          "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "dc0bf1f955c0061f62d296c54d72c4976d4116cb207756882e7dfb01a625d187",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported"
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+      "model": {
+        "name": "receiver_grasps_box_face",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+      },
+      "attempt": 2,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor already holds the box at meeting pose. Receiver must grasp its own box-face zone and establish dual holding. Do not release donor.\nAvailable APIs:\napproach(xyz): move OPEN receiver above point.\nattach_contact_gated(): verify contact and activate receiver weld, creating dual holding.\nclose_gripper(): close after descent; does not attach.\ndescend(xyz): lower OPEN receiver to same point.\ngrasp_pose() -> xyz: read receiver grasp point.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    grasp_point = api.grasp_pose()\\n    api.descend(grasp_point)\\n    api.attach_contact_gated()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 approach \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"], \"remaining_del\": [\"empty(1)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"empty(1)\"], \"unexpected_removed\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"]}}]",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_02/attempt2/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor already holds the box at meeting pose. Receiver must grasp its own box-face zone and establish dual holding. Do not release donor.\nAvailable APIs:\napproach(xyz): move OPEN receiver above point.\nattach_contact_gated(): verify contact and activate receiver weld, creating dual holding.\nclose_gripper(): close after descent; does not attach.\ndescend(xyz): lower OPEN receiver to same point.\ngrasp_pose() -> xyz: read receiver grasp point.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    grasp_point = api.grasp_pose()\\n    api.descend(grasp_point)\\n    api.attach_contact_gated()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 approach \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"], \"remaining_del\": [\"empty(1)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"empty(1)\"], \"unexpected_removed\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"]}}]<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.15,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    grasp_point = api.grasp_pose()\n    api.descend(grasp_point)\n    api.attach_contact_gated()\n```",
+        "wall_seconds": 1.6661204170668498
+      },
+      "source": "def policy(api):\n    grasp_point = api.grasp_pose()\n    api.descend(grasp_point)\n    api.attach_contact_gated()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ],
+          "remaining_del": [
+            "empty(1)"
+          ],
+          "missing_preserved_pre": [],
+          "unexpected_added": [
+            "empty(1)"
+          ],
+          "unexpected_removed": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ]
+        },
+        "code_executed": true,
+        "exception": "RuntimeError: 当前 API 缺少已完成的 approach 控制证据",
+        "trace": [
+          {
+            "method": "grasp_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.34985084432825986,
+              -0.07450101350691023,
+              0.6987337571572111
+            ]
+          },
+          {
+            "method": "descend",
+            "args": [
+              [
+                0.34985084432825986,
+                -0.07450101350691023,
+                0.6987337571572111
+              ]
+            ],
+            "kwargs": {},
+            "status": "failed",
+            "error": "RuntimeError: 当前 API 缺少已完成的 approach 控制证据"
+          }
+        ],
+        "before": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "after": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "model": {
+          "name": "receiver_grasps_box_face",
+          "args": {
+            "arm": "1",
+            "obj": "baton",
+            "dest": "receiver_grasps_opposite_handle"
+          },
+          "program_kind": "receive",
+          "pre": [
+            "donor_holding(baton)",
+            "empty(1)",
+            "at_handover_pose(baton)",
+            "collision_free()"
+          ],
+          "add": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ],
+          "del": [
+            "empty(1)",
+            "home(1)"
+          ],
+          "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "dc0bf1f955c0061f62d296c54d72c4976d4116cb207756882e7dfb01a625d187",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported"
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+      "model": {
+        "name": "receiver_grasps_box_face",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+      },
+      "attempt": 3,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor already holds the box at meeting pose. Receiver must grasp its own box-face zone and establish dual holding. Do not release donor.\nAvailable APIs:\napproach(xyz): move OPEN receiver above point.\nattach_contact_gated(): verify contact and activate receiver weld, creating dual holding.\nclose_gripper(): close after descent; does not attach.\ndescend(xyz): lower OPEN receiver to same point.\ngrasp_pose() -> xyz: read receiver grasp point.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    grasp_point = api.grasp_pose()\\n    api.descend(grasp_point)\\n    api.attach_contact_gated()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 approach \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"], \"remaining_del\": [\"empty(1)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"empty(1)\"], \"unexpected_removed\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"]}}]",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_02/attempt3/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor already holds the box at meeting pose. Receiver must grasp its own box-face zone and establish dual holding. Do not release donor.\nAvailable APIs:\napproach(xyz): move OPEN receiver above point.\nattach_contact_gated(): verify contact and activate receiver weld, creating dual holding.\nclose_gripper(): close after descent; does not attach.\ndescend(xyz): lower OPEN receiver to same point.\ngrasp_pose() -> xyz: read receiver grasp point.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    grasp_point = api.grasp_pose()\\n    api.descend(grasp_point)\\n    api.attach_contact_gated()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 approach \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"], \"remaining_del\": [\"empty(1)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"empty(1)\"], \"unexpected_removed\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"]}}]<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.3,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    grasp_point = api.grasp_pose()\n    api.descend(grasp_point)\n    api.attach_contact_gated()\n```",
+        "wall_seconds": 1.6257215839577839
+      },
+      "source": "def policy(api):\n    grasp_point = api.grasp_pose()\n    api.descend(grasp_point)\n    api.attach_contact_gated()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ],
+          "remaining_del": [
+            "empty(1)"
+          ],
+          "missing_preserved_pre": [],
+          "unexpected_added": [
+            "empty(1)"
+          ],
+          "unexpected_removed": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ]
+        },
+        "code_executed": true,
+        "exception": "RuntimeError: 当前 API 缺少已完成的 approach 控制证据",
+        "trace": [
+          {
+            "method": "grasp_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.34985084432825986,
+              -0.07450101350691023,
+              0.6987337571572111
+            ]
+          },
+          {
+            "method": "descend",
+            "args": [
+              [
+                0.34985084432825986,
+                -0.07450101350691023,
+                0.6987337571572111
+              ]
+            ],
+            "kwargs": {},
+            "status": "failed",
+            "error": "RuntimeError: 当前 API 缺少已完成的 approach 控制证据"
+          }
+        ],
+        "before": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "after": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "model": {
+          "name": "receiver_grasps_box_face",
+          "args": {
+            "arm": "1",
+            "obj": "baton",
+            "dest": "receiver_grasps_opposite_handle"
+          },
+          "program_kind": "receive",
+          "pre": [
+            "donor_holding(baton)",
+            "empty(1)",
+            "at_handover_pose(baton)",
+            "collision_free()"
+          ],
+          "add": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ],
+          "del": [
+            "empty(1)",
+            "home(1)"
+          ],
+          "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "dc0bf1f955c0061f62d296c54d72c4976d4116cb207756882e7dfb01a625d187",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported"
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+      "model": {
+        "name": "receiver_grasps_box_face",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+      },
+      "attempt": 4,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor already holds the box at meeting pose. Receiver must grasp its own box-face zone and establish dual holding. Do not release donor.\nAvailable APIs:\napproach(xyz): move OPEN receiver above point.\nattach_contact_gated(): verify contact and activate receiver weld, creating dual holding.\nclose_gripper(): close after descent; does not attach.\ndescend(xyz): lower OPEN receiver to same point.\ngrasp_pose() -> xyz: read receiver grasp point.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    grasp_point = api.grasp_pose()\\n    api.descend(grasp_point)\\n    api.attach_contact_gated()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 approach \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"], \"remaining_del\": [\"empty(1)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"empty(1)\"], \"unexpected_removed\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"]}}]",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_02/attempt4/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor already holds the box at meeting pose. Receiver must grasp its own box-face zone and establish dual holding. Do not release donor.\nAvailable APIs:\napproach(xyz): move OPEN receiver above point.\nattach_contact_gated(): verify contact and activate receiver weld, creating dual holding.\nclose_gripper(): close after descent; does not attach.\ndescend(xyz): lower OPEN receiver to same point.\ngrasp_pose() -> xyz: read receiver grasp point.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    grasp_point = api.grasp_pose()\\n    api.descend(grasp_point)\\n    api.attach_contact_gated()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 approach \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"], \"remaining_del\": [\"empty(1)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"empty(1)\"], \"unexpected_removed\": [\"dual_holding(baton)\", \"receiver_contact_verified()\"]}}]<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.44999999999999996,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    grasp_point = api.grasp_pose()\n    api.descend(grasp_point)\n    api.attach_contact_gated()\n```",
+        "wall_seconds": 1.6573379590408877
+      },
+      "source": "def policy(api):\n    grasp_point = api.grasp_pose()\n    api.descend(grasp_point)\n    api.attach_contact_gated()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ],
+          "remaining_del": [
+            "empty(1)"
+          ],
+          "missing_preserved_pre": [],
+          "unexpected_added": [
+            "empty(1)"
+          ],
+          "unexpected_removed": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ]
+        },
+        "code_executed": true,
+        "exception": "RuntimeError: 当前 API 缺少已完成的 approach 控制证据",
+        "trace": [
+          {
+            "method": "grasp_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.34985084432825986,
+              -0.07450101350691023,
+              0.6987337571572111
+            ]
+          },
+          {
+            "method": "descend",
+            "args": [
+              [
+                0.34985084432825986,
+                -0.07450101350691023,
+                0.6987337571572111
+              ]
+            ],
+            "kwargs": {},
+            "status": "failed",
+            "error": "RuntimeError: 当前 API 缺少已完成的 approach 控制证据"
+          }
+        ],
+        "before": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "after": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "model": {
+          "name": "receiver_grasps_box_face",
+          "args": {
+            "arm": "1",
+            "obj": "baton",
+            "dest": "receiver_grasps_opposite_handle"
+          },
+          "program_kind": "receive",
+          "pre": [
+            "donor_holding(baton)",
+            "empty(1)",
+            "at_handover_pose(baton)",
+            "collision_free()"
+          ],
+          "add": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ],
+          "del": [
+            "empty(1)",
+            "home(1)"
+          ],
+          "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "dc0bf1f955c0061f62d296c54d72c4976d4116cb207756882e7dfb01a625d187",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported"
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+      "model": {
+        "name": "receiver_grasps_box_face",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_grasps_opposite_handle"
+        },
+        "program_kind": "receive",
+        "pre": [
+          "donor_holding(baton)",
+          "empty(1)",
+          "at_handover_pose(baton)",
+          "collision_free()"
+        ],
+        "add": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()"
+        ],
+        "del": [
+          "empty(1)",
+          "home(1)"
+        ],
+        "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+      },
+      "attempt": 1,
+      "related_model_example": {
+        "source": "def policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()\n    api.lift()",
+        "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_00/attempt3",
+        "sha256": "8a119dcdf229d4922e7818c54d783081d2cf14f593a6332685d259851494d58b",
+        "same_action": false
+      },
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor already holds the box at meeting pose. Receiver must grasp its own box-face zone and establish dual holding. Do not release donor.\nAvailable APIs:\napproach(xyz): move OPEN receiver above point.\nattach_contact_gated(): verify contact and activate receiver weld, creating dual holding.\nclose_gripper(): close after descent; does not attach.\ndescend(xyz): lower OPEN receiver to same point.\ngrasp_pose() -> xyz: read receiver grasp point.\nLast actual failed candidate and validator feedback: []\nRelated program ACTUALLY generated by a model in an earlier different action:\ndef policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()\n    api.lift()\nAdapt to the CURRENT action and current allowed APIs. Do not use unavailable APIs; do not blindly copy an operation such as lift that does not belong to this action. Return your own complete source.",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_02/attempt1/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Donor already holds the box at meeting pose. Receiver must grasp its own box-face zone and establish dual holding. Do not release donor.\nAvailable APIs:\napproach(xyz): move OPEN receiver above point.\nattach_contact_gated(): verify contact and activate receiver weld, creating dual holding.\nclose_gripper(): close after descent; does not attach.\ndescend(xyz): lower OPEN receiver to same point.\ngrasp_pose() -> xyz: read receiver grasp point.\nLast actual failed candidate and validator feedback: []\nRelated program ACTUALLY generated by a model in an earlier different action:\ndef policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()\n    api.lift()\nAdapt to the CURRENT action and current allowed APIs. Do not use unavailable APIs; do not blindly copy an operation such as lift that does not belong to this action. Return your own complete source.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.0,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()\n```",
+        "wall_seconds": 2.2013023749459535
+      },
+      "source": "def policy(api):\n    grasp_pose = api.grasp_pose()\n    api.approach(grasp_pose)\n    api.descend(grasp_pose)\n    api.close_gripper()\n    api.attach_contact_gated()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": true,
+        "strict_CP_transition_match": false,
+        "goal_ok": true,
+        "effect_ok": true,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [
+            "receiver_holding(baton)"
+          ],
+          "unexpected_removed": []
+        },
+        "code_executed": true,
+        "exception": null,
+        "trace": [
+          {
+            "method": "grasp_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.34985084432825986,
+              -0.07450101350691023,
+              0.6987337571572111
+            ]
+          },
+          {
+            "method": "approach",
+            "args": [
+              [
+                0.34985084432825986,
+                -0.07450101350691023,
+                0.6987337571572111
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 18.460000000000647,
+              "object_position": [
+                0.3498455845676382,
+                0.0004711145781828801,
+                0.6397045092670347
+              ],
+              "tcp_position": [
+                0.34993488195032246,
+                -0.07463191485476321,
+                0.8187197214142068
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "descend",
+            "args": [
+              [
+                0.34985084432825986,
+                -0.07450101350691023,
+                0.6987337571572111
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 20.579999999999472,
+              "object_position": [
+                0.34984557952193285,
+                0.0004704911933648204,
+                0.6397049262163568
+              ],
+              "tcp_position": [
+                0.3498502217440396,
+                -0.0744896491943953,
+                0.6989883331235286
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "close_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 21.059999999999206,
+              "object_position": [
+                0.34984489624951665,
+                0.00047422383946958913,
+                0.6396986556150965
+              ],
+              "tcp_position": [
+                0.3498477096947697,
+                -0.07448382084223854,
+                0.6989478840253591
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld",
+              "contact_since": 20.579999999999472
+            }
+          },
+          {
+            "method": "attach_contact_gated",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 21.2519999999991,
+              "object_position": [
+                0.3498449133355404,
+                0.0004742352288135664,
+                0.6396988277015284
+              ],
+              "tcp_position": [
+                0.34984768081954487,
+                -0.07448385062600481,
+                0.6989477390970067
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          }
+        ],
+        "before": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "empty(1)"
+        ],
+        "after": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "model": {
+          "name": "receiver_grasps_box_face",
+          "args": {
+            "arm": "1",
+            "obj": "baton",
+            "dest": "receiver_grasps_opposite_handle"
+          },
+          "program_kind": "receive",
+          "pre": [
+            "donor_holding(baton)",
+            "empty(1)",
+            "at_handover_pose(baton)",
+            "collision_free()"
+          ],
+          "add": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()"
+          ],
+          "del": [
+            "empty(1)",
+            "home(1)"
+          ],
+          "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": true,
+        "missing_required_calls": [],
+        "code_sha256": "e7ffe5ed058625222f461a4df65f5c2df11eeb63d1b522d473cfba7a0e4219db",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported",
+        "physical_diagnostics": {
+          "placed": false,
+          "xy_error_m": 0.2114357885966322,
+          "bottom_gap_m": 0.1596599468800991,
+          "rotation_error_deg": 0.019810924636767556,
+          "released": false,
+          "origin": [
+            0.3498449133355404,
+            0.0004742352288135664,
+            0.6396988277015284
+          ],
+          "table_support_contact": false
+        }
+      },
+      "accepted": true
+    },
+    {
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "茶盒由接收臂持有，交出臂为空且位于安全撤离位；真实事件证明接收验证先于空中释放，运动无禁止碰撞。"
+      },
+      "attempt": 1,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver attachment verified; transfer ownership by releasing donor and withdrawing donor arm. Receiver must keep holding.\nAvailable APIs:\ndetach(): release DONOR weld after opening.\nopen_gripper(): opens DONOR without detaching weld.\nwithdraw(): withdraw DONOR to safe pose after detach.\nLast actual failed candidate and validator feedback: []",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_03/attempt1/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver attachment verified; transfer ownership by releasing donor and withdrawing donor arm. Receiver must keep holding.\nAvailable APIs:\ndetach(): release DONOR weld after opening.\nopen_gripper(): opens DONOR without detaching weld.\nwithdraw(): withdraw DONOR to safe pose after detach.\nLast actual failed candidate and validator feedback: []<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.0,
+        "max_tokens": 850,
+        "raw": "```python<|code_block|>\ndef policy(api):\n    api.detach()\n    api.withdraw()\n```",
+        "wall_seconds": 1.3184363329783082
+      },
+      "accepted": false,
+      "error": "invalid syntax (<unknown>, line 1)"
+    },
+    {
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "茶盒由接收臂持有，交出臂为空且位于安全撤离位；真实事件证明接收验证先于空中释放，运动无禁止碰撞。"
+      },
+      "attempt": 2,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver attachment verified; transfer ownership by releasing donor and withdrawing donor arm. Receiver must keep holding.\nAvailable APIs:\ndetach(): release DONOR weld after opening.\nopen_gripper(): opens DONOR without detaching weld.\nwithdraw(): withdraw DONOR to safe pose after detach.\nLast actual failed candidate and validator feedback: [{\"source\": \"```python<|code_block|>\\ndef policy(api):\\n    api.detach()\\n    api.withdraw()\\n```\", \"error\": \"invalid syntax (<unknown>, line 1)\", \"missing_calls\": null, \"violations\": null, \"physical_diagnostics\": null}]",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_03/attempt2/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver attachment verified; transfer ownership by releasing donor and withdrawing donor arm. Receiver must keep holding.\nAvailable APIs:\ndetach(): release DONOR weld after opening.\nopen_gripper(): opens DONOR without detaching weld.\nwithdraw(): withdraw DONOR to safe pose after detach.\nLast actual failed candidate and validator feedback: [{\"source\": \"```python<|code_block|>\\ndef policy(api):\\n    api.detach()\\n    api.withdraw()\\n```\", \"error\": \"invalid syntax (<unknown>, line 1)\", \"missing_calls\": null, \"violations\": null, \"physical_diagnostics\": null}]<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.15,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    api.detach()\n    api.withdraw()\n```",
+        "wall_seconds": 1.2204545410349965
+      },
+      "source": "def policy(api):\n    api.detach()\n    api.withdraw()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "donor_withdrawn()",
+            "empty(0)",
+            "handover_verified()"
+          ],
+          "remaining_del": [
+            "donor_holding(baton)",
+            "dual_holding(baton)"
+          ],
+          "missing_preserved_pre": [],
+          "unexpected_added": [
+            "donor_holding(baton)",
+            "dual_holding(baton)"
+          ],
+          "unexpected_removed": [
+            "donor_withdrawn()",
+            "empty(0)",
+            "handover_verified()"
+          ]
+        },
+        "code_executed": true,
+        "exception": "RuntimeError: 当前 API 缺少已完成的 open_gripper 控制证据",
+        "trace": [
+          {
+            "method": "detach",
+            "args": [],
+            "kwargs": {},
+            "status": "failed",
+            "error": "RuntimeError: 当前 API 缺少已完成的 open_gripper 控制证据"
+          }
+        ],
+        "before": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "after": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "model": {
+          "name": "donor_releases_after_receiver",
+          "args": {
+            "arm": "0",
+            "obj": "baton",
+            "dest": "donor_releases_after_receiver"
+          },
+          "program_kind": "donor_release",
+          "pre": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()",
+            "baton_airborne()",
+            "collision_free()"
+          ],
+          "add": [
+            "receiver_holding(baton)",
+            "empty(0)",
+            "donor_withdrawn()",
+            "handover_verified()"
+          ],
+          "del": [
+            "dual_holding(baton)",
+            "donor_holding(baton)"
+          ],
+          "description": "茶盒由接收臂持有，交出臂为空且位于安全撤离位；真实事件证明接收验证先于空中释放，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "a04bcdb3c4221869bce132c4fe69e91b250900845a1ea08d5b97154d632569fe",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported",
+        "physical_diagnostics": {
+          "placed": false,
+          "xy_error_m": 0.2114357885966322,
+          "bottom_gap_m": 0.1596599468800991,
+          "rotation_error_deg": 0.019810924636767556,
+          "released": false,
+          "origin": [
+            0.3498449133355404,
+            0.0004742352288135664,
+            0.6396988277015284
+          ],
+          "table_support_contact": false
+        }
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+      "model": {
+        "name": "donor_releases_after_receiver",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "donor_releases_after_receiver"
+        },
+        "program_kind": "donor_release",
+        "pre": [
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "baton_airborne()",
+          "collision_free()"
+        ],
+        "add": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()"
+        ],
+        "del": [
+          "dual_holding(baton)",
+          "donor_holding(baton)"
+        ],
+        "description": "茶盒由接收臂持有，交出臂为空且位于安全撤离位；真实事件证明接收验证先于空中释放，运动无禁止碰撞。"
+      },
+      "attempt": 3,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver attachment verified; transfer ownership by releasing donor and withdrawing donor arm. Receiver must keep holding.\nAvailable APIs:\ndetach(): release DONOR weld after opening.\nopen_gripper(): opens DONOR without detaching weld.\nwithdraw(): withdraw DONOR to safe pose after detach.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    api.detach()\\n    api.withdraw()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 open_gripper \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"donor_withdrawn()\", \"empty(0)\", \"handover_verified()\"], \"remaining_del\": [\"donor_holding(baton)\", \"dual_holding(baton)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"donor_holding(baton)\", \"dual_holding(baton)\"], \"unexpected_removed\": [\"donor_withdrawn()\", \"empty(0)\", \"handover_verified()\"]}, \"physical_diagnostics\": {\"placed\": false, \"xy_error_m\": 0.2114357885966322, \"bottom_gap_m\": 0.1596599468800991, \"rotation_error_deg\": 0.019810924636767556, \"released\": false, \"origin\": [0.3498449133355404, 0.0004742352288135664, 0.6396988277015284], \"table_support_contact\": false}}]",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_03/attempt3/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver attachment verified; transfer ownership by releasing donor and withdrawing donor arm. Receiver must keep holding.\nAvailable APIs:\ndetach(): release DONOR weld after opening.\nopen_gripper(): opens DONOR without detaching weld.\nwithdraw(): withdraw DONOR to safe pose after detach.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    api.detach()\\n    api.withdraw()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 open_gripper \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"donor_withdrawn()\", \"empty(0)\", \"handover_verified()\"], \"remaining_del\": [\"donor_holding(baton)\", \"dual_holding(baton)\"], \"missing_preserved_pre\": [], \"unexpected_added\": [\"donor_holding(baton)\", \"dual_holding(baton)\"], \"unexpected_removed\": [\"donor_withdrawn()\", \"empty(0)\", \"handover_verified()\"]}, \"physical_diagnostics\": {\"placed\": false, \"xy_error_m\": 0.2114357885966322, \"bottom_gap_m\": 0.1596599468800991, \"rotation_error_deg\": 0.019810924636767556, \"released\": false, \"origin\": [0.3498449133355404, 0.0004742352288135664, 0.6396988277015284], \"table_support_contact\": false}}]<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.3,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    api.open_gripper()\n    api.detach()\n    api.withdraw()\n```",
+        "wall_seconds": 1.5645360420458019
+      },
+      "source": "def policy(api):\n    api.open_gripper()\n    api.detach()\n    api.withdraw()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": true,
+        "strict_CP_transition_match": false,
+        "goal_ok": true,
+        "effect_ok": true,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [],
+          "unexpected_removed": [
+            "at_handover_pose(baton)"
+          ]
+        },
+        "code_executed": true,
+        "exception": null,
+        "trace": [
+          {
+            "method": "open_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 21.443999999998994,
+              "object_position": [
+                0.349844652865689,
+                0.00047419427771006924,
+                0.6397003023877164
+              ],
+              "tcp_position": [
+                0.34984971070695653,
+                0.07550772900699518,
+                0.6991984443316437
+              ],
+              "weld_constraint_active": true,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "detach",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 21.443999999998994,
+              "object_position": [
+                0.349844652865689,
+                0.00047419427771006924,
+                0.6397003023877164
+              ],
+              "tcp_position": [
+                0.34984971070695653,
+                0.07550772900699518,
+                0.6991984443316437
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "withdraw",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 26.46399999999621,
+              "object_position": [
+                0.3498869494009733,
+                0.00034235136734253493,
+                0.6394262455661195
+              ],
+              "tcp_position": [
+                0.22018999648173235,
+                0.3395821980418728,
+                0.7798855112559966
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          }
+        ],
+        "before": [
+          "at_handover_pose(baton)",
+          "baton_airborne()",
+          "collision_free()",
+          "donor_holding(baton)",
+          "dual_holding(baton)",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "after": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "handover_verified()",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "model": {
+          "name": "donor_releases_after_receiver",
+          "args": {
+            "arm": "0",
+            "obj": "baton",
+            "dest": "donor_releases_after_receiver"
+          },
+          "program_kind": "donor_release",
+          "pre": [
+            "dual_holding(baton)",
+            "receiver_contact_verified()",
+            "baton_airborne()",
+            "collision_free()"
+          ],
+          "add": [
+            "receiver_holding(baton)",
+            "empty(0)",
+            "donor_withdrawn()",
+            "handover_verified()"
+          ],
+          "del": [
+            "dual_holding(baton)",
+            "donor_holding(baton)"
+          ],
+          "description": "茶盒由接收臂持有，交出臂为空且位于安全撤离位；真实事件证明接收验证先于空中释放，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": true,
+        "missing_required_calls": [],
+        "code_sha256": "4739c1eccec41d660fcf01e92fc4acb830f1b3b14edd4d2ababacff6af6160f8",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported",
+        "physical_diagnostics": {
+          "placed": false,
+          "xy_error_m": 0.21130131946801903,
+          "bottom_gap_m": 0.15936453855235255,
+          "rotation_error_deg": 0.03141619029131363,
+          "released": false,
+          "origin": [
+            0.3498869494009733,
+            0.00034235136734253493,
+            0.6394262455661195
+          ],
+          "table_support_contact": false
+        }
+      },
+      "accepted": true
+    },
+    {
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。"
+      },
+      "attempt": 1,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: 绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。\nAvailable APIs:\nreturn_arm_home()：仅对无活动 weld 的绑定空臂执行安全位及原执行器 HOME 控制，保留实测 HOME 验收。返回纯数据。\nLast actual failed candidate and validator feedback: []",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_04/attempt1/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: 绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。\nAvailable APIs:\nreturn_arm_home()：仅对无活动 weld 的绑定空臂执行安全位及原执行器 HOME 控制，保留实测 HOME 验收。返回纯数据。\nLast actual failed candidate and validator feedback: []<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.0,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    arm = api.get_arm()\n    if arm is not None:\n        api.return_arm_home()\n```",
+        "wall_seconds": 1.4392470829188824
+      },
+      "source": "def policy(api):\n    arm = api.get_arm()\n    if arm is not None:\n        api.return_arm_home()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "home(0)"
+          ],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [],
+          "unexpected_removed": [
+            "home(0)"
+          ]
+        },
+        "code_executed": false,
+        "exception": "PolicyRejected: unsupported API attribute api.get_arm; allowed methods: ['return_arm_home']",
+        "trace": [],
+        "before": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "handover_verified()",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "after": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "handover_verified()",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "model": {
+          "name": "home_donor_arm",
+          "args": {
+            "arm": "0",
+            "obj": "baton",
+            "dest": "home_donor_arm"
+          },
+          "program_kind": "controlled_home",
+          "pre": [
+            "receiver_holding(baton)",
+            "empty(0)",
+            "donor_withdrawn()",
+            "handover_verified()",
+            "collision_free()"
+          ],
+          "add": [
+            "home(0)"
+          ],
+          "del": [],
+          "description": "绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "d18ff4dc3130b7bda48e891b8a7a6f26c2171a7a70de33c0a09b8dda1831b199",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported",
+        "physical_diagnostics": {
+          "placed": false,
+          "xy_error_m": 0.21130131946801903,
+          "bottom_gap_m": 0.15936453855235255,
+          "rotation_error_deg": 0.03141619029131363,
+          "released": false,
+          "origin": [
+            0.3498869494009733,
+            0.00034235136734253493,
+            0.6394262455661195
+          ],
+          "table_support_contact": false
+        }
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+      "model": {
+        "name": "home_donor_arm",
+        "args": {
+          "arm": "0",
+          "obj": "baton",
+          "dest": "home_donor_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "receiver_holding(baton)",
+          "empty(0)",
+          "donor_withdrawn()",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(0)"
+        ],
+        "del": [],
+        "description": "绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。"
+      },
+      "attempt": 2,
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: 绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。\nAvailable APIs:\nreturn_arm_home()：仅对无活动 weld 的绑定空臂执行安全位及原执行器 HOME 控制，保留实测 HOME 验收。返回纯数据。\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    arm = api.get_arm()\\n    if arm is not None:\\n        api.return_arm_home()\", \"error\": \"PolicyRejected: unsupported API attribute api.get_arm; allowed methods: ['return_arm_home']\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"home(0)\"], \"remaining_del\": [], \"missing_preserved_pre\": [], \"unexpected_added\": [], \"unexpected_removed\": [\"home(0)\"]}, \"physical_diagnostics\": {\"placed\": false, \"xy_error_m\": 0.21130131946801903, \"bottom_gap_m\": 0.15936453855235255, \"rotation_error_deg\": 0.03141619029131363, \"released\": false, \"origin\": [0.3498869494009733, 0.00034235136734253493, 0.6394262455661195], \"table_support_contact\": false}}]",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_04/attempt2/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: 绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。\nAvailable APIs:\nreturn_arm_home()：仅对无活动 weld 的绑定空臂执行安全位及原执行器 HOME 控制，保留实测 HOME 验收。返回纯数据。\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    arm = api.get_arm()\\n    if arm is not None:\\n        api.return_arm_home()\", \"error\": \"PolicyRejected: unsupported API attribute api.get_arm; allowed methods: ['return_arm_home']\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"home(0)\"], \"remaining_del\": [], \"missing_preserved_pre\": [], \"unexpected_added\": [], \"unexpected_removed\": [\"home(0)\"]}, \"physical_diagnostics\": {\"placed\": false, \"xy_error_m\": 0.21130131946801903, \"bottom_gap_m\": 0.15936453855235255, \"rotation_error_deg\": 0.03141619029131363, \"released\": false, \"origin\": [0.3498869494009733, 0.00034235136734253493, 0.6394262455661195], \"table_support_contact\": false}}]<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.15,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    api.return_arm_home()\n```",
+        "wall_seconds": 1.2938270421000198
+      },
+      "source": "def policy(api):\n    api.return_arm_home()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": true,
+        "strict_CP_transition_match": true,
+        "goal_ok": true,
+        "effect_ok": true,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [],
+          "unexpected_removed": []
+        },
+        "code_executed": true,
+        "exception": null,
+        "trace": [
+          {
+            "method": "return_arm_home",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 28.97599999999482,
+              "object_position": [
+                0.349886969562861,
+                0.0003416210223564902,
+                0.6394247909988898
+              ],
+              "tcp_position": [
+                0.16080903581876804,
+                0.2933563997705888,
+                0.8862808645206343
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld",
+              "home": true
+            }
+          }
+        ],
+        "before": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "handover_verified()",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "after": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "handover_verified()",
+          "home(0)",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "model": {
+          "name": "home_donor_arm",
+          "args": {
+            "arm": "0",
+            "obj": "baton",
+            "dest": "home_donor_arm"
+          },
+          "program_kind": "controlled_home",
+          "pre": [
+            "receiver_holding(baton)",
+            "empty(0)",
+            "donor_withdrawn()",
+            "handover_verified()",
+            "collision_free()"
+          ],
+          "add": [
+            "home(0)"
+          ],
+          "del": [],
+          "description": "绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": true,
+        "missing_required_calls": [],
+        "code_sha256": "792a285385ef05011ed0df6e5124e88fbdaba56434cd440832fbe9e03b9beb56",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported",
+        "physical_diagnostics": {
+          "placed": false,
+          "xy_error_m": 0.21130068562364285,
+          "bottom_gap_m": 0.15937747094991483,
+          "rotation_error_deg": 0.024090694875446315,
+          "released": false,
+          "origin": [
+            0.349886969562861,
+            0.0003416210223564902,
+            0.6394247909988898
+          ],
+          "table_support_contact": false
+        }
+      },
+      "accepted": true
+    },
+    {
+      "action_id": "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)",
+      "model": {
+        "name": "receiver_places_baton",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_places_baton"
+        },
+        "program_kind": "receiver_place",
+        "pre": [
+          "receiver_holding(baton)",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()"
+        ],
+        "del": [
+          "receiver_holding(baton)",
+          "baton_airborne()",
+          "at_handover_pose(baton)"
+        ],
+        "description": "茶盒位于目的地并由桌面真实支撑，接收臂为空且位于安全撤离位，交出臂保持 HOME，运动无禁止碰撞。"
+      },
+      "attempt": 1,
+      "related_model_example": {
+        "source": "def policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()",
+        "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/project/data/programs/curriculum_pick_result.json#place",
+        "sha256": "f6ecf4e96ef8e6323f94898cc65b17db063f506accb607e72caf6d14a200c7b5",
+        "same_action": false
+      },
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver holds box and donor is home. Place box at destination, release and withdraw the receiver safely; do not go HOME.\nAvailable APIs:\ncarry(xyz): transport held box above destination.\ndetach(): remove receiver weld after opening and allow box to settle.\nlower(xyz): lower held box to support; requires carry; does not release.\nopen_gripper(): open receiver at CURRENT location after lowering; does not detach weld.\nread() -> dict: read-only evaluation; not necessary to execute action.\nretreat_vertical(): raise empty OPEN hand; requires detach.\ntarget_pose() -> xyz: read destination object origin.\nwithdraw_safe(): move OPEN hand to outer safe pose; requires vertical retreat.\nLast actual failed candidate and validator feedback: []\nRelated program ACTUALLY generated by a model in an earlier different action:\ndef policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()\nAdapt to the CURRENT action and current allowed APIs. Do not use unavailable APIs; do not blindly copy an operation such as lift that does not belong to this action. Return your own complete source.",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_05/attempt1/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver holds box and donor is home. Place box at destination, release and withdraw the receiver safely; do not go HOME.\nAvailable APIs:\ncarry(xyz): transport held box above destination.\ndetach(): remove receiver weld after opening and allow box to settle.\nlower(xyz): lower held box to support; requires carry; does not release.\nopen_gripper(): open receiver at CURRENT location after lowering; does not detach weld.\nread() -> dict: read-only evaluation; not necessary to execute action.\nretreat_vertical(): raise empty OPEN hand; requires detach.\ntarget_pose() -> xyz: read destination object origin.\nwithdraw_safe(): move OPEN hand to outer safe pose; requires vertical retreat.\nLast actual failed candidate and validator feedback: []\nRelated program ACTUALLY generated by a model in an earlier different action:\ndef policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()\nAdapt to the CURRENT action and current allowed APIs. Do not use unavailable APIs; do not blindly copy an operation such as lift that does not belong to this action. Return your own complete source.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.0,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    pose = api.target_pose()\n    api.carry(pose)\n    api.lower(pose)\n    api.open_gripper()\n    api.detach()\n    api.withdraw_safe()\n```",
+        "wall_seconds": 1.8136761659989133
+      },
+      "source": "def policy(api):\n    pose = api.target_pose()\n    api.carry(pose)\n    api.lower(pose)\n    api.open_gripper()\n    api.detach()\n    api.withdraw_safe()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "receiver_withdrawn()"
+          ],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [],
+          "unexpected_removed": [
+            "receiver_withdrawn()"
+          ]
+        },
+        "code_executed": true,
+        "exception": "RuntimeError: 当前 API 缺少已完成的 retreat_vertical 控制证据",
+        "trace": [
+          {
+            "method": "target_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.46,
+              -0.18,
+              0.48300000000000004
+            ]
+          },
+          {
+            "method": "carry",
+            "args": [
+              [
+                0.46,
+                -0.18,
+                0.48300000000000004
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 32.5359999999938,
+              "object_position": [
+                0.4599685854393063,
+                -0.17997133522154593,
+                0.6398344374905363
+              ],
+              "tcp_position": [
+                0.45996487106823586,
+                -0.25491091752033246,
+                0.6991254147160355
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "lower",
+            "args": [
+              [
+                0.46,
+                -0.18,
+                0.48300000000000004
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 34.855999999996634,
+              "object_position": [
+                0.460091099050099,
+                -0.18043781115955979,
+                0.4863409628396996
+              ],
+              "tcp_position": [
+                0.4601684139373591,
+                -0.2552921772210025,
+                0.5457489300063062
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "open_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 34.91999999999671,
+              "object_position": [
+                0.46005597325844383,
+                -0.18042160063463172,
+                0.4848271067986943
+              ],
+              "tcp_position": [
+                0.4601561463554785,
+                -0.2553108200554385,
+                0.5441951081568173
+              ],
+              "weld_constraint_active": true,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "detach",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 35.207999999997064,
+              "object_position": [
+                0.45988687911764253,
+                -0.180509452849579,
+                0.47999892286199985
+              ],
+              "tcp_position": [
+                0.46010035035293373,
+                -0.2551271116539149,
+                0.5427814826175424
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "withdraw_safe",
+            "args": [],
+            "kwargs": {},
+            "status": "failed",
+            "error": "RuntimeError: 当前 API 缺少已完成的 retreat_vertical 控制证据"
+          }
+        ],
+        "before": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "handover_verified()",
+          "home(0)",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "after": [
+          "at_destination(baton)",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "empty(1)",
+          "handover_verified()",
+          "home(0)",
+          "receiver_contact_verified()"
+        ],
+        "model": {
+          "name": "receiver_places_baton",
+          "args": {
+            "arm": "1",
+            "obj": "baton",
+            "dest": "receiver_places_baton"
+          },
+          "program_kind": "receiver_place",
+          "pre": [
+            "receiver_holding(baton)",
+            "home(0)",
+            "handover_verified()",
+            "collision_free()"
+          ],
+          "add": [
+            "at_destination(baton)",
+            "empty(1)",
+            "receiver_withdrawn()"
+          ],
+          "del": [
+            "receiver_holding(baton)",
+            "baton_airborne()",
+            "at_handover_pose(baton)"
+          ],
+          "description": "茶盒位于目的地并由桌面真实支撑，接收臂为空且位于安全撤离位，交出臂保持 HOME，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "6029bf3ec60434ec638f16c5df93e9c2a893f8ff68bb9668888250b8a84a65a2",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported",
+        "physical_diagnostics": {
+          "placed": true,
+          "xy_error_m": 0.0005218606518693584,
+          "bottom_gap_m": -1.077138000071809e-06,
+          "rotation_error_deg": 0.03847698173637126,
+          "released": true,
+          "origin": [
+            0.45988687911764253,
+            -0.180509452849579,
+            0.47999892286199985
+          ],
+          "table_support_contact": true
+        }
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)",
+      "model": {
+        "name": "receiver_places_baton",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_places_baton"
+        },
+        "program_kind": "receiver_place",
+        "pre": [
+          "receiver_holding(baton)",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()"
+        ],
+        "del": [
+          "receiver_holding(baton)",
+          "baton_airborne()",
+          "at_handover_pose(baton)"
+        ],
+        "description": "茶盒位于目的地并由桌面真实支撑，接收臂为空且位于安全撤离位，交出臂保持 HOME，运动无禁止碰撞。"
+      },
+      "attempt": 2,
+      "related_model_example": {
+        "source": "def policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()",
+        "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/project/data/programs/curriculum_pick_result.json#place",
+        "sha256": "f6ecf4e96ef8e6323f94898cc65b17db063f506accb607e72caf6d14a200c7b5",
+        "same_action": false
+      },
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver holds box and donor is home. Place box at destination, release and withdraw the receiver safely; do not go HOME.\nAvailable APIs:\ncarry(xyz): transport held box above destination.\ndetach(): remove receiver weld after opening and allow box to settle.\nlower(xyz): lower held box to support; requires carry; does not release.\nopen_gripper(): open receiver at CURRENT location after lowering; does not detach weld.\nread() -> dict: read-only evaluation; not necessary to execute action.\nretreat_vertical(): raise empty OPEN hand; requires detach.\ntarget_pose() -> xyz: read destination object origin.\nwithdraw_safe(): move OPEN hand to outer safe pose; requires vertical retreat.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    pose = api.target_pose()\\n    api.carry(pose)\\n    api.lower(pose)\\n    api.open_gripper()\\n    api.detach()\\n    api.withdraw_safe()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 retreat_vertical \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"receiver_withdrawn()\"], \"remaining_del\": [], \"missing_preserved_pre\": [], \"unexpected_added\": [], \"unexpected_removed\": [\"receiver_withdrawn()\"]}, \"physical_diagnostics\": {\"placed\": true, \"xy_error_m\": 0.0005218606518693584, \"bottom_gap_m\": -1.077138000071809e-06, \"rotation_error_deg\": 0.03847698173637126, \"released\": true, \"origin\": [0.45988687911764253, -0.180509452849579, 0.47999892286199985], \"table_support_contact\": true}}]\nRelated program ACTUALLY generated by a model in an earlier different action:\ndef policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()\nAdapt to the CURRENT action and current allowed APIs. Do not use unavailable APIs; do not blindly copy an operation such as lift that does not belong to this action. Return your own complete source.",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_05/attempt2/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver holds box and donor is home. Place box at destination, release and withdraw the receiver safely; do not go HOME.\nAvailable APIs:\ncarry(xyz): transport held box above destination.\ndetach(): remove receiver weld after opening and allow box to settle.\nlower(xyz): lower held box to support; requires carry; does not release.\nopen_gripper(): open receiver at CURRENT location after lowering; does not detach weld.\nread() -> dict: read-only evaluation; not necessary to execute action.\nretreat_vertical(): raise empty OPEN hand; requires detach.\ntarget_pose() -> xyz: read destination object origin.\nwithdraw_safe(): move OPEN hand to outer safe pose; requires vertical retreat.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    pose = api.target_pose()\\n    api.carry(pose)\\n    api.lower(pose)\\n    api.open_gripper()\\n    api.detach()\\n    api.withdraw_safe()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 retreat_vertical \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"receiver_withdrawn()\"], \"remaining_del\": [], \"missing_preserved_pre\": [], \"unexpected_added\": [], \"unexpected_removed\": [\"receiver_withdrawn()\"]}, \"physical_diagnostics\": {\"placed\": true, \"xy_error_m\": 0.0005218606518693584, \"bottom_gap_m\": -1.077138000071809e-06, \"rotation_error_deg\": 0.03847698173637126, \"released\": true, \"origin\": [0.45988687911764253, -0.180509452849579, 0.47999892286199985], \"table_support_contact\": true}}]\nRelated program ACTUALLY generated by a model in an earlier different action:\ndef policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()\nAdapt to the CURRENT action and current allowed APIs. Do not use unavailable APIs; do not blindly copy an operation such as lift that does not belong to this action. Return your own complete source.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.15,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    pose = api.target_pose()\n    api.carry(pose)\n    api.lower(pose)\n    api.open_gripper()\n    api.detach()\n    api.withdraw_safe()\n```",
+        "wall_seconds": 2.2095909169875085
+      },
+      "source": "def policy(api):\n    pose = api.target_pose()\n    api.carry(pose)\n    api.lower(pose)\n    api.open_gripper()\n    api.detach()\n    api.withdraw_safe()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "receiver_withdrawn()"
+          ],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [],
+          "unexpected_removed": [
+            "receiver_withdrawn()"
+          ]
+        },
+        "code_executed": true,
+        "exception": "RuntimeError: 当前 API 缺少已完成的 retreat_vertical 控制证据",
+        "trace": [
+          {
+            "method": "target_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.46,
+              -0.18,
+              0.48300000000000004
+            ]
+          },
+          {
+            "method": "carry",
+            "args": [
+              [
+                0.46,
+                -0.18,
+                0.48300000000000004
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 32.5359999999938,
+              "object_position": [
+                0.4599685854393063,
+                -0.17997133522154593,
+                0.6398344374905363
+              ],
+              "tcp_position": [
+                0.45996487106823586,
+                -0.25491091752033246,
+                0.6991254147160355
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "lower",
+            "args": [
+              [
+                0.46,
+                -0.18,
+                0.48300000000000004
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 34.855999999996634,
+              "object_position": [
+                0.460091099050099,
+                -0.18043781115955979,
+                0.4863409628396996
+              ],
+              "tcp_position": [
+                0.4601684139373591,
+                -0.2552921772210025,
+                0.5457489300063062
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "open_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 34.91999999999671,
+              "object_position": [
+                0.46005597325844383,
+                -0.18042160063463172,
+                0.4848271067986943
+              ],
+              "tcp_position": [
+                0.4601561463554785,
+                -0.2553108200554385,
+                0.5441951081568173
+              ],
+              "weld_constraint_active": true,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "detach",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 35.207999999997064,
+              "object_position": [
+                0.45988687911764253,
+                -0.180509452849579,
+                0.47999892286199985
+              ],
+              "tcp_position": [
+                0.46010035035293373,
+                -0.2551271116539149,
+                0.5427814826175424
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "withdraw_safe",
+            "args": [],
+            "kwargs": {},
+            "status": "failed",
+            "error": "RuntimeError: 当前 API 缺少已完成的 retreat_vertical 控制证据"
+          }
+        ],
+        "before": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "handover_verified()",
+          "home(0)",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "after": [
+          "at_destination(baton)",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "empty(1)",
+          "handover_verified()",
+          "home(0)",
+          "receiver_contact_verified()"
+        ],
+        "model": {
+          "name": "receiver_places_baton",
+          "args": {
+            "arm": "1",
+            "obj": "baton",
+            "dest": "receiver_places_baton"
+          },
+          "program_kind": "receiver_place",
+          "pre": [
+            "receiver_holding(baton)",
+            "home(0)",
+            "handover_verified()",
+            "collision_free()"
+          ],
+          "add": [
+            "at_destination(baton)",
+            "empty(1)",
+            "receiver_withdrawn()"
+          ],
+          "del": [
+            "receiver_holding(baton)",
+            "baton_airborne()",
+            "at_handover_pose(baton)"
+          ],
+          "description": "茶盒位于目的地并由桌面真实支撑，接收臂为空且位于安全撤离位，交出臂保持 HOME，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "6029bf3ec60434ec638f16c5df93e9c2a893f8ff68bb9668888250b8a84a65a2",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported",
+        "physical_diagnostics": {
+          "placed": true,
+          "xy_error_m": 0.0005218606518693584,
+          "bottom_gap_m": -1.077138000071809e-06,
+          "rotation_error_deg": 0.03847698173637126,
+          "released": true,
+          "origin": [
+            0.45988687911764253,
+            -0.180509452849579,
+            0.47999892286199985
+          ],
+          "table_support_contact": true
+        }
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)",
+      "model": {
+        "name": "receiver_places_baton",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_places_baton"
+        },
+        "program_kind": "receiver_place",
+        "pre": [
+          "receiver_holding(baton)",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()"
+        ],
+        "del": [
+          "receiver_holding(baton)",
+          "baton_airborne()",
+          "at_handover_pose(baton)"
+        ],
+        "description": "茶盒位于目的地并由桌面真实支撑，接收臂为空且位于安全撤离位，交出臂保持 HOME，运动无禁止碰撞。"
+      },
+      "attempt": 3,
+      "related_model_example": {
+        "source": "def policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()",
+        "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/project/data/programs/curriculum_pick_result.json#place",
+        "sha256": "f6ecf4e96ef8e6323f94898cc65b17db063f506accb607e72caf6d14a200c7b5",
+        "same_action": false
+      },
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver holds box and donor is home. Place box at destination, release and withdraw the receiver safely; do not go HOME.\nAvailable APIs:\ncarry(xyz): transport held box above destination.\ndetach(): remove receiver weld after opening and allow box to settle.\nlower(xyz): lower held box to support; requires carry; does not release.\nopen_gripper(): open receiver at CURRENT location after lowering; does not detach weld.\nread() -> dict: read-only evaluation; not necessary to execute action.\nretreat_vertical(): raise empty OPEN hand; requires detach.\ntarget_pose() -> xyz: read destination object origin.\nwithdraw_safe(): move OPEN hand to outer safe pose; requires vertical retreat.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    pose = api.target_pose()\\n    api.carry(pose)\\n    api.lower(pose)\\n    api.open_gripper()\\n    api.detach()\\n    api.withdraw_safe()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 retreat_vertical \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"receiver_withdrawn()\"], \"remaining_del\": [], \"missing_preserved_pre\": [], \"unexpected_added\": [], \"unexpected_removed\": [\"receiver_withdrawn()\"]}, \"physical_diagnostics\": {\"placed\": true, \"xy_error_m\": 0.0005218606518693584, \"bottom_gap_m\": -1.077138000071809e-06, \"rotation_error_deg\": 0.03847698173637126, \"released\": true, \"origin\": [0.45988687911764253, -0.180509452849579, 0.47999892286199985], \"table_support_contact\": true}}]\nRelated program ACTUALLY generated by a model in an earlier different action:\ndef policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()\nAdapt to the CURRENT action and current allowed APIs. Do not use unavailable APIs; do not blindly copy an operation such as lift that does not belong to this action. Return your own complete source.",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_05/attempt3/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver holds box and donor is home. Place box at destination, release and withdraw the receiver safely; do not go HOME.\nAvailable APIs:\ncarry(xyz): transport held box above destination.\ndetach(): remove receiver weld after opening and allow box to settle.\nlower(xyz): lower held box to support; requires carry; does not release.\nopen_gripper(): open receiver at CURRENT location after lowering; does not detach weld.\nread() -> dict: read-only evaluation; not necessary to execute action.\nretreat_vertical(): raise empty OPEN hand; requires detach.\ntarget_pose() -> xyz: read destination object origin.\nwithdraw_safe(): move OPEN hand to outer safe pose; requires vertical retreat.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    pose = api.target_pose()\\n    api.carry(pose)\\n    api.lower(pose)\\n    api.open_gripper()\\n    api.detach()\\n    api.withdraw_safe()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 retreat_vertical \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"receiver_withdrawn()\"], \"remaining_del\": [], \"missing_preserved_pre\": [], \"unexpected_added\": [], \"unexpected_removed\": [\"receiver_withdrawn()\"]}, \"physical_diagnostics\": {\"placed\": true, \"xy_error_m\": 0.0005218606518693584, \"bottom_gap_m\": -1.077138000071809e-06, \"rotation_error_deg\": 0.03847698173637126, \"released\": true, \"origin\": [0.45988687911764253, -0.180509452849579, 0.47999892286199985], \"table_support_contact\": true}}]\nRelated program ACTUALLY generated by a model in an earlier different action:\ndef policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()\nAdapt to the CURRENT action and current allowed APIs. Do not use unavailable APIs; do not blindly copy an operation such as lift that does not belong to this action. Return your own complete source.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.3,
+        "max_tokens": 850,
+        "raw": "def policy(api):\n    pose = api.target_pose()\n    api.carry(pose)\n    api.lower(pose)\n    api.open_gripper()\n    api.detach()\n    api.withdraw_safe()",
+        "wall_seconds": 3.7137394580058753
+      },
+      "source": "def policy(api):\n    pose = api.target_pose()\n    api.carry(pose)\n    api.lower(pose)\n    api.open_gripper()\n    api.detach()\n    api.withdraw_safe()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": false,
+        "strict_CP_transition_match": false,
+        "goal_ok": false,
+        "effect_ok": false,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [
+            "receiver_withdrawn()"
+          ],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [],
+          "unexpected_removed": [
+            "receiver_withdrawn()"
+          ]
+        },
+        "code_executed": true,
+        "exception": "RuntimeError: 当前 API 缺少已完成的 retreat_vertical 控制证据",
+        "trace": [
+          {
+            "method": "target_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.46,
+              -0.18,
+              0.48300000000000004
+            ]
+          },
+          {
+            "method": "carry",
+            "args": [
+              [
+                0.46,
+                -0.18,
+                0.48300000000000004
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 32.5359999999938,
+              "object_position": [
+                0.4599685854393063,
+                -0.17997133522154593,
+                0.6398344374905363
+              ],
+              "tcp_position": [
+                0.45996487106823586,
+                -0.25491091752033246,
+                0.6991254147160355
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "lower",
+            "args": [
+              [
+                0.46,
+                -0.18,
+                0.48300000000000004
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 34.855999999996634,
+              "object_position": [
+                0.460091099050099,
+                -0.18043781115955979,
+                0.4863409628396996
+              ],
+              "tcp_position": [
+                0.4601684139373591,
+                -0.2552921772210025,
+                0.5457489300063062
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "open_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 34.91999999999671,
+              "object_position": [
+                0.46005597325844383,
+                -0.18042160063463172,
+                0.4848271067986943
+              ],
+              "tcp_position": [
+                0.4601561463554785,
+                -0.2553108200554385,
+                0.5441951081568173
+              ],
+              "weld_constraint_active": true,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "detach",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 35.207999999997064,
+              "object_position": [
+                0.45988687911764253,
+                -0.180509452849579,
+                0.47999892286199985
+              ],
+              "tcp_position": [
+                0.46010035035293373,
+                -0.2551271116539149,
+                0.5427814826175424
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "withdraw_safe",
+            "args": [],
+            "kwargs": {},
+            "status": "failed",
+            "error": "RuntimeError: 当前 API 缺少已完成的 retreat_vertical 控制证据"
+          }
+        ],
+        "before": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "handover_verified()",
+          "home(0)",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "after": [
+          "at_destination(baton)",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "empty(1)",
+          "handover_verified()",
+          "home(0)",
+          "receiver_contact_verified()"
+        ],
+        "model": {
+          "name": "receiver_places_baton",
+          "args": {
+            "arm": "1",
+            "obj": "baton",
+            "dest": "receiver_places_baton"
+          },
+          "program_kind": "receiver_place",
+          "pre": [
+            "receiver_holding(baton)",
+            "home(0)",
+            "handover_verified()",
+            "collision_free()"
+          ],
+          "add": [
+            "at_destination(baton)",
+            "empty(1)",
+            "receiver_withdrawn()"
+          ],
+          "del": [
+            "receiver_holding(baton)",
+            "baton_airborne()",
+            "at_handover_pose(baton)"
+          ],
+          "description": "茶盒位于目的地并由桌面真实支撑，接收臂为空且位于安全撤离位，交出臂保持 HOME，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": false,
+        "missing_required_calls": [],
+        "code_sha256": "6029bf3ec60434ec638f16c5df93e9c2a893f8ff68bb9668888250b8a84a65a2",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported",
+        "physical_diagnostics": {
+          "placed": true,
+          "xy_error_m": 0.0005218606518693584,
+          "bottom_gap_m": -1.077138000071809e-06,
+          "rotation_error_deg": 0.03847698173637126,
+          "released": true,
+          "origin": [
+            0.45988687911764253,
+            -0.180509452849579,
+            0.47999892286199985
+          ],
+          "table_support_contact": true
+        }
+      },
+      "accepted": false
+    },
+    {
+      "action_id": "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)",
+      "model": {
+        "name": "receiver_places_baton",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "receiver_places_baton"
+        },
+        "program_kind": "receiver_place",
+        "pre": [
+          "receiver_holding(baton)",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()"
+        ],
+        "del": [
+          "receiver_holding(baton)",
+          "baton_airborne()",
+          "at_handover_pose(baton)"
+        ],
+        "description": "茶盒位于目的地并由桌面真实支撑，接收臂为空且位于安全撤离位，交出臂保持 HOME，运动无禁止碰撞。"
+      },
+      "attempt": 4,
+      "related_model_example": {
+        "source": "def policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()",
+        "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/project/data/programs/curriculum_pick_result.json#place",
+        "sha256": "f6ecf4e96ef8e6323f94898cc65b17db063f506accb607e72caf6d14a200c7b5",
+        "same_action": false
+      },
+      "call": {
+        "model_id": "mlx-community/Qwen3.5-9B-4bit",
+        "text": "Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver holds box and donor is home. Place box at destination, release and withdraw the receiver safely; do not go HOME.\nAvailable APIs:\ncarry(xyz): transport held box above destination.\ndetach(): remove receiver weld after opening and allow box to settle.\nlower(xyz): lower held box to support; requires carry; does not release.\nopen_gripper(): open receiver at CURRENT location after lowering; does not detach weld.\nread() -> dict: read-only evaluation; not necessary to execute action.\nretreat_vertical(): raise empty OPEN hand; requires detach.\ntarget_pose() -> xyz: read destination object origin.\nwithdraw_safe(): move OPEN hand to outer safe pose; requires vertical retreat.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    pose = api.target_pose()\\n    api.carry(pose)\\n    api.lower(pose)\\n    api.open_gripper()\\n    api.detach()\\n    api.withdraw_safe()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 retreat_vertical \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"receiver_withdrawn()\"], \"remaining_del\": [], \"missing_preserved_pre\": [], \"unexpected_added\": [], \"unexpected_removed\": [\"receiver_withdrawn()\"]}, \"physical_diagnostics\": {\"placed\": true, \"xy_error_m\": 0.0005218606518693584, \"bottom_gap_m\": -1.077138000071809e-06, \"rotation_error_deg\": 0.03847698173637126, \"released\": true, \"origin\": [0.45988687911764253, -0.180509452849579, 0.47999892286199985], \"table_support_contact\": true}}]\nRelated program ACTUALLY generated by a model in an earlier different action:\ndef policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()\nAdapt to the CURRENT action and current allowed APIs. Do not use unavailable APIs; do not blindly copy an operation such as lift that does not belong to this action. Return your own complete source.",
+        "image_files": [
+          "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_05/attempt4/context.png"
+        ],
+        "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Write ONLY one Python function def policy(api):. Implement ONLY this action. No imports, loops, tuple unpacking or direct simulator access. Save API return tuples in local variables; no hardcoded coordinates. Use ONLY api.<method> calls listed below. DO NOT call an action by its name. Returning a status does not execute an action.\nAction semantics: Receiver holds box and donor is home. Place box at destination, release and withdraw the receiver safely; do not go HOME.\nAvailable APIs:\ncarry(xyz): transport held box above destination.\ndetach(): remove receiver weld after opening and allow box to settle.\nlower(xyz): lower held box to support; requires carry; does not release.\nopen_gripper(): open receiver at CURRENT location after lowering; does not detach weld.\nread() -> dict: read-only evaluation; not necessary to execute action.\nretreat_vertical(): raise empty OPEN hand; requires detach.\ntarget_pose() -> xyz: read destination object origin.\nwithdraw_safe(): move OPEN hand to outer safe pose; requires vertical retreat.\nLast actual failed candidate and validator feedback: [{\"source\": \"def policy(api):\\n    pose = api.target_pose()\\n    api.carry(pose)\\n    api.lower(pose)\\n    api.open_gripper()\\n    api.detach()\\n    api.withdraw_safe()\", \"error\": \"RuntimeError: \\u5f53\\u524d API \\u7f3a\\u5c11\\u5df2\\u5b8c\\u6210\\u7684 retreat_vertical \\u63a7\\u5236\\u8bc1\\u636e\", \"missing_calls\": [], \"violations\": {\"missing_pre\": [], \"missing_add\": [\"receiver_withdrawn()\"], \"remaining_del\": [], \"missing_preserved_pre\": [], \"unexpected_added\": [], \"unexpected_removed\": [\"receiver_withdrawn()\"]}, \"physical_diagnostics\": {\"placed\": true, \"xy_error_m\": 0.0005218606518693584, \"bottom_gap_m\": -1.077138000071809e-06, \"rotation_error_deg\": 0.03847698173637126, \"released\": true, \"origin\": [0.45988687911764253, -0.180509452849579, 0.47999892286199985], \"table_support_contact\": true}}]\nRelated program ACTUALLY generated by a model in an earlier different action:\ndef policy(api):\n    pose = api.target_pose()\n    api.move_above(pose)\n    api.align_target(pose)\n    api.lower(pose)\n    api.settle()\n    api.place_release()\nAdapt to the CURRENT action and current allowed APIs. Do not use unavailable APIs; do not blindly copy an operation such as lift that does not belong to this action. Return your own complete source.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+        "temperature": 0.44999999999999996,
+        "max_tokens": 850,
+        "raw": "```python\ndef policy(api):\n    pose = api.target_pose()\n    api.carry(pose)\n    api.lower(pose)\n    api.open_gripper()\n    api.detach()\n    api.retreat_vertical()\n    api.withdraw_safe()\n```",
+        "wall_seconds": 4.00022291589994
+      },
+      "source": "def policy(api):\n    pose = api.target_pose()\n    api.carry(pose)\n    api.lower(pose)\n    api.open_gripper()\n    api.detach()\n    api.retreat_vertical()\n    api.withdraw_safe()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": true,
+        "strict_CP_transition_match": true,
+        "goal_ok": true,
+        "effect_ok": true,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [],
+          "unexpected_removed": []
+        },
+        "code_executed": true,
+        "exception": null,
+        "trace": [
+          {
+            "method": "target_pose",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": [
+              0.46,
+              -0.18,
+              0.48300000000000004
+            ]
+          },
+          {
+            "method": "carry",
+            "args": [
+              [
+                0.46,
+                -0.18,
+                0.48300000000000004
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 32.5359999999938,
+              "object_position": [
+                0.4599685854393063,
+                -0.17997133522154593,
+                0.6398344374905363
+              ],
+              "tcp_position": [
+                0.45996487106823586,
+                -0.25491091752033246,
+                0.6991254147160355
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "lower",
+            "args": [
+              [
+                0.46,
+                -0.18,
+                0.48300000000000004
+              ]
+            ],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 34.855999999996634,
+              "object_position": [
+                0.460091099050099,
+                -0.18043781115955979,
+                0.4863409628396996
+              ],
+              "tcp_position": [
+                0.4601684139373591,
+                -0.2552921772210025,
+                0.5457489300063062
+              ],
+              "weld_constraint_active": true,
+              "holding": true,
+              "grip_command": 0.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "open_gripper",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 34.91999999999671,
+              "object_position": [
+                0.46005597325844383,
+                -0.18042160063463172,
+                0.4848271067986943
+              ],
+              "tcp_position": [
+                0.4601561463554785,
+                -0.2553108200554385,
+                0.5441951081568173
+              ],
+              "weld_constraint_active": true,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "detach",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 35.207999999997064,
+              "object_position": [
+                0.45988687911764253,
+                -0.180509452849579,
+                0.47999892286199985
+              ],
+              "tcp_position": [
+                0.46010035035293373,
+                -0.2551271116539149,
+                0.5427814826175424
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "retreat_vertical",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 37.02799999999929,
+              "object_position": [
+                0.45988687911764253,
+                -0.180509452849579,
+                0.47999892286199985
+              ],
+              "tcp_position": [
+                0.46008933360477167,
+                -0.2550806650562559,
+                0.6425039434158916
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          },
+          {
+            "method": "withdraw_safe",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 40.24800000000322,
+              "object_position": [
+                0.45988687911764253,
+                -0.180509452849579,
+                0.47999892286199985
+              ],
+              "tcp_position": [
+                0.5597591292840323,
+                -0.3397665932331535,
+                0.7796650134412225
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld"
+            }
+          }
+        ],
+        "before": [
+          "baton_airborne()",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "handover_verified()",
+          "home(0)",
+          "receiver_contact_verified()",
+          "receiver_holding(baton)"
+        ],
+        "after": [
+          "at_destination(baton)",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "empty(1)",
+          "handover_verified()",
+          "home(0)",
+          "receiver_contact_verified()",
+          "receiver_withdrawn()"
+        ],
+        "model": {
+          "name": "receiver_places_baton",
+          "args": {
+            "arm": "1",
+            "obj": "baton",
+            "dest": "receiver_places_baton"
+          },
+          "program_kind": "receiver_place",
+          "pre": [
+            "receiver_holding(baton)",
+            "home(0)",
+            "handover_verified()",
+            "collision_free()"
+          ],
+          "add": [
+            "at_destination(baton)",
+            "empty(1)",
+            "receiver_withdrawn()"
+          ],
+          "del": [
+            "receiver_holding(baton)",
+            "baton_airborne()",
+            "at_handover_pose(baton)"
+          ],
+          "description": "茶盒位于目的地并由桌面真实支撑，接收臂为空且位于安全撤离位，交出臂保持 HOME，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": true,
+        "missing_required_calls": [],
+        "code_sha256": "6506eedae920680e10e87154ba2f3558f63f277b82dc437ffade566b654ef3ad",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported",
+        "physical_diagnostics": {
+          "placed": true,
+          "xy_error_m": 0.0005218606518693584,
+          "bottom_gap_m": -1.077138000071809e-06,
+          "rotation_error_deg": 0.03847698173637126,
+          "released": true,
+          "origin": [
+            0.45988687911764253,
+            -0.180509452849579,
+            0.47999892286199985
+          ],
+          "table_support_contact": true
+        }
+      },
+      "accepted": true
+    },
+    {
+      "action_id": "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)",
+      "model": {
+        "name": "home_receiver_arm",
+        "args": {
+          "arm": "1",
+          "obj": "baton",
+          "dest": "home_receiver_arm"
+        },
+        "program_kind": "controlled_home",
+        "pre": [
+          "at_destination(baton)",
+          "empty(1)",
+          "receiver_withdrawn()",
+          "home(0)",
+          "handover_verified()",
+          "collision_free()"
+        ],
+        "add": [
+          "home(1)"
+        ],
+        "del": [],
+        "description": "绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。"
+      },
+      "attempt": 1,
+      "transfer": {
+        "source_sha256": "792a285385ef05011ed0df6e5124e88fbdaba56434cd440832fbe9e03b9beb56",
+        "source_attempt": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_04/attempt2",
+        "mode": "unmodified_actual_model_source_schema_transfer",
+        "new_call": false
+      },
+      "source": "def policy(api):\n    api.return_arm_home()",
+      "evaluation": {
+        "valid_trial": true,
+        "paper_line20": true,
+        "strict_CP_transition_match": true,
+        "goal_ok": true,
+        "effect_ok": true,
+        "violations": {
+          "missing_pre": [],
+          "missing_add": [],
+          "remaining_del": [],
+          "missing_preserved_pre": [],
+          "unexpected_added": [],
+          "unexpected_removed": []
+        },
+        "code_executed": true,
+        "exception": null,
+        "trace": [
+          {
+            "method": "return_arm_home",
+            "args": [],
+            "kwargs": {},
+            "status": "returned",
+            "result": {
+              "time": 42.76000000000629,
+              "object_position": [
+                0.45988687911764253,
+                -0.180509452849579,
+                0.47999892286199985
+              ],
+              "tcp_position": [
+                0.5402618169000172,
+                -0.2934166060118416,
+                0.8862659615318431
+              ],
+              "weld_constraint_active": false,
+              "holding": false,
+              "grip_command": 1.0,
+              "collision_free": true,
+              "home_dirty": true,
+              "mode": "assisted_grasp_weld",
+              "home": true
+            }
+          }
+        ],
+        "before": [
+          "at_destination(baton)",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "empty(1)",
+          "handover_verified()",
+          "home(0)",
+          "receiver_contact_verified()",
+          "receiver_withdrawn()"
+        ],
+        "after": [
+          "at_destination(baton)",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "empty(1)",
+          "handover_verified()",
+          "home(0)",
+          "home(1)",
+          "receiver_contact_verified()",
+          "receiver_withdrawn()"
+        ],
+        "model": {
+          "name": "home_receiver_arm",
+          "args": {
+            "arm": "1",
+            "obj": "baton",
+            "dest": "home_receiver_arm"
+          },
+          "program_kind": "controlled_home",
+          "pre": [
+            "at_destination(baton)",
+            "empty(1)",
+            "receiver_withdrawn()",
+            "home(0)",
+            "handover_verified()",
+            "collision_free()"
+          ],
+          "add": [
+            "home(1)"
+          ],
+          "del": [],
+          "description": "绑定的空机械臂处于经执行器控制及实测验证的 HOME 位，无活动抓取 weld，运动无禁止碰撞。"
+        },
+        "safety_ok": true,
+        "contract_effect_ok": true,
+        "missing_required_calls": [],
+        "code_sha256": "792a285385ef05011ed0df6e5124e88fbdaba56434cd440832fbe9e03b9beb56",
+        "consistency_scope": "declared_pre_add_del_and_independent_final_goal; extra_observer_frame_drift_reported",
+        "physical_diagnostics": {
+          "placed": true,
+          "xy_error_m": 0.0005218606518693584,
+          "bottom_gap_m": -1.077138000071809e-06,
+          "rotation_error_deg": 0.03847698173637126,
+          "released": true,
+          "origin": [
+            0.45988687911764253,
+            -0.180509452849579,
+            0.47999892286199985
+          ],
+          "table_support_contact": true
+        }
+      },
+      "accepted": true
+    }
+  ],
+  "success": true,
+  "error": null,
+  "config_sha256": "9f402c6dce7184910e901c130320bc192a095a1cff8735b077738b7047d10600",
+  "model_input_sha256": "195b56c25027d32421adbae62519665785a0617d2d70ce98173b487a2471b57a",
+  "model_source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/reference/models.json",
+  "source_hashes": {
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/held_basin_pour_bridge.py": "2b6fde9302cd09982c1c495b96031e6b14e577bd297bbc0a2a7615efc657da51",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/remaining_dual_api.py": "393c014e9be73c98d38f8eec484d8e130419e25a472401a8a84c3608fa32791d",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/handleless_tea_handover.py": "a73365fac620f113a83664acd0d46a7e6ece837e3b189011f6f14aa40a521b9c",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/remaining_handover_api.py": "ac5e6a11a5535bcf91e0bacc58191025466615b753f1482486e98c2028319ec8",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/remaining_codegen_contracts.py": "f62fef26cf5f10b385206470df195094269f902d83691a59b112eccd07a14666",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/cover_cabto_grounding.py": "40b47b1e194bb183ed684c9c8700e6697339009d135cbe8048845242fb4c3b01",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/curriculum_bridge.py": "b48fda0a3bc2e15788f1eedfe920c533d5c8e3a833fade47782d69b44fecbe7b",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/remaining_blocks_api.py": "6a810b28266d02118a809e393530f86d9996e3dde359a628f97167b1f5de780e",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/cover_visual_localizer.py": "7d6cfa01c3d7d0617ab3edb4f7789ecb100f4d9b2fe6ec30b2d196f8c4e407dc",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/single_arm_rebuilt.py": "b0fa4dea63dd23ad93845cac7cbf653616a0832b482a870e6a51a499394a2d52",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/smooth_handover_bridge.py": "2d97523dfc8c2ad3cc993f297e46c31534b92645eac996cfad4c945762edef08",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/cover_generation_fix.py": "cb4d65c52a4f58be1e276d705757e49d546bbbc09ea89241cc8ef20601cf7de8",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/cover_cabto_api.py": "f63f62dd3c3a06b5344853009e36ea49b6e9555efbb04bdb7e152e6d46a22915",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/smooth_held_basin_bridge.py": "fcad66ef6a8923b2ce5feb4d116a891463f7482f5e8f96ba305cc35f29f4d356",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/dual_lift_shelf_bridge.py": "79acdef610d566db52627800e15d82da2aa3b950d58130837a24721032955540",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/run_remaining_cabto.py": "1c764ad9951ed2dd688732799f1d402e96aa8b3a706c595b22acfcbbcce5269f",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_cover_reference.py": "d939486f90218f69606560fe0f09a566048710f024aa44cb263e0673bfab4880",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_cover_cabto_negatives.py": "1bf4ce26265506cca37bdd41556125aee44fab038c96294ae7322daa49689e2e",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_held_basin_collision.py": "408d33ca7495f4d67166eb72c359055cb784a9920b0a3c1f10917e0745b6d1bb",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_free_tray_packing.py": "fc2c5bd65ae66854779b8f0d99310a4dd7ddd79940bd62c39f82611d99d63dbf",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_blocks_generated_policy.py": "672cffb822fe604224743f47fc5df124b2dce71ce74b8a76b21e27d74df93dc6",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_held_basin_pour.py": "bbecaa13fdb8b2db6aad1723adaa0d8a1af9681478a9634d832151419f47ffc0",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_curriculum_generated_bt.py": "6ee02a41f233942167760ffa446c525a4887fbd91e3311a2bbb82c98294e3e24",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_cover_generated_bt.py": "a45e256792f89b23bbda1558adb3fec00b8012e3205fcc4cb711f6f0eeb7fade",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_held_basin_codegen.py": "e53e50238c54cd282528bd120f3f3268a6f21d656ad407f6c1aae819090c5d23",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_dual_lift_codegen.py": "9a0276df8d0f6789e77a9c3ac6c3cce86649b8d75156cdada3ade4e52c360416",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_dual_no_snap.py": "f3e873de1e32ebcb739a2094c12473372d7a91003ed799794690f57fba4cff59",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_smooth_held_basin_reference.py": "314abd987ca6f04dad9afa2e4e20170782608c4e66345be68f4e07c70eaef149",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_handleless_generated_bt.py": "463d48fd0feddca7767bc5b3766312e34a63d2e7da4c1421b9e20dbabf8bdb13",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_feasible_curriculum.py": "08314ef8bf47b5fdb7dff5f7f2d4edeeb7a38a93f3cec2e0334476a0db7eef9d",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_blocks_formal_loop.py": "3c34381fffbdc2ae9d2e319a65ada911a1a8325c1ab65589987fd6692ad60806",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_five_scene_preflight.py": "2f6a156443bb414a56532578dcb289aa5281035aa45f5d95f7ff865d4db41e77",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_latest_single_arm_generated_bt.py": "56c37a957b1227a17a60b943274e3df6407e244da2fbcdeac5ec57b9be328830",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_smooth_held_basin_codegen.py": "7701f1193d76602e569ddd3284cc34dbe04ebaf60564aea48ff603bc1def3d7b",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/probe_dual_lift_shelf.py": "80a2edee08d94631d563475d0d105f869793cf7d459dbe17805959627852ccc6",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_stack.py": "969f21b35b07f5f13b2bfdefc4c96b75d87a0f3444b3dbccb86256cb40e8144a",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_dual_common.py": "3ba2f119177c24d1063f9d460efc95870bd04d9179dd7e6a4b9d5f9989b870f6",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/exp4_env.py": "55547fe1a52798b1c83eec2e10d937fff8d1b3a2d156e6396c373f4354913ef3",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/arm_skills.py": "013700555834f26e9a8bee0cf56a8b1acd014659d5656bd93d0a087c4d1e6217",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_storage.py": "bbb9c02742d3b9d7f5e1c2613e98d718a23350ff60c1ae2f1302e97207395c40",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_handover.py": "c5642ff33c9146257027db03135c0f56528d5092aaea95947d6f52f005c2622c",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_cover.py": "4ad8286e2256bbba2cc0c46c6e29008d464713a3dcc1753fa112605332246d09",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_cover2.py": "97a2ad27a33888c27099207480cd752f38d268785df739db2366b2428c1f9747",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage2_scripted/scene_pour.py": "5a74af61f481e7ff4929e490c0c8b611acc34a223cdb8466ae264562c9cc230e",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/planner.py": "cda82c3cea21555ead44ed81eab5422c464413064f7e9a4a259574e8099b631a",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/blocks_scene.py": "a38167851174c30c0bc806fa6852e52bda2456e0d5945816aaa42f4f3b42ede8",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/formal_bt.py": "3adfb1e68ebf7a77d62028c21b4e1436b21149f4f039f9520b21d388e0c92065",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/primitives.py": "b2755e0c65d8255d8f20650f0ef516bd33ae9a20ad491703eed8b7d8840fac9a",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/effect_checker.py": "9ca4505a13efb7d502263fce63339ad5eb55dbdc139ac8b589120d091ca42b4b",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/feedback.py": "4a73e1c873c58e1bb16c989ab53334a2d7d5e49e8472b8c1614b1a1410e7ad18",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/policy_codegen.py": "5bdd98f067ff5818a9acdf0f1dfa504b62118588ee1e2a5f6f26898cd5013763",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/blocks_env.py": "d6d9289160c5e0b6f6d9732387237488425083289a953aa7fd7127a34be1de74",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/test_loop_oracle.py": "999f5764bc08e9aa4f8666a55a1b1fc45b7950267bdd452e848195249ed42891",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/world_state.py": "0ecb47d1a170e38388bd670a50e5d2c69ab48559dbfec19a63094d16a319ea4c",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/cover_bridge.py": "d1653466cdcd1977707f5a1776597a80fed13c272f8800b89df5b6f98b36771b",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/loop.py": "9870533af30376210aab29de6d41efb13a8d86fd7a0e333af2f07eb03484315b",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/llm_backend.py": "74725cd67640166c1451ac9622381d4d920565a34df861797bd6557b694af3c4",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/vlm_pointer3d.py": "7d7bf7cbe3d7ed8a802d01a022c431f2f4e77845860711906129caaf8fdb69e3",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/CABTO/exp4_bt_tasks/stage3_cabto/codegen.py": "b81a2701a79ab9f7a6491e164b5c913f7e6497a38a71432b3349f36cdce2f715"
+  },
+  "sources_unchanged": false,
+  "final_state": [
+    "at_destination(baton)",
+    "collision_free()",
+    "donor_withdrawn()",
+    "empty(0)",
+    "empty(1)",
+    "handover_verified()",
+    "home(0)",
+    "home(1)",
+    "receiver_contact_verified()",
+    "receiver_withdrawn()"
+  ],
+  "perception": "oracle",
+  "assist": "declared_grasp_weld_assisted",
+  "task_success_is_not_all_schema_validation": true,
+  "unvalidated_models": [],
+  "complete_validated_library": {
+    "complete_for_declared_P": true,
+    "tasks": [
+      {
+        "task": "HANDOVER",
+        "reached_goal": true,
+        "reason": "符号目标达成",
+        "steps": 7,
+        "action_ids": [
+          "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)",
+          "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)",
+          "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)",
+          "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)",
+          "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)",
+          "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)",
+          "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)"
+        ],
+        "final_state": [
+          "at_destination(baton)",
+          "collision_free()",
+          "donor_withdrawn()",
+          "empty(0)",
+          "empty(1)",
+          "handover_verified()",
+          "home(0)",
+          "home(1)",
+          "receiver_contact_verified()",
+          "receiver_withdrawn()"
+        ],
+        "scope": "symbolic_only"
+      }
+    ],
+    "scope": "finite_P_symbolic_only"
+  }
+}

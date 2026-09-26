@@ -1,0 +1,369 @@
+{
+  "scene_count": 5,
+  "all_final_executions_pass": true,
+  "success_count": 17,
+  "total": 17,
+  "full_frame_matches": 113,
+  "action_transitions": 113,
+  "tasks": {
+    "cover": {
+      "success_count": 5,
+      "total": 5,
+      "models": 7,
+      "complete_for_declared_P": true,
+      "P": [
+        {
+          "id": "C1",
+          "initial": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "at_source(shrimp)",
+            "empty()"
+          ],
+          "goal": [
+            "at_target(shrimp)",
+            "empty()",
+            "home_completed()"
+          ]
+        },
+        {
+          "id": "C2",
+          "initial": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "at_source(shrimp)",
+            "empty()"
+          ],
+          "goal": [
+            "at_target(apple)",
+            "at_target(shrimp)",
+            "empty()",
+            "home_completed()"
+          ]
+        },
+        {
+          "id": "C3",
+          "initial": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "at_source(shrimp)",
+            "empty()"
+          ],
+          "goal": [
+            "at_target(apple)",
+            "at_target(potato)",
+            "at_target(shrimp)",
+            "empty()",
+            "home_completed()"
+          ]
+        }
+      ],
+      "config": "cover_kitchen_sort_v2",
+      "config_sha256": "87831738dd2d6544b3a82e860800830135b30fc8091aa1e677f8789b77cceb4c",
+      "all_full_CP_transitions_match": true,
+      "executed_actions": 29,
+      "assist": "strict_no_weld",
+      "perception": "Qwen2.5-VL-3B+RGB+known_height",
+      "model_provenance": {
+        "model": "mlx-community/Qwen3.5-9B-4bit",
+        "mode": "model-generated 3 schemas with bounded reasoning and separately recorded finalization; engineer-fixed CP/signatures; mechanical grounding; no host contract edits"
+      },
+      "successful_model_patches": 0,
+      "source_unchanged": true,
+      "validation_scope": "finite_episode_predicate_equality_and_final_goal_not_universal_consistency",
+      "seed1_scope": "C1/C2/C3基准 + C3两次±2mm扰动验证",
+      "camera_gallery": {
+        "images": 6,
+        "online_calls": 6,
+        "posthoc_diagnostics": 0
+      }
+    },
+    "blocks": {
+      "success_count": 6,
+      "total": 6,
+      "models": 5,
+      "complete_for_declared_P": true,
+      "P": [
+        {
+          "id": "B1",
+          "initial": [
+            "at_source(red)",
+            "at_source(yellow)",
+            "empty()"
+          ],
+          "goal": [
+            "at_target(yellow)",
+            "empty()",
+            "home_completed()"
+          ]
+        },
+        {
+          "id": "B2",
+          "initial": [
+            "at_source(red)",
+            "at_source(yellow)",
+            "empty()"
+          ],
+          "goal": [
+            "at_target(red)",
+            "empty()",
+            "home_completed()"
+          ]
+        },
+        {
+          "id": "B3",
+          "initial": [
+            "at_source(red)",
+            "at_source(yellow)",
+            "empty()"
+          ],
+          "goal": [
+            "at_target(red)",
+            "at_target(yellow)",
+            "empty()",
+            "home_completed()"
+          ]
+        }
+      ],
+      "config": "blocks_rebuilt_v1",
+      "config_sha256": "36646f9fb3963c5e77da98a989cb7da31e5f50d386873e2602a0c582b775a8d2",
+      "all_full_CP_transitions_match": true,
+      "executed_actions": 22,
+      "assist": "strict_no_weld",
+      "perception": "Qwen2.5-VL-3B+RGB+known_height",
+      "model_provenance": {
+        "model": "mlx-community/Qwen3.5-9B-4bit",
+        "mode": "unmodified_model_schema_transfer_cover_to_blocks",
+        "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/proposal_final_v2/models.json",
+        "source_sha256": "460c80b12826643093166b34a913b26c16b3ef0efbaeb7134e675cb4ba79d727"
+      },
+      "successful_model_patches": 0,
+      "source_unchanged": true,
+      "validation_scope": "finite_episode_predicate_equality_and_final_goal_not_universal_consistency",
+      "seed1_scope": "三个任务×2初态；seed1为±2mm扰动",
+      "camera_gallery": {
+        "images": 4,
+        "online_calls": 4,
+        "posthoc_diagnostics": 0
+      }
+    },
+    "pour": {
+      "success_count": 2,
+      "total": 2,
+      "models": 10,
+      "complete_for_declared_P": true,
+      "P": [
+        {
+          "id": "POUR",
+          "initial": [
+            "at_source(basin)",
+            "at_source(canL)",
+            "basin_returned()",
+            "collision_free()",
+            "content_in_source()",
+            "empty(0)",
+            "empty(1)",
+            "hand_raised(0)",
+            "hand_raised(1)",
+            "home(0)",
+            "home(1)",
+            "parked(0)",
+            "parked(1)",
+            "source_upright()"
+          ],
+          "goal": [
+            "basin_returned()",
+            "caught_by_held_basin()",
+            "collision_free()",
+            "empty(0)",
+            "empty(1)",
+            "home(0)",
+            "home(1)",
+            "payload_retained()",
+            "source_returned()",
+            "sphere_in_basin()"
+          ]
+        }
+      ],
+      "config": "held_basin_pour_smooth_v2",
+      "config_sha256": "5f76a025e70dc4d7eaa5c409e0ee222173ef3a549c73b41b00f79b1d1152d4b6",
+      "all_full_CP_transitions_match": true,
+      "executed_actions": 20,
+      "assist": "weld_assisted",
+      "perception": "oracle_geometry",
+      "model_provenance": {
+        "model": "mlx-community/Qwen3.5-9B-4bit",
+        "mode": "reference_initialized_LM_effect_refinement_from_real_execution",
+        "original_models": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/pour/reference/models.json",
+        "original_sha256": "8ed7d7e00275ef0860c8af04654270844fd3cdf0f2410c91ee837d063a1cf88f",
+        "counterexample_policy_file": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/pour/sampling_v5/policies.json",
+        "scope": "finite empirical effect refinement, preconditions remain engineering reference"
+      },
+      "successful_model_patches": 2,
+      "source_unchanged": true,
+      "validation_scope": "finite_episode_predicate_equality_and_final_goal_not_universal_consistency",
+      "seed1_scope": "原配置0mm扰动；第二次仅为重复执行",
+      "camera_gallery": {
+        "images": 3,
+        "online_calls": 0,
+        "posthoc_diagnostics": 3
+      }
+    },
+    "handover": {
+      "success_count": 2,
+      "total": 2,
+      "models": 7,
+      "complete_for_declared_P": true,
+      "P": [
+        {
+          "id": "HANDOVER",
+          "initial": [
+            "at_source(baton)",
+            "collision_free()",
+            "empty(0)",
+            "empty(1)"
+          ],
+          "goal": [
+            "at_destination(baton)",
+            "collision_free()",
+            "empty(0)",
+            "empty(1)",
+            "handover_verified()",
+            "home(0)",
+            "home(1)"
+          ]
+        }
+      ],
+      "config": "handover_tea_box_v3",
+      "config_sha256": "9f402c6dce7184910e901c130320bc192a095a1cff8735b077738b7047d10600",
+      "all_full_CP_transitions_match": true,
+      "executed_actions": 14,
+      "assist": "weld_assisted",
+      "perception": "oracle_geometry",
+      "model_provenance": {
+        "model": "mlx-community/Qwen3.5-9B-4bit",
+        "mode": "reference_initialized_LM_effect_refinement_from_real_execution",
+        "original_models": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/reference/models.json",
+        "original_sha256": "195b56c25027d32421adbae62519665785a0617d2d70ce98173b487a2471b57a",
+        "counterexample_policy_file": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/policies.json",
+        "scope": "finite empirical effect refinement, preconditions remain engineering reference"
+      },
+      "successful_model_patches": 2,
+      "source_unchanged": true,
+      "validation_scope": "finite_episode_predicate_equality_and_final_goal_not_universal_consistency",
+      "seed1_scope": "seed1为±2mm活动盒初态扰动",
+      "camera_gallery": {
+        "images": 3,
+        "online_calls": 0,
+        "posthoc_diagnostics": 3
+      }
+    },
+    "storage": {
+      "success_count": 2,
+      "total": 2,
+      "models": 14,
+      "complete_for_declared_P": true,
+      "P": [
+        {
+          "id": "STORAGE",
+          "initial": [
+            "at_source(item0)",
+            "at_source(item1)",
+            "empty(0)",
+            "empty(1)",
+            "hands_raised()",
+            "hands_safe_for_lateral(0)",
+            "hands_safe_for_lateral(1)",
+            "parked(0)",
+            "parked(1)",
+            "slot_free(0)",
+            "slot_free(1)",
+            "tray_at_table()"
+          ],
+          "goal": [
+            "packed(0)",
+            "packed(1)",
+            "parked(0)",
+            "parked(1)",
+            "tray_on_shelf()"
+          ]
+        }
+      ],
+      "config": "packing_dual_lift_shelf_storage_v3",
+      "config_sha256": "2fca2b8679797f94f1f0841a29a94032efb9e37340656c9f18841e5b73b6098a",
+      "all_full_CP_transitions_match": true,
+      "executed_actions": 28,
+      "assist": "weld_assisted",
+      "perception": "oracle_geometry",
+      "model_provenance": {
+        "model": "mlx-community/Qwen3.5-9B-4bit",
+        "mode": "reference_initialized_LM_effect_refinement_from_real_execution",
+        "original_models": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/reference/models.json",
+        "original_sha256": "00f255d86f5b9a8ea24a652b447190d458e962f3c8729f93ed4ac1be1693452d",
+        "counterexample_policy_file": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/sampling_v2/policies.json",
+        "scope": "finite empirical effect refinement, preconditions remain engineering reference"
+      },
+      "successful_model_patches": 6,
+      "source_unchanged": true,
+      "validation_scope": "finite_episode_predicate_equality_and_final_goal_not_universal_consistency",
+      "seed1_scope": "seed1为±3mm物体初态扰动",
+      "camera_gallery": {
+        "images": 4,
+        "online_calls": 0,
+        "posthoc_diagnostics": 4
+      }
+    }
+  },
+  "tests": 277,
+  "camera_gallery": {
+    "total_images": 20,
+    "closed_loop_call_images": 10,
+    "supplementary_diagnostic_images": 10,
+    "diagnostics_included_in_execution_scores": false
+  },
+  "scope": "Cover/Blocks visual strict, three dual Oracle+weld with reference-initialized effects; posthoc images separately labeled",
+  "not_claimed": [
+    "all models discovered from scratch",
+    "dual Qwen perception integrated",
+    "strict dual grasp",
+    "universal physical consistency",
+    "paper ASR CSR statistics reproduced"
+  ],
+  "unified_camera_rig": {
+    "profile": {
+      "version": "panda_wrist_global_v3",
+      "width": 720,
+      "height": 720,
+      "wrist": {
+        "position_hand_m": [
+          0.0,
+          -0.1,
+          0.025
+        ],
+        "look_at_hand_m": [
+          0.0,
+          0.0,
+          0.16
+        ],
+        "fovy_deg": 75.0
+      },
+      "global": {
+        "offset_table_xy_m": [
+          0.08,
+          0.0
+        ],
+        "height_above_table_m": 1.2,
+        "fovy_deg": 60.0
+      },
+      "optical_frame": "MuJoCo/OpenGL: forward -Z, image right +X, image up +Y",
+      "mount_scope": "ideal optical sensor on hand body, no camera housing mass/collision modeled",
+      "control_use": "diagnostic_only_until_localization_and_motion_validation"
+    },
+    "compatibility_success_count": 5,
+    "diagnostic_only": true,
+    "new_control_uses_cameras": false,
+    "snapshot_count": 77,
+    "images": 282,
+    "not_in_original_score": true
+  }
+}

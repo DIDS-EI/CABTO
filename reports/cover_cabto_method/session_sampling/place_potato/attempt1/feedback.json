@@ -1,0 +1,279 @@
+{
+  "action": "place(object=potato,support=pan)",
+  "attempt": 1,
+  "model": {
+    "name": "place",
+    "args": {
+      "object": "potato",
+      "support": "pan"
+    },
+    "pre": [
+      "holding(potato)"
+    ],
+    "add": [
+      "at_target(potato)",
+      "empty()"
+    ],
+    "del": [
+      "holding(potato)"
+    ]
+  },
+  "prefix": [
+    {
+      "valid_trial": true,
+      "paper_line20": true,
+      "strict_CP_transition_match": true,
+      "goal_ok": true,
+      "effect_ok": true,
+      "violations": {
+        "missing_pre": [],
+        "missing_add": [],
+        "remaining_del": [],
+        "missing_preserved_pre": [],
+        "unexpected_added": [],
+        "unexpected_removed": []
+      },
+      "before": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "at_source(shrimp)",
+        "empty()"
+      ],
+      "after": [
+        "at_source(apple)",
+        "at_source(shrimp)",
+        "holding(potato)"
+      ],
+      "model": {
+        "name": "pick",
+        "args": {
+          "object": "potato",
+          "support": "pan"
+        },
+        "pre": [
+          "empty()",
+          "at_source(potato)"
+        ],
+        "add": [
+          "holding(potato)"
+        ],
+        "del": [
+          "empty()",
+          "at_source(potato)",
+          "home_completed()"
+        ]
+      },
+      "code_executed": true,
+      "exception": null,
+      "trace": [
+        {
+          "method": "open_gripper",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "grasp_point",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": [
+            0.6700000050474401,
+            -0.19000000385315224,
+            0.41798083548895737
+          ]
+        },
+        {
+          "method": "approach",
+          "args": [
+            [
+              0.6700000050474401,
+              -0.19000000385315224,
+              0.41798083548895737
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "descend",
+          "args": [
+            [
+              0.6700000050474401,
+              -0.19000000385315224,
+              0.41798083548895737
+            ]
+          ],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "close_gripper",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        },
+        {
+          "method": "lift",
+          "args": [],
+          "kwargs": {},
+          "status": "returned",
+          "result": null
+        }
+      ],
+      "forbidden_contacts": [],
+      "code_sha256": "efb0566705be7a62ffd6f4b97078bd4a79bce5a1209f5181bef7bbfa9d0db20c"
+    }
+  ],
+  "candidate_origin": {
+    "channel": "interactive_LM_output_saved_verbatim_as_candidate_artifact_not_local_Qwen_output",
+    "artifact": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/session_candidates.json",
+    "sha256": "2c92c2756311dcea6d9385584864a1a5609efdc1d21d26a8e57a2bef4aa6b15d",
+    "new_model_call_in_this_process": false
+  },
+  "validation_context": {
+    "instruction": "Generate ONLY a Python def policy(api) implementing this ONE grounded STRIPS action, using real fine-grained API calls. No imports, loops, other functions, simulator objects or success flags. No hardcoded xyz. The return value is not the success criterion. All motion must be explicitly called. Do not change the model.",
+    "action_model": {
+      "name": "place",
+      "args": {
+        "object": "potato",
+        "support": "pan"
+      },
+      "pre": [
+        "holding(potato)"
+      ],
+      "add": [
+        "at_target(potato)",
+        "empty()"
+      ],
+      "del": [
+        "holding(potato)"
+      ]
+    },
+    "observed_before": [
+      "at_source(apple)",
+      "at_source(shrimp)",
+      "holding(potato)"
+    ],
+    "APIs": {
+      "destination_point": "api.destination_point() -> (x,y,z). Read-only desired PAYLOAD ORIGIN at its matching support; never payload's own location. No movement.",
+      "carry": "api.carry(point) -> None. Move CLOSED gripper carrying payload horizontally above target; does NOT lower, open or retreat. One xyz tuple.",
+      "lower": "api.lower(point) -> None. Lower CLOSED gripper so payload origin reaches target xyz. Does NOT release.",
+      "open_gripper": "api.open_gripper() -> None. Command fingers open and settle at CURRENT location. Does NOT retreat. Held payload must already have been lowered to its support.",
+      "withdraw": "api.withdraw() -> None. Move OPEN gripper vertically away to safe height and settle. Does NOT release the payload itself."
+    },
+    "scene": "On a longer kitchen worktop, the upright bowl, chopping board, and pan form the back row. Shrimp, apple, and potato form the front row. Place shrimp into the bowl, apple onto the chopping board, and potato into the pan; release every object, withdraw, and return the arm to HOME.",
+    "object_roles": {
+      "object": "potato",
+      "support": "pan"
+    },
+    "previous_failed_programs_and_execution_feedback": []
+  },
+  "source": "def policy(api):\n    pan_destination = api.destination_point()\n    api.carry(pan_destination)\n    api.lower(pan_destination)\n    api.open_gripper()\n    api.withdraw()\n",
+  "evaluation": {
+    "valid_trial": true,
+    "paper_line20": true,
+    "strict_CP_transition_match": true,
+    "goal_ok": true,
+    "effect_ok": true,
+    "violations": {
+      "missing_pre": [],
+      "missing_add": [],
+      "remaining_del": [],
+      "missing_preserved_pre": [],
+      "unexpected_added": [],
+      "unexpected_removed": []
+    },
+    "before": [
+      "at_source(apple)",
+      "at_source(shrimp)",
+      "holding(potato)"
+    ],
+    "after": [
+      "at_source(apple)",
+      "at_source(shrimp)",
+      "at_target(potato)",
+      "empty()"
+    ],
+    "model": {
+      "name": "place",
+      "args": {
+        "object": "potato",
+        "support": "pan"
+      },
+      "pre": [
+        "holding(potato)"
+      ],
+      "add": [
+        "at_target(potato)",
+        "empty()"
+      ],
+      "del": [
+        "holding(potato)"
+      ]
+    },
+    "code_executed": true,
+    "exception": null,
+    "trace": [
+      {
+        "method": "destination_point",
+        "args": [],
+        "kwargs": {},
+        "status": "returned",
+        "result": [
+          0.67,
+          0.16,
+          0.43000000000000005
+        ]
+      },
+      {
+        "method": "carry",
+        "args": [
+          [
+            0.67,
+            0.16,
+            0.43000000000000005
+          ]
+        ],
+        "kwargs": {},
+        "status": "returned",
+        "result": null
+      },
+      {
+        "method": "lower",
+        "args": [
+          [
+            0.67,
+            0.16,
+            0.43000000000000005
+          ]
+        ],
+        "kwargs": {},
+        "status": "returned",
+        "result": null
+      },
+      {
+        "method": "open_gripper",
+        "args": [],
+        "kwargs": {},
+        "status": "returned",
+        "result": null
+      },
+      {
+        "method": "withdraw",
+        "args": [],
+        "kwargs": {},
+        "status": "returned",
+        "result": null
+      }
+    ],
+    "forbidden_contacts": [],
+    "code_sha256": "6a7c7506155297871d6e130ea87eddd432b70dafde69d045bf3225c70c95a84e"
+  },
+  "accepted": true,
+  "simulation_seconds": 36.65999999999884
+}

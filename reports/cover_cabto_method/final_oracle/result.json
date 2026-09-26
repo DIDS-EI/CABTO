@@ -1,0 +1,1971 @@
+{
+  "complete_for_declared_P": {
+    "complete_for_P": true,
+    "admissible_reachable_states": true,
+    "reachable_state_count": 28,
+    "mutex_violations": [],
+    "tasks": [
+      {
+        "task": "C1",
+        "bfs_reachable": true,
+        "planner": {
+          "reached_goal": true,
+          "reason": "符号目标达成",
+          "steps": 3,
+          "action_ids": [
+            "pick(object=shrimp,support=bowl)",
+            "place(object=shrimp,support=bowl)",
+            "home()"
+          ],
+          "final_state": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "at_target(shrimp)",
+            "empty()",
+            "home_completed()"
+          ],
+          "scope": "symbolic_only"
+        },
+        "bt_nodes": 68
+      },
+      {
+        "task": "C2",
+        "bfs_reachable": true,
+        "planner": {
+          "reached_goal": true,
+          "reason": "符号目标达成",
+          "steps": 5,
+          "action_ids": [
+            "pick(object=apple,support=board)",
+            "place(object=apple,support=board)",
+            "pick(object=shrimp,support=bowl)",
+            "place(object=shrimp,support=bowl)",
+            "home()"
+          ],
+          "final_state": [
+            "at_source(potato)",
+            "at_target(apple)",
+            "at_target(shrimp)",
+            "empty()",
+            "home_completed()"
+          ],
+          "scope": "symbolic_only"
+        },
+        "bt_nodes": 167
+      },
+      {
+        "task": "C3",
+        "bfs_reachable": true,
+        "planner": {
+          "reached_goal": true,
+          "reason": "符号目标达成",
+          "steps": 7,
+          "action_ids": [
+            "pick(object=potato,support=pan)",
+            "place(object=potato,support=pan)",
+            "pick(object=apple,support=board)",
+            "place(object=apple,support=board)",
+            "pick(object=shrimp,support=bowl)",
+            "place(object=shrimp,support=bowl)",
+            "home()"
+          ],
+          "final_state": [
+            "at_target(apple)",
+            "at_target(potato)",
+            "at_target(shrimp)",
+            "empty()",
+            "home_completed()"
+          ],
+          "scope": "symbolic_only"
+        },
+        "bt_nodes": 392
+      }
+    ],
+    "scope": "finite declared P, symbolic; NOT physical consistency"
+  },
+  "episodes": [
+    {
+      "task": {
+        "id": "C1",
+        "initial": [
+          "at_source(apple)",
+          "at_source(potato)",
+          "at_source(shrimp)",
+          "empty()"
+        ],
+        "goal": [
+          "at_target(shrimp)",
+          "empty()",
+          "home_completed()"
+        ]
+      },
+      "seed": 0,
+      "perception": "oracle",
+      "config_sha256": "87831738dd2d6544b3a82e860800830135b30fc8091aa1e677f8789b77cceb4c",
+      "steps": [
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "at_source(shrimp)",
+            "empty()"
+          ],
+          "after": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "holding(shrimp)"
+          ],
+          "model": {
+            "name": "pick",
+            "args": {
+              "object": "shrimp",
+              "support": "bowl"
+            },
+            "pre": [
+              "empty()",
+              "at_source(shrimp)"
+            ],
+            "add": [
+              "holding(shrimp)"
+            ],
+            "del": [
+              "empty()",
+              "at_source(shrimp)",
+              "home_completed()"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "grasp_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.31005413681640004,
+                -0.19001848191801193,
+                0.4100006199279825
+              ]
+            },
+            {
+              "method": "approach",
+              "args": [
+                [
+                  0.31005413681640004,
+                  -0.19001848191801193,
+                  0.4100006199279825
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "descend",
+              "args": [
+                [
+                  0.31005413681640004,
+                  -0.19001848191801193,
+                  0.4100006199279825
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "close_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "c519cd749debe353036eb5b5736af788aac3a6f3e5ee4347c12c26ec9547472b"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "holding(shrimp)"
+          ],
+          "after": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "at_target(shrimp)",
+            "empty()"
+          ],
+          "model": {
+            "name": "place",
+            "args": {
+              "object": "shrimp",
+              "support": "bowl"
+            },
+            "pre": [
+              "holding(shrimp)"
+            ],
+            "add": [
+              "at_target(shrimp)",
+              "empty()"
+            ],
+            "del": [
+              "holding(shrimp)"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "destination_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.31,
+                0.16,
+                0.41600000000000004
+              ]
+            },
+            {
+              "method": "carry",
+              "args": [
+                [
+                  0.31,
+                  0.16,
+                  0.41600000000000004
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lower",
+              "args": [
+                [
+                  0.31,
+                  0.16,
+                  0.41600000000000004
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "withdraw",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "3136df91927d15181c1381b94db52e1d435cc8afbd58e2708d2bef844cb16dec"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "at_target(shrimp)",
+            "empty()"
+          ],
+          "after": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "at_target(shrimp)",
+            "empty()",
+            "home_completed()"
+          ],
+          "model": {
+            "name": "home",
+            "args": {},
+            "pre": [
+              "empty()"
+            ],
+            "add": [
+              "home_completed()"
+            ],
+            "del": []
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "return_home",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "8e40bf532aef1b31de26f5e126fd04daf6d7a0c8b2694883f83e472f03b26151"
+        }
+      ],
+      "success": true,
+      "goal_reached": true,
+      "mechanical_ok": true,
+      "metrics": {
+        "objects": {
+          "shrimp": {
+            "ok": true,
+            "xy_error_m": 0.0044824490715180895,
+            "gap_m": -0.008999980521210149,
+            "tilt_deg": 2.810842758586294,
+            "support_contact": true,
+            "support_upright": true,
+            "base_displacement_m": 0.0,
+            "origin": [
+              0.31040276862392363,
+              0.1555356829061618,
+              0.4070000194787899
+            ]
+          },
+          "apple": {
+            "ok": false,
+            "xy_error_m": 0.3500001549884943,
+            "gap_m": -0.026015496213132927,
+            "tilt_deg": 0.00045644802448257247,
+            "support_contact": false,
+            "support_upright": true,
+            "base_displacement_m": 0.0,
+            "origin": [
+              0.4899998734390024,
+              -0.19000015498847142,
+              0.4209845037868671
+            ]
+          },
+          "potato": {
+            "ok": false,
+            "xy_error_m": 0.3500000038531523,
+            "gap_m": -0.015019163841071326,
+            "tilt_deg": 2.4847600183148248e-05,
+            "support_contact": false,
+            "support_upright": true,
+            "base_displacement_m": 0.0,
+            "origin": [
+              0.6700000050474401,
+              -0.19000000385315224,
+              0.4149808361589287
+            ]
+          }
+        },
+        "released": true,
+        "hand_clearance_m": {
+          "shrimp": 0.5048382157638015,
+          "apple": 0.5357271710470749,
+          "potato": 0.625229105264786
+        },
+        "final_home": true,
+        "home_error_rad": 3.387420490782649e-09,
+        "completed_targets_preserved": true,
+        "forbidden_contacts": [],
+        "max_grasp_relative_slip_m": 0.011120129175757736,
+        "max_bilateral_contact_gap_s": 0.0,
+        "strict_weld_violation": false,
+        "grasp_verified": true,
+        "motion_verified": true,
+        "success": false
+      },
+      "observed_state": [
+        "at_source(apple)",
+        "at_source(potato)",
+        "at_target(shrimp)",
+        "empty()",
+        "home_completed()"
+      ],
+      "bt_status": "success",
+      "simulation_seconds": 41.600000000004876,
+      "weld_active": [],
+      "perception_records": [
+        {
+          "backend": "oracle",
+          "object": "shrimp",
+          "point_kind": "grasp_center",
+          "height_prior_m": 0.4100006199279825,
+          "height_source": "oracle_initial_object_z_plus_frozen_grasp_offset",
+          "fallback": false,
+          "xyz": [
+            0.31005413681640004,
+            -0.19001848191801193,
+            0.4100006199279825
+          ]
+        },
+        {
+          "backend": "oracle",
+          "object": "bowl",
+          "point_kind": "support_floor_center",
+          "height_prior_m": 0.40800000000000003,
+          "height_source": "frozen_scene_support_surface_z",
+          "fallback": false,
+          "xyz": [
+            0.31,
+            0.16,
+            0.40800000000000003
+          ]
+        }
+      ]
+    },
+    {
+      "task": {
+        "id": "C2",
+        "initial": [
+          "at_source(apple)",
+          "at_source(potato)",
+          "at_source(shrimp)",
+          "empty()"
+        ],
+        "goal": [
+          "at_target(apple)",
+          "at_target(shrimp)",
+          "empty()",
+          "home_completed()"
+        ]
+      },
+      "seed": 0,
+      "perception": "oracle",
+      "config_sha256": "87831738dd2d6544b3a82e860800830135b30fc8091aa1e677f8789b77cceb4c",
+      "steps": [
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "at_source(shrimp)",
+            "empty()"
+          ],
+          "after": [
+            "at_source(potato)",
+            "at_source(shrimp)",
+            "holding(apple)"
+          ],
+          "model": {
+            "name": "pick",
+            "args": {
+              "object": "apple",
+              "support": "board"
+            },
+            "pre": [
+              "empty()",
+              "at_source(apple)"
+            ],
+            "add": [
+              "holding(apple)"
+            ],
+            "del": [
+              "empty()",
+              "at_source(apple)",
+              "home_completed()"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "grasp_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.48999984604282265,
+                -0.19000011635732492,
+                0.4229845037681055
+              ]
+            },
+            {
+              "method": "approach",
+              "args": [
+                [
+                  0.48999984604282265,
+                  -0.19000011635732492,
+                  0.4229845037681055
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "descend",
+              "args": [
+                [
+                  0.48999984604282265,
+                  -0.19000011635732492,
+                  0.4229845037681055
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "close_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "ac8a844ad4d8b8db329598189cc33688f9f0ed650a4b82563bd7cea4da84e733"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(potato)",
+            "at_source(shrimp)",
+            "holding(apple)"
+          ],
+          "after": [
+            "at_source(potato)",
+            "at_source(shrimp)",
+            "at_target(apple)",
+            "empty()"
+          ],
+          "model": {
+            "name": "place",
+            "args": {
+              "object": "apple",
+              "support": "board"
+            },
+            "pre": [
+              "holding(apple)"
+            ],
+            "add": [
+              "at_target(apple)",
+              "empty()"
+            ],
+            "del": [
+              "holding(apple)"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "destination_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.49,
+                0.16,
+                0.447
+              ]
+            },
+            {
+              "method": "carry",
+              "args": [
+                [
+                  0.49,
+                  0.16,
+                  0.447
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lower",
+              "args": [
+                [
+                  0.49,
+                  0.16,
+                  0.447
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "withdraw",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "fd046b856ff993bc3635afd4877000a981442c663cc93f8b8963ef39d0953056"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(potato)",
+            "at_source(shrimp)",
+            "at_target(apple)",
+            "empty()"
+          ],
+          "after": [
+            "at_source(potato)",
+            "at_target(apple)",
+            "holding(shrimp)"
+          ],
+          "model": {
+            "name": "pick",
+            "args": {
+              "object": "shrimp",
+              "support": "bowl"
+            },
+            "pre": [
+              "empty()",
+              "at_source(shrimp)"
+            ],
+            "add": [
+              "holding(shrimp)"
+            ],
+            "del": [
+              "empty()",
+              "at_source(shrimp)",
+              "home_completed()"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "grasp_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.31005413822302214,
+                -0.1900184367823724,
+                0.4100006199279825
+              ]
+            },
+            {
+              "method": "approach",
+              "args": [
+                [
+                  0.31005413822302214,
+                  -0.1900184367823724,
+                  0.4100006199279825
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "descend",
+              "args": [
+                [
+                  0.31005413822302214,
+                  -0.1900184367823724,
+                  0.4100006199279825
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "close_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "c519cd749debe353036eb5b5736af788aac3a6f3e5ee4347c12c26ec9547472b"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(potato)",
+            "at_target(apple)",
+            "holding(shrimp)"
+          ],
+          "after": [
+            "at_source(potato)",
+            "at_target(apple)",
+            "at_target(shrimp)",
+            "empty()"
+          ],
+          "model": {
+            "name": "place",
+            "args": {
+              "object": "shrimp",
+              "support": "bowl"
+            },
+            "pre": [
+              "holding(shrimp)"
+            ],
+            "add": [
+              "at_target(shrimp)",
+              "empty()"
+            ],
+            "del": [
+              "holding(shrimp)"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "destination_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.31,
+                0.16,
+                0.41600000000000004
+              ]
+            },
+            {
+              "method": "carry",
+              "args": [
+                [
+                  0.31,
+                  0.16,
+                  0.41600000000000004
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lower",
+              "args": [
+                [
+                  0.31,
+                  0.16,
+                  0.41600000000000004
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "withdraw",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "3136df91927d15181c1381b94db52e1d435cc8afbd58e2708d2bef844cb16dec"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(potato)",
+            "at_target(apple)",
+            "at_target(shrimp)",
+            "empty()"
+          ],
+          "after": [
+            "at_source(potato)",
+            "at_target(apple)",
+            "at_target(shrimp)",
+            "empty()",
+            "home_completed()"
+          ],
+          "model": {
+            "name": "home",
+            "args": {},
+            "pre": [
+              "empty()"
+            ],
+            "add": [
+              "home_completed()"
+            ],
+            "del": []
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "return_home",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "8e40bf532aef1b31de26f5e126fd04daf6d7a0c8b2694883f83e472f03b26151"
+        }
+      ],
+      "success": true,
+      "goal_reached": true,
+      "mechanical_ok": true,
+      "metrics": {
+        "objects": {
+          "shrimp": {
+            "ok": true,
+            "xy_error_m": 0.004833035542223234,
+            "gap_m": -0.00900002414514317,
+            "tilt_deg": 2.8377968544449024,
+            "support_contact": true,
+            "support_upright": true,
+            "base_displacement_m": 0.0,
+            "origin": [
+              0.31053073034603873,
+              0.1551961933997936,
+              0.40699997585485687
+            ]
+          },
+          "apple": {
+            "ok": true,
+            "xy_error_m": 8.274842851045471e-05,
+            "gap_m": -0.0020156968666440456,
+            "tilt_deg": 0.00033252483285646007,
+            "support_contact": true,
+            "support_upright": true,
+            "base_displacement_m": 0.0,
+            "origin": [
+              0.4899178392874099,
+              0.15999015521825344,
+              0.44498430313335596
+            ]
+          },
+          "potato": {
+            "ok": false,
+            "xy_error_m": 0.3500000038531523,
+            "gap_m": -0.015019163841071326,
+            "tilt_deg": 2.4847600183148248e-05,
+            "support_contact": false,
+            "support_upright": true,
+            "base_displacement_m": 0.0,
+            "origin": [
+              0.6700000050474401,
+              -0.19000000385315224,
+              0.4149808361589287
+            ]
+          }
+        },
+        "released": true,
+        "hand_clearance_m": {
+          "shrimp": 0.5047346411731258,
+          "apple": 0.5046433127181047,
+          "potato": 0.6252291052650247
+        },
+        "final_home": true,
+        "home_error_rad": 3.3808797663227405e-09,
+        "completed_targets_preserved": true,
+        "forbidden_contacts": [],
+        "max_grasp_relative_slip_m": 0.01136472416991901,
+        "max_bilateral_contact_gap_s": 0.0,
+        "strict_weld_violation": false,
+        "grasp_verified": true,
+        "motion_verified": true,
+        "success": false
+      },
+      "observed_state": [
+        "at_source(potato)",
+        "at_target(apple)",
+        "at_target(shrimp)",
+        "empty()",
+        "home_completed()"
+      ],
+      "bt_status": "success",
+      "simulation_seconds": 76.64000000000279,
+      "weld_active": [],
+      "perception_records": [
+        {
+          "backend": "oracle",
+          "object": "apple",
+          "point_kind": "grasp_center",
+          "height_prior_m": 0.4229845037681055,
+          "height_source": "oracle_initial_object_z_plus_frozen_grasp_offset",
+          "fallback": false,
+          "xyz": [
+            0.48999984604282265,
+            -0.19000011635732492,
+            0.4229845037681055
+          ]
+        },
+        {
+          "backend": "oracle",
+          "object": "board",
+          "point_kind": "support_floor_center",
+          "height_prior_m": 0.42400000000000004,
+          "height_source": "frozen_scene_support_surface_z",
+          "fallback": false,
+          "xyz": [
+            0.49,
+            0.16,
+            0.42400000000000004
+          ]
+        },
+        {
+          "backend": "oracle",
+          "object": "shrimp",
+          "point_kind": "grasp_center",
+          "height_prior_m": 0.4100006199279825,
+          "height_source": "oracle_initial_object_z_plus_frozen_grasp_offset",
+          "fallback": false,
+          "xyz": [
+            0.31005413822302214,
+            -0.1900184367823724,
+            0.4100006199279825
+          ]
+        },
+        {
+          "backend": "oracle",
+          "object": "bowl",
+          "point_kind": "support_floor_center",
+          "height_prior_m": 0.40800000000000003,
+          "height_source": "frozen_scene_support_surface_z",
+          "fallback": false,
+          "xyz": [
+            0.31,
+            0.16,
+            0.40800000000000003
+          ]
+        }
+      ]
+    },
+    {
+      "task": {
+        "id": "C3",
+        "initial": [
+          "at_source(apple)",
+          "at_source(potato)",
+          "at_source(shrimp)",
+          "empty()"
+        ],
+        "goal": [
+          "at_target(apple)",
+          "at_target(potato)",
+          "at_target(shrimp)",
+          "empty()",
+          "home_completed()"
+        ]
+      },
+      "seed": 0,
+      "perception": "oracle",
+      "config_sha256": "87831738dd2d6544b3a82e860800830135b30fc8091aa1e677f8789b77cceb4c",
+      "steps": [
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(apple)",
+            "at_source(potato)",
+            "at_source(shrimp)",
+            "empty()"
+          ],
+          "after": [
+            "at_source(apple)",
+            "at_source(shrimp)",
+            "holding(potato)"
+          ],
+          "model": {
+            "name": "pick",
+            "args": {
+              "object": "potato",
+              "support": "pan"
+            },
+            "pre": [
+              "empty()",
+              "at_source(potato)"
+            ],
+            "add": [
+              "holding(potato)"
+            ],
+            "del": [
+              "empty()",
+              "at_source(potato)",
+              "home_completed()"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "grasp_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.6700000050474401,
+                -0.19000000385315224,
+                0.41798083548895737
+              ]
+            },
+            {
+              "method": "approach",
+              "args": [
+                [
+                  0.6700000050474401,
+                  -0.19000000385315224,
+                  0.41798083548895737
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "descend",
+              "args": [
+                [
+                  0.6700000050474401,
+                  -0.19000000385315224,
+                  0.41798083548895737
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "close_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "efb0566705be7a62ffd6f4b97078bd4a79bce5a1209f5181bef7bbfa9d0db20c"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(apple)",
+            "at_source(shrimp)",
+            "holding(potato)"
+          ],
+          "after": [
+            "at_source(apple)",
+            "at_source(shrimp)",
+            "at_target(potato)",
+            "empty()"
+          ],
+          "model": {
+            "name": "place",
+            "args": {
+              "object": "potato",
+              "support": "pan"
+            },
+            "pre": [
+              "holding(potato)"
+            ],
+            "add": [
+              "at_target(potato)",
+              "empty()"
+            ],
+            "del": [
+              "holding(potato)"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "destination_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.67,
+                0.16,
+                0.43000000000000005
+              ]
+            },
+            {
+              "method": "carry",
+              "args": [
+                [
+                  0.67,
+                  0.16,
+                  0.43000000000000005
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lower",
+              "args": [
+                [
+                  0.67,
+                  0.16,
+                  0.43000000000000005
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "withdraw",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "6a7c7506155297871d6e130ea87eddd432b70dafde69d045bf3225c70c95a84e"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(apple)",
+            "at_source(shrimp)",
+            "at_target(potato)",
+            "empty()"
+          ],
+          "after": [
+            "at_source(shrimp)",
+            "at_target(potato)",
+            "holding(apple)"
+          ],
+          "model": {
+            "name": "pick",
+            "args": {
+              "object": "apple",
+              "support": "board"
+            },
+            "pre": [
+              "empty()",
+              "at_source(apple)"
+            ],
+            "add": [
+              "holding(apple)"
+            ],
+            "del": [
+              "empty()",
+              "at_source(apple)",
+              "home_completed()"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "grasp_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.4899998702668867,
+                -0.19000015051512836,
+                0.4229845037681055
+              ]
+            },
+            {
+              "method": "approach",
+              "args": [
+                [
+                  0.4899998702668867,
+                  -0.19000015051512836,
+                  0.4229845037681055
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "descend",
+              "args": [
+                [
+                  0.4899998702668867,
+                  -0.19000015051512836,
+                  0.4229845037681055
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "close_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "ac8a844ad4d8b8db329598189cc33688f9f0ed650a4b82563bd7cea4da84e733"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(shrimp)",
+            "at_target(potato)",
+            "holding(apple)"
+          ],
+          "after": [
+            "at_source(shrimp)",
+            "at_target(apple)",
+            "at_target(potato)",
+            "empty()"
+          ],
+          "model": {
+            "name": "place",
+            "args": {
+              "object": "apple",
+              "support": "board"
+            },
+            "pre": [
+              "holding(apple)"
+            ],
+            "add": [
+              "at_target(apple)",
+              "empty()"
+            ],
+            "del": [
+              "holding(apple)"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "destination_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.49,
+                0.16,
+                0.447
+              ]
+            },
+            {
+              "method": "carry",
+              "args": [
+                [
+                  0.49,
+                  0.16,
+                  0.447
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lower",
+              "args": [
+                [
+                  0.49,
+                  0.16,
+                  0.447
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "withdraw",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "fd046b856ff993bc3635afd4877000a981442c663cc93f8b8963ef39d0953056"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_source(shrimp)",
+            "at_target(apple)",
+            "at_target(potato)",
+            "empty()"
+          ],
+          "after": [
+            "at_target(apple)",
+            "at_target(potato)",
+            "holding(shrimp)"
+          ],
+          "model": {
+            "name": "pick",
+            "args": {
+              "object": "shrimp",
+              "support": "bowl"
+            },
+            "pre": [
+              "empty()",
+              "at_source(shrimp)"
+            ],
+            "add": [
+              "holding(shrimp)"
+            ],
+            "del": [
+              "empty()",
+              "at_source(shrimp)",
+              "home_completed()"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "grasp_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.3100541188307144,
+                -0.19001845784581275,
+                0.4100006199279825
+              ]
+            },
+            {
+              "method": "approach",
+              "args": [
+                [
+                  0.3100541188307144,
+                  -0.19001845784581275,
+                  0.4100006199279825
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "descend",
+              "args": [
+                [
+                  0.3100541188307144,
+                  -0.19001845784581275,
+                  0.4100006199279825
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "close_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lift",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "c519cd749debe353036eb5b5736af788aac3a6f3e5ee4347c12c26ec9547472b"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_target(apple)",
+            "at_target(potato)",
+            "holding(shrimp)"
+          ],
+          "after": [
+            "at_target(apple)",
+            "at_target(potato)",
+            "at_target(shrimp)",
+            "empty()"
+          ],
+          "model": {
+            "name": "place",
+            "args": {
+              "object": "shrimp",
+              "support": "bowl"
+            },
+            "pre": [
+              "holding(shrimp)"
+            ],
+            "add": [
+              "at_target(shrimp)",
+              "empty()"
+            ],
+            "del": [
+              "holding(shrimp)"
+            ]
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "destination_point",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.31,
+                0.16,
+                0.41600000000000004
+              ]
+            },
+            {
+              "method": "carry",
+              "args": [
+                [
+                  0.31,
+                  0.16,
+                  0.41600000000000004
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "lower",
+              "args": [
+                [
+                  0.31,
+                  0.16,
+                  0.41600000000000004
+                ]
+              ],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "open_gripper",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            },
+            {
+              "method": "withdraw",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "3136df91927d15181c1381b94db52e1d435cc8afbd58e2708d2bef844cb16dec"
+        },
+        {
+          "valid_trial": true,
+          "paper_line20": true,
+          "strict_CP_transition_match": true,
+          "goal_ok": true,
+          "effect_ok": true,
+          "violations": {
+            "missing_pre": [],
+            "missing_add": [],
+            "remaining_del": [],
+            "missing_preserved_pre": [],
+            "unexpected_added": [],
+            "unexpected_removed": []
+          },
+          "before": [
+            "at_target(apple)",
+            "at_target(potato)",
+            "at_target(shrimp)",
+            "empty()"
+          ],
+          "after": [
+            "at_target(apple)",
+            "at_target(potato)",
+            "at_target(shrimp)",
+            "empty()",
+            "home_completed()"
+          ],
+          "model": {
+            "name": "home",
+            "args": {},
+            "pre": [
+              "empty()"
+            ],
+            "add": [
+              "home_completed()"
+            ],
+            "del": []
+          },
+          "code_executed": true,
+          "exception": null,
+          "trace": [
+            {
+              "method": "return_home",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": null
+            }
+          ],
+          "forbidden_contacts": [],
+          "code_sha256": "8e40bf532aef1b31de26f5e126fd04daf6d7a0c8b2694883f83e472f03b26151"
+        }
+      ],
+      "success": true,
+      "goal_reached": true,
+      "mechanical_ok": true,
+      "metrics": {
+        "objects": {
+          "shrimp": {
+            "ok": true,
+            "xy_error_m": 0.004596225909655359,
+            "gap_m": -0.008999961255780342,
+            "tilt_deg": 2.8099686635254035,
+            "support_contact": true,
+            "support_upright": true,
+            "base_displacement_m": 0.0,
+            "origin": [
+              0.3103938483018427,
+              0.15542067951244698,
+              0.4070000387442197
+            ]
+          },
+          "apple": {
+            "ok": true,
+            "xy_error_m": 8.85763042794716e-05,
+            "gap_m": -0.00201564446047392,
+            "tilt_deg": 0.0008798782598750836,
+            "support_contact": true,
+            "support_upright": true,
+            "base_displacement_m": 0.0,
+            "origin": [
+              0.48991185809785326,
+              0.1599912383354455,
+              0.4449843555395261
+            ]
+          },
+          "potato": {
+            "ok": true,
+            "xy_error_m": 3.991684813508244e-05,
+            "gap_m": -0.005020760574366956,
+            "tilt_deg": 0.002726946076434096,
+            "support_contact": true,
+            "support_upright": true,
+            "base_displacement_m": 0.0,
+            "origin": [
+              0.6699614646454781,
+              0.1599895893700042,
+              0.4249792394256331
+            ]
+          }
+        },
+        "released": true,
+        "hand_clearance_m": {
+          "shrimp": 0.5048027181739019,
+          "apple": 0.5046414424430358,
+          "potato": 0.6091271015882604
+        },
+        "final_home": true,
+        "home_error_rad": 3.402145445411133e-09,
+        "completed_targets_preserved": true,
+        "forbidden_contacts": [],
+        "max_grasp_relative_slip_m": 0.011036851043811342,
+        "max_bilateral_contact_gap_s": 0.002,
+        "strict_weld_violation": false,
+        "grasp_verified": true,
+        "motion_verified": true,
+        "success": true
+      },
+      "observed_state": [
+        "at_target(apple)",
+        "at_target(potato)",
+        "at_target(shrimp)",
+        "empty()",
+        "home_completed()"
+      ],
+      "bt_status": "success",
+      "simulation_seconds": 113.67999999991646,
+      "weld_active": [],
+      "perception_records": [
+        {
+          "backend": "oracle",
+          "object": "potato",
+          "point_kind": "grasp_center",
+          "height_prior_m": 0.41798083548895737,
+          "height_source": "oracle_initial_object_z_plus_frozen_grasp_offset",
+          "fallback": false,
+          "xyz": [
+            0.6700000050474401,
+            -0.19000000385315224,
+            0.41798083548895737
+          ]
+        },
+        {
+          "backend": "oracle",
+          "object": "pan",
+          "point_kind": "support_floor_center",
+          "height_prior_m": 0.41000000000000003,
+          "height_source": "frozen_scene_support_surface_z",
+          "fallback": false,
+          "xyz": [
+            0.67,
+            0.16,
+            0.41000000000000003
+          ]
+        },
+        {
+          "backend": "oracle",
+          "object": "apple",
+          "point_kind": "grasp_center",
+          "height_prior_m": 0.4229845037681055,
+          "height_source": "oracle_initial_object_z_plus_frozen_grasp_offset",
+          "fallback": false,
+          "xyz": [
+            0.4899998702668867,
+            -0.19000015051512836,
+            0.4229845037681055
+          ]
+        },
+        {
+          "backend": "oracle",
+          "object": "board",
+          "point_kind": "support_floor_center",
+          "height_prior_m": 0.42400000000000004,
+          "height_source": "frozen_scene_support_surface_z",
+          "fallback": false,
+          "xyz": [
+            0.49,
+            0.16,
+            0.42400000000000004
+          ]
+        },
+        {
+          "backend": "oracle",
+          "object": "shrimp",
+          "point_kind": "grasp_center",
+          "height_prior_m": 0.4100006199279825,
+          "height_source": "oracle_initial_object_z_plus_frozen_grasp_offset",
+          "fallback": false,
+          "xyz": [
+            0.3100541188307144,
+            -0.19001845784581275,
+            0.4100006199279825
+          ]
+        },
+        {
+          "backend": "oracle",
+          "object": "bowl",
+          "point_kind": "support_floor_center",
+          "height_prior_m": 0.40800000000000003,
+          "height_source": "frozen_scene_support_surface_z",
+          "fallback": false,
+          "xyz": [
+            0.31,
+            0.16,
+            0.40800000000000003
+          ]
+        }
+      ]
+    }
+  ],
+  "success_count": 3,
+  "total": 3,
+  "source_hashes": {
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/run_cover_cabto_method.py": "74f88627ae61a793c9beac8af2e457e8d1a63e3e7b05a01df97158c9770496bb",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/cover_cabto_api.py": "f63f62dd3c3a06b5344853009e36ea49b6e9555efbb04bdb7e152e6d46a22915",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/cover_cabto_grounding.py": "9d276f10ab01aa36410c5ae81707a605a087d5f66a73d124811b6847cbd953e7",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/core/single_arm_rebuilt.py": "b0fa4dea63dd23ad93845cac7cbf653616a0832b482a870e6a51a499394a2d52",
+    "/Users/yishuaicai/mywork/edps_cabto_exp/project/scenes/cover_kitchen_sort_v2.json": "87831738dd2d6544b3a82e860800830135b30fc8091aa1e677f8789b77cceb4c"
+  },
+  "sources_unchanged": true,
+  "mode": "finite_empirical_consistency_only",
+  "Qwen_fallback_to_oracle": false,
+  "proposal_input_sha256": "c403547090e122795cbaf8b3c79722a77d1fab5d3f5d7cc257aa14bd69f0f082",
+  "policies_input_sha256": "a7e072e0f57fb3896ba7ed4cf6d9b6318716aa72f522e07af3c7ad6036485959",
+  "proposal_origin": "current_conversation_assistant",
+  "policy_origin": "current_conversation_assistant",
+  "policy_generation_channel": "interactive_LM_output_saved_verbatim_as_candidate_artifact_not_local_Qwen_output",
+  "Qwen_geometry_prior": "known support surface z; oracle initial payload z plus grasp offset",
+  "control_feedback": "oracle payload tracking in move_object; proprioceptive IK",
+  "observation_protocol": "two live cameras, no static cache"
+}

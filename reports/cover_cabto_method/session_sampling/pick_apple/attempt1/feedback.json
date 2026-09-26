@@ -1,0 +1,184 @@
+{
+  "action": "pick(object=apple,support=board)",
+  "attempt": 1,
+  "model": {
+    "name": "pick",
+    "args": {
+      "object": "apple",
+      "support": "board"
+    },
+    "pre": [
+      "empty()",
+      "at_source(apple)"
+    ],
+    "add": [
+      "holding(apple)"
+    ],
+    "del": [
+      "empty()",
+      "at_source(apple)",
+      "home_completed()"
+    ]
+  },
+  "prefix": [],
+  "candidate_origin": {
+    "channel": "interactive_LM_output_saved_verbatim_as_candidate_artifact_not_local_Qwen_output",
+    "artifact": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/session_candidates.json",
+    "sha256": "2c92c2756311dcea6d9385584864a1a5609efdc1d21d26a8e57a2bef4aa6b15d",
+    "new_model_call_in_this_process": false
+  },
+  "validation_context": {
+    "instruction": "Generate ONLY a Python def policy(api) implementing this ONE grounded STRIPS action, using real fine-grained API calls. No imports, loops, other functions, simulator objects or success flags. No hardcoded xyz. The return value is not the success criterion. All motion must be explicitly called. Do not change the model.",
+    "action_model": {
+      "name": "pick",
+      "args": {
+        "object": "apple",
+        "support": "board"
+      },
+      "pre": [
+        "empty()",
+        "at_source(apple)"
+      ],
+      "add": [
+        "holding(apple)"
+      ],
+      "del": [
+        "empty()",
+        "at_source(apple)",
+        "home_completed()"
+      ]
+    },
+    "observed_before": [
+      "at_source(apple)",
+      "at_source(potato)",
+      "at_source(shrimp)",
+      "empty()"
+    ],
+    "APIs": {
+      "grasp_point": "api.grasp_point() -> (x,y,z). Read-only payload grasp-center estimate in world metres. Backend is selected externally (oracle or Qwen). No movement.",
+      "open_gripper": "api.open_gripper() -> None. Command gripper open and wait; does NOT move arm.",
+      "approach": "api.approach(point) -> None. Move OPEN end effector above the point at safe transport height. One xyz tuple argument. Does NOT descend or close.",
+      "descend": "api.descend(point) -> None. Move OPEN end effector vertically to this grasp xyz. Requires already above it. Does NOT close or lift.",
+      "close_gripper": "api.close_gripper() -> None. Close at CURRENT location and wait. Requires simultaneous two-finger force. Does NOT approach, descend or lift.",
+      "lift": "api.lift() -> None. Raise CLOSED end effector vertically to transport height. Does NOT close. The grasped payload must move upward."
+    },
+    "scene": "On a longer kitchen worktop, the upright bowl, chopping board, and pan form the back row. Shrimp, apple, and potato form the front row. Place shrimp into the bowl, apple onto the chopping board, and potato into the pan; release every object, withdraw, and return the arm to HOME.",
+    "object_roles": {
+      "object": "apple",
+      "support": "board"
+    },
+    "previous_failed_programs_and_execution_feedback": []
+  },
+  "source": "def policy(api):\n    api.open_gripper()\n    apple_grasp = api.grasp_point()\n    api.approach(apple_grasp)\n    api.descend(apple_grasp)\n    api.close_gripper()\n    api.lift()\n",
+  "evaluation": {
+    "valid_trial": true,
+    "paper_line20": true,
+    "strict_CP_transition_match": true,
+    "goal_ok": true,
+    "effect_ok": true,
+    "violations": {
+      "missing_pre": [],
+      "missing_add": [],
+      "remaining_del": [],
+      "missing_preserved_pre": [],
+      "unexpected_added": [],
+      "unexpected_removed": []
+    },
+    "before": [
+      "at_source(apple)",
+      "at_source(potato)",
+      "at_source(shrimp)",
+      "empty()"
+    ],
+    "after": [
+      "at_source(potato)",
+      "at_source(shrimp)",
+      "holding(apple)"
+    ],
+    "model": {
+      "name": "pick",
+      "args": {
+        "object": "apple",
+        "support": "board"
+      },
+      "pre": [
+        "empty()",
+        "at_source(apple)"
+      ],
+      "add": [
+        "holding(apple)"
+      ],
+      "del": [
+        "empty()",
+        "at_source(apple)",
+        "home_completed()"
+      ]
+    },
+    "code_executed": true,
+    "exception": null,
+    "trace": [
+      {
+        "method": "open_gripper",
+        "args": [],
+        "kwargs": {},
+        "status": "returned",
+        "result": null
+      },
+      {
+        "method": "grasp_point",
+        "args": [],
+        "kwargs": {},
+        "status": "returned",
+        "result": [
+          0.48999984604282265,
+          -0.19000011635732492,
+          0.4229845037681055
+        ]
+      },
+      {
+        "method": "approach",
+        "args": [
+          [
+            0.48999984604282265,
+            -0.19000011635732492,
+            0.4229845037681055
+          ]
+        ],
+        "kwargs": {},
+        "status": "returned",
+        "result": null
+      },
+      {
+        "method": "descend",
+        "args": [
+          [
+            0.48999984604282265,
+            -0.19000011635732492,
+            0.4229845037681055
+          ]
+        ],
+        "kwargs": {},
+        "status": "returned",
+        "result": null
+      },
+      {
+        "method": "close_gripper",
+        "args": [],
+        "kwargs": {},
+        "status": "returned",
+        "result": null
+      },
+      {
+        "method": "lift",
+        "args": [],
+        "kwargs": {},
+        "status": "returned",
+        "result": null
+      }
+    ],
+    "forbidden_contacts": [],
+    "code_sha256": "ac8a844ad4d8b8db329598189cc33688f9f0ed650a4b82563bd7cea4da84e733"
+  },
+  "accepted": true,
+  "simulation_seconds": 17.900000000000958
+}

@@ -1,0 +1,60 @@
+{
+  "origin": "new_posthoc_keyframe_Qwen_diagnostic",
+  "used_in_control": false,
+  "source_image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/final_seed0/HANDOVER/step02/before.png",
+  "source_image_sha256": "cd39f40e7e3fb3ad0263173556d4b0d408384b8973970ed5e3a86cdf84cd9833",
+  "source_episode_result": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/final_seed0/HANDOVER/result.json",
+  "source_episode_sha256": "4220a68577b1bc98be6dfed0c5a563c5dc8e74763fba09d0171427bb83af870a",
+  "source_step": 2,
+  "action_model": {
+    "name": "receiver_grasps_box_face",
+    "args": {
+      "arm": "1",
+      "obj": "baton",
+      "dest": "receiver_grasps_opposite_handle"
+    },
+    "program_kind": "receive",
+    "pre": [
+      "donor_holding(baton)",
+      "empty(1)",
+      "at_handover_pose(baton)",
+      "collision_free()"
+    ],
+    "add": [
+      "dual_holding(baton)",
+      "receiver_contact_verified()",
+      "receiver_holding(baton)"
+    ],
+    "del": [
+      "empty(1)",
+      "home(1)"
+    ],
+    "description": "茶盒由两臂共同持有，接收侧指定盒面的当帧与近期双指接触已验证，交出侧仍保持持有。"
+  },
+  "original_execution_perception": "oracle_geometry",
+  "camera": "overview",
+  "coordinate_contract": "absolute_pixels",
+  "scope": "semantic region point on a recorded RGB frame, NOT calibrated robot grasp or placement command; no motion or GT evaluation",
+  "call": {
+    "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "text": "Point to the center of the green tea box held in the air near the middle of the image, immediately next to the right robot gripper. Output the pixel coordinate.",
+    "image_files": [
+      "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/final_seed0/HANDOVER/step02/before.png"
+    ],
+    "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the center of the green tea box held in the air near the middle of the image, immediately next to the right robot gripper. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+    "temperature": 0.0,
+    "max_tokens": 220,
+    "raw": "```json\n[\n\t{\"point_2d\": [332, 332], \"label\": \"center of the green tea box held in the air near the middle of the image, immediately next to the right robot gripper.\"}\n]\n```",
+    "wall_seconds": 1.1440408340422437
+  },
+  "parse_status": "valid_2d_point",
+  "point": [
+    332.0,
+    332.0
+  ],
+  "field": "point_2d",
+  "image_size": [
+    720,
+    720
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "scope": "Cover CABTO method pilot, interactive model candidates + oracle physics baseline; not autonomous local-Qwen success or paper-table replication",
+  "complete_for_P": true,
+  "declared_tasks": 3,
+  "actions": 7,
+  "accepted_action_candidates": 7,
+  "sampling_success": true,
+  "oracle_task_successes": 3,
+  "oracle_task_trials": 3,
+  "holdout_successes": 1,
+  "holdout_trials": 1,
+  "qwen_0_8b_C1_successes": 0,
+  "qwen_3b_C1_successes": 0,
+  "local_codegen_3b_accepted": 0,
+  "local_codegen_3b_all_success": false,
+  "negative_controls_rejected": 3,
+  "new_unit_tests": 44,
+  "legacy_unit_tests": 164,
+  "qwen_zoom_C1_successes": 0,
+  "qwen_zoom_motion_started": false,
+  "proposal_and_baseline_code_source": "current conversation assistant, saved candidates; separate from failed local-model attempts",
+  "frozen_config_sha256": "87831738dd2d6544b3a82e860800830135b30fc8091aa1e677f8789b77cceb4c",
+  "no_weld_in_baseline": true,
+  "source_snapshot_unchanged_during_each_run": true,
+  "limitations": [
+    "finite physical trials, not proof over all continuous states",
+    "manual CP/signatures and prior calibrated controller API",
+    "oracle state evaluator and payload tracking",
+    "Qwen localization uses explicit known height planes",
+    "no automatic cross-level refinement demonstrated"
+  ]
+}

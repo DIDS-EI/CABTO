@@ -1,0 +1,60 @@
+{
+  "origin": "existing_closed_loop_call",
+  "used_in_control": true,
+  "source_json": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/perception.json",
+  "source_sha256": "914bb24e0ea7887e59c08cc899887cf6782234fcc964d1449fde11b4858ccfa5",
+  "record_index": 9,
+  "record": {
+    "object": "shrimp",
+    "point_kind": "grasp_center",
+    "height_prior": 0.4100006199279825,
+    "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "source": "Qwen semantic point + RGB refinement + calibrated plane",
+    "fallback": false,
+    "image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/009_shrimp.png",
+    "call": {
+      "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+      "text": "Point to the orange shrimp. Output the pixel coordinate.",
+      "image_files": [
+        "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/009_shrimp.png"
+      ],
+      "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the orange shrimp. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+      "temperature": 0.0,
+      "max_tokens": 200,
+      "raw": "```json\n[\n\t{\"point_2d\": [222, 511], \"label\": \"orange shrimp\"}\n]\n```",
+      "wall_seconds": 1.4760762919904664
+    },
+    "field": "point_2d",
+    "coordinate_contract": "absolute_pixel",
+    "refinement": {
+      "method": "maximum_inscribed_disc",
+      "roi": [
+        186,
+        475,
+        259,
+        548
+      ],
+      "component_area": 878,
+      "coarse_uv": [
+        222.0,
+        511.0
+      ],
+      "refined_uv": [
+        231.5,
+        511.0
+      ],
+      "semantic_prior": "shrimp"
+    },
+    "observed_feature_plane_z": 0.4100006199279825,
+    "feature_height_source": "frozen manual rim geometry: bowl .029+.025, pan .021+.018; no xy prior",
+    "xyz": [
+      0.30884225106326024,
+      -0.18937603182449567,
+      0.4100006199279825
+    ],
+    "uv": [
+      231.5,
+      511.0
+    ]
+  }
+}

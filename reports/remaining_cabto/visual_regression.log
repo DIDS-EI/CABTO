@@ -1,0 +1,30 @@
+test_install_changes_only_front_camera_configuration (__main__.InstallCameraTests.test_install_changes_only_front_camera_configuration) ... ok
+test_install_is_idempotent (__main__.InstallCameraTests.test_install_is_idempotent) ... ok
+test_install_preserves_qpos_qvel_time_and_non_camera_model_arrays (__main__.InstallCameraTests.test_install_preserves_qpos_qvel_time_and_non_camera_model_arrays) ... ok
+test_ambiguous_matching_components_are_rejected (__main__.RefineRGBTests.test_ambiguous_matching_components_are_rejected) ... ok
+test_blank_images_rejected_for_all_priors (__main__.RefineRGBTests.test_blank_images_rejected_for_all_priors) ... ok
+test_component_inside_roi_but_too_far_from_coarse_rejected (__main__.RefineRGBTests.test_component_inside_roi_but_too_far_from_coarse_rejected) ... ok
+test_frame_clipped_components_rejected_on_each_edge (__main__.RefineRGBTests.test_frame_clipped_components_rejected_on_each_edge) ... ok
+test_inputs_unchanged_and_diagnostics_consistent (__main__.RefineRGBTests.test_inputs_unchanged_and_diagnostics_consistent) ... ok
+test_malformed_coarse_rejected (__main__.RefineRGBTests.test_malformed_coarse_rejected) ... ok
+test_multiple_remote_colors_do_not_replace_local_target (__main__.RefineRGBTests.test_multiple_remote_colors_do_not_replace_local_target) ... ok
+test_nearest_matching_component_beats_larger_distractor (__main__.RefineRGBTests.test_nearest_matching_component_beats_larger_distractor) ... ok
+test_nonfinite_coarse_rejected (__main__.RefineRGBTests.test_nonfinite_coarse_rejected) ... ok
+test_only_remote_targets_are_rejected (__main__.RefineRGBTests.test_only_remote_targets_are_rejected) ... ok
+test_out_of_bounds_coarse_rejected (__main__.RefineRGBTests.test_out_of_bounds_coarse_rejected) ... ok
+test_red_disc_with_offcenter_black_hole_recovers_center (__main__.RefineRGBTests.test_red_disc_with_offcenter_black_hole_recovers_center) ... ok
+test_rgb_and_coarse_only_with_explicit_semantic_prior (__main__.RefineRGBTests.test_rgb_and_coarse_only_with_explicit_semantic_prior) ... ok
+test_rgb_not_bgr_channel_order (__main__.RefineRGBTests.test_rgb_not_bgr_channel_order) ... ok
+test_roi_clipped_components_rejected_on_each_edge (__main__.RefineRGBTests.test_roi_clipped_components_rejected_on_each_edge) ... ok
+test_round_pan_with_thin_handle_recovers_disc_center (__main__.RefineRGBTests.test_round_pan_with_thin_handle_recovers_disc_center) ... ok
+test_tiny_color_noise_rejected (__main__.RefineRGBTests.test_tiny_color_noise_rejected) ... ok
+test_unknown_semantic_prior_rejected (__main__.RefineRGBTests.test_unknown_semantic_prior_rejected) ... ok
+test_white_bowl_outer_ellipse_recovers_center (__main__.RefineRGBTests.test_white_bowl_outer_ellipse_recovers_center) ... ok
+test_whole_image_translation_preserves_refinement (__main__.RefineRGBTests.test_whole_image_translation_preserves_refinement) ... ok
+test_wood_rectangle_recovers_center (__main__.RefineRGBTests.test_wood_rectangle_recovers_center) ... ok
+test_zero_sized_images_rejected (__main__.RefineRGBTests.test_zero_sized_images_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.097s
+
+OK

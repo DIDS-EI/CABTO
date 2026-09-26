@@ -1,0 +1,60 @@
+{
+  "origin": "existing_closed_loop_call",
+  "used_in_control": true,
+  "source_json": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/perception.json",
+  "source_sha256": "914bb24e0ea7887e59c08cc899887cf6782234fcc964d1449fde11b4858ccfa5",
+  "record_index": 0,
+  "record": {
+    "object": "bowl",
+    "point_kind": "support_floor_center",
+    "height_prior": 0.40800000000000003,
+    "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "source": "Qwen semantic point + RGB refinement + calibrated plane",
+    "fallback": false,
+    "image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/000_bowl.png",
+    "call": {
+      "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+      "text": "Point to the center of the white bowl interior. Output the pixel coordinate.",
+      "image_files": [
+        "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/final_visual/C3/perception/000_bowl.png"
+      ],
+      "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the center of the white bowl interior. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+      "temperature": 0.0,
+      "max_tokens": 200,
+      "raw": "```json\n[\n\t{\"point_2d\": [238, 238], \"label\": \"center of the white bowl interior\"}\n]\n```",
+      "wall_seconds": 1.7303676250157878
+    },
+    "field": "point_2d",
+    "coordinate_contract": "absolute_pixel",
+    "refinement": {
+      "method": "white_component_outer_ellipse_center",
+      "roi": [
+        154,
+        154,
+        323,
+        323
+      ],
+      "component_area": 10236,
+      "coarse_uv": [
+        238.0,
+        238.0
+      ],
+      "refined_uv": [
+        226.58448791503906,
+        226.62815856933594
+      ],
+      "semantic_prior": "bowl"
+    },
+    "observed_feature_plane_z": 0.454,
+    "feature_height_source": "frozen manual rim geometry: bowl .029+.025, pan .021+.018; no xy prior",
+    "xyz": [
+      0.30943169387437963,
+      0.16051574759716847,
+      0.40800000000000003
+    ],
+    "uv": [
+      226.58448791503906,
+      226.62815856933594
+    ]
+  }
+}

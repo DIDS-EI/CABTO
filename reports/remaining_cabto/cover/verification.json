@@ -1,0 +1,79 @@
+{
+  "passed": true,
+  "successful_episodes": 5,
+  "models_complete_for_P": true,
+  "original_local_model_calls": {
+    "pick(object=shrimp,support=bowl)": {
+      "original_call": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_focused/pick_shrimp/attempt2/feedback.json",
+      "model": "mlx-community/Qwen3.5-9B-4bit",
+      "schema_transfer_depth": 0
+    },
+    "place(object=shrimp,support=bowl)": {
+      "original_call": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_focused/place_shrimp/attempt2/feedback.json",
+      "model": "mlx-community/Qwen3.5-9B-4bit",
+      "schema_transfer_depth": 0
+    },
+    "pick(object=apple,support=board)": {
+      "original_call": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_focused/pick_apple/attempt2/feedback.json",
+      "model": "mlx-community/Qwen3.5-9B-4bit",
+      "schema_transfer_depth": 0
+    },
+    "place(object=apple,support=board)": {
+      "original_call": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_focused/place_apple/attempt2/feedback.json",
+      "model": "mlx-community/Qwen3.5-9B-4bit",
+      "schema_transfer_depth": 0
+    },
+    "pick(object=potato,support=pan)": {
+      "original_call": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_focused/pick_shrimp/attempt2/feedback.json",
+      "model": "mlx-community/Qwen3.5-9B-4bit",
+      "schema_transfer_depth": 1
+    },
+    "place(object=potato,support=pan)": {
+      "original_call": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_focused/place_shrimp/attempt2/feedback.json",
+      "model": "mlx-community/Qwen3.5-9B-4bit",
+      "schema_transfer_depth": 1
+    },
+    "home()": {
+      "original_call": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_complete/home/attempt1/feedback.json",
+      "model": "mlx-community/Qwen3.5-9B-4bit",
+      "schema_transfer_depth": 0
+    }
+  },
+  "physics_checks": [
+    {
+      "task": "C1",
+      "seed": 0,
+      "physical_arrays_equal": true,
+      "camera_explicitly_changed": true
+    },
+    {
+      "task": "C2",
+      "seed": 0,
+      "physical_arrays_equal": true,
+      "camera_explicitly_changed": true
+    },
+    {
+      "task": "C3",
+      "seed": 0,
+      "physical_arrays_equal": true,
+      "camera_explicitly_changed": true
+    },
+    {
+      "task": "C3",
+      "seed": 1,
+      "physical_arrays_equal": true,
+      "camera_explicitly_changed": true
+    },
+    {
+      "task": "C3",
+      "seed": 2,
+      "physical_arrays_equal": true,
+      "camera_explicitly_changed": true
+    }
+  ],
+  "report_links": 30,
+  "broken_links": [],
+  "tests": 241,
+  "final_source_hashes_match": true,
+  "model_and_code_inputs_match": true
+}

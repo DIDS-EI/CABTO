@@ -1,0 +1,146 @@
+{
+  "profile": {
+    "version": "panda_wrist_global_v3",
+    "width": 720,
+    "height": 720,
+    "wrist": {
+      "position_hand_m": [
+        0.0,
+        -0.1,
+        0.025
+      ],
+      "look_at_hand_m": [
+        0.0,
+        0.0,
+        0.16
+      ],
+      "fovy_deg": 75.0
+    },
+    "global": {
+      "offset_table_xy_m": [
+        0.08,
+        0.0
+      ],
+      "height_above_table_m": 1.2,
+      "fovy_deg": 60.0
+    },
+    "optical_frame": "MuJoCo/OpenGL: forward -Z, image right +X, image up +Y",
+    "mount_scope": "ideal optical sensor on hand body, no camera housing mass/collision modeled",
+    "control_use": "diagnostic_only_until_localization_and_motion_validation"
+  },
+  "cameras": [
+    "rig_wrist_left",
+    "rig_wrist_right",
+    "rig_global"
+  ],
+  "wrist_mounts": [
+    {
+      "name": "rig_wrist_left",
+      "parent_body": "hand_L",
+      "T_hand_camera": {
+        "position": [
+          0.0,
+          -0.1,
+          0.025
+        ],
+        "rotation": [
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.8035571933447456,
+            -0.5952275506257375
+          ],
+          [
+            -0.0,
+            -0.5952275506257375,
+            -0.8035571933447456
+          ]
+        ]
+      },
+      "fovy_deg": 75.0
+    },
+    {
+      "name": "rig_wrist_right",
+      "parent_body": "hand_R",
+      "T_hand_camera": {
+        "position": [
+          0.0,
+          -0.1,
+          0.025
+        ],
+        "rotation": [
+          [
+            -1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.8035571933447456,
+            -0.5952275506257375
+          ],
+          [
+            -0.0,
+            -0.5952275506257375,
+            -0.8035571933447456
+          ]
+        ]
+      },
+      "fovy_deg": 75.0
+    }
+  ],
+  "global_position_world": [
+    0.38,
+    0.0,
+    1.6
+  ],
+  "table_center_xy": [
+    0.3,
+    0.0
+  ],
+  "table_top_z": 0.4,
+  "old_cameras_preserved": [
+    "overview",
+    "front"
+  ],
+  "physics_validation": {
+    "matched": true,
+    "arrays": [
+      "body_pos",
+      "body_quat",
+      "body_mass",
+      "body_inertia",
+      "body_gravcomp",
+      "body_parentid",
+      "jnt_pos",
+      "jnt_axis",
+      "jnt_range",
+      "qpos0",
+      "geom_size",
+      "geom_pos",
+      "geom_quat",
+      "geom_friction",
+      "geom_contype",
+      "geom_conaffinity",
+      "geom_solref",
+      "geom_solimp",
+      "geom_bodyid",
+      "actuator_ctrlrange",
+      "actuator_gainprm",
+      "actuator_biasprm",
+      "dof_damping",
+      "dof_frictionloss",
+      "eq_data",
+      "eq_active0"
+    ],
+    "old_ncam": 2,
+    "new_ncam": 5,
+    "only_sensor_configuration_changed": true
+  },
+  "source_xml_sha256": "fec8b8d402fd9129ac8848be07ddd3c57e21fb834a3918abc2d0d07469c8b1e3",
+  "rig_xml_sha256": "4a2f551c7e737333dbe52fddb9e209f658ac8ab8e513539215884284ba0b79b3"
+}

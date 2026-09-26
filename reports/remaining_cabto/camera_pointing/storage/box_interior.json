@@ -1,0 +1,59 @@
+{
+  "origin": "new_posthoc_keyframe_Qwen_diagnostic",
+  "used_in_control": false,
+  "source_image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/final_seed0/STORAGE/step01/before.png",
+  "source_image_sha256": "e85931a0d90fd67467cdde1b532efc8656d9d335f1433d0e92b4b254b0046353",
+  "source_episode_result": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/final_seed0/STORAGE/result.json",
+  "source_episode_sha256": "6edf6e6590c9d4d4502eedf10e4621ba618b19df5df7beb6f71ebd7aab128903",
+  "source_step": 1,
+  "action_model": {
+    "name": "place_tray",
+    "args": {
+      "arm": "1",
+      "obj": "item1",
+      "dest": "tray"
+    },
+    "program_kind": "place",
+    "pre": [
+      "holding(1,item1)",
+      "slot_free(1)"
+    ],
+    "add": [
+      "empty(1)",
+      "hands_raised()",
+      "hands_safe_for_lateral(1)",
+      "packed(1)"
+    ],
+    "del": [
+      "holding(1,item1)",
+      "slot_free(1)"
+    ],
+    "description": "绑定物品已在自由托盘对应槽位内稳定支撑且解除抓持，指定手爪张开并竖直撤离放置面。"
+  },
+  "original_execution_perception": "oracle_geometry",
+  "camera": "overview",
+  "coordinate_contract": "absolute_pixels",
+  "scope": "semantic region point on a recorded RGB frame, NOT calibrated robot grasp or placement command; no motion or GT evaluation",
+  "call": {
+    "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "text": "Point to the visible interior center of the open cardboard box. Output the pixel coordinate.",
+    "image_files": [
+      "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/final_seed0/STORAGE/step01/before.png"
+    ],
+    "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the visible interior center of the open cardboard box. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+    "temperature": 0.0,
+    "max_tokens": 220,
+    "raw": "```json\n[\n\t{\"point_2d\": [238, 300], \"label\": \"visible interior center of the open cardboard box.\"}\n]\n```",
+    "wall_seconds": 0.7255870830267668
+  },
+  "parse_status": "valid_2d_point",
+  "point": [
+    238.0,
+    300.0
+  ],
+  "field": "point_2d",
+  "image_size": [
+    560,
+    560
+  ]
+}

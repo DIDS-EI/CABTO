@@ -1,0 +1,251 @@
+{
+  "passed": true,
+  "final_episode_count": 12,
+  "strict_frame_transition_count": 84,
+  "tests": 277,
+  "report_links": 143,
+  "broken_links": [],
+  "task_sources": {
+    "blocks": {
+      "actions": 5,
+      "policy_origins": {
+        "pick(object=red,support=blue)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_focused/pick_shrimp/attempt2/feedback.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 1
+        },
+        "place(object=red,support=blue)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_focused/place_shrimp/attempt2/feedback.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 1
+        },
+        "pick(object=yellow,support=green)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_focused/pick_shrimp/attempt2/feedback.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 1
+        },
+        "place(object=yellow,support=green)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_focused/place_shrimp/attempt2/feedback.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 1
+        },
+        "home()": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_fix/sampling_9b_complete/home/attempt1/feedback.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 1
+        }
+      },
+      "config_sha256": "36646f9fb3963c5e77da98a989cb7da31e5f50d386873e2602a0c582b775a8d2"
+    },
+    "pour": {
+      "actions": 10,
+      "policy_origins": {
+        "pick_source_cup(arm=0,dest=pick_source_cup,obj=canL)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/project/data/programs/curriculum_pick_result.json#pick",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "pick_basin(arm=1,dest=pick_basin,obj=basin)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/project/data/programs/curriculum_pick_result.json#pick",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 2
+        },
+        "present_basin(arm=1,dest=present_basin,obj=basin)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/project/data/programs/held_basin_pour_result.json#present_receiver",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "pour_into_held_basin(arm=0,dest=pour_into_held_basin,obj=canL)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/project/data/programs/held_basin_pour_result.json#coordinated_pour",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "separate_receiver_after_pour(arm=1,dest=separate_receiver_after_pour,obj=basin)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/tasks/pour/generated_bt/generated_programs.json#separate_receiver",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "restore_source_upright(arm=0,dest=restore_source_upright,obj=canL)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/tasks/pour/generated_bt/generated_programs.json#restore_source",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "return_source_cup(arm=0,dest=return_source_cup,obj=canL)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/pour/sampling_v5/action_06/attempt2/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 0
+        },
+        "home_source_arm(arm=0,dest=home_source_arm,obj=none)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/tasks/pour/generated_bt/generated_programs.json#controlled_home",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "return_basin(arm=1,dest=return_basin,obj=basin)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/pour/sampling_v5/action_08/attempt3/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 0
+        },
+        "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=none)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/tasks/pour/generated_bt/generated_programs.json#controlled_home",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 2
+        }
+      },
+      "config_sha256": "5f76a025e70dc4d7eaa5c409e0ee222173ef3a549c73b41b00f79b1d1152d4b6"
+    },
+    "handover": {
+      "actions": 7,
+      "policy_origins": {
+        "pick_tea_box(arm=0,dest=pick_baton_by_donor,obj=baton)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_00/attempt3/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 0
+        },
+        "present_baton_in_air(arm=0,dest=present_baton_in_air,obj=baton)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v2/action_01/attempt1/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 0
+        },
+        "receiver_grasps_box_face(arm=1,dest=receiver_grasps_opposite_handle,obj=baton)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_02/attempt1/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 0
+        },
+        "donor_releases_after_receiver(arm=0,dest=donor_releases_after_receiver,obj=baton)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_03/attempt3/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 0
+        },
+        "home_donor_arm(arm=0,dest=home_donor_arm,obj=baton)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_04/attempt2/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 0
+        },
+        "receiver_places_baton(arm=1,dest=receiver_places_baton,obj=baton)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_05/attempt4/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 0
+        },
+        "home_receiver_arm(arm=1,dest=home_receiver_arm,obj=baton)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/sampling_v3/action_04/attempt2/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 1
+        }
+      },
+      "config_sha256": "9f402c6dce7184910e901c130320bc192a095a1cff8735b077738b7047d10600"
+    },
+    "storage": {
+      "actions": 14,
+      "policy_origins": {
+        "pick_source(arm=1,dest=source,obj=item1)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/project/data/programs/curriculum_pick_result.json#pick",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "place_tray(arm=1,dest=tray,obj=item1)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/sampling_v2/action_01/attempt2/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 0
+        },
+        "park(arm=1,dest=park,obj=none)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/sampling_v2/action_02/attempt2/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 0
+        },
+        "pick_source(arm=0,dest=source,obj=item0)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/project/data/programs/curriculum_pick_result.json#pick",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 2
+        },
+        "place_tray(arm=0,dest=tray,obj=item0)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/sampling_v2/action_01/attempt2/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 1
+        },
+        "park(arm=0,dest=park,obj=none)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/sampling_v2/action_02/attempt2/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 1
+        },
+        "dual_grasp_tray(arm=both,dest=dual_grasp_tray,obj=tray)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/tasks/storage/generated_bt/generated_programs.json#dual_grasp",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "dual_lift_tray(arm=both,dest=dual_lift_tray,obj=tray)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/tasks/storage/generated_bt/generated_programs.json#cooperative_move",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "dual_translate_tray(arm=both,dest=dual_translate_tray,obj=tray)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/tasks/storage/generated_bt/generated_programs.json#cooperative_move",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 2
+        },
+        "dual_lower_tray(arm=both,dest=dual_lower_tray,obj=tray)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/tasks/storage/generated_bt/generated_programs.json#cooperative_move",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 2
+        },
+        "dual_release_tray(arm=both,dest=dual_release_tray,obj=tray)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/tasks/storage/generated_bt/generated_programs.json#dual_release",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "dual_withdraw_hands(arm=both,dest=dual_withdraw_hands,obj=tray)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/tasks/storage/generated_bt/generated_programs.json#dual_withdraw",
+          "type": "archived_model_raw_output",
+          "backend": "local_qwen_vl",
+          "transfer_depth": 1
+        },
+        "park_after_shelf(arm=1,dest=park,obj=none)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/sampling_v2/action_02/attempt2/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 1
+        },
+        "park_after_shelf(arm=0,dest=park,obj=none)": {
+          "source": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/storage/sampling_v2/action_02/attempt2/attempt.json",
+          "type": "actual_model_raw_output",
+          "backend": "mlx-community/Qwen3.5-9B-4bit",
+          "transfer_depth": 1
+        }
+      },
+      "config_sha256": "2fca2b8679797f94f1f0841a29a94032efb9e37340656c9f18841e5b73b6098a"
+    }
+  },
+  "scope": "finite_execution_and_source_integrity; dual_oracle+weld; no universal consistency proof"
+}

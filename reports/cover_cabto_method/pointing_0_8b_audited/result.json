@@ -1,0 +1,241 @@
+{
+  "model_id": "mlx-community/Qwen3.5-0.8B-4bit",
+  "calibration": [
+    {
+      "name": "shrimp",
+      "cam": "overview",
+      "roundtrip_error_m": 3.2957919968262575e-16
+    },
+    {
+      "name": "shrimp",
+      "cam": "front",
+      "roundtrip_error_m": 2.3055512673781017e-16
+    },
+    {
+      "name": "apple",
+      "cam": "overview",
+      "roundtrip_error_m": 5.551115123125783e-16
+    },
+    {
+      "name": "apple",
+      "cam": "front",
+      "roundtrip_error_m": 0.0
+    },
+    {
+      "name": "potato",
+      "cam": "overview",
+      "roundtrip_error_m": 4.718447854656915e-16
+    },
+    {
+      "name": "potato",
+      "cam": "front",
+      "roundtrip_error_m": 1.7772239894833365e-16
+    }
+  ],
+  "points": [
+    {
+      "name": "shrimp",
+      "accepted": false,
+      "error": "No JSON object in model response"
+    },
+    {
+      "name": "apple",
+      "accepted": false,
+      "error": "No JSON object in model response"
+    },
+    {
+      "name": "potato",
+      "accepted": false,
+      "error": "No JSON object in model response"
+    },
+    {
+      "name": "bowl",
+      "accepted": false,
+      "error": "No JSON object in model response"
+    },
+    {
+      "name": "board",
+      "accepted": false,
+      "error": "No JSON object in model response"
+    },
+    {
+      "name": "pan",
+      "accepted": false,
+      "error": "No JSON object in model response"
+    }
+  ],
+  "records": [
+    {
+      "backend": "qwen",
+      "object": "shrimp",
+      "point_kind": "grasp_center",
+      "height_prior_m": 0.4100006199279825,
+      "height_source": "frozen_scene_manual_geometry",
+      "fallback": false,
+      "views": [
+        {
+          "camera": "overview",
+          "image_size": 720,
+          "call": {
+            "model_id": "mlx-community/Qwen3.5-0.8B-4bit",
+            "text": "Locate the orange shrimp at the front of the table. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.",
+            "image_files": [
+              "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/pointing_0_8b_audited/point_000_shrimp_overview.png"
+            ],
+            "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Locate the orange shrimp at the front of the table. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+            "temperature": 0.0,
+            "max_tokens": 180,
+            "raw": "```json\n[\n    \"100\"\n]\n```",
+            "wall_seconds": 0.29031145793851465
+          },
+          "coordinate_contract": "explicit normalized_0_1000"
+        }
+      ],
+      "error": "No JSON object in model response"
+    },
+    {
+      "backend": "qwen",
+      "object": "apple",
+      "point_kind": "grasp_center",
+      "height_prior_m": 0.4229845037681055,
+      "height_source": "frozen_scene_manual_geometry",
+      "fallback": false,
+      "views": [
+        {
+          "camera": "overview",
+          "image_size": 720,
+          "call": {
+            "model_id": "mlx-community/Qwen3.5-0.8B-4bit",
+            "text": "Locate the red apple at the front of the table. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.",
+            "image_files": [
+              "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/pointing_0_8b_audited/point_001_apple_overview.png"
+            ],
+            "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Locate the red apple at the front of the table. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+            "temperature": 0.0,
+            "max_tokens": 180,
+            "raw": "```json\n[\n    \"381.31\"\n]\n```",
+            "wall_seconds": 0.2106379580218345
+          },
+          "coordinate_contract": "explicit normalized_0_1000"
+        }
+      ],
+      "error": "No JSON object in model response"
+    },
+    {
+      "backend": "qwen",
+      "object": "potato",
+      "point_kind": "grasp_center",
+      "height_prior_m": 0.41798083548895737,
+      "height_source": "frozen_scene_manual_geometry",
+      "fallback": false,
+      "views": [
+        {
+          "camera": "overview",
+          "image_size": 720,
+          "call": {
+            "model_id": "mlx-community/Qwen3.5-0.8B-4bit",
+            "text": "Locate the brown potato at the front of the table. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.",
+            "image_files": [
+              "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/pointing_0_8b_audited/point_002_potato_overview.png"
+            ],
+            "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Locate the brown potato at the front of the table. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+            "temperature": 0.0,
+            "max_tokens": 180,
+            "raw": "```json\n[\n    \"511.3, 611.1\"\n]\n```",
+            "wall_seconds": 0.23703116702381521
+          },
+          "coordinate_contract": "explicit normalized_0_1000"
+        }
+      ],
+      "error": "No JSON object in model response"
+    },
+    {
+      "backend": "qwen",
+      "object": "bowl",
+      "point_kind": "support_floor_center",
+      "height_prior_m": 0.40800000000000003,
+      "height_source": "frozen_scene_manual_geometry",
+      "fallback": false,
+      "views": [
+        {
+          "camera": "overview",
+          "image_size": 720,
+          "call": {
+            "model_id": "mlx-community/Qwen3.5-0.8B-4bit",
+            "text": "Locate the center of the inside floor of the white bowl. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.",
+            "image_files": [
+              "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/pointing_0_8b_audited/point_003_bowl_overview.png"
+            ],
+            "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Locate the center of the inside floor of the white bowl. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+            "temperature": 0.0,
+            "max_tokens": 180,
+            "raw": "```json\n[\n    \"98.5, 491.5\"\n]\n```",
+            "wall_seconds": 0.24052029207814485
+          },
+          "coordinate_contract": "explicit normalized_0_1000"
+        }
+      ],
+      "error": "No JSON object in model response"
+    },
+    {
+      "backend": "qwen",
+      "object": "board",
+      "point_kind": "support_floor_center",
+      "height_prior_m": 0.42400000000000004,
+      "height_source": "frozen_scene_manual_geometry",
+      "fallback": false,
+      "views": [
+        {
+          "camera": "overview",
+          "image_size": 720,
+          "call": {
+            "model_id": "mlx-community/Qwen3.5-0.8B-4bit",
+            "text": "Locate the center of the wooden chopping board. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.",
+            "image_files": [
+              "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/pointing_0_8b_audited/point_004_board_overview.png"
+            ],
+            "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Locate the center of the wooden chopping board. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+            "temperature": 0.0,
+            "max_tokens": 180,
+            "raw": "```json\n[\n  [\n  \"511.31\",\n  \"511.31\"\n]\n```",
+            "wall_seconds": 0.5317224169848487
+          },
+          "coordinate_contract": "explicit normalized_0_1000"
+        }
+      ],
+      "error": "No JSON object in model response"
+    },
+    {
+      "backend": "qwen",
+      "object": "pan",
+      "point_kind": "support_floor_center",
+      "height_prior_m": 0.41000000000000003,
+      "height_source": "frozen_scene_manual_geometry",
+      "fallback": false,
+      "views": [
+        {
+          "camera": "overview",
+          "image_size": 720,
+          "call": {
+            "model_id": "mlx-community/Qwen3.5-0.8B-4bit",
+            "text": "Locate the center of the inside floor of the black cooking pan. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.",
+            "image_files": [
+              "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/pointing_0_8b_audited/point_005_pan_overview.png"
+            ],
+            "formatted_prompt": "<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Locate the center of the inside floor of the black cooking pan. Return ONLY a JSON object {\"point\":[x,y]}. Coordinates MUST be normalized from 0 to 1000, x left to right, y top to bottom. Select the center, not the robot.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+            "temperature": 0.0,
+            "max_tokens": 180,
+            "raw": "```json\n[\n    \"992, 531\"\n]\n```",
+            "wall_seconds": 0.4493841250659898
+          },
+          "coordinate_contract": "explicit normalized_0_1000"
+        }
+      ],
+      "error": "No JSON object in model response"
+    }
+  ],
+  "no_robot_motion": true,
+  "no_fallback": true,
+  "known_z_plane_prior": true,
+  "coordinate_scale": "0..1000 explicit prompt"
+}

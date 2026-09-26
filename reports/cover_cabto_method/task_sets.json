@@ -1,0 +1,13 @@
+{
+  "scope": "CABTO method reproduction on five frozen MuJoCo configurations; not replication of the paper tables",
+  "paper_definitions": {"complete": "Definition 0.1 p3: for all p in the declared finite P, a complete BT planner produces a symbolic solution", "consistent": "Definition 0.2 and Eq1 p3: policy transitions match model; finite physical trials are empirical evidence, not universal proof", "sampling_gate": "Algorithm2 line20 p5 checks positive required effects; we additionally check delete effects, full CP frame equality and physical safety"},
+  "tasks": {
+    "cover": {"config": "cover_kitchen_sort_v2.json", "execute_this_round": true, "P": [{"id": "C1", "instruction": "虾放入碗，释放、退手并回HOME", "targets": [["shrimp","bowl"]]}, {"id": "C2", "instruction": "虾放入碗、苹果放在砧板上，释放、退手并回HOME", "targets": [["shrimp","bowl"],["apple","board"]]}, {"id": "C3", "instruction": "虾放入碗、苹果放在砧板上、土豆放入锅，释放、退手并回HOME", "targets": [["shrimp","bowl"],["apple","board"],["potato","pan"]]}]},
+    "blocks": {"config": "blocks_rebuilt_v1.json", "execute_this_round": false, "P": ["黄块叠在绿块上并回HOME", "红块叠在蓝块上并回HOME", "完成两组堆叠，稳定释放并回HOME"]},
+    "pour": {"config": "held_basin_pour_smooth_v2.json", "execute_this_round": false, "P": ["右臂端盆，左臂将源杯中的球体代理倒入盆中，容器归位、释放且双臂回HOME"]},
+    "handover": {"config": "handover_tea_box_v3.json", "execute_this_round": false, "P": ["左臂夹起无把手绿茶盒，在空中交给右臂，右臂放到目标桌面区域，两臂释放并回HOME；两只陈列盒保持不动"]},
+    "storage": {"config": "packing_dual_lift_shelf_storage_v3.json", "execute_this_round": false, "P": ["把两块积木装入箱内，再双臂合作将箱子放到货架，确认箱体支撑、内容物仍在箱内、双臂释放退手"]}
+  },
+  "substitutions": ["MuJoCo replaces Isaac Sim", "local Qwen3.5-0.8B for proposal/codegen/pointing, configurable", "existing Panda absolute IK and actuator interfaces replace cuRobo", "oracle state evaluator independent from generative models", "oracle perception baseline separated from Qwen perception trials", "grasp/placement height priors explicitly taken from frozen scene configuration"],
+  "not_claimed": ["reproduction of paper ASR/CSR averaged over ten model trials", "universal physical consistency", "cross-level repair success without an actual observed model defect"]
+}

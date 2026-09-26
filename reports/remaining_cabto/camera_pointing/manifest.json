@@ -1,0 +1,851 @@
+{
+  "schema_version": 1,
+  "display_only": true,
+  "original_execution_data_modified": false,
+  "scenes": {
+    "cover": {
+      "items": [
+        {
+          "id": "cover-0",
+          "title": "碗内放置点",
+          "object": "bowl",
+          "input": "camera_pointing/cover/000_bowl.png",
+          "overlay": "camera_pointing/cover/000_bowl_overlay.png",
+          "record": "camera_pointing/cover/record_000_bowl.json",
+          "input_sha256": "5da99489980e67634ecf6c58e4017ef2d0641e327dd5d2b08b83e821fcb494aa",
+          "overlay_sha256": "d36205e7d56be91a85c6abb9767835e8b266885b2bea27436f5e358208f2e556",
+          "prompt": "Point to the center of the white bowl interior. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [238, 238], \"label\": \"center of the white bowl interior\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "front（标定俯视）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            238.0,
+            238.0
+          ],
+          "refined_point": [
+            226.58448791503906,
+            226.62815856933594
+          ],
+          "xyz": [
+            0.30943169387437963,
+            0.16051574759716847,
+            0.40800000000000003
+          ],
+          "status": "来自已完成执行的实际感知调用",
+          "kind": "online",
+          "used_in_control": true,
+          "coordinate_contract": "absolute_pixels",
+          "note": "黄色十字：Qwen 粗点；绿色十字：RGB 几何细化。已用于该次控制；不是真值标注。"
+        },
+        {
+          "id": "cover-1",
+          "title": "砧板放置点",
+          "object": "board",
+          "input": "camera_pointing/cover/001_board.png",
+          "overlay": "camera_pointing/cover/001_board_overlay.png",
+          "record": "camera_pointing/cover/record_001_board.json",
+          "input_sha256": "5da99489980e67634ecf6c58e4017ef2d0641e327dd5d2b08b83e821fcb494aa",
+          "overlay_sha256": "13e462f22288423ded0d36aff43b0abb4a2af278b109a1082df5cfc27512b9f8",
+          "prompt": "Point to the center of the wooden chopping board. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [378, 238], \"label\": \"center of the wooden chopping board\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "front（标定俯视）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            378.0,
+            238.0
+          ],
+          "refined_point": [
+            375.9340375586854,
+            230.95657276995306
+          ],
+          "xyz": [
+            0.48972694899761854,
+            0.15976070710699758,
+            0.42400000000000004
+          ],
+          "status": "来自已完成执行的实际感知调用",
+          "kind": "online",
+          "used_in_control": true,
+          "coordinate_contract": "absolute_pixels",
+          "note": "黄色十字：Qwen 粗点；绿色十字：RGB 几何细化。已用于该次控制；不是真值标注。"
+        },
+        {
+          "id": "cover-2",
+          "title": "锅内放置点",
+          "object": "pan",
+          "input": "camera_pointing/cover/002_pan.png",
+          "overlay": "camera_pointing/cover/002_pan_overlay.png",
+          "record": "camera_pointing/cover/record_002_pan.json",
+          "input_sha256": "5da99489980e67634ecf6c58e4017ef2d0641e327dd5d2b08b83e821fcb494aa",
+          "overlay_sha256": "481c115cf845c50c78e9fa8043936967627f2de1622fa8e3ae295a7729e3d9f3",
+          "prompt": "Point to the center of the round black pan interior, excluding its handle. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [538, 251], \"label\": \"center of the round black pan interior, excluding its handle\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "front（标定俯视）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            538.0,
+            251.0
+          ],
+          "refined_point": [
+            523.1488955332591,
+            228.49685820354875
+          ],
+          "xyz": [
+            0.669168813372909,
+            0.16053632861443007,
+            0.41000000000000003
+          ],
+          "status": "来自已完成执行的实际感知调用",
+          "kind": "online",
+          "used_in_control": true,
+          "coordinate_contract": "absolute_pixels",
+          "note": "黄色十字：Qwen 粗点；绿色十字：RGB 几何细化。已用于该次控制；不是真值标注。"
+        },
+        {
+          "id": "cover-3",
+          "title": "土豆抓取点",
+          "object": "potato",
+          "input": "camera_pointing/cover/003_potato.png",
+          "overlay": "camera_pointing/cover/003_potato_overlay.png",
+          "record": "camera_pointing/cover/record_003_potato.json",
+          "input_sha256": "5da99489980e67634ecf6c58e4017ef2d0641e327dd5d2b08b83e821fcb494aa",
+          "overlay_sha256": "28d9a32f9cf6ea799e23d9b47cc6aa337ac48ee5597fae91a77c0ffef389e822",
+          "prompt": "Point to the small yellow cuboid with an oval top, not the orange shrimp. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [522, 501], \"label\": \"small yellow cuboid with an oval top, not the orange shrimp\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "front（标定俯视）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            522.0,
+            501.0
+          ],
+          "refined_point": [
+            521.0,
+            512.0
+          ],
+          "xyz": [
+            0.6704391917855019,
+            -0.18923451646830003,
+            0.41798083548895737
+          ],
+          "status": "来自已完成执行的实际感知调用",
+          "kind": "online",
+          "used_in_control": true,
+          "coordinate_contract": "absolute_pixels",
+          "note": "黄色十字：Qwen 粗点；绿色十字：RGB 几何细化。已用于该次控制；不是真值标注。"
+        },
+        {
+          "id": "cover-6",
+          "title": "苹果抓取点",
+          "object": "apple",
+          "input": "camera_pointing/cover/006_apple.png",
+          "overlay": "camera_pointing/cover/006_apple_overlay.png",
+          "record": "camera_pointing/cover/record_006_apple.json",
+          "input_sha256": "ed1e554fe51657cf734c9b50d991b87d87311ac0f61b83c90602ae1cd2288448",
+          "overlay_sha256": "90b7ec2bce2b31bf16768882af0c46f4c89c7b3bedd3970343f04310e79b4c3b",
+          "prompt": "Point to the red apple. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [378, 518], \"label\": \"red apple\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "front（标定俯视）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            378.0,
+            518.0
+          ],
+          "refined_point": [
+            375.6666666666667,
+            512.6666666666666
+          ],
+          "xyz": [
+            0.48941423888424657,
+            -0.1891855618932961,
+            0.4229845037681055
+          ],
+          "status": "来自已完成执行的实际感知调用",
+          "kind": "online",
+          "used_in_control": true,
+          "coordinate_contract": "absolute_pixels",
+          "note": "黄色十字：Qwen 粗点；绿色十字：RGB 几何细化。已用于该次控制；不是真值标注。"
+        },
+        {
+          "id": "cover-9",
+          "title": "小虾抓取点",
+          "object": "shrimp",
+          "input": "camera_pointing/cover/009_shrimp.png",
+          "overlay": "camera_pointing/cover/009_shrimp_overlay.png",
+          "record": "camera_pointing/cover/record_009_shrimp.json",
+          "input_sha256": "182e836536920c77c4d1d6a380645e5b9a41cc936a71c2c30cdd381f25ef1987",
+          "overlay_sha256": "039aeabe31cb6122fa862440d42d2752617cc52c59713c6760cb5db8301b74dc",
+          "prompt": "Point to the orange shrimp. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [222, 511], \"label\": \"orange shrimp\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "front（标定俯视）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            222.0,
+            511.0
+          ],
+          "refined_point": [
+            231.5,
+            511.0
+          ],
+          "xyz": [
+            0.30884225106326024,
+            -0.18937603182449567,
+            0.4100006199279825
+          ],
+          "status": "来自已完成执行的实际感知调用",
+          "kind": "online",
+          "used_in_control": true,
+          "coordinate_contract": "absolute_pixels",
+          "note": "黄色十字：Qwen 粗点；绿色十字：RGB 几何细化。已用于该次控制；不是真值标注。"
+        }
+      ],
+      "source_record": "camera_pointing/cover/source_perception.json",
+      "online_calls": 6,
+      "cache_reads": 4,
+      "diagnostic_calls": 0
+    },
+    "blocks": {
+      "items": [
+        {
+          "id": "blocks-0",
+          "title": "绿色支撑积木",
+          "object": "green",
+          "input": "blocks/final_seed0/B3/perception/000_green.png",
+          "overlay": "blocks/final_seed0/B3/perception/000_green_overlay.png",
+          "record": "camera_pointing/blocks/record_000_green.json",
+          "input_sha256": "88b17af04c6415b5df834da6c0ed4521c83fad3a76baa4324e330dd0a0cf9f3c",
+          "overlay_sha256": "bcc970c5031ea8122a02effe81ace5e68b4b4f8313970b72ac960dc3c4badd46",
+          "prompt": "Point to the green cube. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [450, 241], \"label\": \"green cube\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "front（标定俯视）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            450.0,
+            241.0
+          ],
+          "refined_point": [
+            441.0,
+            238.0
+          ],
+          "xyz": [
+            0.5684171424198474,
+            0.14823322685458498,
+            0.46900000000000003
+          ],
+          "status": "来自已完成执行的实际感知调用",
+          "kind": "online",
+          "used_in_control": true,
+          "coordinate_contract": "absolute_pixels",
+          "note": "黄色十字：Qwen 粗点；绿色十字：RGB 几何细化。已用于该次控制；不是真值标注。"
+        },
+        {
+          "id": "blocks-1",
+          "title": "蓝色支撑积木",
+          "object": "blue",
+          "input": "blocks/final_seed0/B3/perception/001_blue.png",
+          "overlay": "blocks/final_seed0/B3/perception/001_blue_overlay.png",
+          "record": "camera_pointing/blocks/record_001_blue.json",
+          "input_sha256": "88b17af04c6415b5df834da6c0ed4521c83fad3a76baa4324e330dd0a0cf9f3c",
+          "overlay_sha256": "1ea6d70d75bcb9d457fd7b198d11fb5e04924996f104373779a29aacf2d81f83",
+          "prompt": "Point to the blue cube. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [451, 491], \"label\": \"blue cube\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "front（标定俯视）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            451.0,
+            491.0
+          ],
+          "refined_point": [
+            441.0,
+            481.0
+          ],
+          "xyz": [
+            0.5684171424198474,
+            -0.14701820040495725,
+            0.46900000000000003
+          ],
+          "status": "来自已完成执行的实际感知调用",
+          "kind": "online",
+          "used_in_control": true,
+          "coordinate_contract": "absolute_pixels",
+          "note": "黄色十字：Qwen 粗点；绿色十字：RGB 几何细化。已用于该次控制；不是真值标注。"
+        },
+        {
+          "id": "blocks-2",
+          "title": "红色待叠积木",
+          "object": "red",
+          "input": "blocks/final_seed0/B3/perception/002_red.png",
+          "overlay": "blocks/final_seed0/B3/perception/002_red_overlay.png",
+          "record": "camera_pointing/blocks/record_002_red.json",
+          "input_sha256": "88b17af04c6415b5df834da6c0ed4521c83fad3a76baa4324e330dd0a0cf9f3c",
+          "overlay_sha256": "539e3fa9169e61c1b4b4749f307b8ac03eeb918e3cecb941814460b7ba28f21b",
+          "prompt": "Point to the red cube. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [262, 471], \"label\": \"red cube\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "front（标定俯视）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            262.0,
+            471.0
+          ],
+          "refined_point": [
+            254.5,
+            481.0
+          ],
+          "xyz": [
+            0.34181470956427285,
+            -0.14701820040495725,
+            0.42600000000000005
+          ],
+          "status": "来自已完成执行的实际感知调用",
+          "kind": "online",
+          "used_in_control": true,
+          "coordinate_contract": "absolute_pixels",
+          "note": "黄色十字：Qwen 粗点；绿色十字：RGB 几何细化。已用于该次控制；不是真值标注。"
+        },
+        {
+          "id": "blocks-5",
+          "title": "黄色待叠积木",
+          "object": "yellow",
+          "input": "blocks/final_seed0/B3/perception/005_yellow.png",
+          "overlay": "blocks/final_seed0/B3/perception/005_yellow_overlay.png",
+          "record": "camera_pointing/blocks/record_005_yellow.json",
+          "input_sha256": "d72db0a773ea820fb1fde020c4b7e68fbb039f136affc443221d3eec687d4dec",
+          "overlay_sha256": "5c5e2fb3693ef063062ed5cdd4aea62649d644dc29fb66e2aca8cd3ac5ee2cef",
+          "prompt": "Point to the yellow cube. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [258, 221], \"label\": \"yellow cube\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "front（标定俯视）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            258.0,
+            221.0
+          ],
+          "refined_point": [
+            254.5,
+            238.0
+          ],
+          "xyz": [
+            0.34181470956427285,
+            0.14823322685458498,
+            0.42600000000000005
+          ],
+          "status": "来自已完成执行的实际感知调用",
+          "kind": "online",
+          "used_in_control": true,
+          "coordinate_contract": "absolute_pixels",
+          "note": "黄色十字：Qwen 粗点；绿色十字：RGB 几何细化。已用于该次控制；不是真值标注。"
+        }
+      ],
+      "source_record": "camera_pointing/blocks/source_perception.json",
+      "online_calls": 4,
+      "cache_reads": 2,
+      "diagnostic_calls": 0
+    },
+    "pour": {
+      "items": [
+        {
+          "id": "pour-source_cup",
+          "title": "源杯区域 · 抓杯前",
+          "object": "source_cup",
+          "input": "pour/final_seed0/POUR/step00/before.png",
+          "overlay": "camera_pointing/pour/source_cup_overlay.png",
+          "record": "camera_pointing/pour/source_cup.json",
+          "input_sha256": "c387562322d1fe701c4ed1479140808febc7cb0bae2e7d0063104e82fd4e2631",
+          "overlay_sha256": "4cc2aefd6ad99adf9b16fa14b3edae82f41e4a22bf24672926697312a63e94a8",
+          "prompt": "Point to the red source cup on the table. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [311, 228], \"label\": \"red source cup on the table\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "overview（原执行关键帧）",
+          "image_size": [
+            560,
+            560
+          ],
+          "point": [
+            311.0,
+            228.0
+          ],
+          "refined_point": null,
+          "xyz": null,
+          "status": "新增图片打点测试 · 未用于原控制",
+          "kind": "posthoc",
+          "used_in_control": false,
+          "parse_status": "valid_2d_point",
+          "action_name": "pick_source_cup",
+          "original_target_read_calls": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.18011613729009388,
+                0.270000938867763,
+                0.5349404048584233
+              ]
+            }
+          ],
+          "note": "橙色准星：本次真实 Qwen 对旧相机图的语义打点；位置尚未做抓取精度/三维标定验收。原成功执行仍为 Oracle 定位，不能据此认定视觉闭环通过。"
+        },
+        {
+          "id": "pour-basin_handle",
+          "title": "接收盆把手 · 抓盆前",
+          "object": "basin_handle",
+          "input": "pour/final_seed0/POUR/step01/before.png",
+          "overlay": "camera_pointing/pour/basin_handle_overlay.png",
+          "record": "camera_pointing/pour/basin_handle.json",
+          "input_sha256": "144ea24626235beb004c66b893ea43b5dc1fe0e9ac14c25d52258db0033fdba2",
+          "overlay_sha256": "5d704d226314bf1358da8549eb80150eb63512ce3f1fc3177726217aaf499024",
+          "prompt": "Point to the brown handle attached to the white basin. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [292, 381], \"label\": \"brown handle attached to the white basin\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "overview（原执行关键帧）",
+          "image_size": [
+            560,
+            560
+          ],
+          "point": [
+            292.0,
+            381.0
+          ],
+          "refined_point": null,
+          "xyz": null,
+          "status": "新增图片打点测试 · 未用于原控制",
+          "kind": "posthoc",
+          "used_in_control": false,
+          "parse_status": "valid_2d_point",
+          "action_name": "pick_basin",
+          "original_target_read_calls": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.6000012248480447,
+                -0.2699999868242315,
+                0.5349945146533622
+              ]
+            }
+          ],
+          "note": "橙色准星：本次真实 Qwen 对旧相机图的语义打点；位置尚未做抓取精度/三维标定验收。原成功执行仍为 Oracle 定位，不能据此认定视觉闭环通过。"
+        },
+        {
+          "id": "pour-basin_interior",
+          "title": "盆内区域 · 倾倒前",
+          "object": "basin_interior",
+          "input": "pour/final_seed0/POUR/step03/before.png",
+          "overlay": "camera_pointing/pour/basin_interior_overlay.png",
+          "record": "camera_pointing/pour/basin_interior.json",
+          "input_sha256": "c8c366e8f305bac672297f29abb3412e4542eb031b391a393cc5d08ae186c891",
+          "overlay_sha256": "9ceb3a2205c768a0afe19de592ffab06c7ab2330f36d133a56f3ca19ad46aed6",
+          "prompt": "Point to the visible interior center of the white receiving basin. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [308, 338], \"label\": \"visible interior center of the white receiving basin\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "overview（原执行关键帧）",
+          "image_size": [
+            560,
+            560
+          ],
+          "point": [
+            308.0,
+            338.0
+          ],
+          "refined_point": null,
+          "xyz": null,
+          "status": "新增图片打点测试 · 未用于原控制",
+          "kind": "posthoc",
+          "used_in_control": false,
+          "parse_status": "valid_2d_point",
+          "action_name": "pour_into_held_basin",
+          "original_target_read_calls": [
+            {
+              "method": "source_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.41,
+                0.009999999999999998,
+                0.76
+              ]
+            },
+            {
+              "method": "receiver_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.69,
+                -0.02,
+                0.59
+              ]
+            }
+          ],
+          "note": "橙色准星：本次真实 Qwen 对旧相机图的语义打点；位置尚未做抓取精度/三维标定验收。原成功执行仍为 Oracle 定位，不能据此认定视觉闭环通过。"
+        }
+      ],
+      "online_calls": 0,
+      "cache_reads": 0,
+      "diagnostic_calls": 3,
+      "original_execution_perception": "oracle_geometry"
+    },
+    "handover": {
+      "items": [
+        {
+          "id": "handover-active_box",
+          "title": "活动茶盒 · 交出臂抓取前",
+          "object": "active_box",
+          "input": "handover/final_seed0/HANDOVER/step00/before.png",
+          "overlay": "camera_pointing/handover/active_box_overlay.png",
+          "record": "camera_pointing/handover/active_box.json",
+          "input_sha256": "5cdade0ca8fb96e9d246b6f018b0773520f5f82efce4d202f086ecfa2b71cfd7",
+          "overlay_sha256": "f61316e9b81e64e07ab377154a13750ede437416c8599ba8b2a53a823897b4e5",
+          "prompt": "Point to the green tea box standing on the green rectangular source marker in the middle of the table, not the other display boxes. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [438, 352], \"label\": \"green tea box standing on the green rectangular source marker in the middle of the table, not the other display boxes\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "overview（原执行关键帧）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            438.0,
+            352.0
+          ],
+          "refined_point": null,
+          "xyz": null,
+          "status": "新增图片打点测试 · 未用于原控制",
+          "kind": "posthoc",
+          "used_in_control": false,
+          "parse_status": "valid_2d_point",
+          "action_name": "pick_tea_box",
+          "original_target_read_calls": [
+            {
+              "method": "grasp_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.28000000000060565,
+                0.2949999999999967,
+                0.538998922847159
+              ]
+            }
+          ],
+          "note": "橙色准星：本次真实 Qwen 对旧相机图的语义打点；位置尚未做抓取精度/三维标定验收。原成功执行仍为 Oracle 定位，不能据此认定视觉闭环通过。"
+        },
+        {
+          "id": "handover-receiver_region",
+          "title": "空中茶盒 · 接收前",
+          "object": "receiver_region",
+          "input": "handover/final_seed0/HANDOVER/step02/before.png",
+          "overlay": "camera_pointing/handover/receiver_region_overlay.png",
+          "record": "camera_pointing/handover/receiver_region.json",
+          "input_sha256": "cd39f40e7e3fb3ad0263173556d4b0d408384b8973970ed5e3a86cdf84cd9833",
+          "overlay_sha256": "b6a40d541557ecc29c8a7602fdcd740c314c01106214fb09092a70168089ac75",
+          "prompt": "Point to the center of the green tea box held in the air near the middle of the image, immediately next to the right robot gripper. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [332, 332], \"label\": \"center of the green tea box held in the air near the middle of the image, immediately next to the right robot gripper.\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "overview（原执行关键帧）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            332.0,
+            332.0
+          ],
+          "refined_point": null,
+          "xyz": null,
+          "status": "新增图片打点测试 · 未用于原控制",
+          "kind": "posthoc",
+          "used_in_control": false,
+          "parse_status": "valid_2d_point",
+          "action_name": "receiver_grasps_box_face",
+          "original_target_read_calls": [
+            {
+              "method": "grasp_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.34985084432825986,
+                -0.07450101350691023,
+                0.6987337571572111
+              ]
+            }
+          ],
+          "note": "橙色准星：本次真实 Qwen 对旧相机图的语义打点；位置尚未做抓取精度/三维标定验收。原成功执行仍为 Oracle 定位，不能据此认定视觉闭环通过。"
+        },
+        {
+          "id": "handover-held_box",
+          "title": "接收臂持盒 · 放置前",
+          "object": "held_box",
+          "input": "handover/final_seed0/HANDOVER/step05/before.png",
+          "overlay": "camera_pointing/handover/held_box_overlay.png",
+          "record": "camera_pointing/handover/held_box.json",
+          "input_sha256": "fafa2783e205702d60680100ec2e8b2bc70f500b2bb9bd09622cd9f819c142bf",
+          "overlay_sha256": "e0a91c795812c9bb64384e0c5ba25225d4abbf96b70a67f0c9dd9ba8d0257d66",
+          "prompt": "Point to the center of the green tea box held by a robot gripper, not any tea box resting on the table. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [351, 332], \"label\": \"center of the green tea box held by a robot gripper, not any tea box resting on the table.\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "overview（原执行关键帧）",
+          "image_size": [
+            720,
+            720
+          ],
+          "point": [
+            351.0,
+            332.0
+          ],
+          "refined_point": null,
+          "xyz": null,
+          "status": "新增图片打点测试 · 未用于原控制",
+          "kind": "posthoc",
+          "used_in_control": false,
+          "parse_status": "valid_2d_point",
+          "action_name": "receiver_places_baton",
+          "original_target_read_calls": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.46,
+                -0.18,
+                0.48300000000000004
+              ]
+            }
+          ],
+          "note": "橙色准星：本次真实 Qwen 对旧相机图的语义打点；位置尚未做抓取精度/三维标定验收。原成功执行仍为 Oracle 定位，不能据此认定视觉闭环通过。"
+        }
+      ],
+      "online_calls": 0,
+      "cache_reads": 0,
+      "diagnostic_calls": 3,
+      "original_execution_perception": "oracle_geometry"
+    },
+    "storage": {
+      "items": [
+        {
+          "id": "storage-green_item",
+          "title": "绿色积木 · 装箱前",
+          "object": "green_item",
+          "input": "storage/final_seed0/STORAGE/step00/before.png",
+          "overlay": "camera_pointing/storage/green_item_overlay.png",
+          "record": "camera_pointing/storage/green_item.json",
+          "input_sha256": "fec98bf9a5b87bf66c19f9e0b49820fb5258227942d0d442bd72717cfb44c88a",
+          "overlay_sha256": "1d9973b08cd1b17af9f15df9a625253a362b58b0baca6e1d601e53e403547c55",
+          "prompt": "Point to the small bright green block outside the cardboard box, near the front of the table. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [275, 267], \"label\": \"small bright green block outside the cardboard box, near the front of the table\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "overview（原执行关键帧）",
+          "image_size": [
+            560,
+            560
+          ],
+          "point": [
+            275.0,
+            267.0
+          ],
+          "refined_point": null,
+          "xyz": null,
+          "status": "新增图片打点测试 · 未用于原控制",
+          "kind": "posthoc",
+          "used_in_control": false,
+          "parse_status": "valid_2d_point",
+          "action_name": "pick_source",
+          "original_target_read_calls": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.3350000000046121,
+                -0.22499999999768497,
+                0.43687167392614273
+              ]
+            }
+          ],
+          "note": "橙色准星：本次真实 Qwen 对旧相机图的语义打点；位置尚未做抓取精度/三维标定验收。原成功执行仍为 Oracle 定位，不能据此认定视觉闭环通过。"
+        },
+        {
+          "id": "storage-second_item",
+          "title": "另一件积木 · 抓取前",
+          "object": "second_item",
+          "input": "storage/final_seed0/STORAGE/step03/before.png",
+          "overlay": "camera_pointing/storage/second_item_overlay.png",
+          "record": "camera_pointing/storage/second_item.json",
+          "input_sha256": "15171575924f25131cd09f057ce21ba0ce3d945d2a9c9ae7653c9f2317c0cd01",
+          "overlay_sha256": "3026ae3dbd574b0d0154d8c9777774ecc9b95c98501a9557348803094323b424",
+          "prompt": "Point to the small yellow block with green studs outside the cardboard box near its rear edge. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [383, 266], \"label\": \"small yellow block with green studs outside the cardboard box near its rear edge\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "overview（原执行关键帧）",
+          "image_size": [
+            560,
+            560
+          ],
+          "point": [
+            383.0,
+            266.0
+          ],
+          "refined_point": null,
+          "xyz": null,
+          "status": "新增图片打点测试 · 未用于原控制",
+          "kind": "posthoc",
+          "used_in_control": false,
+          "parse_status": "valid_2d_point",
+          "action_name": "pick_source",
+          "original_target_read_calls": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.23500000000449248,
+                0.20499999999907503,
+                0.43689224457978354
+              ]
+            }
+          ],
+          "note": "橙色准星：本次真实 Qwen 对旧相机图的语义打点；位置尚未做抓取精度/三维标定验收。原成功执行仍为 Oracle 定位，不能据此认定视觉闭环通过。"
+        },
+        {
+          "id": "storage-box_interior",
+          "title": "纸箱内部 · 放入前",
+          "object": "box_interior",
+          "input": "storage/final_seed0/STORAGE/step01/before.png",
+          "overlay": "camera_pointing/storage/box_interior_overlay.png",
+          "record": "camera_pointing/storage/box_interior.json",
+          "input_sha256": "e85931a0d90fd67467cdde1b532efc8656d9d335f1433d0e92b4b254b0046353",
+          "overlay_sha256": "8ffe24cf34b3d299bbb86dbc8a784fcceb8cb495ba640c222c8d17ae9d7b8d37",
+          "prompt": "Point to the visible interior center of the open cardboard box. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [238, 300], \"label\": \"visible interior center of the open cardboard box.\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "overview（原执行关键帧）",
+          "image_size": [
+            560,
+            560
+          ],
+          "point": [
+            238.0,
+            300.0
+          ],
+          "refined_point": null,
+          "xyz": null,
+          "status": "新增图片打点测试 · 未用于原控制",
+          "kind": "posthoc",
+          "used_in_control": false,
+          "parse_status": "valid_2d_point",
+          "action_name": "place_tray",
+          "original_target_read_calls": [
+            {
+              "method": "target_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.2987296342549792,
+                -0.035000000000000024,
+                0.40800000000000003
+              ]
+            }
+          ],
+          "note": "橙色准星：本次真实 Qwen 对旧相机图的语义打点；位置尚未做抓取精度/三维标定验收。原成功执行仍为 Oracle 定位，不能据此认定视觉闭环通过。"
+        },
+        {
+          "id": "storage-shelf",
+          "title": "货架承载面 · 搬箱前",
+          "object": "shelf",
+          "input": "storage/final_seed0/STORAGE/step08/before.png",
+          "overlay": "camera_pointing/storage/shelf_overlay.png",
+          "record": "camera_pointing/storage/shelf.json",
+          "input_sha256": "2c32f8375a5a0a5e379c3daf41cdbdab5340c3995c7c2d8ebf9a68deb88f5fbf",
+          "overlay_sha256": "516667860e8aa8309dd36916ce66c0e3fac051f9176bba295efacbd14036d659",
+          "prompt": "Point to the exposed dark brown top surface of the low shelf on the right side of the table. Output the pixel coordinate.",
+          "raw": "```json\n[\n\t{\"point_2d\": [338, 298], \"label\": \"exposed dark brown top surface of the low shelf on the right side of the table\"}\n]\n```",
+          "model": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+          "camera": "overview（原执行关键帧）",
+          "image_size": [
+            560,
+            560
+          ],
+          "point": [
+            338.0,
+            298.0
+          ],
+          "refined_point": null,
+          "xyz": null,
+          "status": "新增图片打点测试 · 未用于原控制",
+          "kind": "posthoc",
+          "used_in_control": false,
+          "parse_status": "valid_2d_point",
+          "action_name": "dual_translate_tray",
+          "original_target_read_calls": [
+            {
+              "method": "target_tray_pose",
+              "args": [],
+              "kwargs": {},
+              "status": "returned",
+              "result": [
+                0.58,
+                0.0,
+                0.62
+              ]
+            }
+          ],
+          "note": "橙色准星：本次真实 Qwen 对旧相机图的语义打点；位置尚未做抓取精度/三维标定验收。原成功执行仍为 Oracle 定位，不能据此认定视觉闭环通过。"
+        }
+      ],
+      "online_calls": 0,
+      "cache_reads": 0,
+      "diagnostic_calls": 4,
+      "original_execution_perception": "oracle_geometry"
+    }
+  },
+  "image_count": 20,
+  "online_call_images": 10,
+  "posthoc_call_images": 10
+}

@@ -1,0 +1,78 @@
+其余四场景 CABTO 迁移实验
+========================
+项目：/Users/yishuaicai/mywork/edps_cabto_exp
+主入口：project/run_remaining_cabto.py
+模型效果修订：project/refine_remaining_frames.py
+报告：project/build_remaining_report.py
+独立验收：project/verify_remaining_cabto.py
+
+范围必须先明确
+1. Blocks：真实9B的Cover schema与程序原文迁移至Blocks，机械接地并独立重验；不是新模型调用。使用Qwen2.5-VL-3B+RGB顶面定位、已知高度、strict无weld抓持。
+2. Pour/Handover/Storage：高层从工程参考模型库初始化。真正的9B新提案尝试保留在pour/proposal中但失败，未用参考模型伪称全新LM提案。
+3. 三个双臂场景中，细粒度控制程序采样或兼容的历史真实模型源码复用，物理执行后暴露模型漏记效果，再由9B根据真实反例提出extra_add/extra_del补丁。补丁不是人工直接填写，原程序不变，重新完整性检查和独立物理重验。
+4. 三双臂定位仍Oracle、抓持仍weld辅助；不称全视觉或strict成功。Storage未增加全机器人碰撞历史审计。
+5. 稳定性和每步完整观测状态等式只在有限episode验证，不能证明全部连续状态的前提充分性。
+
+本机变量
+PY="/Users/yishuaicai/.workbuddy/binaries/python/envs/cabto/bin/python"
+ROOT="/Users/yishuaicai/mywork/edps_cabto_exp"
+ENTRY="$ROOT/project/run_remaining_cabto.py"
+BASE="$ROOT/outputs/remaining_cabto"
+NEW="$ROOT/outputs/remaining_reproduction"
+输出目录必须为新目录或空目录，不覆盖证据。
+
+A. 最终完整状态检验复跑
+Blocks（自动运行B1黄叠绿、B2红叠蓝、B3两组堆叠，均释放退手回HOME）
+"$PY" -B "$ENTRY" replay blocks --models "$BASE/blocks/proposal/models.json" --policies "$BASE/blocks/sampling/policies.json" --vision --full-frame --output "$NEW/blocks_seed0"
+"$PY" -B "$ENTRY" replay blocks --models "$BASE/blocks/proposal/models.json" --policies "$BASE/blocks/sampling/policies.json" --vision --full-frame --seed 1 --output "$NEW/blocks_seed1"
+
+双臂（每个场景1个完整任务）
+for task in pour handover storage; do
+  "$PY" -B "$ENTRY" replay "$task" --models "$BASE/$task/refinement/models.json" --policies "$BASE/$task/refinement/policies_for_revalidation.json" --full-frame --output "$NEW/${task}_seed0"
+  "$PY" -B "$ENTRY" replay "$task" --models "$BASE/$task/refinement/models.json" --policies "$BASE/$task/refinement/policies_for_revalidation.json" --full-frame --seed 1 --output "$NEW/${task}_seed1"
+done
+
+seed1意义：Blocks/Handover 2mm初态扰动，Storage 3mm，Pour原配置jitter=0所以只是重复执行，不是不同布局。
+Handover当前三盒视觉布局实际上为1活动盒+2固定陈列，动作只交接活动盒。
+
+B. 重新采样，而非播放缓存
+参考模型初始化（这一步明确不是LM自主发现）：
+"$PY" -B "$ENTRY" prepare pour --reference-baseline --output "$NEW/pour_reference"
+若要真实新提案，去掉--reference-baseline；失败必须保留，不会自动以参考模型替换。
+
+低层采样（可能因模型随机性失败）：
+"$PY" -B "$ENTRY" sample pour --models "$NEW/pour_reference/models.json" --compact --archive-transfers --examples --attempts 5 --output "$NEW/pour_sampling"
+按实际失败续跑：
+"$PY" -B "$ENTRY" sample pour --models "$NEW/pour_reference/models.json" --resume "$NEW/pour_sampling/policies.json" --compact --archive-transfers --examples --attempts 5 --output "$NEW/pour_sampling_resume"
+--archive-transfers只复用语义一致的真实历史模型源码；明确排除return_object等整动作包装。新代码仍须经过受限解释器、坐标来源检查和物理效果校验。
+--examples提供相邻动作的真实模型源码作为提示示例，不直接修改新输出。
+
+实际本轮成功的采样目录：
+blocks/sampling
+pour/sampling_v5
+handover/sampling_v3
+storage/sampling_v2
+此前失败目录均保留，不能只统计最后一轮作为模型成功率。
+
+C. 基于真实状态差异的模型效果修订
+"$PY" -B "$ROOT/project/refine_remaining_frames.py" --models "$BASE/pour/reference/models.json" --policies "$BASE/pour/sampling_v5/policies.json" --output "$NEW/pour_refinement"
+对应handover用sampling_v3、storage用sampling_v2。
+模型只可提出实测未预测的add/del，不改pre、不改控制代码、不改评估器，补丁后必须重新规划。输出policies_for_revalidation.json本身标记为待重验，最终通过以独立final_seed0/1/result.json为准。
+
+D. 测试与验收
+"$PY" -B "$ROOT/project/test_remaining_cabto.py"
+"$PY" -B "$ROOT/project/test_cover_visual_localizer.py"
+"$PY" -B "$ROOT/project/test_cover_generation_fix.py"
+"$PY" -B "$ROOT/project/test_cover_cabto_method.py"
+"$PY" -B "$ROOT/run_tests.py"
+"$PY" -B "$ROOT/project/build_remaining_report.py"
+"$PY" -B "$ROOT/project/verify_remaining_cabto.py"
+本次测试36+25+8+44+164=277项。负例规划打印Failure是预期测试，不代表测试失败；以unittest末尾状态为准。
+
+E. 新接口改变
+core/remaining_blocks_api.py：积木视觉抓放及支撑遮挡前缓存，仍保留原物理接触参数和成功门限。
+core/remaining_dual_api.py：Pour返还拆开安全通道、搬运、对齐、下降、释放、撤离和等待；Storage停泊前竖直撤离成为显式调用。
+core/remaining_handover_api.py：盒面接近、下降、闭爪、接触门控weld、抬升、双方接收/释放、分段放置与撤离均分离。
+core/remaining_codegen_contracts.py：短英文接口语义，避免大段整任务上下文污染局部动作代码生成。
+
+后续仍需的研究验证：双臂从空库自主提出模型、Qwen感知替换Oracle、非weld接触抓持、更大布局分布与等预算消融。当前有限执行通过不等于这些项目也已完成。

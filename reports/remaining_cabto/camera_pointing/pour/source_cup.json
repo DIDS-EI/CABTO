@@ -1,0 +1,62 @@
+{
+  "origin": "new_posthoc_keyframe_Qwen_diagnostic",
+  "used_in_control": false,
+  "source_image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/pour/final_seed0/POUR/step00/before.png",
+  "source_image_sha256": "c387562322d1fe701c4ed1479140808febc7cb0bae2e7d0063104e82fd4e2631",
+  "source_episode_result": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/pour/final_seed0/POUR/result.json",
+  "source_episode_sha256": "b6c7c2f6827deb3c6532c5c02d9b4c25414ec63cd0581c7f59390bc035c42a73",
+  "source_step": 0,
+  "action_model": {
+    "name": "pick_source_cup",
+    "args": {
+      "arm": "0",
+      "obj": "canL",
+      "dest": "pick_source_cup"
+    },
+    "program_kind": "pick",
+    "pre": [
+      "empty(0)",
+      "at_source(canL)",
+      "content_in_source()",
+      "collision_free()"
+    ],
+    "add": [
+      "holding(0,canL)"
+    ],
+    "del": [
+      "empty(0)",
+      "at_source(canL)",
+      "parked(0)",
+      "home(0)",
+      "source_returned()",
+      "hand_raised(0)"
+    ],
+    "description": "源臂抓持含小球的源杯，源杯已离开桌面处于运输高度；抓持偏移可用于后续位置跟踪。"
+  },
+  "original_execution_perception": "oracle_geometry",
+  "camera": "overview",
+  "coordinate_contract": "absolute_pixels",
+  "scope": "semantic region point on a recorded RGB frame, NOT calibrated robot grasp or placement command; no motion or GT evaluation",
+  "call": {
+    "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "text": "Point to the red source cup on the table. Output the pixel coordinate.",
+    "image_files": [
+      "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/pour/final_seed0/POUR/step00/before.png"
+    ],
+    "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the red source cup on the table. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+    "temperature": 0.0,
+    "max_tokens": 220,
+    "raw": "```json\n[\n\t{\"point_2d\": [311, 228], \"label\": \"red source cup on the table\"}\n]\n```",
+    "wall_seconds": 1.0775137080345303
+  },
+  "parse_status": "valid_2d_point",
+  "point": [
+    311.0,
+    228.0
+  ],
+  "field": "point_2d",
+  "image_size": [
+    560,
+    560
+  ]
+}

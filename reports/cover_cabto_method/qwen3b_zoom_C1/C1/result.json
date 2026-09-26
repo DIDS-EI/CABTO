@@ -1,0 +1,220 @@
+{
+  "task": {
+    "id": "C1",
+    "initial": [
+      "at_source(apple)",
+      "at_source(potato)",
+      "at_source(shrimp)",
+      "empty()"
+    ],
+    "goal": [
+      "at_target(shrimp)",
+      "empty()",
+      "home_completed()"
+    ]
+  },
+  "seed": 0,
+  "perception": "qwen_zoom",
+  "config_sha256": "87831738dd2d6544b3a82e860800830135b30fc8091aa1e677f8789b77cceb4c",
+  "steps": [],
+  "success": false,
+  "exception": "ValueError: Cross-view xy disagreement 0.049m exceeds 0.025m; no oracle fallback",
+  "observed_state": [
+    "at_source(apple)",
+    "at_source(potato)",
+    "at_source(shrimp)",
+    "empty()"
+  ],
+  "metrics": {
+    "objects": {
+      "shrimp": {
+        "ok": false,
+        "xy_error_m": 0.3500173260546249,
+        "gap_m": -0.016999380072017567,
+        "tilt_deg": 2.8043191071165476,
+        "support_contact": false,
+        "support_upright": true,
+        "base_displacement_m": 0.0,
+        "origin": [
+          0.31005448082886233,
+          -0.19001732181460515,
+          0.39900061992798247
+        ]
+      },
+      "apple": {
+        "ok": false,
+        "xy_error_m": 0.3500001162561238,
+        "gap_m": -0.02601549623189453,
+        "tilt_deg": 0.0004569013361497409,
+        "support_contact": false,
+        "support_upright": true,
+        "base_displacement_m": 0.0,
+        "origin": [
+          0.4899998457619905,
+          -0.1900001162560898,
+          0.4209845037681055
+        ]
+      },
+      "potato": {
+        "ok": false,
+        "xy_error_m": 0.3500000038530974,
+        "gap_m": -0.015019164511042682,
+        "tilt_deg": 2.4847600183148248e-05,
+        "support_contact": false,
+        "support_upright": true,
+        "base_displacement_m": 0.0,
+        "origin": [
+          0.6700000050473665,
+          -0.19000000385309732,
+          0.41498083548895737
+        ]
+      }
+    },
+    "released": true,
+    "hand_clearance_m": {
+      "shrimp": 0.523948804206242,
+      "apple": 0.5357271484015028,
+      "potato": 0.6252291062693023
+    },
+    "final_home": false,
+    "home_error_rad": 2.6426288902622746e-20,
+    "completed_targets_preserved": true,
+    "forbidden_contacts": [],
+    "max_grasp_relative_slip_m": 0.0,
+    "max_bilateral_contact_gap_s": 0.0,
+    "strict_weld_violation": false,
+    "grasp_verified": true,
+    "motion_verified": true,
+    "success": false
+  },
+  "simulation_seconds": 0.16000000000000011,
+  "weld_active": [],
+  "perception_records": [
+    {
+      "backend": "qwen_zoom",
+      "object": "bowl",
+      "point_kind": "support_floor_center",
+      "height_prior_m": 0.40800000000000003,
+      "height_source": "frozen_scene_manual_geometry",
+      "fallback": false,
+      "views": [
+        {
+          "camera": "overview",
+          "image_size": 720,
+          "call": {
+            "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+            "text": "Point to the center of the inside floor of the white bowl. Output the pixel coordinate.",
+            "image_files": [
+              "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/qwen3b_zoom_C1/C1/perception/point_000_bowl_overview.png"
+            ],
+            "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the center of the inside floor of the white bowl. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+            "temperature": 0.0,
+            "max_tokens": 180,
+            "raw": "```json\n[\n\t{\"point_2d\": [342, 371], \"label\": \"center of the inside floor of the white bowl\"}\n]\n```",
+            "wall_seconds": 2.9551829170668498
+          },
+          "coordinate_contract": "absolute_pixel",
+          "contract_source": "fixed model-family convention, checked with current-scene diagnostic; no per-point GT choice",
+          "parsed_field": "point_2d",
+          "coarse_uv": [
+            342.0,
+            371.0
+          ],
+          "refine_call": {
+            "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+            "text": "Point to the center of the inside floor of the white bowl. Output the pixel coordinate.",
+            "image_files": [
+              "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/qwen3b_zoom_C1/C1/perception/point_000_bowl_overview_crop.png"
+            ],
+            "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the center of the inside floor of the white bowl. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+            "temperature": 0.0,
+            "max_tokens": 180,
+            "raw": "```json\n[\n\t{\"point_2d\": [311, 258], \"label\": \"center of the inside floor of the white bowl\"}\n]\n```",
+            "wall_seconds": 2.855925416923128
+          },
+          "crop_bounds": [
+            246,
+            275,
+            192,
+            192
+          ],
+          "crop_output_size": 576,
+          "uv": [
+            349.6666666666667,
+            361.0
+          ],
+          "xyz": [
+            0.29557392731177645,
+            0.17125199067244257,
+            0.40800000000000014
+          ],
+          "evaluation_only_gt_uv": [
+            352.3544422529629,
+            365.0654996442089
+          ],
+          "evaluation_only_pixel_error": 4.873645961634118,
+          "evaluation_time": "before any movement"
+        },
+        {
+          "camera": "front",
+          "image_size": 720,
+          "call": {
+            "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+            "text": "Point to the center of the inside floor of the white bowl. Output the pixel coordinate.",
+            "image_files": [
+              "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/qwen3b_zoom_C1/C1/perception/point_000_bowl_front.png"
+            ],
+            "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the center of the inside floor of the white bowl. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+            "temperature": 0.0,
+            "max_tokens": 180,
+            "raw": "```json\n[\n\t{\"point_2d\": [352, 352], \"label\": \"center of the inside floor of the white bowl\"}\n]\n```",
+            "wall_seconds": 2.3097089580260217
+          },
+          "coordinate_contract": "absolute_pixel",
+          "contract_source": "fixed model-family convention, checked with current-scene diagnostic; no per-point GT choice",
+          "parsed_field": "point_2d",
+          "coarse_uv": [
+            352.0,
+            352.0
+          ],
+          "refine_call": {
+            "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+            "text": "Point to the center of the inside floor of the white bowl. Output the pixel coordinate.",
+            "image_files": [
+              "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/cover_cabto_method/qwen3b_zoom_C1/C1/perception/point_000_bowl_front_crop.png"
+            ],
+            "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the center of the inside floor of the white bowl. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+            "temperature": 0.0,
+            "max_tokens": 180,
+            "raw": "```json\n[\n\t{\"point_2d\": [282, 218], \"label\": \"center of the inside floor of the white bowl\"}\n]\n```",
+            "wall_seconds": 1.7537788749905303
+          },
+          "crop_bounds": [
+            256,
+            256,
+            192,
+            192
+          ],
+          "crop_output_size": 576,
+          "uv": [
+            350.0,
+            328.6666666666667
+          ],
+          "xyz": [
+            0.2577949468412486,
+            0.20278697394022693,
+            0.40800000000000003
+          ],
+          "evaluation_only_gt_uv": [
+            354.8819037722794,
+            345.2843402386499
+          ],
+          "evaluation_only_pixel_error": 17.319932430202652,
+          "evaluation_time": "before any movement"
+        }
+      ],
+      "view_disagreement_m": 0.04921083757763085,
+      "error": "Cross-view xy disagreement 0.049m exceeds 0.025m; no oracle fallback"
+    }
+  ]
+}

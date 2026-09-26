@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "camera_profile": {
+    "version": "panda_wrist_global_v3",
+    "width": 720,
+    "height": 720,
+    "wrist": {
+      "position_hand_m": [
+        0.0,
+        -0.1,
+        0.025
+      ],
+      "look_at_hand_m": [
+        0.0,
+        0.0,
+        0.16
+      ],
+      "fovy_deg": 75.0
+    },
+    "global": {
+      "offset_table_xy_m": [
+        0.08,
+        0.0
+      ],
+      "height_above_table_m": 1.2,
+      "fovy_deg": 60.0
+    },
+    "optical_frame": "MuJoCo/OpenGL: forward -Z, image right +X, image up +Y",
+    "mount_scope": "ideal optical sensor on hand body, no camera housing mass/collision modeled",
+    "control_use": "diagnostic_only_until_localization_and_motion_validation"
+  },
+  "scene_checks": [
+    {
+      "task": "storage",
+      "cameras_added": 3,
+      "control_compatibility_pass": true,
+      "physics_arrays_unchanged": true,
+      "camera_rendering_state_unchanged": true,
+      "wrist_moves_with_parent": true,
+      "identical_profile": true,
+      "captures": 21
+    },
+    {
+      "task": "pour",
+      "cameras_added": 3,
+      "control_compatibility_pass": true,
+      "physics_arrays_unchanged": true,
+      "camera_rendering_state_unchanged": true,
+      "wrist_moves_with_parent": true,
+      "identical_profile": true,
+      "captures": 18
+    },
+    {
+      "task": "handover",
+      "cameras_added": 3,
+      "control_compatibility_pass": true,
+      "physics_arrays_unchanged": true,
+      "camera_rendering_state_unchanged": true,
+      "wrist_moves_with_parent": true,
+      "identical_profile": true,
+      "captures": 12
+    },
+    {
+      "task": "cover",
+      "cameras_added": 2,
+      "control_compatibility_pass": true,
+      "physics_arrays_unchanged": true,
+      "camera_rendering_state_unchanged": true,
+      "wrist_moves_with_parent": true,
+      "identical_profile": true,
+      "captures": 15
+    },
+    {
+      "task": "blocks",
+      "cameras_added": 2,
+      "control_compatibility_pass": true,
+      "physics_arrays_unchanged": true,
+      "camera_rendering_state_unchanged": true,
+      "wrist_moves_with_parent": true,
+      "identical_profile": true,
+      "captures": 11
+    }
+  ],
+  "frames": 77,
+  "images": 282,
+  "max_project_roundtrip_m": 1.0114613123884174e-15,
+  "max_local_mount_error": 4.796163466380676e-14,
+  "tests": 27,
+  "previous_regression_tests": 277,
+  "total_tests": 304,
+  "diagnostic_calls": 28,
+  "point_returned": 18,
+  "abstained": 10,
+  "model_points_not_executable": true,
+  "linked_local_files": 282,
+  "broken_links": [],
+  "scope": "camera installation and finite control-compatibility, NOT new vision-guided task success; reference-z errors evaluation-only"
+}

@@ -1,0 +1,61 @@
+{
+  "origin": "new_posthoc_keyframe_Qwen_diagnostic",
+  "used_in_control": false,
+  "source_image": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/final_seed0/HANDOVER/step05/before.png",
+  "source_image_sha256": "fafa2783e205702d60680100ec2e8b2bc70f500b2bb9bd09622cd9f819c142bf",
+  "source_episode_result": "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/final_seed0/HANDOVER/result.json",
+  "source_episode_sha256": "4220a68577b1bc98be6dfed0c5a563c5dc8e74763fba09d0171427bb83af870a",
+  "source_step": 5,
+  "action_model": {
+    "name": "receiver_places_baton",
+    "args": {
+      "arm": "1",
+      "obj": "baton",
+      "dest": "receiver_places_baton"
+    },
+    "program_kind": "receiver_place",
+    "pre": [
+      "receiver_holding(baton)",
+      "home(0)",
+      "handover_verified()",
+      "collision_free()"
+    ],
+    "add": [
+      "at_destination(baton)",
+      "empty(1)",
+      "receiver_withdrawn()"
+    ],
+    "del": [
+      "receiver_holding(baton)",
+      "baton_airborne()",
+      "at_handover_pose(baton)"
+    ],
+    "description": "茶盒位于目的地并由桌面真实支撑，接收臂为空且位于安全撤离位，交出臂保持 HOME，运动无禁止碰撞。"
+  },
+  "original_execution_perception": "oracle_geometry",
+  "camera": "overview",
+  "coordinate_contract": "absolute_pixels",
+  "scope": "semantic region point on a recorded RGB frame, NOT calibrated robot grasp or placement command; no motion or GT evaluation",
+  "call": {
+    "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+    "text": "Point to the center of the green tea box held by a robot gripper, not any tea box resting on the table. Output the pixel coordinate.",
+    "image_files": [
+      "/Users/yishuaicai/mywork/edps_cabto_exp/outputs/remaining_cabto/handover/final_seed0/HANDOVER/step05/before.png"
+    ],
+    "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\n<|vision_start|><|image_pad|><|vision_end|>Point to the center of the green tea box held by a robot gripper, not any tea box resting on the table. Output the pixel coordinate.<|im_end|>\n<|im_start|>assistant\n",
+    "temperature": 0.0,
+    "max_tokens": 220,
+    "raw": "```json\n[\n\t{\"point_2d\": [351, 332], \"label\": \"center of the green tea box held by a robot gripper, not any tea box resting on the table.\"}\n]\n```",
+    "wall_seconds": 1.0950498329475522
+  },
+  "parse_status": "valid_2d_point",
+  "point": [
+    351.0,
+    332.0
+  ],
+  "field": "point_2d",
+  "image_size": [
+    720,
+    720
+  ]
+}

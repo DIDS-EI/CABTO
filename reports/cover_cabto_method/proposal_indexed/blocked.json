@@ -1,0 +1,53 @@
+{
+  "kind": "pick",
+  "calls": [
+    {
+      "signature": "pick",
+      "call": {
+        "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+        "text": "Write a STRIPS contract for PICKING UP an object from its table source and leaving it HELD, not placed.\nChoose integer indices only from: 0=hand empty, 1=object at table source, 2=object held, 3=object released at destination, 4=arm home. Return JSON with pre, add, del arrays. pre means required BEFORE; add means newly true AFTER; del means made false AFTER. pre and add disjoint; add and del disjoint. Exactly one object location among 1,2,3 must remain; empty and held cannot coexist. Leaving home invalidates fact4. For HOME, only facts0 and4 are admissible. Task set: place shrimp, or shrimp+apple, or all3; end empty at home. All start at source with empty gripper.\nPrevious proposal and validator feedback: []",
+        "image_files": [],
+        "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\nWrite a STRIPS contract for PICKING UP an object from its table source and leaving it HELD, not placed.\nChoose integer indices only from: 0=hand empty, 1=object at table source, 2=object held, 3=object released at destination, 4=arm home. Return JSON with pre, add, del arrays. pre means required BEFORE; add means newly true AFTER; del means made false AFTER. pre and add disjoint; add and del disjoint. Exactly one object location among 1,2,3 must remain; empty and held cannot coexist. Leaving home invalidates fact4. For HOME, only facts0 and4 are admissible. Task set: place shrimp, or shrimp+apple, or all3; end empty at home. All start at source with empty gripper.\nPrevious proposal and validator feedback: []<|im_end|>\n<|im_start|>assistant\n",
+        "temperature": 0.0,
+        "max_tokens": 400,
+        "raw": "```json\n[\n  {\n    \"pre\": [\n      \"0\",\n      \"1\",\n      \"4\"\n    ],\n    \"add\": [\n      \"2\"\n    ],\n    \"del\": [\n      \"1\",\n      \"2\",\n      \"3\"\n    ]\n  }\n]\n```",
+        "wall_seconds": 1.3050639579305425
+      },
+      "attempt": 1,
+      "accepted": false,
+      "error": "Use ONLY integer arrays with indices0..4"
+    },
+    {
+      "signature": "pick",
+      "call": {
+        "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+        "text": "Write a STRIPS contract for PICKING UP an object from its table source and leaving it HELD, not placed.\nChoose integer indices only from: 0=hand empty, 1=object at table source, 2=object held, 3=object released at destination, 4=arm home. Return JSON with pre, add, del arrays. pre means required BEFORE; add means newly true AFTER; del means made false AFTER. pre and add disjoint; add and del disjoint. Exactly one object location among 1,2,3 must remain; empty and held cannot coexist. Leaving home invalidates fact4. For HOME, only facts0 and4 are admissible. Task set: place shrimp, or shrimp+apple, or all3; end empty at home. All start at source with empty gripper.\nPrevious proposal and validator feedback: [{\"raw\": \"```json\\n[\\n  {\\n    \\\"pre\\\": [\\n      \\\"0\\\",\\n      \\\"1\\\",\\n      \\\"4\\\"\\n    ],\\n    \\\"add\\\": [\\n      \\\"2\\\"\\n    ],\\n    \\\"del\\\": [\\n      \\\"1\\\",\\n      \\\"2\\\",\\n      \\\"3\\\"\\n    ]\\n  }\\n]\\n```\", \"error\": \"Use ONLY integer arrays with indices0..4\"}]",
+        "image_files": [],
+        "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\nWrite a STRIPS contract for PICKING UP an object from its table source and leaving it HELD, not placed.\nChoose integer indices only from: 0=hand empty, 1=object at table source, 2=object held, 3=object released at destination, 4=arm home. Return JSON with pre, add, del arrays. pre means required BEFORE; add means newly true AFTER; del means made false AFTER. pre and add disjoint; add and del disjoint. Exactly one object location among 1,2,3 must remain; empty and held cannot coexist. Leaving home invalidates fact4. For HOME, only facts0 and4 are admissible. Task set: place shrimp, or shrimp+apple, or all3; end empty at home. All start at source with empty gripper.\nPrevious proposal and validator feedback: [{\"raw\": \"```json\\n[\\n  {\\n    \\\"pre\\\": [\\n      \\\"0\\\",\\n      \\\"1\\\",\\n      \\\"4\\\"\\n    ],\\n    \\\"add\\\": [\\n      \\\"2\\\"\\n    ],\\n    \\\"del\\\": [\\n      \\\"1\\\",\\n      \\\"2\\\",\\n      \\\"3\\\"\\n    ]\\n  }\\n]\\n```\", \"error\": \"Use ONLY integer arrays with indices0..4\"}]<|im_end|>\n<|im_start|>assistant\n",
+        "temperature": 0.2,
+        "max_tokens": 400,
+        "raw": "```json\n[\n  {\n    \"raw\": \"```json\n    [\\n      {\\n        \\\"pre\\\": [\\n          \\\"0\\\",\\n          \\\"1\\\",\\n          \\\"4\\\"\\n        ],\\n        \\\"add\\\": [\\n          \\\"2\\\"\\n        ],\\n        \\\"del\\\": [\\n          \\\"1\\\",\\n          \\\"2\\\",\\n          \\\"3\\\"\\n        ]\\n      }\\n    ]\\n```\",\n    \"error\": \"Use ONLY integer arrays with indices0..4\"\n  }\n]\n```",
+        "wall_seconds": 2.719049165956676
+      },
+      "attempt": 2,
+      "accepted": false,
+      "error": "No JSON object in model response"
+    },
+    {
+      "signature": "pick",
+      "call": {
+        "model_id": "mlx-community/Qwen2.5-VL-3B-Instruct-4bit",
+        "text": "Write a STRIPS contract for PICKING UP an object from its table source and leaving it HELD, not placed.\nChoose integer indices only from: 0=hand empty, 1=object at table source, 2=object held, 3=object released at destination, 4=arm home. Return JSON with pre, add, del arrays. pre means required BEFORE; add means newly true AFTER; del means made false AFTER. pre and add disjoint; add and del disjoint. Exactly one object location among 1,2,3 must remain; empty and held cannot coexist. Leaving home invalidates fact4. For HOME, only facts0 and4 are admissible. Task set: place shrimp, or shrimp+apple, or all3; end empty at home. All start at source with empty gripper.\nPrevious proposal and validator feedback: [{\"raw\": \"```json\\n[\\n  {\\n    \\\"raw\\\": \\\"```json\\n    [\\\\n      {\\\\n        \\\\\\\"pre\\\\\\\": [\\\\n          \\\\\\\"0\\\\\\\",\\\\n          \\\\\\\"1\\\\\\\",\\\\n          \\\\\\\"4\\\\\\\"\\\\n        ],\\\\n        \\\\\\\"add\\\\\\\": [\\\\n          \\\\\\\"2\\\\\\\"\\\\n        ],\\\\n        \\\\\\\"del\\\\\\\": [\\\\n          \\\\\\\"1\\\\\\\",\\\\n          \\\\\\\"2\\\\\\\",\\\\n          \\\\\\\"3\\\\\\\"\\\\n        ]\\\\n      }\\\\n    ]\\\\n```\\\",\\n    \\\"error\\\": \\\"Use ONLY integer arrays with indices0..4\\\"\\n  }\\n]\\n```\", \"error\": \"No JSON object in model response\"}]",
+        "image_files": [],
+        "formatted_prompt": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\nWrite a STRIPS contract for PICKING UP an object from its table source and leaving it HELD, not placed.\nChoose integer indices only from: 0=hand empty, 1=object at table source, 2=object held, 3=object released at destination, 4=arm home. Return JSON with pre, add, del arrays. pre means required BEFORE; add means newly true AFTER; del means made false AFTER. pre and add disjoint; add and del disjoint. Exactly one object location among 1,2,3 must remain; empty and held cannot coexist. Leaving home invalidates fact4. For HOME, only facts0 and4 are admissible. Task set: place shrimp, or shrimp+apple, or all3; end empty at home. All start at source with empty gripper.\nPrevious proposal and validator feedback: [{\"raw\": \"```json\\n[\\n  {\\n    \\\"raw\\\": \\\"```json\\n    [\\\\n      {\\\\n        \\\\\\\"pre\\\\\\\": [\\\\n          \\\\\\\"0\\\\\\\",\\\\n          \\\\\\\"1\\\\\\\",\\\\n          \\\\\\\"4\\\\\\\"\\\\n        ],\\\\n        \\\\\\\"add\\\\\\\": [\\\\n          \\\\\\\"2\\\\\\\"\\\\n        ],\\\\n        \\\\\\\"del\\\\\\\": [\\\\n          \\\\\\\"1\\\\\\\",\\\\n          \\\\\\\"2\\\\\\\",\\\\n          \\\\\\\"3\\\\\\\"\\\\n        ]\\\\n      }\\\\n    ]\\\\n```\\\",\\n    \\\"error\\\": \\\"Use ONLY integer arrays with indices0..4\\\"\\n  }\\n]\\n```\", \"error\": \"No JSON object in model response\"}]<|im_end|>\n<|im_start|>assistant\n",
+        "temperature": 0.4,
+        "max_tokens": 400,
+        "raw": "```json\n[\n  {\n    \"raw\": \"```json\n    [\\n      {\\n        \\\"raw\\\": \\\"```json\\n        [\\\\n          {\\\\n            \\\\\\\"pre\\\\\\\": [\\\\n              \\\\\\\"0\\\\\\\",\\\\n              \\\\\\\"1\\\\\\\",\\\\n              \\\\\\\"4\\\\\\\"\\\\n            ],\\\\n            \\\\\\\"add\\\\\\\": [\\\\n              \\\\\\\"2\\\\\\\"\\\\n            ],\\\\n            \\\\\\\"del\\\\\\\": [\\\\n              \\\\\\\"1\\\\\\\",\\\\n              \\\\\\\"2\\\\\\\",\\\\n              \\\\\\\"3\\\\\\\"\\\\n            ]\\\\n          }\\\\n        ]\\n      }\\n    ```\\\",\\n    \\\"error\\\": \\\"Use ONLY integer arrays with indices0..4\\\"\\n  }\\n]\n```",
+        "wall_seconds": 4.018650082987733
+      },
+      "attempt": 3,
+      "accepted": false,
+      "error": "No JSON object in model response"
+    }
+  ]
+}

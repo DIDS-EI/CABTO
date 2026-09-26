@@ -1,0 +1,60 @@
+CABTO Cover 方法试验复跑说明
+================================
+所有操作在 edps_cabto_exp 内；旧5场景配置与原控制器不变。
+本轮阶段性结论：会话模型候选 + Oracle定位基线已跑通；完全自主本地模型与全Qwen感知闭环尚未跑通。
+此为论文流程迁移试验，不是原论文表格/10次采样统计的重现。
+
+1. 设定路径（本机已验证环境）
+PY="/Users/yishuaicai/.workbuddy/binaries/python/envs/cabto/bin/python"
+ROOT="/Users/yishuaicai/mywork/edps_cabto_exp"
+BASE="$ROOT/outputs/cover_cabto_method"
+ENTRY="$ROOT/project/run_cover_cabto_method.py"
+OUT="$ROOT/outputs/cover_cabto_new_run"
+所有--output必须为新的或空目录，避免覆盖历史证据。
+其他机器请使用兼容MuJoCo与MLX的独立Python环境，并更改上述路径。Qwen视觉/生成需Apple Silicon MLX环境；Oracle复跑不需加载模型。
+
+2. 验证会话提出的模型库（有限P，而非全连续状态空间保证）
+PYTHONPATH="$ROOT/project" "$PY" -B -c 'import json; from core.cover_cabto_grounding import check_models,PACKAGE; d=json.loads((PACKAGE/"outputs/cover_cabto_method/session_proposal/models.json").read_text()); print(check_models(d["models"]))'
+模型与程序候选原始来源：session_candidates.json。它们由当前会话助手提出，不属于本地Qwen的成功输出。
+
+3. 重新逐个物理验证7个候选动作
+"$PY" -B "$ENTRY" sample --models "$BASE/session_proposal/models.json" --candidates "$BASE/session_candidates.json" --attempts 1 --output "$OUT/sampling"
+其中place动作前态由真实执行已通过的pick建立，未设置物体qpos来冒充抓持。每个接口都实际执行独立的接近/下降/闭爪/抬升或搬运/降低/松爪/退手。
+
+4. 使用已经实际验收的策略库，运行正式BT的3个任务
+"$PY" -B "$ENTRY" replay --models "$BASE/session_proposal/models.json" --policies "$BASE/session_sampling/policies.json" --output "$OUT/oracle"
+C1=虾入碗；C2=虾入碗+苹果上砧板；C3=三件全部放置。全部要求释放、退手、HOME和稳定窗。
+
+5. 在不同初态验证C3
+"$PY" -B "$ENTRY" replay --models "$BASE/session_proposal/models.json" --policies "$BASE/session_sampling/policies.json" --seed 1 --task C3 --output "$OUT/holdout"
+seed1施加配置允许的±2mm初态扰动，是一个额外有限验证点，不是大范围鲁棒性测试。
+
+6. 重新尝试本地自动提出（历史运行在预算内失败；保留失败）
+"$PY" -B "$ENTRY" propose --model "mlx-community/Qwen3.5-0.8B-4bit" --attempts 3 --output "$OUT/proposal_0_8b"
+"$PY" -B "$ENTRY" propose --model "mlx-community/Qwen2.5-VL-3B-Instruct-4bit" --attempts 3 --output "$OUT/proposal_3b"
+失败不等于动作不存在；禁止把session模型数据归入Qwen生成成功。
+
+7. 本地3B生成细粒度代码（与上一步分开评估，给定session提出的h）
+"$PY" -B "$ENTRY" sample --models "$BASE/session_proposal/models.json" --model "mlx-community/Qwen2.5-VL-3B-Instruct-4bit" --attempts 3 --output "$OUT/local_codegen_3b"
+历史结果是第一动作3次出现重复/截断代码，未通过；日志包含图像、提示、实际返回、失败反馈。
+
+8. 真实Qwen感知替换Oracle定位，运行同一候选程序
+"$PY" -B "$ENTRY" replay --models "$BASE/session_proposal/models.json" --policies "$BASE/session_sampling/policies.json" --model "mlx-community/Qwen2.5-VL-3B-Instruct-4bit" --perception qwen --task C1 --output "$OUT/qwen3b"
+"$PY" -B "$ENTRY" replay --models "$BASE/session_proposal/models.json" --policies "$BASE/session_sampling/policies.json" --model "mlx-community/Qwen3.5-0.8B-4bit" --perception qwen --task C1 --output "$OUT/qwen0_8b"
+历史结果：3B成功定位抓起虾，但运动中碗的位置估偏导致放置失败；0.8B在点输出解析阶段失败。返回码2表示记录了未通过的实验，不是脚本运行成功的标志。
+Qwen的xy来自模型输出和相机射线；支撑高度来自固定配置，抓取高度包含初始化物体z先验；搬运闭环仍读取真实物体位姿。不得宣称完全纯视觉。GT点仅用于误差统计，不参与坐标修正或替换。
+
+9. 模型粗定位驱动裁剪 + 运动前观测固定支撑物（额外尝试）
+"$PY" -B "$ENTRY" replay --models "$BASE/session_proposal/models.json" --policies "$BASE/session_sampling/policies.json" --model "mlx-community/Qwen2.5-VL-3B-Instruct-4bit" --perception qwen_zoom --task C1 --output "$OUT/qwen_zoom"
+历史结果：约49mm双视角分歧，运动前被拒绝。未放宽25mm门限，不使用GT裁剪中心，不按GT误差挑选视角。
+
+10. 测试
+"$PY" -B "$ROOT/project/test_cover_cabto_method.py"
+"$PY" -B "$ROOT/run_tests.py"
+新测试44项，旧测试164项。负例见negative_controls.json（3个控制负例全部拒绝），它们是人为测试，不是跨层修订算法自动发现。
+
+11. 报告
+"$PY" -B "$ROOT/project/build_cover_cabto_report.py"
+报告读取本轮保存的final_oracle/final_holdout等证据，输出index.html和summary.json；不会启动模型或重新计算物理结果。
+
+仍需推进：更强模型/更稳定结构化输出；感知目标身份与遮挡检查；仅在确认模型本身缺前提或错效果时进行跨层修订并重验P。不要从有限策略失败直接推断动作物理不可能。
