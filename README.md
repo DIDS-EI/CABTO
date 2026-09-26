@@ -19,6 +19,25 @@ LLM symbolic planning · code-generated primitives · closed-loop effect verific
 
 ---
 
+<p align="center">
+  <b>English</b> &nbsp;·&nbsp; <a href="README_zh.md">中文</a>
+</p>
+
+---
+
+## 📋 Table of Contents
+
+- [Overview](#overview)
+- [Highlights](#highlights)
+- [Repository Layout](#repository-layout)
+- [The Five Tasks](#the-five-tasks)
+- [Quick Start](#quick-start)
+- [Running the Experiments](#running-the-experiments)
+- [Citation](#citation)
+- [License](#license)
+
+---
+
 ## 📌 Overview
 
 **CABTO** is a framework for **grounding long-horizon robot manipulation** by tightly coupling
@@ -38,20 +57,33 @@ Given a task described in natural language (or BDDL), CABTO:
 
 ---
 
-## 🗂 Repository layout
+## ✨ Highlights
 
-This repository is organized around a **self-contained, five-task minimal reproduction package**
-on `main`, while the **original full CABTO codebase** is preserved on the [`last`](https://github.com/DIDS-EI/CABTO/tree/last) branch.
+| | |
+|:-|:-|
+| 🧠 **LLM Symbolic Planning** | Context-aware behavior libraries, every skill modeled as `⟨pre, add, del⟩` |
+| 🌳 **Formal BT Planning** | Minimum-cost, executable behavior trees via **HOBTEA / OBTEA** |
+| 🛠 **Code-Generated Primitives** | Composable low-level motor primitives, generated instead of hand-written |
+| 🔁 **Self-Correction Loop** | Per-step ground-truth verification + re-planning, bounded by `max_rounds = 3` |
+| 🖥 **Fully On-Device** | MuJoCo 3.10 physics + MLX-VLM grounding on Apple Silicon — no cloud, no Isaac Sim |
+
+---
+
+## 🗂 Repository Layout
+
+> This repository is organized around a **self-contained, five-task minimal reproduction package**
+> on `main`, while the **original full CABTO codebase** is preserved on the
+> [`last`](https://github.com/DIDS-EI/CABTO/tree/last) branch.
 
 | Branch | Content |
 |:------:|---------|
-| [`main`](https://github.com/DIDS-EI/CABTO) | Five-task minimal reproduction package (this README): active task code, formal-BT evidence, Panda assets, Oracle/Qwen-VL pointing & closed-loop results |
+| [`main`](https://github.com/DIDS-EI/CABTO) | Five-task minimal reproduction package — active task code, formal-BT evidence, Panda assets, Oracle/Qwen-VL pointing & closed-loop results |
 | [`last`](https://github.com/DIDS-EI/CABTO/tree/last) | Original full codebase — `btgym/`, `exps_bt_learning/`, `exp2_low_level_codegen/`, `exp4_bt_tasks/`, `reproduce/`, `docs/`, `images/` (see the [original README](https://github.com/DIDS-EI/CABTO/blob/last/README.md)) |
 
-A detailed (Chinese) guide to the minimal reproduction package is in
-[`MINIMAL_REPRO.md`](MINIMAL_REPRO.md); a browsable dashboard is in [`index.html`](index.html).
+A detailed guide to the minimal reproduction package is in [`MINIMAL_REPRO.md`](MINIMAL_REPRO.md)
+(中文); a browsable dashboard is in [`index.html`](index.html).
 
-### Minimal reproduction package — directory overview
+### Directory overview
 
 ```
 CABTO/
@@ -98,22 +130,37 @@ CABTO/
 
 ---
 
-## ⚙️ Environment
+## 🎯 The Five Tasks
 
-Verified environment: **Python 3.11.9**, **MuJoCo 3.10.0**, NumPy 2.4.6, SciPy 1.17.1,
-Pillow 12.2.0, imageio 2.37.3.
+The `main` branch reproduces five long-horizon manipulation tasks end-to-end:
+
+| Task | Scene | Instruction | Evidence |
+|:----:|:------|:------------|:---------|
+| 🍤 **Cover** | `cover_kitchen_sort_v2` | Pair-place three objects — shrimp → bowl, apple → board, potato → pot | `tasks/cover/` |
+| 🧱 **Blocks** | `blocks_rebuilt_v1` | Stack blocks, then return home | `tasks/blocks/` |
+| 🥣 **Pour** | `held_basin_pour_smooth_v2` | Dual-arm: hold the basin while pouring balls in, then return | `tasks/pour/` |
+| 🤝 **Handover** | `handover_tea_box_v3` | Handleless three-box air handover between arms | `tasks/handover/` |
+| 📦 **Storage** | `packing_dual_lift_shelf_storage_v3` | Pack items into a carton, dual-lift it onto the shelf | `tasks/storage/` |
+
+---
+
+## ⚡ Quick Start
+
+**Environment** — Python 3.11.9 · MuJoCo 3.10.0 · NumPy 2.4.6 · SciPy 1.17.1 · Pillow 12.2.0 · imageio 2.37.3
 
 ```bash
 python3.11 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 ```
 
-To re-run the local Qwen visual-grounding experiments on Apple Silicon, additionally install `mlx-vlm`
-(model weights are **not** bundled in the package).
+> To re-run the local Qwen visual-grounding experiments on Apple Silicon, additionally install
+> `mlx-vlm`. Model weights are **not** bundled in this package.
 
 ---
 
-## ▶️ Running the five tasks
+## ▶️ Running the Experiments
+
+**1. Direct execution of the five tasks**
 
 ```bash
 PY=.venv/bin/python
@@ -124,7 +171,7 @@ $PY run_task.py handover --output runs/direct_handover
 $PY run_task.py storage  --output runs/direct_storage
 ```
 
-Replay the generated programs and the formal behavior trees:
+**2. Replay the generated programs & formal behavior trees**
 
 ```bash
 $PY run_generated_bt.py cover    --output runs/generated_cover
@@ -134,13 +181,13 @@ $PY run_generated_bt.py handover --output runs/generated_handover
 $PY run_generated_bt.py storage  --output runs/generated_storage
 ```
 
-Run the test suite:
+**3. Run the test suite**
 
 ```bash
 .venv/bin/python run_tests.py     # 164 tests, all passing
 ```
 
-See [`MINIMAL_REPRO.md`](MINIMAL_REPRO.md) for task-by-task details, evidence paths, and experiment boundaries.
+> See [`MINIMAL_REPRO.md`](MINIMAL_REPRO.md) for task-by-task details, evidence paths, and experiment boundaries.
 
 ---
 
@@ -157,9 +204,15 @@ See [`MINIMAL_REPRO.md`](MINIMAL_REPRO.md) for task-by-task details, evidence pa
 
 ---
 
+## 📄 License
+
+Released under the **MIT License**. The full original CABTO codebase lives on the
+[`last`](https://github.com/DIDS-EI/CABTO/tree/last) branch.
+
+---
+
 <div align="center">
 
-Released under the **MIT License**.
-The full original CABTO codebase lives on the [`last`](https://github.com/DIDS-EI/CABTO/tree/last) branch.
+*Context-aware symbolic planning · formal behavior trees · grounded, self-correcting execution.*
 
 </div>
